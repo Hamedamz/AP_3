@@ -2,13 +2,13 @@ package models;
 
 import java.util.ArrayList;
 
-public class Model {
+public class World {
     private Village myVillage;
     private Map underAttackMap;
     private BattleGround battleGround;
     private int deltaT;
 
-    public Model() {
+    public World() {
         myVillage = new Village();
         deltaT = 0;
     }

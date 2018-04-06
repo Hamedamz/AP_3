@@ -21,13 +21,9 @@ public class BattleGround {
         return null;
     }
 
-    private void heal(Troop troop){
+    //private void heal(Troop troop){ }
 
-    }
-
-    private void isHealerAlive() {
-
-    }
+    //private void isHealerAlive() { }
 
     private void destroyBuilding(Building building) {
         //FIXME this will not be usable if resources reduced linearly

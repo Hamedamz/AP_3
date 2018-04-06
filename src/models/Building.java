@@ -7,11 +7,46 @@ import java.util.ArrayList;
 
 public abstract class Building {
     //private int jsonNumber;
-    protected Resource buildCost;
-    protected int buildTime;
+    protected int getMaxHitpoint;
     protected int hitpoints;
-    protected Bounty bounty;
     protected int level;
+    protected int number;
+
+    Building() {
+        //level = 1;
+    }
+
+    public abstract Resource getUpgradeResource() ;
+
+    public abstract void upgrade() ;
+
+    public abstract Bounty getBounty();
+
+    public abstract void destroy();
+
+    public int getGetMaxHitpoint() {
+        return getMaxHitpoint;
+    }
+
+    public int getHitpoints() {
+        return hitpoints;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void takeDamageFromAttack(int damage) {
+
+    }
+
+    public boolean isBuildingDestroyed() {
+
+    }
 }
 
 abstract class DefensiveBuilding extends Building {
@@ -19,99 +54,117 @@ abstract class DefensiveBuilding extends Building {
     protected int range;
     protected BuildingDamageType damageType;
     protected BuildingTargetType targetType;
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public BuildingDamageType getDamageType() {
+        return damageType;
+    }
+
+    public BuildingTargetType getTargetType() {
+        return targetType;
+    }
+
+    public boolean canTowerAttack(Entity entity) {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
 }
 
 class ArcherTower extends DefensiveBuilding {
-    public static final Resource BUILD_COST = new Resource(300, 0);
-    public static final int BUILD_TIME = 60;
-    public static final int HITPOINTS = 300;
-    public static final int DAMAGE = 20;
-    public static final int RANGE = 10;
-    public static final Bounty BOUNTY = new Bounty(3, BUILD_COST);
-    public static final BuildingDamageType DAMAGE_TYPE = BuildingDamageType.SINGLE_TARGET;
-    public static final BuildingTargetType TARGET_TYPE = BuildingTargetType.GROUND;
+    public ArcherTower(int number) {
 
-    public ArcherTower() {
-        this.buildCost = BUILD_COST;
-        this.buildTime = BUILD_TIME;
-        this.hitpoints = HITPOINTS;
-        this.bounty = BOUNTY;
-        //this.level = ;
-        this.damage = DAMAGE;
-        this.range = RANGE;
-        this.damageType = DAMAGE_TYPE;
-        this.targetType = TARGET_TYPE;
     }
 
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
 
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
+    }
 }
 
 class Cannon extends DefensiveBuilding {
-    public static final Resource BUILD_COST = new Resource(400, 0);
-    public static final int BUILD_TIME = 100;
-    public static final int HITPOINTS = 400;
-    public static final int DAMAGE = 20;
-    public static final int RANGE = 13;
-    public static final Bounty BOUNTY = new Bounty(4, BUILD_COST);
-    public static final BuildingDamageType DAMAGE_TYPE = BuildingDamageType.AREA_SPLASH;
-    public static final BuildingTargetType TARGET_TYPE = BuildingTargetType.GROUND;
 
-    public Cannon() {
-        this.buildCost = BUILD_COST;
-        this.buildTime = BUILD_TIME;
-        this.hitpoints = HITPOINTS;
-        this.bounty = BOUNTY;
-        //this.level = ;
-        this.damage = DAMAGE;
-        this.range = RANGE;
-        this.damageType = DAMAGE_TYPE;
-        this.targetType = TARGET_TYPE;
+    public Cannon(int number) {
+
+    }
+
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
     }
 }
 
 class AirDefence extends DefensiveBuilding {
-    public static final Resource BUILD_COST = new Resource(300, 0);
-    public static final int BUILD_TIME = 60;
-    public static final int HITPOINTS = 300;
-    public static final int DAMAGE = 20;
-    public static final int RANGE = 10;
-    public static final Bounty BOUNTY = new Bounty(3, BUILD_COST);
-    public static final BuildingDamageType DAMAGE_TYPE = BuildingDamageType.SINGLE_TARGET;
-    public static final BuildingTargetType TARGET_TYPE = BuildingTargetType.AIR;
 
-    public AirDefence() {
-        this.buildCost = BUILD_COST;
-        this.buildTime = BUILD_TIME;
-        this.hitpoints = HITPOINTS;
-        this.bounty = BOUNTY;
-        //this.level = ;
-        this.damage = DAMAGE;
-        this.range = RANGE;
-        this.damageType = DAMAGE_TYPE;
-        this.targetType = TARGET_TYPE;
+    public AirDefence(int number) {
+
+    }
+
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
     }
 }
 
 class WizardTower extends DefensiveBuilding {
-    public static final Resource BUILD_COST = new Resource(500, 0);
-    public static final int BUILD_TIME = 120;
-    public static final int HITPOINTS = 700;
-    public static final int DAMAGE = 20;
-    public static final int RANGE = 13;
-    public static final Bounty BOUNTY = new Bounty(5, BUILD_COST);
-    public static final BuildingDamageType DAMAGE_TYPE = BuildingDamageType.AREA_SPLASH;
-    public static final BuildingTargetType TARGET_TYPE = BuildingTargetType.GROUND_AND_AIR;
 
-    public WizardTower() {
-        this.buildCost = BUILD_COST;
-        this.buildTime = BUILD_TIME;
-        this.hitpoints = HITPOINTS;
-        this.bounty = BOUNTY;
-        //this.level = ;
-        this.damage = DAMAGE;
-        this.range = RANGE;
-        this.damageType = DAMAGE_TYPE;
-        this.targetType = TARGET_TYPE;
+    public WizardTower(int number) {
+
+    }
+
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
     }
 }
 
@@ -125,122 +178,253 @@ class WizardTower extends DefensiveBuilding {
 //}
 
 class Barracks extends Building {
-    public static final Resource BUILD_COST = new Resource(200, 0);
-    public static final int BUILD_TIME = 100;
-    public static final int HITPOINTS = 300;
-    public static final Bounty BOUNTY = new Bounty(1, BUILD_COST);
 
-    public Barracks() {
-        this.buildCost = BUILD_COST;
-        this.buildTime = BUILD_TIME;
-        this.hitpoints = HITPOINTS;
-        this.bounty = BOUNTY;
-        //this.level = ;
+    private ArrayList<TrainingTroop> trainigTroops;
+    private int size;
+
+    public Barracks(int number) {
+
+    }
+
+    public boolean hasSpace() {
+
+    }
+
+    public boolean trainNewTroop(TrainingTroop trainingTroop) {
+
+    }
+
+    public boolean removeTroop(String troopName) {
+
+    }
+
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }
 
 class Camp extends Building {
-    public static final Resource BUILD_COST = new Resource(200, 0);
-    public static final int BUILD_TIME = 100;
-    public static final int HITPOINTS = 900;
-    public static final Bounty BOUNTY = new Bounty(1, BUILD_COST);
-    public static final int CAPACITY = 50;
 
     private ArrayList<Troop> troops;
+    private int size;
 
-    public Camp() {
-        this.buildCost = BUILD_COST;
-        this.buildTime = BUILD_TIME;
-        this.hitpoints = HITPOINTS;
-        this.bounty = BOUNTY;
-        //this.level = ;
+    public Camp(int number) {
+
+    }
+
+    public ArrayList<Troop> getTroops() {
+        return troops;
+    }
+
+    public void addTroop(TrainingTroop trainingTroop) {
+
+    }
+
+    public void removeTroop(String troopName) {
+
+    }
+
+    public boolean hasSpace() {
+
+    }
+
+
+
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }
 
 abstract class ResourceBuilding extends Building {
+    protected Resource capacity;
+    protected Resource stock;
+
+    public Resource getCapacity() {
+        return capacity;
+    }
+
+    public Resource getStock() {
+        return stock;
+    }
+
+    public boolean addResources(Resource resource) {
+
+    }
+
+    public boolean removeResources(Resource resource) {
+
+    }
+
+    public boolean hasStock(Resource resource) {
+
+    }
+
+    public boolean isStorageFull() {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
 }
 
-class GoldMine extends ResourceBuilding {
-    public static final Resource BUILD_COST = new Resource(150, 5);
-    public static final int BUILD_TIME = 0;
-    public static final int HITPOINTS = 200;
-    public static final Bounty BOUNTY = new Bounty(2, BUILD_COST);
+abstract class Mine extends ResourceBuilding{
+    private int productionRate;
+
+    public void produce() {
+
+    }
+}
+
+abstract class Storage extends ResourceBuilding{
+
+}
+
+class GoldMine extends Mine {
+
+    public GoldMine(int number) {
+
+    }
+
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
+    }
+
+}
+
+class ElixirMine extends Mine {
 
     private int productionRate;
 
-    public GoldMine() {
-        this.buildCost = BUILD_COST;
-        this.buildTime = BUILD_TIME;
-        this.hitpoints = HITPOINTS;
-        this.bounty = BOUNTY;
-        //this.level = ;
+    public ElixirMine(int number) {
+    }
+
+    public void produce() {
+
+    }
+
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
     }
 }
 
-class ElixirMine extends ResourceBuilding {
-    public static final Resource BUILD_COST = new Resource(100, 3);
-    public static final int BUILD_TIME = 100;
-    public static final int HITPOINTS = 200;
-    public static final Bounty BOUNTY = new Bounty(2, BUILD_COST);
+class GoldStorage extends Storage {
 
-    private int productionRate;
+    public GoldStorage(int number) {
 
-    public ElixirMine() {
-        this.buildCost = BUILD_COST;
-        this.buildTime = BUILD_TIME;
-        this.hitpoints = HITPOINTS;
-        this.bounty = BOUNTY;
-        //this.level = ;
+    }
+
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
     }
 }
 
-class GoldStorage extends ResourceBuilding {
-    public static final Resource BUILD_COST = new Resource(200, 0);
-    public static final int BUILD_TIME = 0;
-    public static final int HITPOINTS = 300;
-    public static final Bounty BOUNTY = new Bounty(3, BUILD_COST); // FIXME plus storage gold
+class ElixirStorage extends Storage {
 
-    private int capacity;
+    public ElixirStorage(int number) {
 
-    public GoldStorage() {
-        this.buildCost = BUILD_COST;
-        this.buildTime = BUILD_TIME;
-        this.hitpoints = HITPOINTS;
-        this.bounty = BOUNTY;
-        //this.level = ;
     }
-}
 
-class ElixirStorage extends ResourceBuilding {
-    public static final Resource BUILD_COST = new Resource(200, 0);
-    public static final int BUILD_TIME = 0; //FIXME
-    public static final int HITPOINTS = 300;
-    public static final Bounty BOUNTY = new Bounty(3, BUILD_COST); // FIXME plus storage elixir
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
 
-    private int capacity;
+    @Override
+    public void upgrade() {
 
-    public ElixirStorage() {
-        this.buildCost = BUILD_COST;
-        this.buildTime = BUILD_TIME;
-        this.hitpoints = HITPOINTS;
-        this.bounty = BOUNTY;
-        //this.level = ;
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
     }
 }
 
 class TownHall extends ResourceBuilding {
-    public static final Resource BUILD_COST = new Resource(200, 0);
-    public static final int BUILD_TIME = 100;
-    public static final int HITPOINTS = 1000;
-    public static final Bounty BOUNTY = new Bounty(8, BUILD_COST);
 
-    private Resource capacity;
+    public TownHall(int number) {
 
-    public TownHall() {
-        this.buildCost = BUILD_COST;
-        this.buildTime = BUILD_TIME;
-        this.hitpoints = HITPOINTS;
-        this.bounty = BOUNTY;
-        //this.level = ;
+    }
+
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
     }
 }

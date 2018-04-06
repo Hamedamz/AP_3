@@ -2,94 +2,74 @@ package models;
 
 import models.enums.TroopTargetType;
 
-public class Troop {
-    protected Resource trainCost;
-    protected int trainTime;
+public class Troop extends Entity{
+    //protected Resource trainCost;
+    //protected int trainTime;
+    protected int maxHitpoints;
     protected int hitpoints;
     protected TroopTargetType targetType;
     protected int range;
     protected int damage;
     protected int speed;
+
+    public int getMaxHitpoints() {
+        return maxHitpoints;
+    }
+
+    public int getHitpoints() {
+        return hitpoints;
+    }
+
+    public TroopTargetType getTargetType() {
+        return targetType;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void takeDamageFromAttack() {
+    }
+
+    public boolean isAlive() {
+
+    }
 }
 
 class Guardian extends Troop {
-    public static final Resource TRAIN_COST = new Resource(0, 50);
-    public static final int TRAIN_TIME = 10;
-    public static final int HITPOINTS = 100;
-    public static final TroopTargetType TARGET_TYPE = TroopTargetType.BUILDING;
-    public static final int RANGE = 1;
-    public static final int DAMAGE = 10;
-    public static final int SPEED = 2;
 
-    public Guardian() {
-        this.trainCost = TRAIN_COST;
-        this.trainTime = TRAIN_TIME;
-        this.hitpoints = HITPOINTS;
-        this.targetType = TARGET_TYPE;
-        this.range = RANGE;
-        this.damage = DAMAGE;
-        this.speed = SPEED;
+    public Guardian(Dictionary dictionary) {
     }
 }
 
 class Giant extends Troop {
-    public static final Resource TRAIN_COST = new Resource(0, 125);
-    public static final int TRAIN_TIME = 30;
-    public static final int HITPOINTS = 500;
-    public static final TroopTargetType TARGET_TYPE = TroopTargetType.RESOURCES;
-    public static final int RANGE = 1;
-    public static final int DAMAGE = 30;
-    public static final int SPEED = 3;
 
-    public Giant() {
-        this.trainCost = TRAIN_COST;
-        this.trainTime = TRAIN_TIME;
-        this.hitpoints = HITPOINTS;
-        this.targetType = TARGET_TYPE;
-        this.range = RANGE;
-        this.damage = DAMAGE;
-        this.speed = SPEED;
+    public Giant(Dictionary dictionary) {
+
     }
 }
 
 class Dragon extends Troop {
-    public static final Resource TRAIN_COST = new Resource(0, 175);
-    public static final int TRAIN_TIME = 40;
-    public static final int HITPOINTS = 700;
-    public static final TroopTargetType TARGET_TYPE = TroopTargetType.BUILDING;
-    public static final int RANGE = 3;
-    public static final int DAMAGE = 30;
-    public static final int SPEED = 6;
 
-    public Dragon() {
-        this.trainCost = TRAIN_COST;
-        this.trainTime = TRAIN_TIME;
-        this.hitpoints = HITPOINTS;
-        this.targetType = TARGET_TYPE;
-        this.range = RANGE;
-        this.damage = DAMAGE;
-        this.speed = SPEED;
+    public Dragon(Dictionary dictionary) {
+
     }
 }
 
 class Archer extends Troop {
-    public static final Resource TRAIN_COST = new Resource(0, 60);
-    public static final int TRAIN_TIME = 10;
-    public static final int HITPOINTS = 100;
-    public static final TroopTargetType TARGET_TYPE = TroopTargetType.TOWER;
-    public static final int RANGE = 10;
-    public static final int DAMAGE = 10;
-    public static final int SPEED = 2;
 
-    public Archer() {
-        this.trainCost = TRAIN_COST;
-        this.trainTime = TRAIN_TIME;
-        this.hitpoints = HITPOINTS;
-        this.targetType = TARGET_TYPE;
-        this.range = RANGE;
-        this.damage = DAMAGE;
-        this.speed = SPEED;
+    public Archer(Dictionary dictionary) {
+
     }
+
 }
 
 //class WallBreaker extends Troop {
