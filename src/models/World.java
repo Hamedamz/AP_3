@@ -1,26 +1,35 @@
 package models;
 
+import models.enums.LoadVillageReturnValue;
+
 import java.util.ArrayList;
 
 public class World {
     private Village myVillage;
-    private Map underAttackMap;
+    private Village underAttackVillage;
     private BattleGround battleGround;
-    private int deltaT;
+    private int turn;
 
     public World() {
         myVillage = new Village();
-        deltaT = 0;
+        turn = 0;
     }
 
-    private void convertJsonToMap(String[] jsonThings){
+    private void convertJsonToVillage(String[] jsonThings){
+
     }
 
-    public boolean loadMap(String path) {
-        return true;
+
+    public LoadVillageReturnValue loadMyVillage(String path) {
+
     }
 
-    public void attackMap(Village village, Map underAttackMap) {
+    public LoadVillageReturnValue loadEnemyVillage() {
+
+    }
+
+    public boolean attackVillage(String path) {
+        //maybe this changes
     }
 
 

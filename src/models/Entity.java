@@ -31,4 +31,8 @@ public class Entity {
     public void move(int x, int y) {
 
     }
+
+    public double calculateDistance(Entity anotherEntity) {
+
+    }
 }

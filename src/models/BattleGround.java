@@ -3,9 +3,16 @@ package models;
 import java.util.ArrayList;
 
 public class BattleGround {
-    private Map map;
+    private Village myVillage;
+    private Village enemyVillage;
     private ArrayList<Troop> troops;
+    private ArrayList<Troop> killedTroops;
     private Bounty bounty;
+
+    public BattleGround(Village myVillage, Village enemyVillage) {
+        this.myVillage = myVillage;
+        this.enemyVillage = enemyVillage;
+    }
 
     private void attackDefensiveBuilding(Troop troop, Building building) {
     }
@@ -17,6 +24,8 @@ public class BattleGround {
         return null;
     }
 
+    private Entity findTroopLocationTarget(Troop troop, Building targetedBuilding)
+
     private Troop findBuildingTarget(Building building) {
         return null;
     }
@@ -26,10 +35,10 @@ public class BattleGround {
     //private void isHealerAlive() { }
 
     private void destroyBuilding(Building building) {
-        //FIXME this will not be usable if resources reduced linearly
+
     }
 
-    private void killUnit(Building building) {
+    private void killTroop(Troop troop) {
 
     }
 
@@ -37,6 +46,13 @@ public class BattleGround {
 
     }
 
+    private void makeTroopsMove() {
+
+    }
+
+    private void makeDefenciveBuildingsMove() {
+
+    }
 
     public void passTurn() {
 

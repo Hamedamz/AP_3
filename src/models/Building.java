@@ -24,7 +24,7 @@ public abstract class Building {
 
     public abstract void destroy();
 
-    public int getGetMaxHitpoint() {
+    public int getMaxHitpoint() {
         return getMaxHitpoint;
     }
 
@@ -71,7 +71,7 @@ abstract class DefensiveBuilding extends Building {
         return targetType;
     }
 
-    public boolean canTowerAttack(Entity entity) {
+    public boolean canTowerAttack(Entity Troop) {
 
     }
 

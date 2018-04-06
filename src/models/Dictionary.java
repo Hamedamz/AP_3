@@ -11,7 +11,7 @@ public abstract class Dictionary {
         //loads dictionary from path
     }
 
-    public static Object getFromDictionary(String string) {
+    public static Object getFromDictionary(String value) {
 
     }
 }
