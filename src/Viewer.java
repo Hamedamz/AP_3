@@ -3,8 +3,12 @@ import java.util.Scanner;
 public class Viewer {
     private Scanner scanner = new Scanner(System.in);
 
-    public void print(String line) {
-        System.out.println(line);
+    public void printError(String error) {
+        System.out.println(error);
+    }
+
+    public void printMessage(String message) {
+        System.out.println(message);
     }
 
     public String getInput() {
