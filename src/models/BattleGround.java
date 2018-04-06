@@ -1,13 +1,15 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class BattleGround {
     private Village myVillage;
     private Village enemyVillage;
-    private ArrayList<Troop> troops;
+    private Map<Troop ,Integer> troops;
     private ArrayList<Troop> killedTroops;
     private Bounty bounty;
+    private int[][] numberOfTroopsDeployed;
 
     public BattleGround(Village myVillage, Village enemyVillage) {
         this.myVillage = myVillage;
@@ -46,11 +48,19 @@ public class BattleGround {
 
     }
 
+    public boolean putTroop(Troop troop, int x, int y) {
+
+    }
+
     private void makeTroopsMove() {
 
     }
 
     private void makeDefenciveBuildingsMove() {
+
+    }
+
+    public boolean hasGameFinished() {
 
     }
 

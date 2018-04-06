@@ -35,4 +35,8 @@ public class Entity {
     public double calculateDistance(Entity anotherEntity) {
 
     }
+
+    public double calculateDistance(int x, int y) {
+
+    }
 }

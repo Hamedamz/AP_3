@@ -15,7 +15,34 @@ public class World {
         turn = 0;
     }
 
+    public Village getMyVillage() {
+        return myVillage;
+    }
+
+    public Village getUnderAttackVillage() {
+        return underAttackVillage;
+    }
+
+    public BattleGround getBattleGround() {
+        return battleGround;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
     private void convertJsonToVillage(String[] jsonThings){
+
+    }
+
+    public void makeNewGame() {
+
+    }
+    public void saveGame() {
+
+    }
+
+    private boolean hasBattleEnded() {
 
     }
 
@@ -28,9 +55,13 @@ public class World {
 
     }
 
+
+
     public boolean attackVillage(String path) {
         //maybe this changes
     }
 
+    public void passTurn() {
 
+    }
 }
