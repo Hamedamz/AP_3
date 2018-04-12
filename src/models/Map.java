@@ -1,10 +1,11 @@
 package models;
 
-import models.enums.Cell;
+import java.util.ArrayList;
 
 public class Map {
-    private Cell[][] cells;
-    private final int size = 30;
+    // TODO: 4/12/2018 add map size to dic
+
+    ArrayList<Entity> entities;
 
     public Map() {
     }
