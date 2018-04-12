@@ -5,7 +5,7 @@ import models.Entity;
 
 import java.util.ArrayList;
 
-public interface Attacker {
+public interface FixedAttacker {
     void giveAttackTo(Destroyable destroyable);
     Destroyable setTarget(BattleGround battleGround);
     Destroyable getTarget();
