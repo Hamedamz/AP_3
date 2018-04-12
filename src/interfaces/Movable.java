@@ -1,5 +1,8 @@
 package interfaces;
 
-public interface Movable {
+import models.Entity;
+import models.Map;
 
+public interface Movable {
+    void move(Entity entity, Map map);
 }
