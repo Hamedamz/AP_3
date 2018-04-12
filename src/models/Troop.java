@@ -1,16 +1,20 @@
 package models;
 
+import interfaces.FixedAttacker;
+import interfaces.Destroyable;
+import interfaces.Movable;
+import interfaces.MovingAttacker;
 import models.enums.TroopTargetType;
 
-public class Troop extends Entity{
-    //protected Resource trainCost;
-    //protected int trainTime;
+public abstract class Troop extends Entity implements Destroyable, MovingAttacker {
+    protected int campNumber;
     protected int maxHitpoints;
     protected int hitpoints;
     protected TroopTargetType targetType;
     protected int range;
     protected int damage;
     protected int speed;
+    protected Building currentTarget;
 
     public int getMaxHitpoints() {
         return maxHitpoints;
@@ -36,11 +40,34 @@ public class Troop extends Entity{
         return speed;
     }
 
-    public void takeDamageFromAttack() {
+    @Override
+    public void takeDamageFromAttack(int damage) {
+
     }
 
-    public boolean isAlive() {
+    @Override
+    public void destroy() {
 
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return false;
+    }
+
+    @Override
+    public void giveAttackTo(Destroyable destroyable) {
+
+    }
+
+    @Override
+    public Destroyable setTarget(BattleGround battleGround) {
+        return null;
+    }
+
+    @Override
+    public Destroyable getTarget() {
+        return null;
     }
 }
 

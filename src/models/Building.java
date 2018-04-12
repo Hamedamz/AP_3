@@ -1,11 +1,13 @@
 package models;
 
+import interfaces.FixedAttacker;
+import interfaces.Destroyable;
 import models.enums.BuildingDamageType;
 import models.enums.BuildingTargetType;
 
 import java.util.ArrayList;
 
-public abstract class Building {
+public abstract class Building extends Entity implements Destroyable {
     //private int jsonNumber;
     protected int getMaxHitpoint;
     protected int hitpoints;
@@ -44,12 +46,12 @@ public abstract class Building {
 
     }
 
-    public boolean isBuildingDestroyed() {
+    public boolean isDestroyed() {
 
     }
 }
 
-abstract class DefensiveBuilding extends Building {
+abstract class DefensiveBuilding extends Building implements FixedAttacker {
     protected int damage;
     protected int range;
     protected BuildingDamageType damageType;
