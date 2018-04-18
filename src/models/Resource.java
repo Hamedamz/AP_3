@@ -18,11 +18,14 @@ public class Resource {
     }
 
     public void addToThisResource(Resource resource) {
-
+        gold += resource.getGold();
+        elixir += resource.getElixir();
     }
 
     public static Resource addResources(Resource resource1, Resource resource2) {
-
+        Resource newResource = new Resource(resource1.getGold(), resource1.getElixir());
+        newResource.addToThisResource(resource2);
+        return newResource;
     }
 }
 
@@ -48,10 +51,13 @@ class Bounty {
     }
 
     public void addToThisBounty(Bounty bounty) {
-
+        score += bounty.score;
+        resource.addToThisResource(bounty.resource);
     }
 
-    public static Bounty addResources(Bounty bounty1, Bounty bounty2) {
-
+    public static Bounty addBounties(Bounty bounty1, Bounty bounty2) {
+        Bounty newBounty = new Bounty(bounty1.score, bounty1.resource);
+        newBounty.addToThisBounty(bounty2);
+        return newBounty;
     }
 }
