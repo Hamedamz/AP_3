@@ -1,8 +1,6 @@
 package models;
 
-import models.enums.LoadVillageReturnValue;
-
-import java.util.ArrayList;
+import models.Exceptions.FileNotFound;
 
 public class World {
     private Village myVillage;
@@ -47,17 +45,16 @@ public class World {
     }
 
 
-    public LoadVillageReturnValue loadMyVillage(String path) {
+    public void loadMyVillage(String path) throws FileNotFound {
 
     }
 
-    public LoadVillageReturnValue loadEnemyVillage() {
+    public void loadEnemyVillage(String path) throws FileNotFound {
 
     }
 
 
-
-    public boolean attackVillage(String path) {
+    public boolean attackVillage(String path) throws FileNotFound {
         //maybe this changes
     }
 

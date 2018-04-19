@@ -1,8 +1,6 @@
 package models;
 
-import interfaces.FixedAttacker;
 import interfaces.Destroyable;
-import interfaces.Movable;
 import interfaces.MovingAttacker;
 import models.enums.TroopTargetType;
 

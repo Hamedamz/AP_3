@@ -1,7 +1,9 @@
 package models;
 
-import models.enums.BuildReturnValue;
-import models.enums.TrainTroopReturnValue;
+import models.Exceptions.NotAvailableAtThisLevel;
+import models.Exceptions.NoFreeBuilder;
+import models.Exceptions.NotEnoughCapacity;
+import models.Exceptions.NotEnoughResources;
 import models.enums.UpgradeReturnValue;
 
 import java.util.*;
@@ -34,7 +36,8 @@ public class Village {
 
     }
 
-    public BuildReturnValue build(String buildingType, int x, int y) {
+    public void build(String buildingType, int x, int y)
+            throws NoFreeBuilder, NotEnoughCapacity, NotEnoughResources {
 
     }
 
@@ -50,7 +53,8 @@ public class Village {
 
     }
 
-    public TrainTroopReturnValue trainTroop(String troopType, int barracksNum) {
+    public void trainTroop(String troopType, int barracksNum)
+            throws NotEnoughResources, NotAvailableAtThisLevel, NotEnoughCapacity {
 
     }
 

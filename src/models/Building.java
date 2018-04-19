@@ -1,6 +1,6 @@
 package models;
 
-import interfaces.FixedAttacker;
+import interfaces.Attacker;
 import interfaces.Destroyable;
 import models.enums.BuildingDamageType;
 import models.enums.BuildingTargetType;
@@ -51,7 +51,7 @@ public abstract class Building extends Entity implements Destroyable {
     }
 }
 
-abstract class DefensiveBuilding extends Building implements FixedAttacker {
+abstract class DefensiveBuilding extends Building implements Attacker {
     protected int damage;
     protected int range;
     protected BuildingDamageType damageType;
