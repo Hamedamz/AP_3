@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public abstract class Building extends Entity implements Destroyable {
     //private int jsonNumber;
-    protected int getMaxHitpoint;
-    protected int hitpoints;
+    protected int getMaxHitPoint;
+    protected int hitPoints;
     protected int level;
     protected int number;
 
@@ -27,11 +27,11 @@ public abstract class Building extends Entity implements Destroyable {
     public abstract void destroy();
 
     public int getMaxHitpoint() {
-        return getMaxHitpoint;
+        return getMaxHitPoint;
     }
 
-    public int getHitpoints() {
-        return hitpoints;
+    public int getHitPoints() {
+        return hitPoints;
     }
 
     public int getLevel() {
@@ -56,6 +56,7 @@ abstract class DefensiveBuilding extends Building implements Attacker {
     protected int range;
     protected BuildingDamageType damageType;
     protected BuildingTargetType targetType;
+    protected Destroyable target;
 
     public int getDamage() {
         return damage;
@@ -78,8 +79,26 @@ abstract class DefensiveBuilding extends Building implements Attacker {
     }
 
     @Override
+    public void giveDamageTo(Destroyable destroyable) {
+        destroyable.takeDamageFromAttack(damage);
+        if (destroyable.isDestroyed()) {
+            destroyable.destroy();
+        }
+    }
+
+    @Override
+    public Destroyable getTarget() {
+        return target;
+    }
+
+    @Override
     public void destroy() {
 
+    }
+
+    @Override
+    public Destroyable setTarget(BattleGround battleGround) {
+        // TODO: 4/19/2018 soroushVT complete this after battleGround
     }
 }
 

@@ -1,10 +1,6 @@
 package models;
 
-import models.Exceptions.NotAvailableAtThisLevel;
-import models.Exceptions.NoFreeBuilder;
-import models.Exceptions.NotEnoughCapacity;
-import models.Exceptions.NotEnoughResources;
-import models.enums.UpgradeReturnValue;
+import models.Exceptions.*;
 
 import java.util.*;
 
@@ -41,7 +37,7 @@ public class Village {
 
     }
 
-    public UpgradeReturnValue upgrade(String buildingType, int num) {
+    public void upgrade(String buildingType, int num) throws NotEnoughResources, BuildingNotFound {
 
     }
 
@@ -49,7 +45,7 @@ public class Village {
 
     }
 
-    public java.util.Map<Troop ,Integer> getTroops() { //<troop, campNum>
+    public ArrayList<Troop> getTroops() {
 
     }
 
