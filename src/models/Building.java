@@ -449,3 +449,26 @@ class TownHall extends ResourceBuilding {
         return null;
     }
 }
+
+class UnderConstruct extends Building{
+
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
+    }
+
+    @Override
+    public void upgrade() {
+
+    }
+
+    @Override
+    public Bounty getBounty() {
+        return null;
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+}

@@ -64,11 +64,8 @@ public class BattleGround {
 
     }
 
-    public void passTurn() {
+    public void update() {
 
     }
 
-    public void passNTurns(int n) {
-
-    }
 }

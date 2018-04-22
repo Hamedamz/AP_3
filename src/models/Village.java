@@ -74,7 +74,7 @@ public class Village {
 
     }
 
-    public void passTurn() {
+    public void update() {
 
     }
 }
