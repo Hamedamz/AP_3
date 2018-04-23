@@ -1,19 +1,20 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class BattleGround {
     private Village myVillage;
-    private Village enemyVillage;
-    private Map<Troop ,Integer> troops;
-    private ArrayList<Troop> killedTroops;
-    private Bounty bounty;
+    private ArrayList<Building> enemyBuildings;
+    private Set<Troop> troops;
+    private Bounty availableBounty; //fixme set this at constructor
     private int[][] numberOfTroopsDeployed;
 
-    public BattleGround(Village myVillage, Village enemyVillage) {
+    public BattleGround(Village myVillage, ArrayList<Building> enemyBuildings) {
         this.myVillage = myVillage;
-        this.enemyVillage = enemyVillage;
+        this.enemyBuildings = enemyBuildings;
     }
 
     private void attackDefensiveBuilding(Troop troop, Building building) {
@@ -26,7 +27,8 @@ public class BattleGround {
         return null;
     }
 
-    private Entity findTroopLocationTarget(Troop troop, Building targetedBuilding)
+    private Entity findTroopLocationTarget(Troop troop, Building targetedBuilding) {
+    }
 
     private Troop findBuildingTarget(Building building) {
         return null;

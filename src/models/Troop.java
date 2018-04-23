@@ -4,7 +4,7 @@ import interfaces.Movable;
 import models.enums.MoveType;
 
 public abstract class Troop extends Entity implements Movable {
-    protected int campNumber;
+    protected Camp troopCamp;
     protected MoveType moveType;
     protected int speed;
 

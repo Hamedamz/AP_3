@@ -5,15 +5,10 @@ import models.Exceptions.*;
 import java.util.*;
 
 public class Village {
-    private ArrayList<Building> buildings;
     private Map map;
     private int score;
 
     public Village() {
-    }
-
-    public ArrayList<Building> getBuildings() {
-        return buildings;
     }
 
     public Map getMap() {
