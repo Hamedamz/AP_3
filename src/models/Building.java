@@ -15,9 +15,14 @@ public abstract class Building extends Entity implements Revivable {
     protected int level;
     protected int number;
     protected boolean isDestroyed = false; //fixme put this false in constructor
+    protected boolean isUnderConstruct;
 
     Building() {
         //level = 1;
+    }
+
+    public boolean isUnderConstruct() {
+        return isUnderConstruct;
     }
 
     public abstract Resource getUpgradeResource() ;
@@ -485,21 +490,3 @@ class TownHall extends ResourceBuilding {
     }
 }
 
-class UnderConstruct extends Building{
-
-    @Override
-    public Resource getUpgradeResource() {
-        return null;
-    }
-
-    @Override
-    public void upgrade() {
-
-    }
-
-    @Override
-    public Bounty getBounty() {
-        return null;
-    }
-
-}
