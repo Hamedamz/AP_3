@@ -1,4 +1,4 @@
 package models.Exceptions;
 
-public class NoFreeBuilder extends Throwable {
+public class NoFreeBuilder extends Exception {
 }

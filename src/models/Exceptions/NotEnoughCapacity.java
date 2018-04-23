@@ -1,4 +1,4 @@
 package models.Exceptions;
 
-public class NotEnoughCapacity extends Throwable {
+public class NotEnoughCapacity extends Exception {
 }
