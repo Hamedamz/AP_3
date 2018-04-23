@@ -2,17 +2,19 @@ package models;
 
 import interfaces.Attacker;
 import interfaces.Destroyable;
+import interfaces.Revivable;
 import models.enums.BuildingDamageType;
 import models.enums.BuildingTargetType;
 
 import java.util.ArrayList;
 
-public abstract class Building extends Entity implements Destroyable {
+public abstract class Building extends Entity implements Revivable {
     //private int jsonNumber;
-    protected int getMaxHitPoint;
+    protected int maxHitPoint;
     protected int hitPoints;
     protected int level;
     protected int number;
+    protected boolean isDestroyed = false; //fixme put this false in constructor
 
     Building() {
         //level = 1;
@@ -24,16 +26,6 @@ public abstract class Building extends Entity implements Destroyable {
 
     public abstract Bounty getBounty();
 
-    public abstract void destroy();
-
-    public int getMaxHitpoint() {
-        return getMaxHitPoint;
-    }
-
-    public int getHitPoints() {
-        return hitPoints;
-    }
-
     public int getLevel() {
         return level;
     }
@@ -42,12 +34,55 @@ public abstract class Building extends Entity implements Destroyable {
         return number;
     }
 
+    @Override
     public void takeDamageFromAttack(int damage) {
-
+        hitPoints -= damage;
     }
 
-    public boolean isDestroyed() {
+    @Override
+    public void destroy() {
+        isDestroyed = true;
+        return;
+    }
 
+    @Override
+    public boolean isDestroyed() {
+        if(isDestroyed) {
+            return true;
+        }
+        if(hitPoints <= 0) {
+            isDestroyed = true;
+        }
+        return isDestroyed;
+    }
+
+    @Override
+    public int getMaxHitPoints() {
+        return maxHitPoint;
+    }
+
+    @Override
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
+    @Override
+    public void revive() {
+        hitPoints += maxHitPoint/getReviveTime();
+        if(hitPoints > maxHitPoint) {
+            isDestroyed = false;
+            hitPoints = maxHitPoint;
+        }
+    }
+
+    @Override
+    public int getReviveTime() {
+        // TODO: 4/23/2018 fixme after dictionary implementation
+    }
+
+    @Override
+    public void performLosses() {
+        //really?
     }
 }
 
@@ -91,14 +126,10 @@ abstract class DefensiveBuilding extends Building implements Attacker {
         return target;
     }
 
-    @Override
-    public void destroy() {
-
-    }
 
     @Override
     public Destroyable setTarget(BattleGround battleGround) {
-        // TODO: 4/19/2018 soroushVT complete this after battleGround
+        // TODO: 4/19/2018 complete this after battleGround
     }
 }
 
@@ -234,10 +265,7 @@ class Barracks extends Building {
         return null;
     }
 
-    @Override
-    public void destroy() {
 
-    }
 }
 
 class Camp extends Building {
@@ -265,8 +293,6 @@ class Camp extends Building {
 
     }
 
-
-
     @Override
     public Resource getUpgradeResource() {
         return null;
@@ -283,8 +309,8 @@ class Camp extends Building {
     }
 
     @Override
-    public void destroy() {
-
+    public void performLosses() {
+        troops = new ArrayList<>();
     }
 }
 
@@ -317,9 +343,18 @@ abstract class ResourceBuilding extends Building {
     }
 
     @Override
-    public void destroy() {
-
+    public void takeDamageFromAttack(int damage) {
+        super.takeDamageFromAttack(damage);
     }
+
+    @Override
+    public void destroy() {
+        stock.setElixir(0);
+        stock.setGold(0);
+        super.destroy();
+    }
+
+
 }
 
 abstract class Mine extends ResourceBuilding{
@@ -467,8 +502,4 @@ class UnderConstruct extends Building{
         return null;
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }

@@ -29,6 +29,31 @@ abstract class AttackerTroop extends Troop implements MovingAttacker, Destroyabl
             destroyable.destroy();
         }
     }
+
+    @Override
+    public void takeDamageFromAttack(int damage) {
+        // TODO: 4/23/2018  soroushVT
+    }
+
+    @Override
+    public void destroy() {
+        // TODO: 4/23/2018 soroushVT
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        // TODO: 4/23/2018 soroushVT
+    }
+
+    @Override
+    public int getHitPoints() {
+        // TODO: 4/23/2018 soroushVT
+    }
+
+    @Override
+    public int getMaxHitPoints() {
+        // TODO: 4/23/2018 soroushVT
+    }
 }
 
 class Guardian extends AttackerTroop {
