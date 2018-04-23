@@ -17,6 +17,14 @@ public class Resource {
         return elixir;
     }
 
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public void setElixir(int elixir) {
+        this.elixir = elixir;
+    }
+
     public void addToThisResource(Resource resource) {
         gold += resource.getGold();
         elixir += resource.getElixir();

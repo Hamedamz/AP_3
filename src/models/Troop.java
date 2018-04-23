@@ -1,14 +1,11 @@
 package models;
 
-import interfaces.Destroyable;
 import interfaces.Movable;
-import interfaces.MovingAttacker;
-import models.enums.TroopTargetType;
-import models.enums.TroopType;
+import models.enums.MoveType;
 
 public abstract class Troop extends Entity implements Movable {
     protected int campNumber;
-    protected TroopType troopType;
+    protected MoveType moveType;
     protected int speed;
 
 }
