@@ -19,7 +19,7 @@ abstract class AttackerTroop extends Troop implements MovingAttacker, Destroyabl
 
     @Override
     public Destroyable setTarget(BattleGround battleGround) {
-        //todo soroushVT fixme
+        // TODO: 4/23/2018 fixme after BattleGround
     }
 
     @Override
@@ -32,27 +32,27 @@ abstract class AttackerTroop extends Troop implements MovingAttacker, Destroyabl
 
     @Override
     public void takeDamageFromAttack(int damage) {
-        // TODO: 4/23/2018  soroushVT
+        hitPoints -= damage;
     }
 
     @Override
     public void destroy() {
-        // TODO: 4/23/2018 soroushVT
+        //really?
     }
 
     @Override
     public boolean isDestroyed() {
-        // TODO: 4/23/2018 soroushVT
+        return hitPoints <= 0;
     }
 
     @Override
     public int getHitPoints() {
-        // TODO: 4/23/2018 soroushVT
+        return hitPoints;
     }
 
     @Override
     public int getMaxHitPoints() {
-        // TODO: 4/23/2018 soroushVT
+        return maxHitPoints;
     }
 }
 
