@@ -9,19 +9,18 @@ public class Controller {
         String input = viewer.getInput();
         //unknown end command(?)
         while (true) {
-            if (input.equals(IOFormats.NEWGAME_FORMAT)){
+            if (input.equals(InputFormats.NEWGAME_FORMAT)){
                 newGame();
             }
-            else if (input.equals(IOFormats.LOAD_PATH_FORMAT)) {
+            else if (input.equals(InputFormats.LOAD_PATH_FORMAT)) {
                 String path = input.split("\\s")[1];
                 try {
                     loadGame(path);
                 }
                 catch (Exception e) {
-                    viewer.printError(IOFormats.NO_VALID_FILE_ERROR);
                 }
             }
-            else if (input.equals(IOFormats.SAVE_FORMAT)) {
+            else if (input.equals(InputFormats.SAVE_FORMAT)) {
                 String path = input.split("\\s")[1];
                 String name = input.split("\\s")[2];
                 try {
@@ -31,23 +30,23 @@ public class Controller {
                     e.printStackTrace();
                 }
             }
-            else if (input.equals(IOFormats.TURN_FORMAT)) {
+            else if (input.equals(InputFormats.TURN_FORMAT)) {
                 int turns = Integer.parseInt(input.split("\\s")[1]);
                 turn(turns);
             }
-            else if (input.equals(IOFormats.SHOW_BUILDINGS_FORMAT)) {
+            else if (input.equals(InputFormats.SHOW_BUILDINGS_FORMAT)) {
                 showBuildings();
             }
-            else if (input.equals(IOFormats.SHOW_RESOURCES_FORMAT)) {
+            else if (input.equals(InputFormats.SHOW_RESOURCES_FORMAT)) {
                 showResources();
             }
-            else if (input.equals(IOFormats.SHOW_MENU_FORMAT)) {
-                viewer.printMessage(IOFormats.VILLAGE_PRESENCE_FORMAT);
+            else if (input.equals(InputFormats.SHOW_MENU_FORMAT)) {
+                viewer.printMessage(OutputFormats.VILLAGE_PRESENCE_FORMAT);
             }
-            else if (input.equals(IOFormats.WHERE_AM_I_FORMAT)) {
+            else if (input.equals(InputFormats.WHERE_AM_I_FORMAT)) {
                 whereAmI();
             }
-            else if (input.equals(IOFormats.ATTACK_FORMAT)) {
+            else if (input.equals(InputFormats.ATTACK_FORMAT)) {
                 attack();
             }
         }
