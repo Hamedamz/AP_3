@@ -33,11 +33,11 @@ public class Village {
     }
 
     public void build(String buildingType, int x, int y)
-            throws NoFreeBuilder, NotEnoughCapacity, NotEnoughResources {
+            throws NoFreeBuilderException, NotEnoughCapacityException, NotEnoughResourcesException {
 
     }
 
-    public void upgrade(String buildingType, int num) throws NotEnoughResources, BuildingNotFound {
+    public void upgrade(String buildingType, int num) throws NotEnoughResourcesException, BuildingNotFoundException {
 
     }
 
@@ -50,7 +50,7 @@ public class Village {
     }
 
     public void trainTroop(String troopType, int barracksNum)
-            throws NotEnoughResources, NotAvailableAtThisLevel, NotEnoughCapacity {
+            throws NotEnoughResourcesException, NotAvailableAtThisLevelException, NotEnoughCapacityException {
 
     }
 
