@@ -1,6 +1,6 @@
 package controllers;
 
-import models.MenuBuilder;
+import MenuBuilder;
 import viewers.MenuViewer;
 
 public class MenuController {

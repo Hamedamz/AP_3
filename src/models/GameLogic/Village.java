@@ -1,6 +1,6 @@
-package models;
+package models.GameLogic;
 
-import models.Exceptions.*;
+import models.GameLogic.Exceptions.*;
 
 import java.util.*;
 

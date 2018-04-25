@@ -1,10 +1,8 @@
 package interfaces;
 
-import models.Entity;
-import models.Map;
-import models.Position;
-import models.Troop;
-import models.enums.MoveType;
+import models.GameLogic.Map;
+import models.GameLogic.Position;
+import models.GameLogic.enums.MoveType;
 
 public interface Movable {
     void move(Position position, Map map);

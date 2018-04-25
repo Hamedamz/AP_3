@@ -1,4 +1,4 @@
-package models.enums;
+package models.GameLogic.enums;
 
 public enum TroopTargetType {
     BUILDING, RESOURCES, TOWER, WALL

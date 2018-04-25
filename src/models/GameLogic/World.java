@@ -1,6 +1,6 @@
-package models;
+package models.GameLogic;
 
-import models.Exceptions.FileNotFoundException;
+import models.GameLogic.Exceptions.FileNotFoundException;
 
 public class World {
     private Village myVillage;

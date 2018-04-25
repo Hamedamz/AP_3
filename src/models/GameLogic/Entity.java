@@ -1,4 +1,4 @@
-package models;
+package models.GameLogic;
 
 public class Entity {
     protected Position position;

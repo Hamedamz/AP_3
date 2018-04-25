@@ -1,10 +1,10 @@
-package models;
+package models.GameLogic;
 
 import interfaces.Attacker;
 import interfaces.Destroyable;
 import interfaces.Revivable;
-import models.enums.BuildingDamageType;
-import models.enums.BuildingTargetType;
+import models.GameLogic.enums.BuildingDamageType;
+import models.GameLogic.enums.BuildingTargetType;
 
 import java.util.ArrayList;
 

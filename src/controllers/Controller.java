@@ -1,6 +1,6 @@
 package controllers;
 
-import models.World;
+import models.GameLogic.World;
 import viewers.BasicViewer;
 
 public class Controller {

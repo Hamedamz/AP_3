@@ -1,4 +1,4 @@
-package models;
+package models.Menu;
 
 public class MenuItem {
     private String label;

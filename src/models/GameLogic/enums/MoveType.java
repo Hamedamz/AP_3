@@ -1,4 +1,4 @@
-package models.enums;
+package models.GameLogic.enums;
 
 public enum MoveType {
     Ground, Air

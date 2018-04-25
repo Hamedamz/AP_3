@@ -1,8 +1,9 @@
-package models;
+package models.GameLogic;
 
 import interfaces.Destroyable;
 import interfaces.MovingAttacker;
-import models.enums.TroopTargetType;
+import models.Setting.Dictionary;
+import models.GameLogic.enums.TroopTargetType;
 
 abstract class AttackerTroop extends Troop implements MovingAttacker, Destroyable {
     protected TroopTargetType targetType;

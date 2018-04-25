@@ -1,7 +1,7 @@
-package models;
+package models.GameLogic;
 
 import interfaces.Movable;
-import models.enums.MoveType;
+import models.GameLogic.enums.MoveType;
 
 public abstract class Troop extends Entity implements Movable {
     protected Camp troopCamp;
