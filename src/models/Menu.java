@@ -1,47 +1,28 @@
 package models;
 
-import interfaces.Item;
-
 import java.util.ArrayList;
 
-public class Menu implements Item {
-    private String name;
-    private ArrayList<Item> items;
+public class Menu extends MenuItem {
+    private ArrayList<MenuItem> items;
     private Menu parent;
 
-    public ArrayList<Item> getItems() {
+    public Menu(String label) {
+        super(label);
+    }
+
+    public ArrayList<MenuItem> getItems() {
         return items;
     }
 
-    public String getName() {
-        return name;
+    public void setItems(ArrayList<MenuItem> items) {
+        this.items = items;
     }
 
-    public void addItem (Item item) {
-        items.add(item);
+    public Menu getParent() {
+        return parent;
     }
 
-    @Override
-    public void action() {
-
-    }
-}
-
-abstract class Button implements Item {
-    private String label;
-
-    public Button(String name) {
-        this.label = name;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-}
-
-class MenuBuilder {
-    public Menu BuildMainMenu() {
-        Menu menu = new Menu();
-        return menu;
+    public void setParent(Menu parent) {
+        this.parent = parent;
     }
 }
