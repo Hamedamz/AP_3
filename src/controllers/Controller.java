@@ -1,10 +1,11 @@
 package controllers;
 
 import models.World;
+import viewers.BasicViewer;
 
 public class Controller {
 
-    private static Viewer viewer = new Viewer();
+    private static BasicViewer viewer = new BasicViewer();
     private static World world = new World();
 
     public static void main(String[] args) {

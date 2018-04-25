@@ -6,10 +6,6 @@ public class Menu extends MenuItem {
     private ArrayList<MenuItem> items;
     private Menu parent;
 
-    public Menu(String label) {
-        super(label);
-    }
-
     public ArrayList<MenuItem> getItems() {
         return items;
     }

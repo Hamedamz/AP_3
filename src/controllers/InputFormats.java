@@ -1,3 +1,5 @@
+package controllers;
+
 public class InputFormats {
     public static final String NEWGAME_FORMAT = "newGame";
     public static final String LOAD_PATH_FORMAT = "load .+";

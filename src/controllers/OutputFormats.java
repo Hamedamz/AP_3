@@ -1,3 +1,5 @@
+package controllers;
+
 public class OutputFormats {
 
     public static final String OVERALL_INFO_FORMAT = "Level: %d\nHealth: %d";
