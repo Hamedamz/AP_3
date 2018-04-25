@@ -1,7 +1,9 @@
+package viewers;
+
 import java.util.Scanner;
 
-public class Viewer {
-    private Scanner scanner = new Scanner(System.in);
+public class BasicViewer {
+    protected Scanner scanner = new Scanner(System.in);
 
     public void printError(String error) {
         System.out.println(error);
