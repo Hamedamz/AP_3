@@ -1,6 +1,6 @@
 package models;
 
-import models.Exceptions.FileNotFound;
+import models.Exceptions.FileNotFoundException;
 
 public class World {
     private Village myVillage;
@@ -45,16 +45,16 @@ public class World {
     }
 
 
-    public void loadMyVillage(String path) throws FileNotFound {
+    public void loadMyVillage(String path) throws FileNotFoundException {
 
     }
 
-    public void loadEnemyVillage(String path) throws FileNotFound {
+    public void loadEnemyVillage(String path) throws FileNotFoundException {
 
     }
 
 
-    public boolean attackVillage(String path) throws FileNotFound {
+    public boolean attackVillage(String path) throws FileNotFoundException {
         //maybe this changes
     }
 
