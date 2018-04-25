@@ -1,3 +1,5 @@
+package controllers;
+
 import models.World;
 
 public class Controller {
