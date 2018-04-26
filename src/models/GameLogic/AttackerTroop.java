@@ -2,7 +2,6 @@ package models.GameLogic;
 
 import interfaces.Destroyable;
 import interfaces.MovingAttacker;
-import models.Setting.Dictionary;
 import models.GameLogic.enums.TroopTargetType;
 
 abstract class AttackerTroop extends Troop implements MovingAttacker, Destroyable {
@@ -59,27 +58,27 @@ abstract class AttackerTroop extends Troop implements MovingAttacker, Destroyabl
 
 class Guardian extends AttackerTroop {
 
-    public Guardian(Dictionary dictionary) {
+    public Guardian() {
     }
 }
 
 class Giant extends AttackerTroop {
 
-    public Giant(Dictionary dictionary) {
+    public Giant() {
 
     }
 }
 
 class Dragon extends AttackerTroop {
 
-    public Dragon(Dictionary dictionary) {
+    public Dragon() {
 
     }
 }
 
 class Archer extends AttackerTroop {
 
-    public Archer(Dictionary dictionary) {
+    public Archer() {
 
     }
 
