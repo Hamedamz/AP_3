@@ -14,19 +14,42 @@ public class MenuController {
     }
 
     public void initializeMenus() {
-        buildMainMenu(null);
+        buildMainMenu();
 
     }
 
-    public Menu buildMainMenu(Menu parent) {
+    public Menu buildMainMenu() {
         Menu menu = MenuBuilder.aMenu()
                 .withLabel("main menu")
-                .withParent(parent)
                 .withItem(new MenuItem(CommandType.NEW_GAME))
                 .withItem(new MenuItem(CommandType.LOAD_GAME))
                 .build();
         return menu;
     }
 
+    public Menu buildVillageMenu() {
+        Menu menu = MenuBuilder.aMenu()
+                .withLabel("village menu")
+                .withItem(buildBuildingsMenu())
+                .withItem(buildResourcesMenu())
+                .build();
+        return menu;
+    }
+
+    private MenuItem buildResourcesMenu() {
+        Menu menu = MenuBuilder.aMenu()
+                .withLabel("resources")
+                .withItem(new MenuItem(CommandType.RESOURCES_LIST))
+                .build();
+        return menu;
+    }
+
+    private Menu buildBuildingsMenu() {
+        Menu menu = MenuBuilder.aMenu()
+                .withLabel("buildings")
+                .withItem(new MenuItem(CommandType.BUILDINGS_LIST))
+                .build();
+        return menu;
+    }
 
 }
