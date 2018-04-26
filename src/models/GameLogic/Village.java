@@ -8,7 +8,6 @@ import java.util.*;
 public class Village {
     private TownHall townHall;
     private Map map;
-    private int score;
 
     public Village() {
     }
@@ -21,21 +20,11 @@ public class Village {
         return map;
     }
 
-    public int getScore() {
-        return score;
-    }
-
     public ArrayList<Building> getBuildings(){
         return map.getBuildings();
     }
 
-    public boolean haveWeSpaceForResources() {
 
-    }
-
-    public void addResources() {
-
-    }
 
     public Building getBuildingByNumber(String buildingType, int buildingNumber) {
 
@@ -79,12 +68,22 @@ public class Village {
 
     }
 
-    public boolean haveWeSpace(String resourceType, int amount) {
+    public boolean haveWeSpaceForResources() {
 
+        for(Building building : findBuildingsWithSameType("Storage")) {
+            if (!((Storage) building).isStorageFull()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addResources(Resource resource) {
     }
 
     public void addBounty(Bounty bounty) {
-
+        addResources(bounty.getResource());
+        townHall.addScore(bounty.getScore());
     }
 
 }

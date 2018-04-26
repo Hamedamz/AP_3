@@ -347,12 +347,9 @@ abstract class ResourceBuilding extends Building {
 
     }
 
-    public boolean hasStock(Resource resource) {
-
-    }
-
     public boolean isStorageFull() {
-
+        Resource resource = Resource.subtractResources(capacity, stock);
+        return !(resource.getElixir() == 0 && resource.getGold() == 0);
     }
 
     @Override
@@ -484,6 +481,7 @@ class ElixirStorage extends Storage {
 class TownHall extends ResourceBuilding {
 
     private ArrayList<Builder> builders;
+    private int score;
 
     public TownHall() {
 
@@ -506,6 +504,10 @@ class TownHall extends ResourceBuilding {
     @Override
     public Bounty getBounty() {
         return null;
+    }
+
+    public void addScore(int score) {
+        this.score += score;
     }
 }
 
