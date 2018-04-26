@@ -1,14 +1,20 @@
 package models.GameLogic;
 
 import models.GameLogic.Exceptions.*;
+import sun.awt.geom.AreaOp;
 
 import java.util.*;
 
 public class Village {
+    private TownHall townHall;
     private Map map;
     private int score;
 
     public Village() {
+    }
+
+    public TownHall getTownHall() {
+        return townHall;
     }
 
     public Map getMap() {
@@ -19,8 +25,16 @@ public class Village {
         return score;
     }
 
-    public boolean addResources() {
-        //it's false when we don't have enough capacity
+    public ArrayList<Building> getBuildings(){
+        return map.getBuildings();
+    }
+
+    public boolean haveWeSpaceForResources() {
+
+    }
+
+    public void addResources() {
+
     }
 
     public Building getBuildingByNumber(String buildingType, int buildingNumber) {
@@ -49,8 +63,12 @@ public class Village {
 
     }
 
-    private void MoveTrainedTroop(int barracksNum, TrainingTroop trainingTroop) {
-
+    public Camp findCampForNewTroops(int space) {
+        ArrayList<Building> camps = findBuildingsWithSameType("Camp");
+        for(Building building :  camps) {
+            Camp camp = (Camp) building;
+            //fixme
+        }
     }
 
     public void removeTrainingTroop(String troopType, int barracksNum) {
@@ -69,7 +87,4 @@ public class Village {
 
     }
 
-    public void update() {
-
-    }
 }
