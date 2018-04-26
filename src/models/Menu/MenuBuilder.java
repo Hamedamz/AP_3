@@ -3,6 +3,7 @@ package models.Menu;
 import java.util.ArrayList;
 
 public final class MenuBuilder {
+    String label;
     private ArrayList<MenuItem> items;
     private Menu parent;
 
@@ -12,6 +13,11 @@ public final class MenuBuilder {
 
     public static MenuBuilder aMenu() {
         return new MenuBuilder();
+    }
+
+    public MenuBuilder withLabel(String label) {
+        this.label = label;
+        return this;
     }
 
     public MenuBuilder withItem(MenuItem item) {
@@ -26,6 +32,7 @@ public final class MenuBuilder {
 
     public Menu build() {
         Menu menu = new Menu();
+        menu.setLabel(label);
         menu.setItems(items);
         menu.setParent(parent);
         return menu;
