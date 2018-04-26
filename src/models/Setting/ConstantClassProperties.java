@@ -12,8 +12,15 @@ public abstract class ConstantClassProperties {
 
     private static final String CONSTANTS_SAVE_LOCATION = "class properties.txt";
     private static final String IGNORE_REGEX = "#.*";
-    private static final String PROPERTY_FORMAT = "((\\D(_\\d+)?)|\\s)+:\\s+\\d+(\\.\\d+)?";
+    private static final String PROPERTY_FORMAT = "((\\D(_\\d+ )?)|\\s)+:\\s+\\d+(\\.\\d+)?";
 
+    /**
+     * lines starting with # are read as comments
+     *
+     * it supports all kind of [sentence]/[number]
+     * which sentence is sequence of Alphabetical letters or spaces
+     * or [Alphabetical letter + "_" + noneNegetiveInteger]
+     */
     public static void loadConstants() {
         classProperties = new HashMap<>();
         try {
