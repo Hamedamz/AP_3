@@ -1,5 +1,6 @@
 package controllers;
 
+import models.GameLogic.Village;
 import models.GameLogic.World;
 import viewers.BasicViewer;
 
@@ -27,7 +28,7 @@ public class Controller {
                 String path = input.split("\\s")[1];
                 String name = input.split("\\s")[2];
                 try {
-                    saveGame(path, name);
+                    saveGame(world.getMyVillage(), name);
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -60,8 +61,8 @@ public class Controller {
     public static void loadGame(String path) {
     }
 
-    public static void saveGame(String path, String name) {
-
+    public static void saveGame(Village village, String name) {
+        JsonInterpreter.saveVillage(village, name);
     }
 
     public static void turn(int n) {

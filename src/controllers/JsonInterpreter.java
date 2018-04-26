@@ -34,6 +34,6 @@ public class JsonInterpreter {
         if (savePath.exists()) {
             return;
         }
-        savePath.mkdir();
+        savePath.mkdirs();
     }
 }
