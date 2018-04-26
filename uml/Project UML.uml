@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="939.0" y="889.0">models.GameLogic.Exceptions.BuildingNotFoundException</node>
+    <node x="741.0" y="889.0">viewers.BasicViewer</node>
+    <node x="633.0000000000001" y="376.0">models.GameLogic.Camp</node>
+    <node x="495.0" y="617.0">models.GameLogic.GameEngine</node>
+    <node x="1337.0" y="398.0">models.GameLogic.ElixirStorage</node>
+    <node x="305.00000000000006" y="543.0">models.GameLogic.AirDefence</node>
+    <node x="209.0" y="889.0">models.GameLogic.enums.BuildingDamageType</node>
+    <node x="1179.0" y="889.0">models.GameLogic.BattleGroundGameEngine</node>
+    <node x="1150.0" y="387.0">models.GameLogic.ElixirMine</node>
+    <node x="564.0000000000001" y="543.0">models.GameLogic.Cannon</node>
+    <node x="57.09210526315803" y="11.0">interfaces.Destroyable</node>
+    <node x="355.7500000000001" y="177.0">interfaces.Attacker</node>
+    <node x="0.0" y="543.0">models.GameLogic.Giant</node>
+    <node x="0.0" y="889.0">models.GameLogic.Bounty</node>
+    <node x="361.0000000000001" y="343.0">models.GameLogic.DefensiveBuilding</node>
+    <node x="0.0" y="617.0">controllers.enums.CommandType</node>
+    <node x="95.00000000000011" y="543.0">models.GameLogic.Archer</node>
+    <node x="658.2500000000001" y="0.0">models.GameLogic.Entity</node>
+    <node x="0.0" y="1007.0">models.GameLogic.Exceptions.FileNotFoundException</node>
+    <node x="414.0" y="889.0">models.Setting.Dictionary</node>
+    <node x="883.0" y="617.0">models.GameLogic.enums.BuildingTargetType</node>
+    <node x="27.000000000000114" y="332.0">models.GameLogic.AttackerTroop</node>
+    <node x="192.0" y="617.0">models.GameLogic.BattleGround</node>
+    <node x="1469.0" y="398.0">models.GameLogic.GoldMine</node>
+    <node x="197.0000000000001" y="543.0">models.GameLogic.Dragon</node>
+    <node x="853.0000000000001" y="376.0">models.GameLogic.Barracks</node>
+    <node x="430.0000000000001" y="543.0">models.GameLogic.ArcherTower</node>
+    <node x="1010.0" y="111.0">models.GameLogic.Building</node>
+    <node x="1077.0" y="617.0">models.GameLogic.Builder</node>
+    <node x="1359.0" y="617.0">controllers.Controller</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="models.GameLogic.Dragon" target="models.GameLogic.AttackerTroop">
+      <point x="0.0" y="-14.5" />
+      <point x="241.0000000000001" y="518.0" />
+      <point x="208.6666666666668" y="518.0" />
+      <point x="72.66666666666669" y="80.5" />
+    </edge>
+    <edge source="models.GameLogic.AttackerTroop" target="interfaces.Attacker">
+      <point x="72.66666666666669" y="-80.5" />
+      <point x="208.6666666666668" y="312.0" />
+      <point x="378.5000000000001" y="312.0" />
+      <point x="-22.75" y="14.5" />
+    </edge>
+    <edge source="models.GameLogic.GoldMine" target="models.GameLogic.Building">
+      <point x="0.0" y="-14.5" />
+      <point x="1518.5" y="292.0" />
+      <point x="1197.9166666666667" y="292.0" />
+      <point x="85.41666666666674" y="80.5" />
+    </edge>
+    <edge source="models.GameLogic.Barracks" target="models.GameLogic.Building">
+      <point x="0.0" y="-36.5" />
+      <point x="991.5000000000001" y="312.0" />
+      <point x="1095.4166666666667" y="312.0" />
+      <point x="-17.083333333333258" y="80.5" />
+    </edge>
+    <edge source="models.GameLogic.Cannon" target="models.GameLogic.DefensiveBuilding">
+      <point x="5.6843418860808015E-14" y="-14.5" />
+      <point x="608.0000000000001" y="518.0" />
+      <point x="571.0000000000001" y="518.0" />
+      <point x="84.00000000000006" y="69.5" />
+    </edge>
+    <edge source="models.GameLogic.AttackerTroop" target="interfaces.Destroyable">
+      <point x="-72.66666666666663" y="-80.5" />
+      <point x="63.333333333333485" y="312.0" />
+      <point x="84.84210526315803" y="312.0" />
+      <point x="-27.75" y="14.5" />
+    </edge>
+    <edge source="models.GameLogic.AirDefence" target="models.GameLogic.DefensiveBuilding">
+      <point x="0.0" y="-14.5" />
+      <point x="357.50000000000006" y="518.0" />
+      <point x="403.0000000000001" y="518.0" />
+      <point x="-84.0" y="69.5" />
+    </edge>
+    <edge source="models.GameLogic.ArcherTower" target="models.GameLogic.DefensiveBuilding">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="69.5" />
+    </edge>
+    <edge source="models.GameLogic.DefensiveBuilding" target="models.GameLogic.Building">
+      <point x="63.00000000000006" y="-69.5" />
+      <point x="550.0000000000001" y="292.0" />
+      <point x="1027.0833333333335" y="292.0" />
+      <point x="-85.41666666666663" y="80.5" />
+    </edge>
+    <edge source="models.GameLogic.AttackerTroop" target="models.GameLogic.Entity">
+      <point x="0.0" y="-80.5" />
+      <point x="136.0000000000001" y="312.0" />
+      <point x="149.3157894736844" y="312.0" />
+      <point x="149.3157894736844" y="91.0" />
+      <point x="697.5000000000001" y="91.0" />
+      <point x="-39.25" y="25.5" />
+    </edge>
+    <edge source="models.GameLogic.ElixirStorage" target="models.GameLogic.Building">
+      <point x="0.0" y="-14.5" />
+      <point x="1393.0" y="302.0" />
+      <point x="1163.75" y="302.0" />
+      <point x="51.25" y="80.5" />
+    </edge>
+    <edge source="models.GameLogic.Camp" target="models.GameLogic.Building">
+      <point x="0.0" y="-36.5" />
+      <point x="733.0000000000001" y="302.0" />
+      <point x="1061.25" y="302.0" />
+      <point x="-51.25" y="80.5" />
+    </edge>
+    <edge source="models.GameLogic.Archer" target="models.GameLogic.AttackerTroop">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="80.5" />
+    </edge>
+    <edge source="models.GameLogic.Building" target="models.GameLogic.Entity">
+      <point x="51.25" y="-80.5" />
+      <point x="1163.75" y="71.0" />
+      <point x="776.0000000000001" y="71.0" />
+      <point x="39.25" y="25.5" />
+    </edge>
+    <edge source="models.GameLogic.DefensiveBuilding" target="interfaces.Attacker">
+      <point x="-62.99999999999994" y="-69.5" />
+      <point x="22.75" y="14.5" />
+    </edge>
+    <edge source="models.GameLogic.Giant" target="models.GameLogic.AttackerTroop">
+      <point x="0.0" y="-14.5" />
+      <point x="37.5" y="518.0" />
+      <point x="63.333333333333485" y="518.0" />
+      <point x="-72.66666666666667" y="80.5" />
+    </edge>
+    <edge source="models.GameLogic.ElixirMine" target="models.GameLogic.Building">
+      <point x="0.0" y="-25.5" />
+      <point x="1233.5" y="312.0" />
+      <point x="1129.5833333333333" y="312.0" />
+      <point x="17.083333333333258" y="80.5" />
+    </edge>
+    <edge source="models.GameLogic.Building" target="interfaces.Destroyable">
+      <point x="-51.25" y="-80.5" />
+      <point x="1061.25" y="81.0" />
+      <point x="140.34210526315803" y="81.0" />
+      <point x="27.75" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6" x="856.7777777777778" y="460.33333333333337" />
+  <SelectedNodes>
+    <node>models.GameLogic.Exceptions.BuildingNotFoundException</node>
+    <node>viewers.BasicViewer</node>
+    <node>models.GameLogic.Camp</node>
+    <node>models.GameLogic.GameEngine</node>
+    <node>models.GameLogic.ElixirStorage</node>
+    <node>models.GameLogic.AirDefence</node>
+    <node>models.GameLogic.enums.BuildingDamageType</node>
+    <node>models.GameLogic.BattleGroundGameEngine</node>
+    <node>models.GameLogic.ElixirMine</node>
+    <node>models.GameLogic.Cannon</node>
+    <node>interfaces.Destroyable</node>
+    <node>interfaces.Attacker</node>
+    <node>models.GameLogic.Giant</node>
+    <node>models.GameLogic.Bounty</node>
+    <node>models.GameLogic.DefensiveBuilding</node>
+    <node>controllers.enums.CommandType</node>
+    <node>models.GameLogic.Archer</node>
+    <node>models.GameLogic.Entity</node>
+    <node>models.GameLogic.Exceptions.FileNotFoundException</node>
+    <node>models.Setting.Dictionary</node>
+    <node>models.GameLogic.enums.BuildingTargetType</node>
+    <node>models.GameLogic.AttackerTroop</node>
+    <node>models.GameLogic.BattleGround</node>
+    <node>models.GameLogic.GoldMine</node>
+    <node>models.GameLogic.Dragon</node>
+    <node>models.GameLogic.Barracks</node>
+    <node>models.GameLogic.ArcherTower</node>
+    <node>models.GameLogic.Building</node>
+    <node>models.GameLogic.Builder</node>
+    <node>controllers.Controller</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

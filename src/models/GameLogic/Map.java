@@ -26,4 +26,8 @@ public class Map {
 
     }
 
+    public ArrayList<Building> getBuildings() {
+        return buildings;
+    }
+
 }

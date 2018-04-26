@@ -1,18 +1,20 @@
 package models.GameLogic;
 
+import org.omg.CORBA.TRANSACTION_MODE;
+
 public class TrainingTroop {
-    private int totalTime;
     private int timeRemaining;
     private Resource buildingResource;
-    public String troopType;
+    private String troopType;
+    private int level;
 
     public TrainingTroop(String troopType, int barracksLevel) {
-
+        level = barracksLevel;
+        this.troopType = troopType;
+        timeRemaining = 0; //fixme dictionary
+        timeRemaining -= level;
     }
 
-    public int getTotalTime() {
-        return totalTime;
-    }
 
     public int getTimeRemaining() {
         return timeRemaining;
@@ -26,7 +28,19 @@ public class TrainingTroop {
         return troopType;
     }
 
-    public boolean hasEndedTraining() {
+    public void update() {
+        timeRemaining--;
+    }
 
+    public boolean hasEndedTraining() {
+        return timeRemaining <= 0;
+    }
+    
+    public void moveToCamp(Camp camp) {
+        // TODO: 4/26/2018  
+    }
+
+    public int getSpace() {
+        // TODO: 4/26/2018
     }
 }

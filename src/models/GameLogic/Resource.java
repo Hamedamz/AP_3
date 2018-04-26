@@ -35,6 +35,12 @@ public class Resource {
         newResource.addToThisResource(resource2);
         return newResource;
     }
+
+    public static Resource subtractResources(Resource resource1, Resource resource2) {
+        Resource newResource = new Resource(-resource2.getGold(), -resource2.getElixir());
+        newResource.addToThisResource(resource1);
+        return newResource;
+    }
 }
 
 class Bounty {
@@ -54,8 +60,12 @@ class Bounty {
         return resource.getGold();
     }
 
-    private int getElixir() {
+    public int getElixir() {
         return resource.getElixir();
+    }
+
+    public Resource getResource() {
+        return resource;
     }
 
     public void addToThisBounty(Bounty bounty) {

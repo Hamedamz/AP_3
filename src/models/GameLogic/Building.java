@@ -15,7 +15,7 @@ public abstract class Building extends Entity implements Revivable {
     protected int level;
     protected int number;
     protected boolean isDestroyed = false; //fixme put this false in constructor
-    protected boolean isUnderConstruct;
+    protected boolean isUnderConstruct = true; //in constructor
 
     Building() {
         //level = 1;
@@ -23,6 +23,10 @@ public abstract class Building extends Entity implements Revivable {
 
     public boolean isUnderConstruct() {
         return isUnderConstruct;
+    }
+
+    public void finishConstruct() {
+        isUnderConstruct = false;
     }
 
     public abstract Resource getUpgradeResource() ;
@@ -255,6 +259,10 @@ class Barracks extends Building {
 
     }
 
+    public ArrayList<TrainingTroop> getTrainingTroops() {
+        return trainigTroops;
+    }
+
     @Override
     public Resource getUpgradeResource() {
         return null;
@@ -339,12 +347,9 @@ abstract class ResourceBuilding extends Building {
 
     }
 
-    public boolean hasStock(Resource resource) {
-
-    }
-
     public boolean isStorageFull() {
-
+        Resource resource = Resource.subtractResources(capacity, stock);
+        return !(resource.getElixir() == 0 && resource.getGold() == 0);
     }
 
     @Override
@@ -362,12 +367,10 @@ abstract class ResourceBuilding extends Building {
 
 }
 
-abstract class Mine extends ResourceBuilding{
-    private int productionRate;
+abstract class Mine extends Building{
+    protected int productionRate;
 
-    public void produce() {
-
-    }
+    public abstract Resource produce();
 }
 
 abstract class Storage extends ResourceBuilding{
@@ -378,6 +381,11 @@ class GoldMine extends Mine {
 
     public GoldMine(int number) {
 
+    }
+
+    @Override
+    public Resource produce() {
+        return new Resource(productionRate, 0);
     }
 
     @Override
@@ -404,9 +412,11 @@ class ElixirMine extends Mine {
     public ElixirMine(int number) {
     }
 
-    public void produce() {
-
+    @Override
+    public Resource produce() {
+        return new Resource(0, productionRate);
     }
+
 
     @Override
     public Resource getUpgradeResource() {
@@ -470,8 +480,15 @@ class ElixirStorage extends Storage {
 
 class TownHall extends ResourceBuilding {
 
-    public TownHall(int number) {
+    private ArrayList<Builder> builders;
+    private int score;
 
+    public TownHall() {
+
+    }
+
+    public ArrayList<Builder> getBuilders() {
+        return builders;
     }
 
     @Override
@@ -487,6 +504,10 @@ class TownHall extends ResourceBuilding {
     @Override
     public Bounty getBounty() {
         return null;
+    }
+
+    public void addScore(int score) {
+        this.score += score;
     }
 }
 
