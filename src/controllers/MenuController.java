@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.enums.CommandType;
+import controllers.enums.ModelBasedList;
 import models.Menu.Menu;
 import models.Menu.MenuBuilder;
 import models.Menu.MenuItem;
@@ -19,55 +20,73 @@ public class MenuController {
     }
 
     public Menu buildMainMenu() {
-        Menu menu = MenuBuilder.aMenu()
+        return MenuBuilder.aMenu()
                 .withLabel("main menu")
                 .withItem(new MenuItem(CommandType.NEW_GAME))
                 .withItem(new MenuItem(CommandType.LOAD_GAME))
                 .build();
-        return menu;
     }
 
     public Menu buildVillageMenu() {
-        Menu menu = MenuBuilder.aMenu()
+        return MenuBuilder.aMenu()
                 .withLabel("village menu")
                 .withItem(buildBuildingsMenu())
                 .withItem(buildResourcesMenu())
                 .build();
-        return menu;
     }
 
     private MenuItem buildResourcesMenu() {
-        Menu menu = MenuBuilder.aMenu()
+        return MenuBuilder.aMenu()
                 .withLabel("resources")
-                .withItem(new MenuItem(CommandType.RESOURCES_LIST))
+                .withItem(new MenuItem(ModelBasedList.RESOURCES_LIST))
                 .build();
-        return menu;
     }
 
     private Menu buildBuildingsMenu() {
-        Menu menu = MenuBuilder.aMenu()
+        return MenuBuilder.aMenu()
                 .withLabel("buildings")
-                .withItem(new MenuItem(CommandType.BUILDINGS_LIST))
+                .withItem(new MenuItem(ModelBasedList.BUILDINGS_LIST))
                 .build();
-        return menu;
     }
 
-    public Menu buildTypicalBuildingMenu() {
-        Menu menu = MenuBuilder.aMenu()
+    private Menu buildTypicalBuildingMenu() {
+        return MenuBuilder.aMenu()
                 .withItem(buildInfoMenu())
                 .withItem(new MenuItem(CommandType.BACK))
                 .build();
-        return menu;
     }
 
-    private MenuItem buildInfoMenu() {
-        Menu menu = MenuBuilder.aMenu()
+    private Menu buildInfoMenu() {
+        return MenuBuilder.aMenu()
                 .withLabel("info")
                 .withItem(new MenuItem(CommandType.OVERAL_INFO))
                 .withItem(new MenuItem(CommandType.UPGRADE_INFO))
                 .withItem(new MenuItem(CommandType.BACK))
                 .build();
-        return menu;
     }
 
+    public Menu buildTownHallMenu() {
+        return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
+                .withLabel("town hall")
+                .withItem(buildAvailableBuildingsMenu())
+                .withItem(buildStatusMenu())
+                .withItem(new MenuItem(CommandType.BACK))
+                .build();
+    }
+
+    private Menu buildStatusMenu() {
+        return MenuBuilder.aMenu()
+                .withLabel("status")
+                .withItem(new MenuItem(ModelBasedList.UNDER_CONSTRUCTION_LIST))
+                .withItem(new MenuItem(CommandType.BACK))
+                .build();
+    }
+
+    private Menu buildAvailableBuildingsMenu() {
+        return MenuBuilder.aMenu()
+                .withLabel("available buildings")
+                .withItem(new MenuItem(ModelBasedList.CONSTRUCTABLE_LIST))
+                .withItem(new MenuItem(CommandType.BACK))
+                .build();
+    }
 }
