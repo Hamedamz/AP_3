@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public final class MenuBuilder {
     String label;
     private ArrayList<MenuItem> items;
-    private Menu parent;
 
     private MenuBuilder() {
         items = new ArrayList<>();
@@ -25,16 +24,10 @@ public final class MenuBuilder {
         return this;
     }
 
-    public MenuBuilder withParent(Menu parent) {
-        this.parent = parent;
-        return this;
-    }
-
     public Menu build() {
         Menu menu = new Menu();
         menu.setLabel(label);
         menu.setItems(items);
-        menu.setParent(parent);
         return menu;
     }
 }
