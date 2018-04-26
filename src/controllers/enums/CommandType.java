@@ -7,7 +7,10 @@ public enum CommandType {
     SHOW_BUILDINGS,
     SHOW_RESOURCES,
     UPGRADE_BUILDING,
-    INFO,
+    AVAILABLE_BUILDINGS,
+    STATUS,
+    OVERAL_INFO,
+    UPGRADE_INFO,
     BACK,
     OPEN_MENU;
 
