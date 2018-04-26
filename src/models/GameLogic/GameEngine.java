@@ -1,6 +1,7 @@
 package models.GameLogic;
 
 public class GameEngine {
+    private World world;
     private VillageGameEngine villageGameEngine;
     private BattleGroundGameEngine battleGroundGameEngine;
     private boolean isAttacking = false; //fixme put false in constructore
@@ -9,11 +10,19 @@ public class GameEngine {
     public void update() {
         if(isAttacking) {
             battleGroundGameEngine.update();
-            if(battleGroundGameEngine.isAttackFinished()) {
+            if(world.getBattleGround().isAttackFinished()) {
                 isAttacking = false;
             }
         } else {
             villageGameEngine.update();
         }
+    }
+
+    public void loadNewVillage() {
+        villageGameEngine.loadVillage(world.getMyVillage());
+    }
+
+    public void loadBattleGround(BattleGround battleGround) {
+        battleGroundGameEngine.loadBattlaGround(world.getBattleGround());
     }
 }

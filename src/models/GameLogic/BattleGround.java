@@ -36,6 +36,11 @@ public class BattleGround {
 
     //private void isHealerAlive() { }
 
+
+    public boolean putTroop(Troop troop, int x, int y) {
+
+    }
+
     private void destroyBuilding(Building building) {
 
     }
@@ -48,10 +53,6 @@ public class BattleGround {
 
     }
 
-    public boolean putTroop(Troop troop, int x, int y) {
-
-    }
-
     private void makeTroopsMove() {
 
     }
@@ -60,11 +61,7 @@ public class BattleGround {
 
     }
 
-    public boolean hasGameFinished() {
-
-    }
-
-    public void update() {
+    public boolean isAttackFinished() {
 
     }
 

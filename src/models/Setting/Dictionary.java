@@ -12,5 +12,6 @@ public abstract class Dictionary {
     }
 
     public static Object getFromDictionary(String value) {
+
     }
 }
