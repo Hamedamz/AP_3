@@ -12,4 +12,8 @@ public class MenuItem {
     public String getLabel() {
         return commandType.toString();
     }
+
+    public CommandType getCommandType() {
+        return commandType;
+    }
 }
