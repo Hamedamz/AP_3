@@ -4,7 +4,8 @@ import interfaces.Movable;
 import models.GameLogic.enums.MoveType;
 
 public abstract class Troop extends Entity implements Movable {
-    protected Camp troopCamp;
+    protected transient Camp troopCamp;
+    protected int campNumber;
     protected MoveType moveType;
     protected int speed;
 
