@@ -1,13 +1,15 @@
 package models.Menu;
 
-public class MenuItem {
-    private String label;
+import controllers.enums.CommandType;
 
-    public String getLabel() {
-        return label;
+public class MenuItem {
+    private CommandType commandType;
+
+    public MenuItem(CommandType commandType) {
+        this.commandType = commandType;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public String getLabel() {
+        return commandType.toString();
     }
 }
