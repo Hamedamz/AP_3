@@ -9,7 +9,8 @@ public enum CommandType {
     SHOW_RESOURCES,
     RESOURCES_LIST,
     UPGRADE_BUILDING,
-    INFO,
+    OVERAL_INFO,
+    UPGRADE_INFO,
     BACK,
     OPEN_MENU;
 

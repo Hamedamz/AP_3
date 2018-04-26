@@ -52,4 +52,22 @@ public class MenuController {
         return menu;
     }
 
+    public Menu buildTypicalBuildingMenu() {
+        Menu menu = MenuBuilder.aMenu()
+                .withItem(buildInfoMenu())
+                .withItem(new MenuItem(CommandType.BACK))
+                .build();
+        return menu;
+    }
+
+    private MenuItem buildInfoMenu() {
+        Menu menu = MenuBuilder.aMenu()
+                .withLabel("info")
+                .withItem(new MenuItem(CommandType.OVERAL_INFO))
+                .withItem(new MenuItem(CommandType.UPGRADE_INFO))
+                .withItem(new MenuItem(CommandType.BACK))
+                .build();
+        return menu;
+    }
+
 }
