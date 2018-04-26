@@ -28,25 +28,25 @@ public abstract class ConstantClassProperties {
             InputStream stream = new FileInputStream(constantFile);
             Scanner scanner = new Scanner(stream);
             while (scanner.hasNext()) {
-                String newLine = scanner.nextLine();
-                if (!newLine.matches(IGNORE_REGEX)) {
-                    newLine = newLine.replaceAll("\\s+", " ");
-                    if(newLine.matches(PROPERTY_FORMAT)) {
-                        if(newLine.charAt(0) == ' ') {
-                            newLine = newLine.substring(1);
-                        }
-                        String[] mapParts = newLine.split("\\s*:\\s*");
-                        if(mapParts.length == 2) {
-                            classProperties.put(mapParts[0], Double.parseDouble(mapParts[1]));
-                        }
-                    }
-                }
+                addToClassProperties(scanner.nextLine());
             }
-            String key = scanner.next();
-            int value = scanner.nextInt();
-            classProperties.put(key, value);
         } catch (FileNotFoundException e) {
             System.err.println("constant file not found");
+        }
+    }
+
+    private static void addToClassProperties(String newLine) {
+        if (!newLine.matches(IGNORE_REGEX)) {
+            newLine = newLine.replaceAll("\\s+", " ");
+            if(newLine.matches(PROPERTY_FORMAT)) {
+                if(newLine.charAt(0) == ' ') {
+                    newLine = newLine.substring(1);
+                }
+                String[] mapParts = newLine.split("\\s*:\\s*");
+                if(mapParts.length == 2) {
+                    classProperties.put(mapParts[0], Double.parseDouble(mapParts[1]));
+                }
+            }
         }
     }
 
