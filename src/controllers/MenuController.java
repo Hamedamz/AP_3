@@ -38,24 +38,24 @@ public class MenuController {
     private MenuItem buildModelBasedListMenu(String label, ModelBasedList list) {
         return MenuBuilder.aMenu()
                 .withLabel(label)
-                .withItem(new MenuItem(list))
                 .withItem(new MenuItem(CommandType.BACK))
+                .withItem(new MenuItem(list))
                 .build();
     }
 
     private Menu buildTypicalBuildingMenu() {
         return MenuBuilder.aMenu()
-                .withItem(buildInfoMenu())
                 .withItem(new MenuItem(CommandType.BACK))
+                .withItem(buildInfoMenu())
                 .build();
     }
 
     private Menu buildInfoMenu() {
         return MenuBuilder.aMenu()
                 .withLabel("info")
-                .withItem(new MenuItem(CommandType.OVERAL_INFO))
-                .withItem(new MenuItem(CommandType.UPGRADE_INFO))
                 .withItem(new MenuItem(CommandType.BACK))
+                .withItem(new MenuItem(CommandType.OVERALL_INFO))
+                .withItem(new MenuItem(CommandType.UPGRADE_INFO))
                 .build();
     }
 
@@ -72,6 +72,48 @@ public class MenuController {
                 .withLabel("barracks")
                 .withItem(buildModelBasedListMenu("build soldiers", ModelBasedList.TROOPS_LIST))
                 .withItem(buildModelBasedListMenu("status", ModelBasedList.TRAINING_TROOPS_LIST))
+                .build();
+    }
+
+    public Menu builCampMenu() {
+        Menu infoMenu = MenuBuilder.aMenuExtending(buildInfoMenu())
+                .withItem(new MenuItem(CommandType.CAPACITY_INFO))
+                .build();
+
+        return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
+                .withLabel("camp")
+                .withItem(infoMenu)
+                .withItem(buildModelBasedListMenu("soldiers", ModelBasedList.AVAILABLE_TROOPS_LIST))
+                .build();
+    }
+
+    public Menu buildMinesMenu() {
+        return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
+                .withLabel("mines")
+                .withItem(buildModelBasedListMenu("mine", ModelBasedList.MINE))
+                .build();
+    }
+
+    public Menu buildStoragesMenu() {
+        Menu infoMenu = MenuBuilder.aMenuExtending(buildInfoMenu())
+                .withItem(new MenuItem(CommandType.RESOURCES_INFO))
+                .build();
+
+        return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
+                .withLabel("camp")
+                .withItem(infoMenu)
+                .build();
+    }
+
+    public Menu buildDefensiveTowersMenu() {
+        Menu infoMenu = MenuBuilder.aMenuExtending(buildInfoMenu())
+                .withItem(new MenuItem(CommandType.ATTACK_INFO))
+                .build();
+
+        return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
+                .withLabel("camp")
+                .withItem(infoMenu)
+                .withItem(buildModelBasedListMenu("target", ModelBasedList.TARGET))
                 .build();
     }
 }
