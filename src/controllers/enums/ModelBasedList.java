@@ -9,5 +9,6 @@ public enum ModelBasedList {
     TRAINING_TROOPS_LIST,
     AVAILABLE_TROOPS_LIST,
     MINE,
-    TARGET
+    TARGET,
+    AVAILABLE_MAPS_LIST,
 }

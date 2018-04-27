@@ -32,6 +32,24 @@ public class MenuController {
                 .withLabel("village menu")
                 .withItem(buildModelBasedListMenu("buildings", ModelBasedList.BUILDINGS_LIST))
                 .withItem(buildModelBasedListMenu("resources", ModelBasedList.RESOURCES_LIST))
+                .withItem(buildAttackMenu())
+                .build();
+    }
+
+    private Menu buildAttackMenu() {
+        return MenuBuilder.aMenu()
+                .withLabel("attack")
+                .withItem(new MenuItem(CommandType.BACK))
+                .withItem(new MenuItem(CommandType.LOAD_MAP))
+                .withItem(new MenuItem(ModelBasedList.AVAILABLE_MAPS_LIST))
+                .build();
+    }
+
+    public Menu buildMapMenu() {
+        return MenuBuilder.aMenu()
+                .withLabel("map")
+                .withItem(new MenuItem(CommandType.MAP_INFO))
+                .withItem(new MenuItem(CommandType.ATTACK_MAP))
                 .build();
     }
 
