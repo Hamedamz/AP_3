@@ -27,6 +27,13 @@ public final class MenuBuilder {
     }
 
     public MenuBuilder withItem(MenuItem item) {
+        for (MenuItem menuItem : this.items) {
+            if (menuItem.getLabel().equals(item.getLabel())) {
+                this.items.remove(menuItem);
+                this.items.add(item);
+                return this;
+            }
+        }
         this.items.add(item);
         return this;
     }
