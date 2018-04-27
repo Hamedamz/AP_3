@@ -14,8 +14,10 @@ public class MenuController {
         menuViewer = new MenuViewer();
     }
 
-    public void initializeMenus() {
-        buildMainMenu();
+    public Menu initializeVillageMenus() {
+        Menu villageMenu = buildVillageMenu();
+        villageMenu.setParent(null);
+
 
     }
 
@@ -30,6 +32,7 @@ public class MenuController {
     public Menu buildVillageMenu() {
         return MenuBuilder.aMenu()
                 .withLabel("village menu")
+                .withItem(new MenuItem(CommandType.BACK))
                 .withItem(buildModelBasedListMenu("buildings", ModelBasedList.BUILDINGS_LIST))
                 .withItem(buildModelBasedListMenu("resources", ModelBasedList.RESOURCES_LIST))
                 .withItem(buildAttackMenu())
