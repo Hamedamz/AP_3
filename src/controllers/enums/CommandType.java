@@ -9,8 +9,14 @@ public enum CommandType {
     UPGRADE_BUILDING,
     AVAILABLE_BUILDINGS,
     STATUS,
-    OVERAL_INFO,
+    LOAD_MAP,
+    OVERALL_INFO,
     UPGRADE_INFO,
+    CAPACITY_INFO,
+    RESOURCES_INFO,
+    ATTACK_INFO,
+    MAP_INFO,
+    ATTACK_MAP,
     BACK,
     OPEN_MENU;
 
