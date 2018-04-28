@@ -18,15 +18,19 @@ public class JsonInterpreter {
             createFolder(SAVED_MAPS_FOLDER_NAME);
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
         String filePath = SAVED_MAPS_FOLDER_NAME + "\\" + villageName + ".json";
         try (Writer writer = new FileWriter(filePath)){
             gson.toJson(village, writer);
         }
         catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
+    }
+
+    public static void loadMap(String path) {
+        Village village = gson.fromJson("savedMaps\\out.json", Village.class);
     }
 
     private static void createFolder(String folderName) throws Exception{

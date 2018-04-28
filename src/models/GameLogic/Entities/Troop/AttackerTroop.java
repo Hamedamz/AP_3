@@ -1,10 +1,12 @@
-package models.GameLogic;
+package models.GameLogic.Entities.Troop;
 
 import interfaces.Destroyable;
 import interfaces.MovingAttacker;
+import models.GameLogic.BattleGround;
+import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.enums.TroopTargetType;
 
-abstract class AttackerTroop extends Troop implements MovingAttacker, Destroyable {
+public abstract class AttackerTroop extends Troop implements MovingAttacker, Destroyable {
     protected TroopTargetType targetType;
     protected int maxHitPoints;
     protected int hitPoints;
@@ -56,30 +58,3 @@ abstract class AttackerTroop extends Troop implements MovingAttacker, Destroyabl
     }
 }
 
-class Guardian extends AttackerTroop {
-
-    public Guardian() {
-    }
-}
-
-class Giant extends AttackerTroop {
-
-    public Giant() {
-
-    }
-}
-
-class Dragon extends AttackerTroop {
-
-    public Dragon() {
-
-    }
-}
-
-class Archer extends AttackerTroop {
-
-    public Archer() {
-
-    }
-
-}

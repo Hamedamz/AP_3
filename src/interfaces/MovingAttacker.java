@@ -1,6 +1,6 @@
 package interfaces;
 
-import models.GameLogic.Entity;
+import models.GameLogic.Entities.Entity;
 import models.GameLogic.Map;
 import models.GameLogic.Position;
 

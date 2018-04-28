@@ -1,5 +1,7 @@
 package models.GameLogic;
 
+import models.GameLogic.Entities.Buildings.Building;
+
 public class Builder {
     private int constructRemainingTime;
     private Building underConstructBuilding;

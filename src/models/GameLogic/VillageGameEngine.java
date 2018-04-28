@@ -1,6 +1,9 @@
 package models.GameLogic;
 
 import interfaces.Revivable;
+import models.GameLogic.Entities.Buildings.Barracks;
+import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.Mine;
 
 public class VillageGameEngine {
     private Village village;
@@ -27,13 +30,16 @@ public class VillageGameEngine {
             builder.build();
         }
 
+        Resource addedResource = new Resource(0, 0);
         for(Building building : village.findBuildingsWithSameType("ElixirMine")) {
-            village.addResources(((Mine) building).produce());
+            addedResource.addToThisResource(((Mine) building).produce());
         }
 
         for(Building building : village.findBuildingsWithSameType("GoldMine")) {
-            village.addResources(((Mine) building).produce());
+            addedResource.addToThisResource(((Mine) building).produce());
         }
+
+        village.addResources(addedResource);
 
     }
 

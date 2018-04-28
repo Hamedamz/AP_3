@@ -1,6 +1,6 @@
 package models.GameLogic;
 
-import org.omg.CORBA.TRANSACTION_MODE;
+import models.GameLogic.Entities.Buildings.Camp;
 
 public class TrainingTroop {
     private int timeRemaining;

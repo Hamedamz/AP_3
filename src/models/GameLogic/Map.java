@@ -1,5 +1,8 @@
 package models.GameLogic;
 
+import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Entity;
+
 import java.util.ArrayList;
 
 public class Map {

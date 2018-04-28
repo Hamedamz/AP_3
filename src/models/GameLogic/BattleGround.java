@@ -1,5 +1,9 @@
 package models.GameLogic;
 
+import models.GameLogic.Entities.Buildings.*;
+import models.GameLogic.Entities.Entity;
+import models.GameLogic.Entities.Troop.*;
+
 import java.util.ArrayList;
 import java.util.Set;
 
