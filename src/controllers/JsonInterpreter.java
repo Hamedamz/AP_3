@@ -32,6 +32,11 @@ public class JsonInterpreter {
         }
     }
 
+    public static Village loadMyVillage(String mapPath) {
+        String json = toStringJson(mapPath);
+        return gson.fromJson(json, Village.class); //TODO: troops camp is transient. delete if unnecessary or handle in controller if needed.
+    }
+
     public static ArrayList<Building> loadEnemyVillageBuildings(String mapPath) {
         String jsonString = toStringJson(mapPath);
         JsonVillage jsonVillage = gson.fromJson(jsonString, JsonVillage.class);
