@@ -39,5 +39,7 @@ public abstract class ResourceBuilding extends Building {
         super.destroy();
     }
 
-
+    public void setStock(Resource stock) {
+        this.stock = stock;
+    }
 }

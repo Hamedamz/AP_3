@@ -3,9 +3,9 @@ package models.GameLogic.Entities.Buildings;
 import models.GameLogic.Bounty;
 import models.GameLogic.Resource;
 
-public class AirDefence extends DefensiveBuilding {
+public class AirDefense extends DefensiveBuilding {
 
-    public AirDefence(int number) {
+    public AirDefense(int number) {
 
     }
 

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public abstract class Building extends Entity implements Revivable {
     //private int jsonNumber;
+    protected int score;
     protected int maxHitPoint;
     protected int hitPoints;
     protected int level;
@@ -96,6 +97,18 @@ public abstract class Building extends Entity implements Revivable {
     @Override
     public void performLosses() {
         //really?
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
 
