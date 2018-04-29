@@ -1,7 +1,7 @@
 package viewers;
 
 import controllers.enums.ModelBasedList;
-import models.GameLogic.Entity;
+import models.GameLogic.Entities.Entity;
 import models.Menu.Menu;
 import models.Menu.MenuItem;
 

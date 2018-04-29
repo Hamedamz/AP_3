@@ -1,9 +1,7 @@
 package models.GameLogic;
 
 import interfaces.Revivable;
-import models.GameLogic.Entities.Buildings.Barracks;
-import models.GameLogic.Entities.Buildings.Building;
-import models.GameLogic.Entities.Buildings.Mine;
+import models.GameLogic.Entities.Buildings.*;
 
 public class VillageGameEngine {
     private Village village;
@@ -31,20 +29,20 @@ public class VillageGameEngine {
         }
 
         Resource addedResource = new Resource(0, 0);
-        for(Building building : village.findBuildingsWithSameType("ElixirMine")) {
+        for(Building building : village.findBuildingsWithSameType(ElixirMine.class)) {
             addedResource.addToThisResource(((Mine) building).produce());
         }
 
-        for(Building building : village.findBuildingsWithSameType("GoldMine")) {
+        for(Building building : village.findBuildingsWithSameType(GoldMine.class)) {
             addedResource.addToThisResource(((Mine) building).produce());
         }
 
-        village.addResources(addedResource);
+        village.spreadResources(addedResource);
 
     }
 
     public void updateTrainingTroops() {
-        for(Building building : village.findBuildingsWithSameType("Barracks")) {
+        for(Building building : village.findBuildingsWithSameType(Barracks.class)) {
             for(TrainingTroop trainingTroop : ((Barracks) building).getTrainingTroops()) {
                 trainingTroop.update();
                 if (trainingTroop.hasEndedTraining()) {
