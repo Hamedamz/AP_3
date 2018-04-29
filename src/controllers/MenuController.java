@@ -83,8 +83,8 @@ public class MenuController {
     public Menu buildTownHallMenu() {
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("town hall")
-                .withItem(buildModelBasedListMenu("available buildings", ModelBasedList.CONSTRUCTABLE_LIST))
-                .withItem(buildModelBasedListMenu("status", ModelBasedList.UNDER_CONSTRUCTION_LIST))
+                .withItem(buildModelBasedListMenu("available buildings", ModelBasedList.AVAILABLE_BUILDINGS_LIST))
+                .withItem(buildModelBasedListMenu("status", ModelBasedList.CONSTRUCTION_STATUS_LIST))
                 .build();
     }
 
@@ -92,7 +92,7 @@ public class MenuController {
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("barracks")
                 .withItem(buildModelBasedListMenu("build soldiers", ModelBasedList.TROOPS_LIST))
-                .withItem(buildModelBasedListMenu("status", ModelBasedList.TRAINING_TROOPS_LIST))
+                .withItem(buildModelBasedListMenu("status", ModelBasedList.TRAINING_STATUS_LIST))
                 .build();
     }
 
