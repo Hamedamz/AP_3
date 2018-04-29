@@ -36,10 +36,19 @@ public class Resource {
         return newResource;
     }
 
+    public static Resource addResources(Resource resource1, Resource resource2, Resource totalCapacity) {
+        Resource totalResource = addResources(resource1, resource2);
+        totalResource.setGold(Math.min(totalCapacity.getGold(), totalResource.getGold()));
+        totalResource.setElixir(Math.min(totalCapacity.getElixir(), totalResource.getElixir()));
+        return totalCapacity;
+    }
+
     public static Resource subtractResources(Resource resource1, Resource resource2) {
         Resource newResource = new Resource(-resource2.getGold(), -resource2.getElixir());
         newResource.addToThisResource(resource1);
         return newResource;
     }
+
+
 }
 

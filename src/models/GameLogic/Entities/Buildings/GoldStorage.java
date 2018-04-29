@@ -18,7 +18,6 @@ public class GoldStorage extends Storage {
     public void upgrade() {
 
     }
-
     @Override
     public Bounty getBounty() {
         return null;

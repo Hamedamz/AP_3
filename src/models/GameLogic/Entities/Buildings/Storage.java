@@ -1,5 +1,81 @@
 package models.GameLogic.Entities.Buildings;
 
-public abstract class Storage extends ResourceBuilding{
+import models.GameLogic.Resource;
+
+import java.util.Comparator;
+
+public abstract class Storage extends ResourceBuilding {
+    protected Resource capacity;
+    protected Resource stock;
+
+    public Resource getCapacity() {
+        return capacity;
+    }
+
+    public void setStock(Resource stock) {
+        this.stock = stock;
+    }
+
+    public Resource getStock() {
+        return stock;
+    }
+
+    public void setGold(int gold) {
+        stock.setGold(Math.min(gold, capacity.getGold()));
+    }
+
+    public void setElixir(int elixir) {
+        stock.setGold(Math.min(elixir, capacity.getElixir()));
+    }
+
+    public boolean addResources(Resource resource) {
+
+    }
+
+    public boolean removeResources(Resource resource) {
+
+    }
+
+
+    public Resource drainStock() {
+        Resource res = stock;
+        stock = new Resource(0, 0);
+        return res;
+    }
+
+    public boolean isStorageFull() {
+        Resource resource = Resource.subtractResources(capacity, stock);
+        return !(resource.getElixir() == 0 && resource.getGold() == 0);
+    }
+
+    @Override
+    public void takeDamageFromAttack(int damage) {
+        super.takeDamageFromAttack(damage);
+    }
+
+    @Override
+    public void destroy() {
+        stock.setElixir(0);
+        stock.setGold(0);
+        super.destroy();
+    }
+
+    public static class GoldStorageComparator implements Comparator<Storage> {
+
+        @Override
+        public int compare(Storage o1, Storage o2) {
+            return o1.getCapacity().getGold() - o2.getCapacity().getGold();
+        }
+    }
+
+    public static class ElixirStorageComparator implements Comparator<Storage> {
+
+        @Override
+        public int compare(Storage o1, Storage o2) {
+            return o1.getCapacity().getElixir() - o2.getCapacity().getElixir();
+
+        }
+    }
 
 }
+

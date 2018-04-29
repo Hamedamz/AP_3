@@ -10,7 +10,7 @@ import java.util.*;
 public class Village {
     private TownHall townHall;
     private Map map;
-    private HashMap<String, ArrayList<Entity>> listOfBuildingsByName = new HashMap<>();
+    private HashMap< String, ArrayList<Building> > listOfBuildingsByName = new HashMap<>();
     // FIXME: 4/28/2018 when you build a building become sure you put that building in correct catagory at above class
 
     public Village() {
@@ -45,14 +45,8 @@ public class Village {
 
     public <T extends Building> ArrayList<T> findBuildingsWithSameType(Class<T> type) {
 
-        ArrayList<T> res = new ArrayList<>();
-        for (Building building : map.getBuildings()) {
-//            if(building.getClass().getName().equals(nameOfClass))
-                if (type.isInstance(building))
-                    res.add((T)building);
-        }
+        return new ArrayList<>((Collection<? extends T>) listOfBuildingsByName.get(type.getName()));
 
-        return res;
     }
 
     public ArrayList<Troop> getTroops() {
@@ -82,7 +76,7 @@ public class Village {
 
     public boolean haveWeSpaceForResources() {
 
-        for(Building building : findBuildingsWithSameType("Storage")) {
+        for(Building building : findBuildingsWithSameType(Sto)) {
             if (!((Storage) building).isStorageFull()) {
                 return true;
             }
@@ -90,13 +84,45 @@ public class Village {
         return false;
     }
 
-    public void addResources(Resource resource) {
+    public Resource getTotalResourceStock() {
 
     }
 
+    public Resource getTotalResourceCapacity() {
+
+    }
+
+    public void spreadResources() {
+        spreadResources(new Resource(0, 0));
+    }
+
+    public void spreadResources(Resource resource) {
+        Resource totalResource = Resource.addResources(getTotalResourceStock(), resource, getTotalResourceCapacity());
+        int gold = totalResource.getGold();
+        int elixir = totalResource.getElixir();
+        ArrayList<Storage> storages = findBuildingsWithSameType(Storage.class);
+        storages.sort(new Storage.GoldStorageComparator());
+        int storagesCount = storages.size();
+        for (int i = 0; i < storagesCount; i++) {
+            Storage storageNumberI = storages.get(i);
+            int addedGold = Math.min(storageNumberI.getCapacity().getGold(), gold / (storagesCount - i - 1));
+            gold -= addedGold;
+            storageNumberI.setGold(addedGold);
+        }
+        //CP
+        storages.sort(new Storage.ElixirStorageComparator());
+        for (int i = 0; i < storagesCount; i++) {
+            Storage storageNumberI = storages.get(i);
+            int addedElixir = Math.min(storageNumberI.getCapacity().getElixir(), elixir / (storagesCount - i - 1));
+            elixir -= addedElixir;
+            storageNumberI.setElixir(addedElixir);
+        }
+    }
+
     public void addBounty(Bounty bounty) {
-        addResources(bounty.getResource());
+        spreadResources(bounty.getResource());
         townHall.addScore(bounty.getScore());
     }
 
 }
+
