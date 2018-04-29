@@ -21,7 +21,7 @@ public class Builder {
     }
 
     public boolean isBuilderBusy() {
-        return underConstructBuilding == null;
+        return underConstructBuilding != null;
     }
 
     public boolean isBuildingFinished() {
