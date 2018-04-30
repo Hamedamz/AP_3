@@ -39,9 +39,7 @@ public abstract class ConstantClassProperties {
         if (!newLine.matches(IGNORE_REGEX)) {
             newLine = newLine.replaceAll("\\s+", " ");
             if(newLine.matches(PROPERTY_FORMAT)) {
-                if(newLine.charAt(0) == ' ') {
-                    newLine = newLine.substring(1);
-                }
+                newLine = newLine.trim();
                 String[] mapParts = newLine.split("\\s*:\\s*");
                 if(mapParts.length == 2) {
                     classProperties.put(mapParts[0], Double.parseDouble(mapParts[1]));
