@@ -45,7 +45,7 @@ public class MenuViewer extends BasicViewer {
             case AVAILABLE_BUILDINGS_LIST:
                 return printConstructableList(fromIndex);
             case RESOURCES_LIST:
-                return printResourcesList(fromIndex);
+                return printResourcesList();
             case TROOPS_LIST:
                 return printTroopsList(fromIndex);
         }
@@ -58,8 +58,7 @@ public class MenuViewer extends BasicViewer {
         return 0;
     }
 
-    private int printResourcesList(int fromIndex) {
-        // resources
+    private int printResourcesList() {
         Resource totalResourceStock = village.getTotalResourceStock();
         System.out.println("Gold: " + totalResourceStock.getGold());
         System.out.println("Elixir: " + totalResourceStock.getElixir());
