@@ -1,5 +1,8 @@
 package models.Setting;
 
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+import models.GameLogic.Exceptions.ValueNotFoundException;
+
 import javax.imageio.IIOException;
 import java.io.*;
 import java.text.NumberFormat;
@@ -10,7 +13,7 @@ import java.util.Scanner;
 public abstract class ConstantClassProperties {
     private static Map<String, Number> classProperties;
 
-    private static final String CONSTANTS_SAVE_LOCATION = "class properties.txt";
+    private static final String CONSTANTS_SAVE_LOCATION = "src\\class properties.txt";
     private static final String IGNORE_REGEX = "#.*";
     private static final String PROPERTY_FORMAT = "((\\D(_\\d+ )?)|\\s)+:\\s+\\d+(\\.\\d+)?";
 
@@ -48,7 +51,12 @@ public abstract class ConstantClassProperties {
         }
     }
 
-    public static Number getFromDictionary(String value) {
+    public static Number getFromDictionary(String value) throws ValueNotFoundException {
+        if (classProperties.get(value) == null) {
+            System.err.println("value not found");
+            throw new ValueNotFoundException;
+
+        }
         return classProperties.get(value);
     }
 }

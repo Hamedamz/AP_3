@@ -1,173 +1,173 @@
 #Buildings:
     #Gold mine properties:
-        goldMineBuildGold: 150
-        goldMineBuildElixir: 5
-        goldMineBuildTime: 300
-        goldMineHitPoints: 200
-        goldMineDestructionScore: 2
-        goldMineUpgradeGold: 100
-        goldMineUpgradeProductionRateAddition: 60
-        goldMineProductionRate: 10
+        GoldMineBuildGold: 150
+        GoldMineBuildElixir: 5
+        GoldMineBuildTime: 300
+        GoldMineHitPoints: 200
+        GoldMineDestructionScore: 2
+        GoldMineUpgradeGold: 100
+        GoldMineUpgradeProductionRateAddition: 60
+        GoldMineProductionRate: 10
 
     #Elixir mine properties:
-        elixirMineBuildGold: 150
-        elixirMineBuildElixir: 3
-        elixirMineBuildTime: 100
-        elixirMineHitPoints: 200
-        elixirMineDestructionScore: 2
-        elixirMineUpgradeGold: 100
-        elixirMineUpgradeProductionRateAddition: 60
-        elixirMineProductionRate: 5
+        ElixirMineBuildGold: 150
+        ElixirMineBuildElixir: 3
+        ElixirMineBuildTime: 100
+        ElixirMineHitPoints: 200
+        ElixirMineDestructionScore: 2
+        ElixirMineUpgradeGold: 100
+        ElixirMineUpgradeProductionRateAddition: 60
+        ElixirMineProductionRate: 5
 
     #Gold storage properties:
-        goldStorageBuildGold: 200
-        goldStorageBuildElixir: 0
-        goldStorageBuildTime: 200
-        goldStorageHitPoints: 300
-        goldStorageDestructionScore: 3
-        goldStorageUpgradeGold: 100
-        goldStorageUpgradeCapacityAddition: 60
-        goldStorageCapacity: 500
+        GoldStorageBuildGold: 200
+        GoldStorageBuildElixir: 0
+        GoldStorageBuildTime: 200
+        GoldStorageHitPoints: 300
+        GoldStorageDestructionScore: 3
+        GoldStorageUpgradeGold: 100
+        GoldStorageUpgradeCapacityAddition: 60
+        GoldStorageCapacity: 500
 
     #Elixir storage properties:
-        elixirStorageBuildGold: 200
-        elixirStorageBuildElixir: 0
-        elixirStorageBuildTime: 100
-        elixirStorageHitPoints: 300
-        elixirStorageDestructionScore: 3
-        elixirStorageUpgradeGold: 100
-        elixirStorageUpgradeCapacityAddition: 60
-        elixirStorageCapacity: 20
+        ElixirStorageBuildGold: 200
+        ElixirStorageBuildElixir: 0
+        ElixirStorageBuildTime: 100
+        ElixirStorageHitPoints: 300
+        ElixirStorageDestructionScore: 3
+        ElixirStorageUpgradeGold: 100
+        ElixirStorageUpgradeCapacityAddition: 60
+        ElixirStorageCapacity: 20
 
     #Town hall properties:
-        townHallBuildTime: 100
-        townHallHitPoints: 1000
-        townHallDestructionScore: 8
-        townHallDestructionGold: 1000
-        townHallDestructionElixir: 500
-        townHallUpgradeGold: 500
-        townHallUpgradeHitPointsAddition: 500
+        TownHallBuildTime: 100
+        TownHallHitPoints: 1000
+        TownHallDestructionScore: 8
+        TownHallDestructionGold: 1000
+        TownHallDestructionElixir: 500
+        TownHallUpgradeGold: 500
+        TownHallUpgradeHitPointsAddition: 500
 
     #Barracks properties:
-        barracksBuildGold: 200
-        barracksBuildTime: 100
-        barracksHitPoints: 300
-        barracksDestructionScore: 1
-        barracksUpgradeGold: 100
+        BarracksBuildGold: 200
+        BarracksBuildTime: 100
+        BarracksHitPoints: 300
+        BarracksDestructionScore: 1
+        BarracksUpgradeGold: 100
 
     #Camp properties:
-        campBuildGold: 200
-        campBuildTime: 100
-        campHitPoints: 900
-        campDestructionScore: 1
-        campCapacity: 50
+        CampBuildGold: 200
+        CampBuildTime: 100
+        CampHitPoints: 900
+        CampDestructionScore: 1
+        CampCapacity: 50
 
     #Archer tower properties:
-        archerTowerBuildGold: 300
-        archerTowerBuildTime: 60
-        archerTowerHitPoints: 300
-        archerTowerDamage: 20
-        archerTowerRange: 10
-        archerTowerDestructionScore: 3
-        archerTowerUpgradeGold: 100
-        archerTowerUpgradeDamageAddition: 1
-        archerTowerUpgradeHitPointsAddition: 10
+        ArcherTowerBuildGold: 300
+        ArcherTowerBuildTime: 60
+        ArcherTowerHitPoints: 300
+        ArcherTowerDamage: 20
+        ArcherTowerRange: 10
+        ArcherTowerDestructionScore: 3
+        ArcherTowerUpgradeGold: 100
+        ArcherTowerUpgradeDamageAddition: 1
+        ArcherTowerUpgradeHitPointsAddition: 10
 
     #Cannon properties:
-        cannonBuildGold: 400
-        cannonBuildTime: 100
-        cannonHitPoints: 400
-        cannonDamage: 20
-        cannonRange: 13
-        cannonDestructionScore: 4
-        cannonUpgradeGold: 100
-        cannonUpgradeDamageAddition: 1
-        cannonUpgradeHitPointsAddition: 10
+        CannonBuildGold: 400
+        CannonBuildTime: 100
+        CannonHitPoints: 400
+        CannonDamage: 20
+        CannonRange: 13
+        CannonDestructionScore: 4
+        CannonUpgradeGold: 100
+        CannonUpgradeDamageAddition: 1
+        CannonUpgradeHitPointsAddition: 10
 
     #Air defense properties:
-        airDefenseBuildGold: 300
-        airDefenseBuildTime: 60
-        airDefenseHitPoints: 300
-        airDefenseDamage: 20
-        airDefenseRange: 10
-        airDefenseDestructionScore: 3
-        airDefenseUpgradeGold: 100
-        airDefenseUpgradeDamageAddition: 1
-        airDefenseHitPointsAddition: 10
+        AirDefenseBuildGold: 300
+        AirDefenseBuildTime: 60
+        AirDefenseHitPoints: 300
+        AirDefenseDamage: 20
+        AirDefenseRange: 10
+        AirDefenseDestructionScore: 3
+        AirDefenseUpgradeGold: 100
+        AirDefenseUpgradeDamageAddition: 1
+        AirDefenseHitPointsAddition: 10
 
     #Wizard tower properties:
-        wizardTowerBuildGold: 500
-        wizardTowerBuildTime: 120
-        wizardTowerHitPoints: 700
-        wizardTowerDamage: 20
-        wizardTowerRange: 13
-        wizardTowerDestructionScore: 5
-        wizardTowerUpgradeGold: 100
-        wizardTowerUpgradeDamageAddition: 1
-        wizardTowerUpgradeHitPointsAddition: 10
+        WizardTowerBuildGold: 500
+        WizardTowerBuildTime: 120
+        WizardTowerHitPoints: 700
+        WizardTowerDamage: 20
+        WizardTowerRange: 13
+        WizardTowerDestructionScore: 5
+        WizardTowerUpgradeGold: 100
+        WizardTowerUpgradeDamageAddition: 1
+        WizardTowerUpgradeHitPointsAddition: 10
 
     #Wall properties:
-        #wallBuildGold: 100
-        #wallBuildTime: 20
-        #wallBuildHitPoints: 100
-        #wallDestructionScore: 1
-        #wallUpgradeGold: 100
-        #wallUpgradeHitPointsAddition: 10
+        #WallBuildGold: 100
+        #WallBuildTime: 20
+        #WallBuildHitPoints: 100
+        #WallDestructionScore: 1
+        #WallUpgradeGold: 100
+        #WallUpgradeHitPointsAddition: 10
 
     #Trap properties:
-        #trapBuildGold: 100
-        #trapBuildTime: 40
-        #trapHitPoints: 100
-        #trapDamage: 100
-        #trapRange = 1
-        #trapDestructionScore: 1
-        #trapUpgradeGold: 100
-        #trapUpgradeDamageAddition: 1
-        #trapUpgradeHitPointsAddition: 10
+        #TrapBuildGold: 100
+        #TrapBuildTime: 40
+        #TrapHitPoints: 100
+        #TrapDamage: 100
+        #TrapRange = 1
+        #TrapDestructionScore: 1
+        #TrapUpgradeGold: 100
+        #TrapUpgradeDamageAddition: 1
+        #TrapUpgradeHitPointsAddition: 10
 
     #Guardian giant properties:
 
 #Troops:
 
     #Guardian properties:
-        guardianBuildElixir: 50
-        guardianBuildTime: 10
-        guardianHitPoints: 100
-        guardianRange: 1
-        guardianDamage: 10
-        guardianSpeed: 2
-        guardianUpgradeDamageAddition: 1
-        guardianUpgradeHitPointsAddition: 5
+        GuardianBuildElixir: 50
+        GuardianBuildTime: 10
+        GuardianHitPoints: 100
+        GuardianRange: 1
+        GuardianDamage: 10
+        GuardianSpeed: 2
+        GuardianUpgradeDamageAddition: 1
+        GuardianUpgradeHitPointsAddition: 5
 
     #Giant properties:
-        giantBuildElixir: 150
-        giantBuildTime: 30
-        giantHitPoints: 500
-        giantRange: 1
-        giantDamage: 30
-        giantSpeed: 1
-        giantUpgradeDamageAddition: 1
-        giantUpgradeHitPointsAddition: 5
+        GiantBuildElixir: 150
+        GiantBuildTime: 30
+        GiantHitPoints: 500
+        GiantRange: 1
+        GiantDamage: 30
+        GiantSpeed: 1
+        GiantUpgradeDamageAddition: 1
+        GiantUpgradeHitPointsAddition: 5
 
     #Dragon properties:
-        dragonBuildElixir: 200
-        dragonBuildTime: 45
-        dragonHitPoints: 700
-        dragonRange: 3
-        dragonDamage: 30
-        dragonSpeed: 6
-        dragonUpgradeDamageAddition: 1
-        dragonUpgradeHitPointsAddition: 5
+        DragonBuildElixir: 200
+        DragonBuildTime: 45
+        DragonHitPoints: 700
+        DragonRange: 3
+        DragonDamage: 30
+        DragonSpeed: 6
+        DragonUpgradeDamageAddition: 1
+        DragonUpgradeHitPointsAddition: 5
 
     #Archer properties:
-        archerBuildElixir: 75
-        archerBuildTime: 10
-        archerHitPoints: 100
-        archerRange: 10
-        archerDamage: 10
-        archerSpeed: 2
-        archerUpgradeDamageAddition: 1
-        archerUpgradeHitPointsAddition: 5
+        ArcherBuildElixir: 75
+        ArcherBuildTime: 10
+        ArcherHitPoints: 100
+        ArcherRange: 10
+        ArcherDamage: 10
+        ArcherSpeed: 2
+        ArcherUpgradeDamageAddition: 1
+        ArcherUpgradeHitPointsAddition: 5
 
     #Wall breaker properties:
 
