@@ -11,6 +11,7 @@ import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.Bounty;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public abstract class Building extends Entity implements Revivable {
     //private int jsonNumber;
@@ -109,6 +110,14 @@ public abstract class Building extends Entity implements Revivable {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public static class BuildingComparator implements Comparator<Storage> {
+
+        @Override
+        public int compare(Storage o1, Storage o2) {
+            return o1.getClass().getSimpleName().compareTo(o2.getClass().getSimpleName());
+        }
     }
 }
 
