@@ -1,11 +1,13 @@
 package viewers;
 
-import controllers.enums.ModelBasedList;
+import controllers.enums.DynamicListType;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Resource;
 import models.GameLogic.Village;
 import models.Menu.Menu;
 import models.Menu.MenuItem;
+
+import java.util.ArrayList;
 
 public class MenuViewer extends BasicViewer {
 
@@ -18,44 +20,18 @@ public class MenuViewer extends BasicViewer {
         this.village = village;
     }
 
-    public void printMenu(Menu menu, Entity relatedModel) {
+    public void printMenu(Menu menu, Entity... relatedModel) {
         System.out.printf(MENU_TITLE_FORMAT, menu.getLabel());
+        printMenuItemsList(menu.getItems(), menu.getDynamicItems());
+    }
+
+    private void printMenuItemsList(ArrayList<MenuItem>... lists) {
         int index = 1;
-        for (MenuItem menuItem : menu.getItems()) {
-            if (menuItem.isCommand()) {
+        for (ArrayList<MenuItem> list : lists) {
+            for (MenuItem menuItem : list) {
                 System.out.printf(MENU_ITEM_FORMAT, index++, menuItem.getLabel());
-            } else {
-                index = printList(index, menuItem.getModelList(), relatedModel);
             }
         }
-    }
-
-    private int printList(int fromIndex, ModelBasedList modelList, Entity relatedModel) {
-        switch (modelList) {
-            case BUILDINGS_LIST:
-                return printBuildingsList(fromIndex);
-            case CONSTRUCTION_STATUS_LIST:
-                return printConstructionStatusList(fromIndex);
-            case AVAILABLE_TROOPS_LIST:
-                return printAvailableTroopsList(fromIndex);
-            case TRAINING_STATUS_LIST:
-                return printTrainingStatusList(fromIndex);
-            case AVAILABLE_MAPS_LIST:
-                return printAvailableMapsList(fromIndex);
-            case AVAILABLE_BUILDINGS_LIST:
-                return printConstructableList(fromIndex);
-            case RESOURCES_LIST:
-                return printResourcesList();
-            case TROOPS_LIST:
-                return printTroopsList(fromIndex);
-        }
-        return fromIndex;
-    }
-
-    private int printTroopsList(int fromIndex) {
-        // all troops with labels A and U that show availability
-        // if troop can be built the possible number is also shown
-        return 0;
     }
 
     private int printResourcesList() {
@@ -66,33 +42,7 @@ public class MenuViewer extends BasicViewer {
         return 0;
     }
 
-    private int printConstructableList(int fromIndex) {
-        // buildings than can be built based on resources and aren't built yet
-        return 0;
-    }
+    public void getMenuInput() {
 
-    private int printAvailableMapsList(int fromIndex) {
-        // enemy maps that can be attacked
-        return 0;
-    }
-
-    private int printTrainingStatusList(int fromIndex) {
-        // troop that are being trained with turns left ro be trained
-        return 0;
-    }
-
-    private int printAvailableTroopsList(int fromIndex) {
-        // troops and number of each
-        return 0;
-    }
-
-    private int printConstructionStatusList(int fromIndex) {
-        // under construction buildings with turns left to be built
-        return 0;
-    }
-
-    private int printBuildingsList(int fromIndex) {
-        // all game buildings
-        return fromIndex;
     }
 }
