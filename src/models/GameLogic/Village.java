@@ -18,6 +18,7 @@ public class Village {
     // FIXME: 4/28/2018 when you build a building become sure you put that building in correct catagory at above class
 
     public Village() {
+
     }
 
     public TownHall getTownHall() {
@@ -80,9 +81,9 @@ public class Village {
 
     }
 
-    public boolean haveWeSpaceForResources() {
+    public boolean isThereAvailableSpaceForResources() {
 
-        for(Building building : findBuildingsWithSameType(Sto)) {
+        for(Building building : findBuildingsWithSameType(Storage.class)) {
             if (!((Storage) building).isStorageFull()) {
                 return true;
             }
@@ -91,11 +92,19 @@ public class Village {
     }
 
     public Resource getTotalResourceStock() {
-
+        Resource result = new Resource(0, 0);
+        for (Storage storage : findBuildingsWithSameType(Storage.class)) {
+            result.addToThisResource(storage.getStock());
+        }
+        return result;
     }
 
     public Resource getTotalResourceCapacity() {
-
+        Resource result = new Resource(0, 0);
+        for (Storage storage : findBuildingsWithSameType(Storage.class)) {
+            result.addToThisResource(storage.getCapacity());
+        }
+        return result;
     }
 
     public void spreadResources() {
