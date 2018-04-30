@@ -3,7 +3,6 @@ package controllers.enums;
 public enum DynamicListType {
     EMPTY,
     BUILDINGS_LIST,
-    RESOURCES_LIST,
     CONSTRUCTION_STATUS_LIST,
     AVAILABLE_BUILDINGS_LIST,
     TROOPS_LIST,
