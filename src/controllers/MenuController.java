@@ -1,7 +1,8 @@
 package controllers;
 
 import controllers.enums.CommandType;
-import controllers.enums.ModelBasedList;
+import controllers.enums.DynamicListType;
+import models.GameLogic.Village;
 import models.Menu.Menu;
 import models.Menu.MenuBuilder;
 import models.Menu.MenuItem;
@@ -10,8 +11,8 @@ import viewers.MenuViewer;
 public class MenuController {
     private MenuViewer menuViewer;
 
-    public MenuController() {
-        menuViewer = new MenuViewer();
+    public MenuController(Village village) {
+        menuViewer = new MenuViewer(village);
     }
 
     public Menu initializeVillageMenus() {
@@ -19,6 +20,10 @@ public class MenuController {
         villageMenu.setParent(null);
 
 
+    }
+
+    public CommandType OpenMenu(Menu menu) {
+        menuViewer.printMenu(menu);
     }
 
     public Menu buildMainMenu() {
@@ -33,8 +38,8 @@ public class MenuController {
         return MenuBuilder.aMenu()
                 .withLabel("village menu")
                 .withItem(new MenuItem(CommandType.BACK))
-                .withItem(buildModelBasedListMenu("buildings", ModelBasedList.BUILDINGS_LIST))
-                .withItem(buildModelBasedListMenu("resources", ModelBasedList.RESOURCES_LIST))
+                .withItem(buildDynamicMenu("buildings", DynamicListType.BUILDINGS_LIST))
+                .withItem(buildDynamicMenu("resources", DynamicListType.RESOURCES_LIST))
                 .withItem(buildAttackMenu())
                 .build();
     }
@@ -44,7 +49,7 @@ public class MenuController {
                 .withLabel("attack")
                 .withItem(new MenuItem(CommandType.BACK))
                 .withItem(new MenuItem(CommandType.LOAD_MAP))
-                .withItem(new MenuItem(ModelBasedList.AVAILABLE_MAPS_LIST))
+                .withDynamicList(DynamicListType.AVAILABLE_MAPS_LIST)
                 .build();
     }
 
@@ -56,11 +61,11 @@ public class MenuController {
                 .build();
     }
 
-    private MenuItem buildModelBasedListMenu(String label, ModelBasedList list) {
+    private MenuItem buildDynamicMenu(String label, DynamicListType dynamicListType) {
         return MenuBuilder.aMenu()
                 .withLabel(label)
                 .withItem(new MenuItem(CommandType.BACK))
-                .withItem(new MenuItem(list))
+                .withDynamicList(dynamicListType)
                 .build();
     }
 
@@ -83,16 +88,16 @@ public class MenuController {
     public Menu buildTownHallMenu() {
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("town hall")
-                .withItem(buildModelBasedListMenu("available buildings", ModelBasedList.AVAILABLE_BUILDINGS_LIST))
-                .withItem(buildModelBasedListMenu("status", ModelBasedList.CONSTRUCTION_STATUS_LIST))
+                .withItem(buildDynamicMenu("available buildings", DynamicListType.AVAILABLE_BUILDINGS_LIST))
+                .withItem(buildDynamicMenu("status", DynamicListType.CONSTRUCTION_STATUS_LIST))
                 .build();
     }
 
     public Menu buildBarracksMenu() {
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("barracks")
-                .withItem(buildModelBasedListMenu("build soldiers", ModelBasedList.TROOPS_LIST))
-                .withItem(buildModelBasedListMenu("status", ModelBasedList.TRAINING_STATUS_LIST))
+                .withItem(buildDynamicMenu("build soldiers", DynamicListType.TROOPS_LIST))
+                .withItem(buildDynamicMenu("status", DynamicListType.TRAINING_STATUS_LIST))
                 .build();
     }
 
@@ -104,14 +109,14 @@ public class MenuController {
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("camp")
                 .withItem(infoMenu)
-                .withItem(buildModelBasedListMenu("soldiers", ModelBasedList.AVAILABLE_TROOPS_LIST))
+                .withItem(buildDynamicMenu("soldiers", DynamicListType.AVAILABLE_TROOPS_LIST))
                 .build();
     }
 
     public Menu buildMinesMenu() {
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("mines")
-                .withItem(buildModelBasedListMenu("mine", ModelBasedList.MINE))
+                .withItem(buildDynamicMenu("mine", DynamicListType.MINE))
                 .build();
     }
 
@@ -134,7 +139,7 @@ public class MenuController {
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("camp")
                 .withItem(infoMenu)
-                .withItem(buildModelBasedListMenu("target", ModelBasedList.TARGET))
+                .withItem(buildDynamicMenu("target", DynamicListType.TARGET))
                 .build();
     }
 }

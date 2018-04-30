@@ -1,9 +1,12 @@
 package models.Menu;
 
+import controllers.enums.DynamicListType;
+
 import java.util.ArrayList;
 
 public final class MenuBuilder {
     String label;
+    private DynamicListType dynamicListType;
     private ArrayList<MenuItem> items;
 
     private MenuBuilder() {
@@ -38,10 +41,16 @@ public final class MenuBuilder {
         return this;
     }
 
+    public MenuBuilder withDynamicList(DynamicListType dynamicListType) {
+        this.dynamicListType = dynamicListType;
+        return this;
+    }
+
     public Menu build() {
         Menu menu = new Menu();
         menu.setLabel(label);
         menu.setItems(items);
+        menu.setDaynamicListType(dynamicListType);
         return menu;
     }
 }

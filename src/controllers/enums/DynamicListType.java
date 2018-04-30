@@ -1,6 +1,7 @@
 package controllers.enums;
 
-public enum ModelBasedList {
+public enum DynamicListType {
+    EMPTY,
     BUILDINGS_LIST,
     RESOURCES_LIST,
     CONSTRUCTION_STATUS_LIST,
