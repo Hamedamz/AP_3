@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public abstract class ConstantClassProperties {
+public final class GameLogicConfig {
     private static Map<String, Number> classProperties;
 
     private static final String CONSTANTS_SAVE_LOCATION = "src\\class properties.txt";
@@ -54,7 +54,7 @@ public abstract class ConstantClassProperties {
     public static Number getFromDictionary(String value) throws ValueNotFoundException {
         if (classProperties.get(value) == null) {
             System.err.println("value not found");
-            throw new ValueNotFoundException;
+            throw new ValueNotFoundException();
 
         }
         return classProperties.get(value);

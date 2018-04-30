@@ -10,6 +10,10 @@ import java.util.*;
 public class Village {
     private TownHall townHall;
     private Map map;
+    /**
+     * listOfBuildingsByName must contain following Classes other than Basic Classes
+     * Storage, DefenciveBuildings
+     */
     private HashMap< String, ArrayList<Building> > listOfBuildingsByName = new HashMap<>();
     // FIXME: 4/28/2018 when you build a building become sure you put that building in correct catagory at above class
 
@@ -44,9 +48,11 @@ public class Village {
     }
 
     public <T extends Building> ArrayList<T> findBuildingsWithSameType(Class<T> type) {
-
-        return new ArrayList<>((Collection<? extends T>) listOfBuildingsByName.get(type.getName()));
-
+        ArrayList<T> res = new ArrayList<>();
+        for (Building building : listOfBuildingsByName.get(type.getName())) {
+            res.add((T) building);
+        }
+        return res;
     }
 
     public ArrayList<Troop> getTroops() {
