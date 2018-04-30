@@ -12,7 +12,7 @@ public class TownHall extends ResourceBuilding {
     private int score;
 
     public TownHall() {
-
+        //TODO complete this
     }
 
     public ArrayList<Builder> getBuilders() {

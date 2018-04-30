@@ -51,11 +51,9 @@ public final class GameLogicConfig {
         }
     }
 
-    public static Number getFromDictionary(String value) throws ValueNotFoundException {
+    public static Number getFromDictionary(String value){
         if (classProperties.get(value) == null) {
             System.err.println("value not found");
-            throw new ValueNotFoundException();
-
         }
         return classProperties.get(value);
     }

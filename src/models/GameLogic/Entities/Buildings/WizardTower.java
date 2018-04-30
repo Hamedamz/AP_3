@@ -1,12 +1,17 @@
 package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
+import models.GameLogic.Position;
 import models.GameLogic.Resource;
+import models.GameLogic.enums.BuildingDamageType;
+import models.GameLogic.enums.BuildingTargetType;
 
 public class WizardTower extends DefensiveBuilding {
 
-    public WizardTower(int number) {
-
+    public WizardTower(Position position, int number) {
+        super(position, number);
+        this.targetType = BuildingTargetType.GROUND_AND_AIR;
+        this.damageType = BuildingDamageType.AREA_SPLASH;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
+import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.TrainingTroop;
 
@@ -8,11 +9,15 @@ import java.util.ArrayList;
 
 public class Barracks extends Building {
 
-    private ArrayList<TrainingTroop> trainigTroops;
-    private int size;
+    private ArrayList<TrainingTroop> trainingTroops;
 
-    public Barracks(int number) {
+    public Barracks(Position position, int number) {
+        super(position, number);
+    }
 
+    public Barracks(ArrayList<TrainingTroop> trainingTroops, Position position, int number) {
+        super(position, number);
+        this.trainingTroops.addAll(trainingTroops);
     }
 
     public boolean hasSpace() {
@@ -28,7 +33,7 @@ public class Barracks extends Building {
     }
 
     public ArrayList<TrainingTroop> getTrainingTroops() {
-        return trainigTroops;
+        return trainingTroops;
     }
 
     @Override

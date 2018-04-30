@@ -4,8 +4,10 @@ import interfaces.Attacker;
 import interfaces.Destroyable;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Entity;
+import models.GameLogic.Position;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
+import models.Setting.GameLogicConfig;
 
 public abstract class DefensiveBuilding extends Building implements Attacker {
     protected int damage;
@@ -13,6 +15,13 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     protected BuildingDamageType damageType;
     protected BuildingTargetType targetType;
     protected Destroyable target;
+
+    public DefensiveBuilding(Position position, int number) {
+        super(position, number);
+        String className = this.getClass().getName();
+        this.damage = (Integer) GameLogicConfig.getFromDictionary(className + "Damage");
+        this.range = (Integer) GameLogicConfig.getFromDictionary(className + "Range");
+    }
 
     public int getDamage() {
         return damage;

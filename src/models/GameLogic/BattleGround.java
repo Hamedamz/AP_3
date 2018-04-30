@@ -14,9 +14,14 @@ public class BattleGround {
     private Bounty availableBounty; //fixme set this at constructor
     private int[][] numberOfTroopsDeployed;
 
-    public BattleGround(Village myVillage, ArrayList<Building> enemyBuildings) {
+    public BattleGround(Village myVillage, ArrayList<Building> enemyBuildings, Set<Troop> troops) {
         this.myVillage = myVillage;
         this.enemyBuildings = enemyBuildings;
+        this.troops = troops;
+        for (int i = 0; i < enemyBuildings.size(); i++) {
+            if (enemyBuildings.get(i).getClass().getName().equals("GoldStorage") || )
+        }
+
     }
 
     private void attackDefensiveBuilding(Troop troop, Building building) {

@@ -1,13 +1,13 @@
 package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
+import models.GameLogic.Position;
 import models.GameLogic.Resource;
 
 public class ElixirMine extends Mine {
 
-    private int productionRate;
-
-    public ElixirMine(int number) {
+    public ElixirMine(Position position, int number) {
+        super(position, number);
     }
 
     @Override

@@ -4,7 +4,9 @@ import interfaces.Destroyable;
 import interfaces.MovingAttacker;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Position;
 import models.GameLogic.enums.TroopTargetType;
+import models.Setting.GameLogicConfig;
 
 public abstract class AttackerTroop extends Troop implements MovingAttacker, Destroyable {
     protected TroopTargetType targetType;
@@ -13,6 +15,14 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     protected int range;
     protected int damage;
     protected Building currentTarget;
+
+    public AttackerTroop(Position position, int campNumber) {
+        super(position, campNumber);
+        String className = this.getClass().getName();
+        this.range = (Integer) GameLogicConfig.getFromDictionary(className + "Range");
+        this.hitPoints = (Integer) GameLogicConfig.getFromDictionary(className + "HitPoints");
+        this.maxHitPoints = this.hitPoints;
+    }
 
     @Override
     public Destroyable getTarget() {
