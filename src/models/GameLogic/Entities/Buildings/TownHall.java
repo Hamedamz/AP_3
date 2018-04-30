@@ -19,6 +19,10 @@ public class TownHall extends ResourceBuilding {
         return builders;
     }
 
+    public int getScore() {
+        return score;
+    }
+
     @Override
     public Resource getUpgradeResource() {
         return null;
