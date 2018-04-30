@@ -112,10 +112,10 @@ public abstract class Building extends Entity implements Revivable {
         this.score = score;
     }
 
-    public static class BuildingComparator implements Comparator<Storage> {
+    public static class BuildingComparator implements Comparator<Building> {
 
         @Override
-        public int compare(Storage o1, Storage o2) {
+        public int compare(Building o1, Building o2) {
             return o1.getClass().getSimpleName().compareTo(o2.getClass().getSimpleName());
         }
     }
