@@ -23,6 +23,6 @@ public class GameEngine {
     }
 
     public void loadBattleGround(BattleGround battleGround) {
-        battleGroundGameEngine.loadBattlaGround(world.getBattleGround());
+        battleGroundGameEngine.loadBattleGround(world.getBattleGround());
     }
 }

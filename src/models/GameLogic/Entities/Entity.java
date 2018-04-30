@@ -5,7 +5,8 @@ import models.GameLogic.Position;
 public class Entity {
     protected Position position;
 
-    public Entity() {
+    public Entity(Position position) {
+        this.position = position;
     }
 
     public Entity(int x, int y) {

@@ -97,54 +97,48 @@ public class JsonInterpreter {
     }
 
     private static void addNewWizardTower(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        WizardTower wizardTower = new WizardTower(findNumberForBuildings());
+        WizardTower wizardTower = new WizardTower(extractPosition(jsonBuilding), findNumberForBuildings());
         wizardTower.setLevel(jsonBuilding.level);
-        wizardTower.setPosition(extractPosition(jsonBuilding));
         int hitPoints = 0;//TODO: load hitPoints from dictionary
         wizardTower.setHitPoints(hitPoints);
         buildings.add(wizardTower);
     }
 
     private static void addNewAirDefense(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        AirDefense airDefense = new AirDefense(findNumberForBuildings());
+        AirDefense airDefense = new AirDefense(extractPosition(jsonBuilding), findNumberForBuildings());
         airDefense.setLevel(jsonBuilding.level);
-        airDefense.setPosition(extractPosition(jsonBuilding));
         int hitPoints = 0;//TODO: load hitPoints from dictionary
         airDefense.setHitPoints(hitPoints);
         buildings.add(airDefense);
     }
 
     private static void addNewCannon(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        Cannon cannon = new Cannon(findNumberForBuildings());
+        Cannon cannon = new Cannon(extractPosition(jsonBuilding), findNumberForBuildings());
         cannon.setLevel(jsonBuilding.level);
-        cannon.setPosition(extractPosition(jsonBuilding));
         int hitPoints = 0;//TODO: load hitPoints from dictionary
         cannon.setHitPoints(hitPoints);
         buildings.add(cannon);
     }
 
     private static void addNewArcherTower(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        ArcherTower archerTower = new ArcherTower(findNumberForBuildings());
+        ArcherTower archerTower = new ArcherTower(extractPosition(jsonBuilding), findNumberForBuildings());
         archerTower.setLevel(jsonBuilding.level);
-        archerTower.setPosition(extractPosition(jsonBuilding));
         int hitPoints = 0;//TODO: load hitPoints from dictionary
         archerTower.setHitPoints(hitPoints);
         buildings.add(archerTower);
     }
 
     private static void addNewCamp(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        Camp camp = new Camp(findNumberForBuildings());
+        Camp camp = new Camp(extractPosition(jsonBuilding), findNumberForBuildings());
         camp.setLevel(jsonBuilding.level);
-        camp.setPosition(extractPosition(jsonBuilding));
         int hitPoints = 0;//TODO: load hitPoints from dictionary
         camp.setHitPoints(hitPoints);
         buildings.add(camp);
     }
 
     private static void addNewBarracks(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        Barracks barracks = new Barracks(findNumberForBuildings());
+        Barracks barracks = new Barracks(extractPosition(jsonBuilding), findNumberForBuildings());
         barracks.setLevel(jsonBuilding.level);
-        barracks.setPosition(extractPosition(jsonBuilding));
         int hitPoints = 0;//TODO: load hitPoints from dictionary
         barracks.setHitPoints(hitPoints);
         buildings.add(barracks);
@@ -153,16 +147,14 @@ public class JsonInterpreter {
     private static void addNewTownHall(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
         TownHall townHall = new TownHall();
         townHall.setLevel(jsonBuilding.level);
-        townHall.setPosition(extractPosition(jsonBuilding));
         int hitPoints = 0;//TODO: load hitPoints from dictionary
         townHall.setHitPoints(hitPoints);
         buildings.add(townHall);
     }
 
     private static void addNewElixirStorage(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        ElixirStorage elixirStorage = new ElixirStorage(findNumberForBuildings());
+        ElixirStorage elixirStorage = new ElixirStorage(extractPosition(jsonBuilding), findNumberForBuildings());
         elixirStorage.setLevel(jsonBuilding.level);
-        elixirStorage.setPosition(extractPosition(jsonBuilding));
         Resource resource = new Resource(jsonBuilding.amount, 0);
         elixirStorage.setStock(resource);
         int hitPoints = 0;//TODO: load hitPoints from dictionary
@@ -171,9 +163,8 @@ public class JsonInterpreter {
     }
 
     private static void addNewGoldStorage(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        GoldStorage goldStorage = new GoldStorage(findNumberForBuildings());
+        GoldStorage goldStorage = new GoldStorage(extractPosition(jsonBuilding), findNumberForBuildings());
         goldStorage.setLevel(jsonBuilding.level);
-        goldStorage.setPosition(extractPosition(jsonBuilding));
         Resource resource = new Resource(jsonBuilding.amount, 0);
         goldStorage.setStock(resource);
         int hitPoints = 0;//TODO: load hitPoints from dictionary
@@ -182,18 +173,16 @@ public class JsonInterpreter {
     }
 
     private static void addNewElixirMine(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        ElixirMine elixirMine = new ElixirMine(findNumberForBuildings());
+        ElixirMine elixirMine = new ElixirMine(extractPosition(jsonBuilding), findNumberForBuildings());
         elixirMine.setLevel(jsonBuilding.level);
-        elixirMine.setPosition(extractPosition(jsonBuilding));
         int hitPoints = 0;//TODO: load hitPoints from dictionary
         elixirMine.setHitPoints(hitPoints);
         buildings.add(elixirMine);
     }
 
     private static void addNewGoldMine(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        GoldMine goldMine = new GoldMine(findNumberForBuildings());
+        GoldMine goldMine = new GoldMine(extractPosition(jsonBuilding), findNumberForBuildings());
         goldMine.setLevel(jsonBuilding.level);
-        goldMine.setPosition(extractPosition(jsonBuilding));
         int hitPoints = 0;//TODO: load hitPoints from dictionary
         goldMine.setHitPoints(hitPoints);
         buildings.add(goldMine);

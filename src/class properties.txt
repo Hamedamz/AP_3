@@ -27,7 +27,9 @@
         GoldStorageDestructionScore: 3
         GoldStorageUpgradeGold: 100
         GoldStorageUpgradeCapacityAddition: 60
-        GoldStorageCapacity: 500
+        GoldStorageGoldCapacity: 500
+        GoldStorageElixirCapacity: 0
+
 
     #Elixir storage properties:
         ElixirStorageBuildGold: 200
@@ -37,7 +39,9 @@
         ElixirStorageDestructionScore: 3
         ElixirStorageUpgradeGold: 100
         ElixirStorageUpgradeCapacityAddition: 60
-        ElixirStorageCapacity: 20
+        ElixirStorageElixirCapacity: 20
+        ElixirStorageGoldCapacity: 0
+
 
     #Town hall properties:
         TownHallBuildTime: 100

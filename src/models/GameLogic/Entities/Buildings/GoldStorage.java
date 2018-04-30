@@ -1,12 +1,13 @@
 package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
+import models.GameLogic.Position;
 import models.GameLogic.Resource;
 
 public class GoldStorage extends Storage {
 
-    public GoldStorage(int number) {
-
+    public GoldStorage(Position position, int number) {
+        super(position, number);
     }
 
     @Override

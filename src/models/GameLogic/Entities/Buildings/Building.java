@@ -9,6 +9,7 @@ import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.Bounty;
+import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,11 +21,20 @@ public abstract class Building extends Entity implements Revivable {
     protected int hitPoints;
     protected int level;
     protected int number;
-    protected boolean isDestroyed = false; //fixme put this false in constructor
-    protected boolean isUnderConstruct = true; //in constructor
+    protected boolean isDestroyed;
+    protected boolean isUnderConstruct;
 
-    Building() {
-        //level = 1;
+    public Building(Position position, int number) {
+        super(position);
+        this.number = number;
+        String className = this.getClass().getName();
+        this.level = 0;
+        this.score = (Integer) GameLogicConfig.getFromDictionary(className + "DestructionScore");
+        this.hitPoints = (Integer) GameLogicConfig.getFromDictionary(className + "HitPoints");
+        this.maxHitPoint = this.hitPoints;
+        this.isDestroyed = false;
+        this.isUnderConstruct = false;
+        this.number = 0;  //FIXME IDGenerator
     }
 
     public boolean isUnderConstruct() {
