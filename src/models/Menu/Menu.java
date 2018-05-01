@@ -10,11 +10,11 @@ public class Menu extends MenuItem {
     private Menu parent;
     private ArrayList<MenuItem> items;
     private ArrayList<MenuItem> dynamicItems;
-    private DynamicListType daynamicListType;
+    private DynamicListType dynamicListType;
 
     public Menu() {
         super(CommandType.OPEN_MENU);
-        this.daynamicListType = DynamicListType.EMPTY;
+        this.dynamicListType = DynamicListType.EMPTY;
     }
 
     @Override
@@ -50,11 +50,11 @@ public class Menu extends MenuItem {
         this.dynamicItems = dynamicItems;
     }
 
-    public DynamicListType getDaynamicListType() {
-        return daynamicListType;
+    public DynamicListType getDynamicListType() {
+        return dynamicListType;
     }
 
-    public void setDaynamicListType(DynamicListType daynamicListType) {
-        this.daynamicListType = daynamicListType;
+    public void setDynamicListType(DynamicListType dynamicListType) {
+        this.dynamicListType = dynamicListType;
     }
 }

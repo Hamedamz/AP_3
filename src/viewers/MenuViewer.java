@@ -1,5 +1,6 @@
 package viewers;
 
+import controllers.Exceptions.InvalidInputException;
 import controllers.enums.DynamicListType;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Resource;
@@ -42,7 +43,11 @@ public class MenuViewer extends BasicViewer {
         return 0;
     }
 
-    public void getMenuInput() {
-
+    public int getMenuItemIndex() throws InvalidInputException {
+        String itemNumber = getInput();
+        if (!itemNumber.matches("\\d+")) {
+            throw new InvalidInputException("Input is not valid, please enter a number");
+        }
+        return Integer.parseInt(itemNumber) - 1;
     }
 }

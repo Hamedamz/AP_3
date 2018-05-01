@@ -46,7 +46,7 @@ public class Controller {
 //                showResources();
 //            }
 //            else if (input.equals(InputFormats.SHOW_MENU_FORMAT)) {
-//                viewer.printMessage(OutputFormats.VILLAGE_PRESENCE_FORMAT);
+//                viewer.printInformation(OutputFormats.VILLAGE_PRESENCE_FORMAT);
 //            }
 //            else if (input.equals(InputFormats.WHERE_AM_I_FORMAT)) {
 //                whereAmI();

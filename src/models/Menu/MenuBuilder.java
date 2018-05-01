@@ -55,7 +55,7 @@ public final class MenuBuilder {
         Menu menu = new Menu();
         menu.setLabel(label);
         menu.setItems(items);
-        menu.setDaynamicListType(dynamicListType);
+        menu.setDynamicListType(dynamicListType);
         return menu;
     }
 

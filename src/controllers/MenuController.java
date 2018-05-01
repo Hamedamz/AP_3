@@ -1,10 +1,9 @@
 package controllers;
 
-import controllers.enums.CommandType;
+import controllers.Exceptions.InvalidInputException;
 import controllers.enums.DynamicListType;
 import models.GameLogic.Village;
 import models.Menu.Menu;
-import models.Menu.MenuBuilder;
 import models.Menu.MenuItem;
 import viewers.MenuViewer;
 
@@ -18,19 +17,36 @@ public class MenuController {
     }
 
     public Menu initializeVillageMenus() {
-        Menu villageMenu = buildVillageMenu();
-        villageMenu.setParent(null);
-
 
     }
 
-    public CommandType OpenMenu(Menu menu) {
+    public void OpenMenu(Menu menu) {
         updateDynamicMenu(menu);
         menuViewer.printMenu(menu);
     }
 
+    public MenuItem getUserInput(Menu menu) {
+        int maxIndex = menu.getItems().size() + menu.getDynamicItems().size() - 1;
+        while (true) {
+            try {
+                int menuItemIndex = menuViewer.getMenuItemIndex();
+                if (menuItemIndex > maxIndex || menuItemIndex < 0) {
+                    throw new InvalidInputException("Your input is out of range.")
+                } else {
+                    if (menuItemIndex < menu.getItems().size()) {
+                        return menu.getItems().get(menuItemIndex);
+                    } else {
+                        return menu.getDynamicItems().get(menuItemIndex - menu.getItems().size());
+                    }
+                }
+            } catch (InvalidInputException e) {
+                menuViewer.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
     private void updateDynamicMenu(Menu menu) {
-        DynamicListType listType = menu.getDaynamicListType();
+        DynamicListType listType = menu.getDynamicListType();
         ArrayList<MenuItem> list = null;
 
         switch (listType) {
