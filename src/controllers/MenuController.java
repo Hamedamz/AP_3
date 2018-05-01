@@ -16,10 +16,6 @@ public class MenuController {
         menuViewer = new MenuViewer(village);
     }
 
-    public Menu initializeVillageMenus() {
-
-    }
-
     public void OpenMenu(Menu menu) {
         updateDynamicMenu(menu);
         menuViewer.printMenu(menu);
@@ -31,7 +27,7 @@ public class MenuController {
             try {
                 int menuItemIndex = menuViewer.getMenuItemIndex();
                 if (menuItemIndex > maxIndex || menuItemIndex < 0) {
-                    throw new InvalidInputException("Your input is out of range.")
+                    throw new InvalidInputException("Your input is out of range.");
                 } else {
                     if (menuItemIndex < menu.getItems().size()) {
                         return menu.getItems().get(menuItemIndex);

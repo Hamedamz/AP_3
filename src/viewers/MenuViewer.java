@@ -46,7 +46,7 @@ public class MenuViewer extends BasicViewer {
     public int getMenuItemIndex() throws InvalidInputException {
         String itemNumber = getInput();
         if (!itemNumber.matches("\\d+")) {
-            throw new InvalidInputException("Input is not valid, please enter a number");
+            throw new InvalidInputException("Input is not valid, please enter a number.");
         }
         return Integer.parseInt(itemNumber) - 1;
     }
