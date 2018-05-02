@@ -18,11 +18,11 @@ public final class MenuBuilder {
         return null;
     }
 
-    private static MenuBuilder aMenu() {
+    private MenuBuilder aMenu() {
         return new MenuBuilder();
     }
 
-    private static MenuBuilder aMenuExtending(Menu existingMenu) {
+    private MenuBuilder aMenuExtending(Menu existingMenu) {
         MenuBuilder menuBuilder = new MenuBuilder();
         menuBuilder.label = existingMenu.getLabel();
         menuBuilder.items = new ArrayList<>(existingMenu.getItems());
