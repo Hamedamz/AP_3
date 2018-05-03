@@ -1,7 +1,7 @@
 package models.Menu;
 
-import controllers.enums.CommandType;
-import controllers.enums.DynamicListType;
+import controllers.enums.*;
+import models.GameLogic.Entities.Entity;
 
 import java.util.ArrayList;
 
@@ -9,8 +9,9 @@ public class Menu extends MenuItem {
     private String label;
     private Menu parent;
     private ArrayList<MenuItem> items;
-    private ArrayList<MenuItem> dynamicItems;
+    private ArrayList<DynamicMenuItem> dynamicItems;
     private DynamicListType dynamicListType;
+    private Entity model;
 
     public Menu() {
         super(CommandType.OPEN_MENU);
@@ -42,11 +43,11 @@ public class Menu extends MenuItem {
         this.items = items;
     }
 
-    public ArrayList<MenuItem> getDynamicItems() {
+    public ArrayList<DynamicMenuItem> getDynamicItems() {
         return dynamicItems;
     }
 
-    public void updateDynamicItems(ArrayList<MenuItem> dynamicItems) {
+    public void updateDynamicItems(ArrayList<DynamicMenuItem> dynamicItems) {
         this.dynamicItems = dynamicItems;
     }
 
@@ -56,5 +57,13 @@ public class Menu extends MenuItem {
 
     public void setDynamicListType(DynamicListType dynamicListType) {
         this.dynamicListType = dynamicListType;
+    }
+
+    public Entity getModel() {
+        return model;
+    }
+
+    public void setModel(Entity model) {
+        this.model = model;
     }
 }

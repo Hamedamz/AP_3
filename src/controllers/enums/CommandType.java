@@ -18,7 +18,8 @@ public enum CommandType {
     MAP_INFO,
     ATTACK_MAP,
     BACK,
-    OPEN_MENU;
+    OPEN_MENU,
+    OPEN_DYNAMIC_MENU;
 
     public String toString() {
         return this.name().replace('_', ' ').toLowerCase();
