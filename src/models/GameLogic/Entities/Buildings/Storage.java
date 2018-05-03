@@ -25,6 +25,11 @@ public abstract class Storage extends ResourceBuilding {
         this.stock = stock;
     }
 
+    public void setCapacity(Resource capacity) {
+        this.capacity = capacity;
+    }
+
+
     public Resource getStock() {
         return stock;
     }

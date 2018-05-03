@@ -1,6 +1,5 @@
 package models.GameLogic.Entities.Buildings;
 
-import javafx.geometry.Pos;
 import models.GameLogic.Bounty;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
@@ -10,7 +9,7 @@ import models.GameLogic.enums.BuildingTargetType;
 public class ArcherTower extends DefensiveBuilding {
     public ArcherTower(Position position, int number) {
         super(position, number);
-        this.targetType = BuildingTargetType.GROUND_AND_AIR;
+        this.targetType = BuildingTargetType.GROUND;
         this.damageType = BuildingDamageType.SINGLE_TARGET;
     }
 

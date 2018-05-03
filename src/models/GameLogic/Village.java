@@ -14,7 +14,7 @@ public class Village {
      * listOfBuildingsByName must contain following Classes other than Basic Classes
      * Storage, DefenciveBuildings
      */
-    private HashMap< String, ArrayList<Building> > listOfBuildingsByName = new HashMap<>();
+    private HashMap<String, ArrayList<Building> > listOfBuildingsByName = new HashMap<>();
     // FIXME: 4/28/2018 when you build a building become sure you put that building in correct catagory at above class
 
     public Village() {
