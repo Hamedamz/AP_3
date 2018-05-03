@@ -2,6 +2,7 @@ package models.GameLogic;
 
 import interfaces.Revivable;
 import models.GameLogic.Entities.Buildings.*;
+import models.GameLogic.Exceptions.NotEnoughCapacityException;
 
 public class VillageGameEngine {
     private Village village;
@@ -46,7 +47,12 @@ public class VillageGameEngine {
             for(TrainingTroop trainingTroop : ((Barracks) building).getTrainingTroops()) {
                 trainingTroop.update();
                 if (trainingTroop.hasEndedTraining()) {
-                    trainingTroop.moveToCamp(village.findCampForNewTroops(trainingTroop.getSpace()));
+                    try {
+                        trainingTroop.moveToCamp(village.findCampForNewTroops());
+                    } catch (NotEnoughCapacityException e) {
+                        System.err.println("not enough capacity in camp");
+                    }
+
                 }
             }
         }

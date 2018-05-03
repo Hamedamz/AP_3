@@ -1,6 +1,8 @@
 package models.GameLogic;
 
 import models.GameLogic.Entities.Buildings.Camp;
+import models.GameLogic.Entities.Troop.Troop;
+import models.GameLogic.Exceptions.NotEnoughCapacityException;
 
 public class TrainingTroop {
     private int timeRemaining;
@@ -36,11 +38,17 @@ public class TrainingTroop {
         return timeRemaining <= 0;
     }
     
-    public void moveToCamp(Camp camp) {
-        // TODO: 4/26/2018  
+    public void moveToCamp(Camp camp) throws NotEnoughCapacityException {
+        Troop trainedTroop = this.convertToTroop();
+        camp.addTroop(trainedTroop);
+        trainedTroop.setTroopCamp(camp);
     }
 
-    public int getSpace() {
-        // TODO: 4/26/2018
+    public Troop convertToTroop() {
+        // TODO: 5/2/2018
     }
+
+//    public int getSpace() {
+//        // TODO: 4/26/2018
+//    }
 }

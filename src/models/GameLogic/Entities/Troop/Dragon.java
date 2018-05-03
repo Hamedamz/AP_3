@@ -5,8 +5,7 @@ import models.GameLogic.enums.TroopTargetType;
 
 public class Dragon extends AttackerTroop {
 
-    public Dragon(Position position, int campNumber) {
-        super(position, campNumber);
+    public Dragon() {
         this.targetType = TroopTargetType.BUILDING;
     }
 }

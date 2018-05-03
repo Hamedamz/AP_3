@@ -1,0 +1,178 @@
+#Buildings:
+    #Gold mine properties:
+        GoldMineBuildGold: 150
+        GoldMineBuildElixir: 5
+        GoldMineBuildTime: 300
+        GoldMineHitPoints: 200
+        GoldMineDestructionScore: 2
+        GoldMineUpgradeGold: 100
+        GoldMineUpgradeProductionRateAddition: 60
+        GoldMineProductionRate: 10
+
+    #Elixir mine properties:
+        ElixirMineBuildGold: 150
+        ElixirMineBuildElixir: 3
+        ElixirMineBuildTime: 100
+        ElixirMineHitPoints: 200
+        ElixirMineDestructionScore: 2
+        ElixirMineUpgradeGold: 100
+        ElixirMineUpgradeProductionRateAddition: 60
+        ElixirMineProductionRate: 5
+
+    #Gold storage properties:
+        GoldStorageBuildGold: 200
+        GoldStorageBuildElixir: 0
+        GoldStorageBuildTime: 200
+        GoldStorageHitPoints: 300
+        GoldStorageDestructionScore: 3
+        GoldStorageUpgradeGold: 100
+        GoldStorageUpgradeCapacityAddition: 60
+        GoldStorageGoldCapacity: 500
+        GoldStorageElixirCapacity: 0
+
+
+    #Elixir storage properties:
+        ElixirStorageBuildGold: 200
+        ElixirStorageBuildElixir: 0
+        ElixirStorageBuildTime: 100
+        ElixirStorageHitPoints: 300
+        ElixirStorageDestructionScore: 3
+        ElixirStorageUpgradeGold: 100
+        ElixirStorageUpgradeCapacityAddition: 60
+        ElixirStorageElixirCapacity: 20
+        ElixirStorageGoldCapacity: 0
+
+
+    #Town hall properties:
+        TownHallBuildTime: 100
+        TownHallHitPoints: 1000
+        TownHallDestructionScore: 8
+        TownHallDestructionGold: 1000
+        TownHallDestructionElixir: 500
+        TownHallUpgradeGold: 500
+        TownHallUpgradeHitPointsAddition: 500
+
+    #Barracks properties:
+        BarracksBuildGold: 200
+        BarracksBuildTime: 100
+        BarracksHitPoints: 300
+        BarracksDestructionScore: 1
+        BarracksUpgradeGold: 100
+
+    #Camp properties:
+        CampBuildGold: 200
+        CampBuildTime: 100
+        CampHitPoints: 900
+        CampDestructionScore: 1
+        CampCapacity: 50
+
+    #Archer tower properties:
+        ArcherTowerBuildGold: 300
+        ArcherTowerBuildTime: 60
+        ArcherTowerHitPoints: 300
+        ArcherTowerDamage: 20
+        ArcherTowerRange: 10
+        ArcherTowerDestructionScore: 3
+        ArcherTowerUpgradeGold: 100
+        ArcherTowerUpgradeDamageAddition: 1
+        ArcherTowerUpgradeHitPointsAddition: 10
+
+    #Cannon properties:
+        CannonBuildGold: 400
+        CannonBuildTime: 100
+        CannonHitPoints: 400
+        CannonDamage: 20
+        CannonRange: 13
+        CannonDestructionScore: 4
+        CannonUpgradeGold: 100
+        CannonUpgradeDamageAddition: 1
+        CannonUpgradeHitPointsAddition: 10
+
+    #Air defense properties:
+        AirDefenseBuildGold: 300
+        AirDefenseBuildTime: 60
+        AirDefenseHitPoints: 300
+        AirDefenseDamage: 20
+        AirDefenseRange: 10
+        AirDefenseDestructionScore: 3
+        AirDefenseUpgradeGold: 100
+        AirDefenseUpgradeDamageAddition: 1
+        AirDefenseHitPointsAddition: 10
+
+    #Wizard tower properties:
+        WizardTowerBuildGold: 500
+        WizardTowerBuildTime: 120
+        WizardTowerHitPoints: 700
+        WizardTowerDamage: 20
+        WizardTowerRange: 13
+        WizardTowerDestructionScore: 5
+        WizardTowerUpgradeGold: 100
+        WizardTowerUpgradeDamageAddition: 1
+        WizardTowerUpgradeHitPointsAddition: 10
+
+    #Wall properties:
+        #WallBuildGold: 100
+        #WallBuildTime: 20
+        #WallBuildHitPoints: 100
+        #WallDestructionScore: 1
+        #WallUpgradeGold: 100
+        #WallUpgradeHitPointsAddition: 10
+
+    #Trap properties:
+        #TrapBuildGold: 100
+        #TrapBuildTime: 40
+        #TrapHitPoints: 100
+        #TrapDamage: 100
+        #TrapRange = 1
+        #TrapDestructionScore: 1
+        #TrapUpgradeGold: 100
+        #TrapUpgradeDamageAddition: 1
+        #TrapUpgradeHitPointsAddition: 10
+
+    #Guardian giant properties:
+
+#Troops:
+
+    #Guardian properties:
+        GuardianBuildElixir: 50
+        GuardianBuildTime: 10
+        GuardianHitPoints: 100
+        GuardianRange: 1
+        GuardianDamage: 10
+        GuardianSpeed: 2
+        GuardianUpgradeDamageAddition: 1
+        GuardianUpgradeHitPointsAddition: 5
+
+    #Giant properties:
+        GiantBuildElixir: 150
+        GiantBuildTime: 30
+        GiantHitPoints: 500
+        GiantRange: 1
+        GiantDamage: 30
+        GiantSpeed: 1
+        GiantUpgradeDamageAddition: 1
+        GiantUpgradeHitPointsAddition: 5
+
+    #Dragon properties:
+        DragonBuildElixir: 200
+        DragonBuildTime: 45
+        DragonHitPoints: 700
+        DragonRange: 3
+        DragonDamage: 30
+        DragonSpeed: 6
+        DragonUpgradeDamageAddition: 1
+        DragonUpgradeHitPointsAddition: 5
+
+    #Archer properties:
+        ArcherBuildElixir: 75
+        ArcherBuildTime: 10
+        ArcherHitPoints: 100
+        ArcherRange: 10
+        ArcherDamage: 10
+        ArcherSpeed: 2
+        ArcherUpgradeDamageAddition: 1
+        ArcherUpgradeHitPointsAddition: 5
+
+    #Wall breaker properties:
+
+    #Healer properties:

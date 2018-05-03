@@ -29,13 +29,14 @@ public class World {
         return turn;
     }
 
-    private void convertJsonToVillage(String[] jsonThings){
+    private void convertJsonToVillage(String[] jsonThings) {
 
     }
 
     public void makeNewGame() {
 
     }
+
     public void saveGame() {
 
     }

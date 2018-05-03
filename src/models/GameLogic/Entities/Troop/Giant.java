@@ -5,8 +5,7 @@ import models.GameLogic.enums.TroopTargetType;
 
 public class Giant extends AttackerTroop {
 
-    public Giant(Position position, int campNumber) {
-        super(position, campNumber);
+    public Giant() {
         this.targetType = TroopTargetType.RESOURCES;
     }
 }

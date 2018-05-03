@@ -2,6 +2,7 @@ package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
 import models.GameLogic.Builder;
+import models.GameLogic.Exceptions.NoFreeBuilderException;
 import models.GameLogic.Resource;
 
 import java.util.ArrayList;
@@ -40,5 +41,15 @@ public class TownHall extends ResourceBuilding {
 
     public void addScore(int score) {
         this.score += score;
+    }
+
+
+    public Builder getFreeBuilder() throws NoFreeBuilderException {
+        for(Builder builder : builders) {
+            if (!builder.isBuilderBusy()) {
+                return builder;
+            }
+        }
+        throw new NoFreeBuilderException();
     }
 }
