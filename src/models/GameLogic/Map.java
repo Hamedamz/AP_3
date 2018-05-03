@@ -10,6 +10,8 @@ public class Map {
     private int width, length;
     private ArrayList<Building> buildings;
     private boolean[][] isOccupied;
+    private ArrayList<Entity>[][] troops;
+
 
     public Map() {
         buildings = new ArrayList<>();
@@ -23,8 +25,12 @@ public class Map {
         return isOccupied[i][j];
     }
 
-    public void occupy(int i, int j) {
+    public void constructBuilding(int i, int j) {
         isOccupied[i][j] = true;
+    }
+
+    public ArrayList<Entity> getTroops(Position position) {
+        return troops[position.getX()][position.getY()];
     }
 
     public Map clone() {

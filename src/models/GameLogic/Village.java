@@ -47,7 +47,7 @@ public class Village {
         Builder builder = townHall.getFreeBuilder();
         spendResources(new Resource((Integer) GameLogicConfig.getFromDictionary(buildingType + "BuildGold"),
                 (Integer) GameLogicConfig.getFromDictionary(buildingType + "BuildElixir")));
-        map.occupy(x, y);
+        map.constructBuilding(x, y);
         // TODO: 5/3/2018 make new building here
 
 

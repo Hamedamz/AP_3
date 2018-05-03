@@ -4,6 +4,8 @@ import interfaces.Attacker;
 import interfaces.Destroyable;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Entity;
+import models.GameLogic.Entities.Troop.Troop;
+import models.GameLogic.Map;
 import models.GameLogic.Position;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
@@ -44,11 +46,24 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     }
 
     @Override
-    public void giveDamageTo(Destroyable destroyable) {
-        destroyable.takeDamageFromAttack(damage);
-        if (destroyable.isDestroyed()) {
-            destroyable.destroy();
+    public void giveDamageTo(Destroyable destroyable, Map map) {
+        if (damageType == BuildingDamageType.AREA_SPLASH) {
+            destroyable.takeDamageFromAttack(damage);
+            if (destroyable.isDestroyed()) {
+                destroyable.destroy();
+            }
         }
+        else {
+            for (Entity entity : map.getTroops(destroyable.getPosition())) {
+                if(entity instanceof Destroyable) {
+                    ((Destroyable) entity).takeDamageFromAttack(damage);
+                    if (destroyable.isDestroyed()) {
+                        destroyable.destroy();
+                    }
+                }
+            }
+        }
+
     }
 
     @Override

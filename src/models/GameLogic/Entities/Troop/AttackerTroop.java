@@ -4,6 +4,7 @@ import interfaces.Destroyable;
 import interfaces.MovingAttacker;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Map;
 import models.GameLogic.Position;
 import models.GameLogic.enums.TroopTargetType;
 import models.Setting.GameLogicConfig;
@@ -34,7 +35,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     }
 
     @Override
-    public void giveDamageTo(Destroyable destroyable) {
+    public void giveDamageTo(Destroyable destroyable, Map map) {
         destroyable.takeDamageFromAttack(damage);
         if (destroyable.isDestroyed()) {
             destroyable.destroy();
