@@ -2,59 +2,21 @@ package controllers;
 
 import models.GameLogic.Village;
 import models.GameLogic.World;
+import models.Menu.Menu;
 import viewers.BasicViewer;
+
+import java.util.HashMap;
 
 public class Controller {
 
+    private static MenuController menuController = new MenuController();
     private static BasicViewer viewer = new BasicViewer();
     private static World world = new World();
 
     public static void main(String[] args) {
-        JsonInterpreter.loadMap("sdfksdhjs");
-//        String input = viewer.getInput();
-//        //unknown end command(?)
-//        while (true) {
-//            if (input.equals(InputFormats.NEWGAME_FORMAT)){
-//                newGame();
-//            }
-//            else if (input.equals(InputFormats.LOAD_PATH_FORMAT)) {
-//                String path = input.split("\\s")[1];
-//                try {
-//                    loadGame(path);
-//                }
-//                catch (Exception e) {
-//                }
-//            }
-//            else if (input.equals(InputFormats.SAVE_FORMAT)) {
-//                String path = input.split("\\s")[1];
-//                String name = input.split("\\s")[2];
-//                try {
-//                    saveGame(world.getMyVillage(), name);
-//                }
-//                catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            else if (input.equals(InputFormats.TURN_FORMAT)) {
-//                int turns = Integer.parseInt(input.split("\\s")[1]);
-//                turn(turns);
-//            }
-//            else if (input.equals(InputFormats.SHOW_BUILDINGS_FORMAT)) {
-//                showBuildings();
-//            }
-//            else if (input.equals(InputFormats.SHOW_RESOURCES_FORMAT)) {
-//                showResources();
-//            }
-//            else if (input.equals(InputFormats.SHOW_MENU_FORMAT)) {
-//                viewer.printInformation(OutputFormats.VILLAGE_PRESENCE_FORMAT);
-//            }
-//            else if (input.equals(InputFormats.WHERE_AM_I_FORMAT)) {
-//                whereAmI();
-//            }
-//            else if (input.equals(InputFormats.ATTACK_FORMAT)) {
-//                attack();
-//            }
-//        }
+        Menu entranceMenu = menuController.getEntranceMenu();
+        Menu villageMenu = menuController.getVillageMenu();
+        HashMap<String, Menu> modelBasedMenus = menuController.getModelBasedMenus();
     }
 
     public static void newGame() {}
