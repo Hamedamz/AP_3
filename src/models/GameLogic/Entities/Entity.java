@@ -33,11 +33,6 @@ public class Entity implements Locatable {
         );
     }
 
-    public double calculateDistance(Position position) {
-        return Math.sqrt(
-                Math.pow(this.position.getX() - position.getX(), 2) +
-                        Math.pow(this.position.getY() - position.getY(), 2)
-        );
-    }
+
 
 }

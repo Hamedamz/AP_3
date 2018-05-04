@@ -4,6 +4,9 @@ import interfaces.Destroyable;
 import interfaces.MovingAttacker;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Defender;
+import models.GameLogic.Entities.Entity;
+import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Map;
 import models.GameLogic.Position;
 import models.GameLogic.enums.TroopTargetType;
@@ -17,7 +20,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     protected int hitPoints;
     protected int range;
     protected int damage;
-    protected Building currentTarget;
+    protected Defender currentTarget;
 
     public AttackerTroop() {
         String className = this.getClass().getName();
@@ -26,14 +29,48 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
         this.maxHitPoints = this.hitPoints;
     }
 
+    public TroopTargetType getTargetType() {
+        return targetType;
+    }
+
     @Override
     public Destroyable getTarget() {
         return currentTarget;
     }
 
     @Override
-    public Destroyable setTarget(ArrayList<Destroyable> destroyables) {
-        // TODO: 4/23/2018 fixme after BattleGround
+    public void setTarget(ArrayList<Destroyable> destroyables) throws NoTargetFoundException {
+        double minDistance = -1;
+        Destroyable minDistantDestroyable = null;
+        for (Destroyable destroyable : destroyables) {
+            if (!destroyable.isDestroyed() && TroopTargetType.isTroopTargetAppropriate(this, (Defender) destroyable)) {
+                double distance = this.getPosition().calculateDistance(destroyable.getPosition());
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    minDistantDestroyable = destroyable;
+                }
+            }
+        }
+        if (minDistance >= 0) {
+            currentTarget = (Defender) minDistantDestroyable;
+            return;
+        }
+
+        for (Destroyable destroyable : destroyables) {
+            if (!destroyable.isDestroyed()) {
+                double distance = this.getPosition().calculateDistance(destroyable.getPosition());
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    minDistantDestroyable = destroyable;
+                }
+            }
+        }
+
+        if(minDistance >= 0) {
+            currentTarget = (Defender) minDistantDestroyable;
+            return;
+        }
+        throw new NoTargetFoundException();
     }
 
     @Override

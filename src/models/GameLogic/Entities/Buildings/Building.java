@@ -5,18 +5,20 @@ import interfaces.Destroyable;
 import interfaces.Revivable;
 import interfaces.Upgradable;
 import models.GameLogic.*;
+import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.Bounty;
+import models.GameLogic.enums.MoveType;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public abstract class Building extends Entity implements Revivable, Upgradable {
+public abstract class Building extends Defender implements Upgradable {
     //private int jsonNumber;
     protected int score;
     protected int maxHitPoint;
@@ -37,6 +39,10 @@ public abstract class Building extends Entity implements Revivable, Upgradable {
         this.isDestroyed = false;
         this.isUnderConstruct = false;
         this.number = 0;  //FIXME IDGenerator
+    }
+
+    public static MoveType getMoveType() {
+        return MoveType.Ground;
     }
 
     public boolean isUnderConstruct() {

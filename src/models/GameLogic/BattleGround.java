@@ -27,6 +27,10 @@ public class BattleGround {
         return troops;
     }
 
+    public Map getMap() {
+        return map;
+    }
+
     private void attackDefensiveBuilding(Troop troop, Building building) {
     }
 

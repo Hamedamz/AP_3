@@ -29,4 +29,11 @@ public class Position {
         this.x = x;
         this.y = y;
     }
+
+    public double calculateDistance(Position position) {
+        return Math.sqrt(
+                Math.pow(this.x - position.x, 2) +
+                        Math.pow(this.y - position.y, 2)
+        );
+    }
 }
