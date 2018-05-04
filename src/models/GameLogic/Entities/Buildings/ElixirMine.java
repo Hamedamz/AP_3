@@ -3,6 +3,7 @@ package models.GameLogic.Entities.Buildings;
 import models.GameLogic.Bounty;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
+import models.Setting.GameLogicConfig;
 
 public class ElixirMine extends Mine {
 
@@ -18,16 +19,24 @@ public class ElixirMine extends Mine {
 
     @Override
     public Resource getUpgradeResource() {
-        return null;
+        int gold = (Integer) GameLogicConfig.getFromDictionary("ElixirMineUpgradeGold");
+        int elixir = 0;
+        return new Resource(gold, elixir);
     }
 
     @Override
     public void upgrade() {
-
+        this.setLevel(this.getLevel() + 1);
+        int productionRateAddition = (int) GameLogicConfig.getFromDictionary("ElixirMineUpgradeProductionRateAddition");
+        this.productionRate += (this.productionRate * productionRateAddition) / 100;
     }
 
     @Override
     public Bounty getBounty() {
-        return null;
+        int gold = (int) GameLogicConfig.getFromDictionary("ElixirMineBuildGold");
+        int elixir = (int) GameLogicConfig.getFromDictionary("ElixirMineBuildElixir");
+        Resource resource = new Resource(gold, elixir);
+        int score = this.score;
+        return new Bounty(score, resource);
     }
 }

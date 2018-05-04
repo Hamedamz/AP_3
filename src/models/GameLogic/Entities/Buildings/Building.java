@@ -6,6 +6,7 @@ import interfaces.Revivable;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.Troop;
+import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.Bounty;
@@ -47,7 +48,7 @@ public abstract class Building extends Entity implements Revivable {
 
     public abstract Resource getUpgradeResource() ;
 
-    public abstract void upgrade() ;
+    public abstract void upgrade();
 
     public abstract Bounty getBounty();
 

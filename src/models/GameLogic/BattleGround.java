@@ -66,7 +66,7 @@ public class BattleGround {
 
     }
 
-    private void makeDefenciveBuildingsMove() {
+    private void makeDefensiveBuildingsMove() {
 
     }
 

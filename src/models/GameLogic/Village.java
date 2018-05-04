@@ -14,7 +14,7 @@ public class Village {
      * listOfBuildingsByName must contain following Classes other than Basic Classes
      * Storage, DefenciveBuildings
      */
-    private HashMap<String, ArrayList<Building> > listOfBuildingsByName = new HashMap<>();
+    private HashMap<String, ArrayList<Building> > +- = new HashMap<>();
     // FIXME: 4/28/2018 when you build a building become sure you put that building in correct catagory at above class
 
     public Village() {
@@ -93,7 +93,23 @@ public class Village {
         }
     }
 
-    public void upgrade(String buildingType, int num) throws NotEnoughResourcesException, BuildingNotFoundException {
+    public void upgrade(String buildingType, int num) throws NotEnoughResourcesException, BuildingNotFoundException, NotAvailableAtThisLevelException {
+        ArrayList<Building> buildings = map.getBuildings();
+        for (int i = 0; i < buildings.size(); i++) {
+            if (buildings.get(i).getClass().getName().equals(buildingType) && buildings.get(i).getNumber() == num) {
+                if (buildings.get(i).getLevel() >= townHall.getLevel()) {
+                    throw new NotAvailableAtThisLevelException();
+                }
+                Resource upgradeResource = buildings.get(i).getUpgradeResource();
+                if (upgradeResource.getGold() > getTotalResourceStock().getGold() || upgradeResource.getElixir() > getTotalResourceStock().getElixir()) {
+                    throw new NotEnoughResourcesException();
+                }
+                spendResources(upgradeResource);
+                buildings.get(i).upgrade();
+                return;
+            }
+        }
+        throw new BuildingNotFoundException();
 
     }
 
