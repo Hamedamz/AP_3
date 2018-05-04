@@ -1,6 +1,7 @@
 package models.GameLogic;
 
 import models.GameLogic.Entities.Buildings.*;
+import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.*;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class BattleGround {
+    private int timeRemaining;
     private Village myVillage;
     private Map map;
     private Set<Troop> troops;
@@ -79,8 +81,22 @@ public class BattleGround {
 
     }
 
-    public boolean isAttackFinished() {
-
+    public boolean isGameFinished() {
+        if (timeRemaining <= 0) {
+            return true;
+        }
+        if (troops.size() == 0) {
+            return true;
+        }
+        if (!myVillage.isThereAvailableSpaceForResources()) {
+            return true;
+        }
+        for (Defender defender : map.getBuildings()) {
+            if(!defender.isDestroyed()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
