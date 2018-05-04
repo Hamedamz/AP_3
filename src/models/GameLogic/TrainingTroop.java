@@ -3,6 +3,7 @@ package models.GameLogic;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NotEnoughCapacityException;
+import models.Setting.GameLogicConfig;
 
 public class TrainingTroop {
     private int timeRemaining;
@@ -11,10 +12,15 @@ public class TrainingTroop {
     private Troop troop;
 
     public TrainingTroop(String troopType, int barracksLevel) {
+        int buildElixir = (int) GameLogicConfig.getFromDictionary(troopType + "BuildElixir");
+        buildingResource = new Resource(0, buildElixir);
         level = barracksLevel;
         troop = Troop.castStringToTroopType(troopType);
-        timeRemaining = 0; //fixme dictionary
+        timeRemaining = (int) GameLogicConfig.getFromDictionary(troopType + "BuildTime");
         timeRemaining -= level;
+        if (timeRemaining < 0) {
+            timeRemaining = 0;
+        }
     }
 
 

@@ -57,7 +57,7 @@ public class Camp extends Building {
 
     @Override
     public Resource getUpgradeResource() {
-        return null;
+        return null; //Camp is not upgradable
     }
 
     @Override

@@ -4,6 +4,7 @@ import models.GameLogic.Bounty;
 import models.GameLogic.Builder;
 import models.GameLogic.Exceptions.NoFreeBuilderException;
 import models.GameLogic.Resource;
+import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 
@@ -26,17 +27,25 @@ public class TownHall extends ResourceBuilding {
 
     @Override
     public Resource getUpgradeResource() {
-        return null;
+        int gold = (int) GameLogicConfig.getFromDictionary("TownHallUpgradeGold");
+        int elixir = 0;
+        return new Resource(gold, elixir);
     }
 
     @Override
     public void upgrade() {
-
+        this.setLevel(this.getLevel() + 1);
+        int hitPointsAddition = (int) GameLogicConfig.getFromDictionary("TownHallUpgradeHitPointsAddition");
+        this.setHitPoints(this.hitPoints + hitPointsAddition);
     }
 
     @Override
     public Bounty getBounty() {
-        return null;
+        int gold = 1000;
+        int elixir = 500;
+        Resource resource = new Resource(gold, elixir);
+        int score = this.score;
+        return new Bounty(score, resource);
     }
 
     public void addScore(int score) {

@@ -5,6 +5,7 @@ import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
+import models.Setting.GameLogicConfig;
 
 public class WizardTower extends DefensiveBuilding {
 
@@ -16,16 +17,24 @@ public class WizardTower extends DefensiveBuilding {
 
     @Override
     public Resource getUpgradeResource() {
-        return null;
+        int gold = (Integer) GameLogicConfig.getFromDictionary("WizardTowerUpgradeGold");
+        int elixir = 0;
+        return new Resource(gold, elixir);
     }
 
     @Override
     public void upgrade() {
-
+        this.setLevel(this.getLevel() + 1);
+        this.hitPoints += (int) GameLogicConfig.getFromDictionary("WizardTowerUpgradeHitPointsAddition");
+        this.damage += (int) GameLogicConfig.getFromDictionary("WizardTowerUpgradeDamageAddition");
     }
 
     @Override
     public Bounty getBounty() {
-        return null;
+        int gold = (int) GameLogicConfig.getFromDictionary("WizardTowerBuildGold");
+        int elixir = 0;
+        Resource resource = new Resource(gold, elixir);
+        int score = this.score;
+        return new Bounty(score, resource);
     }
 }

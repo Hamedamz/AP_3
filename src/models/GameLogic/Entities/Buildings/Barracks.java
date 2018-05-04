@@ -1,9 +1,11 @@
 package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
+import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.TrainingTroop;
+import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 
@@ -38,17 +40,24 @@ public class Barracks extends Building {
 
     @Override
     public Resource getUpgradeResource() {
-        return null;
+        int gold = (Integer) GameLogicConfig.getFromDictionary("BarracksUpgradeGold");
+        int elixir = 0;
+        return new Resource(gold, elixir);
     }
 
     @Override
     public void upgrade() {
-
+        reduceTroopsTrainingTime(); //TODO create method
+        this.setLevel(this.getLevel() + 1);
     }
 
     @Override
     public Bounty getBounty() {
-        return null;
+        int gold = (int) GameLogicConfig.getFromDictionary("BarracksBuildGold");
+        int elixir = 0;
+        Resource resource = new Resource(gold, elixir);
+        int score = this.score;
+        return new Bounty(score, resource);
     }
 
 
