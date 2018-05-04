@@ -6,13 +6,13 @@ import models.GameLogic.Exceptions.NotEnoughCapacityException;
 
 public class TrainingTroop {
     private int timeRemaining;
-    private Resource buildingResource;
-    private String troopType;
+    private Resource buildingResource; //extra feature
     private int level;
+    private Troop troop;
 
     public TrainingTroop(String troopType, int barracksLevel) {
         level = barracksLevel;
-        this.troopType = troopType;
+        troop = Troop.castStringToTroopType(troopType);
         timeRemaining = 0; //fixme dictionary
         timeRemaining -= level;
     }
@@ -24,10 +24,6 @@ public class TrainingTroop {
 
     public Resource getBuildingResource() {
         return buildingResource;
-    }
-
-    public String getTroopType() {
-        return troopType;
     }
 
     public void update() {
@@ -45,10 +41,13 @@ public class TrainingTroop {
     }
 
     public Troop convertToTroop() {
-        // TODO: 5/2/2018
+        for (int i = 0; i < level; i++) {
+            troop.upgrade();
+        }
+        // TODO: 5/3/2018 i don't know whether it is level - 1 or level
     }
 
 //    public int getSpace() {
-//        // TODO: 4/26/2018
+//
 //    }
 }

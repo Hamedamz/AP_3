@@ -3,6 +3,7 @@ package models.GameLogic.Entities.Buildings;
 import interfaces.Attacker;
 import interfaces.Destroyable;
 import interfaces.Revivable;
+import interfaces.Upgradable;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.Troop;
@@ -14,7 +15,7 @@ import models.Setting.GameLogicConfig;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public abstract class Building extends Entity implements Revivable {
+public abstract class Building extends Entity implements Revivable, Upgradable {
     //private int jsonNumber;
     protected int score;
     protected int maxHitPoint;
@@ -46,8 +47,6 @@ public abstract class Building extends Entity implements Revivable {
     }
 
     public abstract Resource getUpgradeResource() ;
-
-    public abstract void upgrade() ;
 
     public abstract Bounty getBounty();
 

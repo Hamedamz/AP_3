@@ -9,14 +9,13 @@ import java.util.Set;
 
 public class BattleGround {
     private Village myVillage;
-    private ArrayList<Building> enemyBuildings;
+    private Map map;
     private Set<Troop> troops;
     private Bounty availableBounty; //fixme set this at constructor
     private int[][] numberOfTroopsDeployed;
 
     public BattleGround(Village myVillage, ArrayList<Building> enemyBuildings, Set<Troop> troops) {
         this.myVillage = myVillage;
-        this.enemyBuildings = enemyBuildings;
         this.troops = troops;
         for (int i = 0; i < enemyBuildings.size(); i++) {
             if (enemyBuildings.get(i).getClass().getName().equals("GoldStorage") || )
@@ -46,7 +45,9 @@ public class BattleGround {
     //private void isHealerAlive() { }
 
 
-    public boolean putTroop(Troop troop, int x, int y) {
+    public boolean putTroop(Troop troop, Position position) {
+        troop.setPosition(position);
+        enemyBuildings
 
     }
 

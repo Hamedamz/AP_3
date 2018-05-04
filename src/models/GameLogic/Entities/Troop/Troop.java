@@ -1,17 +1,18 @@
 package models.GameLogic.Entities.Troop;
 
 import interfaces.Movable;
+import interfaces.Upgradable;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
 import models.Setting.GameLogicConfig;
 
-public abstract class Troop extends Entity implements Movable {
+public abstract class Troop extends Entity implements Movable, Upgradable {
     private transient Camp troopCamp;
     protected MoveType moveType;
     protected int speed;
-    private Position movementTarget;
+    private Position[] movementTarget;
 
     public Troop() {
         super();
@@ -21,6 +22,21 @@ public abstract class Troop extends Entity implements Movable {
 
     public void setTroopCamp(Camp troopCamp) {
         this.troopCamp = troopCamp;
+    }
+
+    public static Troop castStringToTroopType(String string) {
+        switch (string) {
+            case "Giant" :
+                return new Giant();
+            case "Archer" :
+                return new Archer();
+            case "Dragon":
+                return new Dragon();
+            case "Guardian" :
+                return new Guardian();
+
+        }
+        return null;
     }
 }
 

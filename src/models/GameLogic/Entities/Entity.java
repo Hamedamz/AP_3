@@ -5,6 +5,7 @@ import models.GameLogic.Position;
 
 public class Entity implements Locatable {
     protected Position position;
+    private int id
 
     public Entity(){
     }
