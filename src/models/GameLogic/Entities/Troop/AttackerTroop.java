@@ -9,6 +9,8 @@ import models.GameLogic.Position;
 import models.GameLogic.enums.TroopTargetType;
 import models.Setting.GameLogicConfig;
 
+import java.util.ArrayList;
+
 public abstract class AttackerTroop extends Troop implements MovingAttacker, Destroyable {
     protected TroopTargetType targetType;
     protected int maxHitPoints;
@@ -30,7 +32,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     }
 
     @Override
-    public Destroyable setTarget(BattleGround battleGround) {
+    public Destroyable setTarget(ArrayList<Destroyable> destroyables) {
         // TODO: 4/23/2018 fixme after BattleGround
     }
 

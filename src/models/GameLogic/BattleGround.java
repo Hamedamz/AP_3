@@ -23,6 +23,10 @@ public class BattleGround {
 
     }
 
+    public Set<Troop> getTroops() {
+        return troops;
+    }
+
     private void attackDefensiveBuilding(Troop troop, Building building) {
     }
 

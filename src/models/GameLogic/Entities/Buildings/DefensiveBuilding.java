@@ -11,6 +11,8 @@ import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.Setting.GameLogicConfig;
 
+import java.util.ArrayList;
+
 public abstract class DefensiveBuilding extends Building implements Attacker {
     protected int damage;
     protected int range;
@@ -73,7 +75,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
 
 
     @Override
-    public Destroyable setTarget(BattleGround battleGround) {
+    public Destroyable setTarget(ArrayList<Destroyable> destroyables) {
         // TODO: 4/19/2018 complete this after battleGround
     }
 }
