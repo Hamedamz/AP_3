@@ -45,11 +45,12 @@ public class BattleGroundGameEngine {
         for (Building building : battleGround.getMap().getBuildings()) {
             if (building instanceof DefensiveBuilding) {
                 if (((DefensiveBuilding) building).getTarget() == null || ((DefensiveBuilding) building).getTarget().isDestroyed()) {
-                    ((DefensiveBuilding) building).setTarget(battleGround.findBuildingTarget(building));
+                    ((DefensiveBuilding) building).setTarget(null);// FIXME: 5/5/2018  use attacker setTarget function ArshiaMoghimi
                 }
             }
         }
     }
+
 
 
 }

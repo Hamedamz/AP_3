@@ -51,6 +51,7 @@ public class TrainingTroop {
             troop.upgrade();
         }
         // TODO: 5/3/2018 i don't know whether it is level - 1 or level
+        return troop;
     }
 
 //    public int getSpace() {

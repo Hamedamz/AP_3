@@ -14,6 +14,7 @@ public class TownHall extends ResourceBuilding {
     private int score;
 
     public TownHall() {
+        super(null, 0);
         //TODO complete this
     }
 

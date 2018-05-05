@@ -34,7 +34,8 @@ public class Map {
     }
 
     public Map clone() {
-
+        return null;
+        // TODO: 5/5/2018
     }
 
     public ArrayList<Building> getBuildings() {

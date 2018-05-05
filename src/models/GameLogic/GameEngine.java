@@ -10,7 +10,7 @@ public class GameEngine {
     public void update() {
         if(isAttacking) {
             battleGroundGameEngine.update();
-            if(world.getBattleGround().isAttackFinished()) {
+            if(world.getBattleGround().isGameFinished()) {
                 isAttacking = false;
             }
         } else {

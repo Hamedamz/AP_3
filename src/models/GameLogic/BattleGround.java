@@ -46,23 +46,13 @@ public class BattleGround {
         return map;
     }
 
-    private void attackDefensiveBuilding(Troop troop, Building building) {
-        ((AttackerTroop) troop).giveDamageTo(((AttackerTroop) troop).getTarget(), map);
-
-    }
-//FIXME: if building has a target there is no need for passing troop
-    private void attackUnit(DefensiveBuilding defensiveBuilding, Troop troop) {
-        defensiveBuilding.setTarget(troop);
-        defensiveBuilding.giveDamageTo(troop, map);
-    }
-
-    private Building findTroopTarget(Troop troop) {
-        return null;
-    }
 
     private Entity findTroopLocationTarget(Troop troop, Building targetedBuilding) {
+        return null;
+        // TODO: 5/5/2018  
     }
 
+    // FIXME: 5/5/2018 move to battle ground
     public Troop findBuildingTarget(Building building) {
         int x = building.getPosition().getX();
         int y = building.getPosition().getY();
@@ -104,15 +94,6 @@ public class BattleGround {
         }
         troop.setPosition(position);
         numberOfTroopsDeployed[position.getX()][position.getY()]++;
-    }
-
-    private void destroyBuilding(Building building) {
-        building.destroy();
-        myVillage.addBounty(building.getBounty());
-    }
-
-    private void killTroop(Troop troop) {
-        troops.remove(troop);
     }
 
     private void move(Troop troop) {

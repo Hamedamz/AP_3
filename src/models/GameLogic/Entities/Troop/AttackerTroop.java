@@ -9,6 +9,7 @@ import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Map;
 import models.GameLogic.Position;
+import models.GameLogic.enums.MoveType;
 import models.GameLogic.enums.TroopTargetType;
 import models.Setting.GameLogicConfig;
 
@@ -104,6 +105,23 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     @Override
     public int getMaxHitPoints() {
         return maxHitPoints;
+    }
+
+    @Override
+    public void move(Position position, Map map) {
+        // TODO: 5/5/2018 SoroushVT this may not belong to here 
+    }
+
+    @Override
+    public MoveType getTroopType() {
+        return null;
+        // TODO: 5/5/2018  
+    }
+
+    @Override
+    public Position findAttackPosition(Entity target, Map map) {
+        return null;
+        // TODO: 5/5/2018  
     }
 }
 

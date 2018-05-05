@@ -111,6 +111,7 @@ public abstract class Building extends Defender implements Upgradable {
     @Override
     public int getReviveTime() {
         // TODO: 4/23/2018 fixme after dictionary implementation
+        return 0;
     }
 
     @Override

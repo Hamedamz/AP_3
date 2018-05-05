@@ -42,7 +42,8 @@ public class World {
     }
 
     private boolean hasBattleEnded() {
-
+        return true;
+        // TODO: 5/5/2018
     }
 
 
@@ -56,6 +57,8 @@ public class World {
 
 
     public boolean attackVillage(String path) throws FileNotFoundException {
+        // TODO: 5/5/2018
+        return true;
         //maybe this changes
     }
 

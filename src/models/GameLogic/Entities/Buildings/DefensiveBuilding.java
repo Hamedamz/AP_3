@@ -5,6 +5,7 @@ import interfaces.Destroyable;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.Troop;
+import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Map;
 import models.GameLogic.Position;
 import models.GameLogic.enums.BuildingDamageType;
@@ -44,7 +45,8 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     }
 
     public boolean canTowerAttack(Entity Troop) {
-
+        return true;
+        // TODO: 5/5/2018
     }
 
     @Override
@@ -74,7 +76,8 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     }
 
 
-    public void setTarget(Destroyable destroyables) {
-        // TODO: 4/19/2018 complete this after battleGround
+    @Override
+    public void setTarget(ArrayList<Destroyable> destroyables) {
+        // TODO: 5/5/2018 Arshia Moghimi
     }
 }

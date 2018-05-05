@@ -43,11 +43,13 @@ public abstract class Storage extends ResourceBuilding {
     }
 
     public boolean addResources(Resource resource) {
-
+        return true;
+        // TODO: 5/5/2018  
     }
 
     public boolean removeResources(Resource resource) {
-
+        return true;
+        // TODO: 5/5/2018  
     }
 
 

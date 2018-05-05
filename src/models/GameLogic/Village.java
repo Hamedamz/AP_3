@@ -14,7 +14,7 @@ public class Village {
      * listOfBuildingsByName must contain following Classes other than Basic Classes
      * Storage, DefenciveBuildings
      */
-    private HashMap<String, ArrayList<Building> > +- = new HashMap<>();
+    private HashMap<String, ArrayList<Building>> listOfBuildingsByName = new HashMap<>();
     // FIXME: 4/28/2018 when you build a building become sure you put that building in correct catagory at above class
 
     public Village() {
@@ -36,7 +36,8 @@ public class Village {
 
 
     public Building getBuildingByNumber(String buildingType, int buildingNumber) {
-
+        return null;
+        // TODO: 5/5/2018  
     }
 
     public void build(String buildingType, int x, int y)
@@ -54,43 +55,45 @@ public class Village {
     }
 
     private  <T extends Building> T startConstruction(String buildingType, int x, int y) throws CountLimitReachedException {
-        switch (buildingType) {
-            case "AirDefence":
-                return new AirDefense(x, y);
-                break;
-            case "ArcherTower" :
-                return new ArcherTower(x, y);
-                break;
-            case "Barracks" :
-                return new Barracks(x, y);
-                break;
-            case "Camp" :
-                return new Camp(x, y);
-                break;
-            case "Cannon" :
-                return new Cannon(x, y);
-                break;
-            case "ElixirMine" :
-                return new ElixirMine(x, y);
-                break;
-            case "ElixirStorage" :
-                return new ElixirStorage(x, y);
-                break;
-            case "GoldMine" :
-                return new GoldMine(x, y);
-                break;
-            case "GoldStorage" :
-                return new GoldStorage(x, y);
-                break;
-            case "TownHall" :
-                throw new CountLimitReachedException();
-                break;
-            case "WizardTower" :
-                return new WizardTower(x, y);
-                break;
-            default:
-                break;
-        }
+//        switch (buildingType) {
+//            case "AirDefence":
+//                return new AirDefense(x, y);
+//                break;
+//            case "ArcherTower" :
+//                return new ArcherTower(x, y);
+//                break;
+//            case "Barracks" :
+//                return new Barracks(x, y);
+//                break;
+//            case "Camp" :
+//                return new Camp(x, y);
+//                break;
+//            case "Cannon" :
+//                return new Cannon(x, y);
+//                break;
+//            case "ElixirMine" :
+//                return new ElixirMine(x, y);
+//                break;
+//            case "ElixirStorage" :
+//                return new ElixirStorage(x, y);
+//                break;
+//            case "GoldMine" :
+//                return new GoldMine(x, y);
+//                break;
+//            case "GoldStorage" :
+//                return new GoldStorage(x, y);
+//                break;
+//            case "TownHall" :
+//                throw new CountLimitReachedException();
+//                break;
+//            case "WizardTower" :
+//                return new WizardTower(x, y);
+//                break;
+//            default:
+//                break;
+//        }
+        return null;
+        // TODO: 5/5/2018  
     }
 
     public void upgrade(String buildingType, int num) throws NotEnoughResourcesException, BuildingNotFoundException, NotAvailableAtThisLevelException {

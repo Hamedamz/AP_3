@@ -23,15 +23,18 @@ public class Barracks extends Building {
     }
 
     public boolean hasSpace() {
-
+        return true;
+        // TODO: 5/5/2018
     }
 
     public boolean trainNewTroop(TrainingTroop trainingTroop) {
-
+        return true;
+        // TODO: 5/5/2018
     }
 
     public boolean removeTroop(String troopName) {
-
+        return true;
+        // TODO: 5/5/2018
     }
 
     public ArrayList<TrainingTroop> getTrainingTroops() {
@@ -47,7 +50,7 @@ public class Barracks extends Building {
 
     @Override
     public void upgrade() {
-        reduceTroopsTrainingTime(); //TODO create method
+        //reduceTroopsTrainingTime(); //TODO create method
         this.setLevel(this.getLevel() + 1);
     }
 

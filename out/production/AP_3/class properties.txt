@@ -97,7 +97,7 @@
         AirDefenseDestructionScore: 3
         AirDefenseUpgradeGold: 100
         AirDefenseUpgradeDamageAddition: 1
-        AirDefenseHitPointsAddition: 10
+        AirDefenseUpgradeHitPointsAddition: 10
 
     #Wizard tower properties:
         WizardTowerBuildGold: 500
