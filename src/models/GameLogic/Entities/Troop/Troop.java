@@ -1,14 +1,16 @@
 package models.GameLogic.Entities.Troop;
 
+import interfaces.Destroyable;
 import interfaces.Movable;
 import interfaces.Upgradable;
+import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
 import models.Setting.GameLogicConfig;
 
-public abstract class Troop extends Entity implements Movable, Upgradable {
+public abstract class Troop extends Entity implements Movable, Upgradable, Destroyable {
     private transient Camp troopCamp;
     protected MoveType moveType;
     protected int speed;

@@ -1,11 +1,15 @@
 package models.GameLogic;
 
+import interfaces.Destroyable;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.*;
+import models.GameLogic.Exceptions.CountLimitReachedException;
+import models.GameLogic.enums.MoveType;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Set;
 
 public class BattleGround {
@@ -14,15 +18,24 @@ public class BattleGround {
     private Map map;
     private Set<Troop> troops;
     private Bounty availableBounty; //fixme set this at constructor
-    private int[][] numberOfTroopsDeployed;
+
+    public void setNumberOfTroopsDeployed(int[][] numberOfTroopsDeployed) {
+        this.numberOfTroopsDeployed = numberOfTroopsDeployed;
+    }
+
+    public int[][] getNumberOfTroopsDeployed() {
+        return numberOfTroopsDeployed;
+    }
+
+    private int[][] numberOfTroopsDeployed = new int[30][30];
 
     public BattleGround(Village myVillage, ArrayList<Building> enemyBuildings, Set<Troop> troops) {
         this.myVillage = myVillage;
         this.troops = troops;
         for (int i = 0; i < enemyBuildings.size(); i++) {
-            if (enemyBuildings.get(i).getClass().getName().equals("GoldStorage") || )
+            if (enemyBuildings.get(i).getClass().getName().equals("GoldStorage")) {
+            }
         }
-
     }
 
     public Set<Troop> getTroops() {
@@ -34,9 +47,13 @@ public class BattleGround {
     }
 
     private void attackDefensiveBuilding(Troop troop, Building building) {
-    }
+        ((AttackerTroop) troop).giveDamageTo(((AttackerTroop) troop).getTarget(), map);
 
+    }
+//FIXME: if building has a target there is no need for passing troop
     private void attackUnit(DefensiveBuilding defensiveBuilding, Troop troop) {
+        defensiveBuilding.setTarget(troop);
+        defensiveBuilding.giveDamageTo(troop, map);
     }
 
     private Building findTroopTarget(Troop troop) {
@@ -46,7 +63,33 @@ public class BattleGround {
     private Entity findTroopLocationTarget(Troop troop, Building targetedBuilding) {
     }
 
-    private Troop findBuildingTarget(Building building) {
+    public Troop findBuildingTarget(Building building) {
+        int x = building.getPosition().getX();
+        int y = building.getPosition().getY();
+        if (building instanceof DefensiveBuilding) {
+            for (int i = -((DefensiveBuilding) building).getRange(); i <((DefensiveBuilding) building).getRange(); i++) {
+                x += i;
+                for (int j = -((DefensiveBuilding) building).getRange(); j <= ((DefensiveBuilding) building).getRange(); j++) {
+                    y += j;
+                    if (x >= 30)
+                        x = 29;
+                    if (y >= 30)
+                        y = 29;
+                    if (x < 0)
+                        x = 0;
+                    if (y < 0)
+                        y = 0;
+                    if (building.getPosition().calculateDistance(new Position(x, y)) > ((DefensiveBuilding) building).getRange()) {
+                        continue;
+                    }
+                    for (Iterator<Troop> it = troops.iterator(); it.hasNext(); ) {
+                        Troop troop = it.next();
+                        if (troop.getPosition().getX() == x && troop.getPosition().getY() == y)
+                            return troop;
+                    }
+                }
+            }
+        }
         return null;
     }
 
@@ -54,19 +97,22 @@ public class BattleGround {
 
     //private void isHealerAlive() { }
 
-
-    public boolean putTroop(Troop troop, Position position) {
+    //TODO check position correctness -> not occupied
+    public void putTroop(Troop troop, Position position) throws CountLimitReachedException {
+        if (numberOfTroopsDeployed[position.getX()][position.getY()] >= 5) {
+            throw new CountLimitReachedException();
+        }
         troop.setPosition(position);
-        enemyBuildings
-
+        numberOfTroopsDeployed[position.getX()][position.getY()]++;
     }
 
     private void destroyBuilding(Building building) {
-
+        building.destroy();
+        myVillage.addBounty(building.getBounty());
     }
 
     private void killTroop(Troop troop) {
-
+        troops.remove(troop);
     }
 
     private void move(Troop troop) {

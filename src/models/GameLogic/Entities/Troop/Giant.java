@@ -26,4 +26,9 @@ public class Giant extends AttackerTroop {
     public MoveType getTroopType() {
         return null;
     }
+
+    @Override
+    public void upgrade() {
+
+    }
 }

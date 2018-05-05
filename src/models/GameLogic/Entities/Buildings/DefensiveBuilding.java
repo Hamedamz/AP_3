@@ -74,8 +74,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     }
 
 
-    @Override
-    public void setTarget(ArrayList<Destroyable> destroyables) {
+    public void setTarget(Destroyable destroyables) {
         // TODO: 4/19/2018 complete this after battleGround
     }
 }
