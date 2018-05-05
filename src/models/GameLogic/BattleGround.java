@@ -46,6 +46,9 @@ public class BattleGround {
         return map;
     }
 
+    public Village getVillage() {
+        return myVillage;
+    }
 
     private Entity findTroopLocationTarget(Troop troop, Building targetedBuilding) {
         return null;
@@ -97,14 +100,6 @@ public class BattleGround {
     }
 
     private void move(Troop troop) {
-
-    }
-
-    private void makeTroopsMove() {
-
-    }
-
-    private void makeDefensiveBuildingsMove() {
 
     }
 
