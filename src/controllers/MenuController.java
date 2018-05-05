@@ -7,59 +7,83 @@ import viewers.MenuViewer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Stack;
 
 public class MenuController {
     public static final String NUMBER = "\\d+";
 
     private static MenuViewer menuViewer = new MenuViewer();
-    private Menu activeMenu;
+    private static Stack<Menu> menuStack = new Stack<>();
+    private static Menu entranceMenu;
+    private static Menu villageMenu;
+    private static HashMap<String, Menu> modelBasedMenus;
 
-    Menu getEntranceMenu() {
-        return buildEntranceMenu();
+    public MenuController() {
+        loadEntranceMenu();
+        loadVillageMenu();
+        loadModelBasedMenus();
     }
 
-    Menu getVillageMenu() {
-        Menu villageMenu = buildVillageMenu();
-        setParentForMenu(villageMenu);
+    private void loadEntranceMenu() {
+        if (entranceMenu == null) {
+            entranceMenu = buildEntranceMenu();
+        }
+    }
+
+    private void loadVillageMenu() {
+        if (villageMenu == null) {
+            villageMenu = buildVillageMenu();
+        }
+    }
+
+    private void loadModelBasedMenus() {
+        if (modelBasedMenus == null) {
+            modelBasedMenus = new HashMap<>();
+            modelBasedMenus.put("TownHall", buildTownHallMenu());
+            modelBasedMenus.put("Barracks", buildBarracksMenu());
+            modelBasedMenus.put("Camp", buildCampMenu());
+            modelBasedMenus.put("Mine", buildMinesMenu());
+            modelBasedMenus.put("Storage", buildStorageMenu());
+            modelBasedMenus.put("DefensiveBuilding", buildDefensiveBuildingsMenu());
+            modelBasedMenus.put("Map", buildMapMenu());
+        }
+    }
+
+    public Menu getEntranceMenu() {
+        return entranceMenu;
+    }
+
+    public Menu getVillageMenu() {
         return villageMenu;
     }
 
-    HashMap<String, Menu> getModelBasedMenus() {
-        HashMap<String, Menu> modelBasedMenus = new HashMap<>();
-        modelBasedMenus.put("TownHall", buildTownHallMenu());
-        modelBasedMenus.put("Barracks", buildBarracksMenu());
-        modelBasedMenus.put("Camp", buildCampMenu());
-        modelBasedMenus.put("Mine", buildMinesMenu());
-        modelBasedMenus.put("Storage", buildStorageMenu());
-        modelBasedMenus.put("DefensiveBuilding", buildDefensiveBuildingsMenu());
-        modelBasedMenus.put("Map", buildMapMenu());
-        for (Map.Entry<String, Menu> stringMenuEntry : modelBasedMenus.entrySet()) {
-            setParentForMenu(stringMenuEntry.getValue());
-        }
+    public HashMap<String, Menu> getModelBasedMenus() {
         return modelBasedMenus;
     }
 
-    public void OpenMenu(Menu menu) {
-        updateDynamicMenu(menu);
+    public void openMenu(Menu menu) {
+//        updateDynamicMenu(menu);
+        menuStack.push(menu);
+    }
+
+    public void back() {
+        menuStack.pop();
+    }
+
+    public void printMenu() {
+        menuViewer.printMenu(menuStack.peek());
+    }
+
+    public void printMenu(Menu menu) {
         menuViewer.printMenu(menu);
     }
 
-    private static void setParentForMenu(Menu menu) {
-        for (int i = 0; i < menu.getItems().size(); i++) {
-            if (menu.getItems().get(i).getClass().equals(Menu.class)) {
-                Menu child = (Menu) menu.getItems().get(i);
-                child.setParent(menu);
-                setParentForMenu(child);
-            }
-        }
+    public boolean isMenuItemNumber(String command) {
+        return command.matches(NUMBER);
     }
 
-    void setParentForMenu(Menu child, Menu parent) {
-        child.setParent(parent);
-    }
-
-    MenuItem getRequestedMenuItem(Menu menu, String command) {
+    MenuItem getRequestedMenuItem(String command) {
+        Menu menu = menuStack.peek();
         int maxIndex = menu.getItems().size() + menu.getDynamicItems().size() - 1;
         try {
             int menuItemIndex = Integer.parseInt(command) - 1;
@@ -165,7 +189,7 @@ public class MenuController {
 
     private Menu buildEntranceMenu() {
         return MenuBuilder.aMenu()
-                .withLabel("main menu")
+                .withLabel("main")
                 .withItem(new MenuItem(CommandType.NEW_GAME))
                 .withItem(new MenuItem(CommandType.LOAD_GAME))
                 .build();
@@ -173,7 +197,7 @@ public class MenuController {
 
     private Menu buildVillageMenu() {
         return MenuBuilder.aMenu()
-                .withLabel("village menu")
+                .withLabel("village")
                 .withItem(new MenuItem(CommandType.BACK))
                 .withItem(buildMenuWithDynamicItems("buildings", DynamicListType.BUILDINGS_LIST))
                 .withItem(new MenuItem(CommandType.RESOURCES_INFO))
@@ -263,7 +287,7 @@ public class MenuController {
                 .build();
 
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
-                .withLabel("camp")
+                .withLabel("storage")
                 .withItem(infoMenu)
                 .build();
     }
@@ -274,7 +298,7 @@ public class MenuController {
                 .build();
 
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
-                .withLabel("camp")
+                .withLabel("")
                 .withItem(infoMenu)
                 .withItem(buildMenuWithDynamicItems("target", DynamicListType.TARGET))
                 .build();
