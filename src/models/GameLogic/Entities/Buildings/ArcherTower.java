@@ -10,11 +10,11 @@ import models.Setting.GameLogicConfig;
 
 public class ArcherTower extends DefensiveBuilding {
 
-    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
-    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", 8);
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 8);
 
-    public ArcherTower(Position position, int number) {
-        super(position, number);
+    public ArcherTower(Position position, boolean isFriendly) {
+        super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
         this.targetType = BuildingTargetType.GROUND;
         this.damageType = BuildingDamageType.SINGLE_TARGET;
     }

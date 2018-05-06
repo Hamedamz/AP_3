@@ -8,11 +8,11 @@ import models.Setting.GameLogicConfig;
 
 public class ElixirMine extends Mine {
 
-    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
-    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", 2);
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 2);
 
-    public ElixirMine(Position position, int number) {
-        super(position, number);
+    public ElixirMine(Position position, boolean isFriendly) {
+        super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
     }
 
     @Override

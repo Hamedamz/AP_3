@@ -12,17 +12,17 @@ import java.util.ArrayList;
 
 public class Barracks extends Building {
 
-    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
-    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", 6);
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 6);
 
     private ArrayList<TrainingTroop> trainingTroops;
 
-    public Barracks(Position position, int number) {
-        super(position, number);
+    public Barracks(Position position, boolean isFriendly) {
+        super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
     }
 
-    public Barracks(ArrayList<TrainingTroop> trainingTroops, Position position, int number) {
-        super(position, number);
+    public Barracks(ArrayList<TrainingTroop> trainingTroops, Position position, boolean isFriendly) {
+        super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
         this.trainingTroops.addAll(trainingTroops);
     }
 

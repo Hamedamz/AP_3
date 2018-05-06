@@ -15,14 +15,14 @@ import java.util.Comparator;
 
 public class Camp extends Building {
 
-    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
-    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", 7);
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 7);
 
     private ArrayList<Troop> troops;
     private int size;
 
-    public Camp(Position position, boolean isFreindly) {
-        super(position, id);
+    public Camp(Position position, boolean isFriendly) {
+        super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
         String className = this.getClass().getName();
         this.size = (Integer) GameLogicConfig.getFromDictionary(className + "Capacity");
     }

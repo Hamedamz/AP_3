@@ -15,6 +15,7 @@ import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public abstract class DefensiveBuilding extends Building implements Attacker {
     protected int damage;
@@ -80,7 +81,33 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
 
     @Override
     public void setTarget(ArrayList<Destroyable> destroyables) {
-        // TODO: 5/5/2018 Arshia Moghimi
+//        int x = building.getPosition().getX();
+//        int y = building.getPosition().getY();
+//        if (building instanceof DefensiveBuilding) {
+//            for (int i = -((DefensiveBuilding) building).getRange(); i <((DefensiveBuilding) building).getRange(); i++) {
+//                x += i;
+//                for (int j = -((DefensiveBuilding) building).getRange(); j <= ((DefensiveBuilding) building).getRange(); j++) {
+//                    y += j;
+//                    if (x >= 30)
+//                        x = 29;
+//                    if (y >= 30)
+//                        y = 29;
+//                    if (x < 0)
+//                        x = 0;
+//                    if (y < 0)
+//                        y = 0;
+//                    if (building.getPosition().calculateDistance(new Position(x, y)) > ((DefensiveBuilding) building).getRange()) {
+//                        continue;
+//                    }
+//                    for (Iterator<Troop> it = battleGround.getTroops().iterator(); it.hasNext(); ) {
+//                        Troop troop = it.next();
+//                        if (troop.getPosition().getX() == x && troop.getPosition().getY() == y)
+//                            return troop;
+//                    }
+//                }
+//            }
+//        }
+        return;
     }
 
     @Override

@@ -8,11 +8,11 @@ import models.Setting.GameLogicConfig;
 
 public class ElixirStorage extends Storage {
 
-    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
-    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", 4);
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 4);
 
-    public ElixirStorage(Position position, int number) {
-        super(position, number);
+    public ElixirStorage(Position position, boolean isFriendly) {
+        super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
     }
 
     @Override

@@ -25,7 +25,6 @@ public class Controller {
 
             } else {
                 switch (requestedMenuItem.getCommandType()) {
-
                     case NEW_GAME:
                         newGame(); // TODO: 5/5/2018
                         menuController.openMenu(menuController.getVillageMenu());

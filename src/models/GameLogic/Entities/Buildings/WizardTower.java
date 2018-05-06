@@ -10,11 +10,11 @@ import models.Setting.GameLogicConfig;
 
 public class WizardTower extends DefensiveBuilding {
 
-    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
-    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", 11);
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 11);
 
-    public WizardTower(Position position, int number) {
-        super(position, number);
+    public WizardTower(Position position, boolean isFriendly) {
+        super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
         this.targetType = BuildingTargetType.GROUND_AND_AIR;
         this.damageType = BuildingDamageType.AREA_SPLASH;
     }
