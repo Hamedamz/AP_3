@@ -10,6 +10,8 @@ import models.GameLogic.Map;
 import models.GameLogic.Position;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
+import models.ID;
+import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
@@ -21,8 +23,8 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     protected BuildingTargetType targetType;
     protected Destroyable target;
 
-    public DefensiveBuilding(Position position, int number) {
-        super(position, number);
+    public DefensiveBuilding(Position position, ID id) {
+        super(position, id);
         String className = this.getClass().getName();
         this.damage = (Integer) GameLogicConfig.getFromDictionary(className + "Damage");
         this.range = (Integer) GameLogicConfig.getFromDictionary(className + "Range");
@@ -50,7 +52,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     }
 
     @Override
-    public void giveDamageTo(Destroyable destroyable, Map map) {
+    public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
         if (damageType == BuildingDamageType.SINGLE_TARGET) {
             destroyable.takeDamageFromAttack(damage);
             if (destroyable.isDestroyed()) {
@@ -58,7 +60,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
             }
         }
         else {
-            for (Entity entity : map.getTroops(destroyable.getPosition())) { // FIXME: 5/6/2018 
+            for (Entity entity : battleGround.getAttackerEntitiesInPosition(destroyable.getPosition())) {
                 if(entity instanceof Destroyable) {
                     ((Destroyable) entity).takeDamageFromAttack(damage);
                     if (destroyable.isDestroyed()) {

@@ -13,6 +13,8 @@ import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.Bounty;
 import models.GameLogic.enums.MoveType;
+import models.ID;
+import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
@@ -24,13 +26,13 @@ public abstract class Building extends Defender implements Upgradable {
     protected int maxHitPoint;
     protected int hitPoints;
     protected int level;
-    protected int number;
+    private ID troopID;
     protected boolean isDestroyed;
     protected boolean isUnderConstruct;
 
-    public Building(Position position, int number) {
+    public Building(Position position, ID id) {
         super(position);
-        this.number = number;
+        troopID = id;
         String className = this.getClass().getName();
         this.level = 0;
         this.score = (Integer) GameLogicConfig.getFromDictionary(className + "DestructionScore");
@@ -38,7 +40,7 @@ public abstract class Building extends Defender implements Upgradable {
         this.maxHitPoint = this.hitPoints;
         this.isDestroyed = false;
         this.isUnderConstruct = false;
-        this.number = 0;  //FIXME IDGenerator
+
     }
 
     public static MoveType getMoveType() {
@@ -63,9 +65,6 @@ public abstract class Building extends Defender implements Upgradable {
         return level;
     }
 
-    public int getNumber() {
-        return number;
-    }
 
     @Override
     public void takeDamageFromAttack(int damage) {

@@ -5,11 +5,15 @@ import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.TrainingTroop;
+import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 
 public class Barracks extends Building {
+
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
 
     private ArrayList<TrainingTroop> trainingTroops;
 

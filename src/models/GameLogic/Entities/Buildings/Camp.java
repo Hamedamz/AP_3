@@ -6,6 +6,8 @@ import models.GameLogic.Exceptions.NotEnoughCapacityException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.TrainingTroop;
+import models.ID;
+import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
@@ -13,17 +15,20 @@ import java.util.Comparator;
 
 public class Camp extends Building {
 
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
+
     private ArrayList<Troop> troops;
     private int size;
 
-    public Camp(Position position, int number) {
-        super(position, number);
+    public Camp(Position position, boolean isFreindly) {
+        super(position, id);
         String className = this.getClass().getName();
         this.size = (Integer) GameLogicConfig.getFromDictionary(className + "Capacity");
     }
 
-    public Camp(ArrayList<Troop> troops, Position position, int number) {
-        super(position, number);
+    public Camp(ArrayList<Troop> troops, Position position, boolean isFriendly) {
+        super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
         this.troops.addAll(troops);
         String className = this.getClass().getName();
         this.size = (Integer) GameLogicConfig.getFromDictionary(className + "Capacity");

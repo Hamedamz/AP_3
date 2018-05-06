@@ -1,6 +1,7 @@
 package models.GameLogic;
 
 import interfaces.Destroyable;
+import interfaces.Locatable;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;
@@ -36,6 +37,16 @@ public class BattleGround {
             if (enemyBuildings.get(i).getClass().getName().equals("GoldStorage")) {
             }
         }
+    }
+
+    public  ArrayList<Entity> getAttackerEntitiesInPosition(Position pos) {
+        ArrayList<Entity> result = new ArrayList<>();
+        for (Troop troop : troops) {
+            if (troop.getPosition().equals(pos)) {
+                result.add(troop);
+            }
+        }
+        return result;
     }
 
     public Set<Troop> getTroops() {

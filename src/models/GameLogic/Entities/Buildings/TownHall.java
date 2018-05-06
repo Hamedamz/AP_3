@@ -5,21 +5,25 @@ import models.GameLogic.Builder;
 import models.GameLogic.Exceptions.NoFreeBuilderException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
+import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 
 public class TownHall extends ResourceBuilding {
 
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
+
     private ArrayList<Builder> builders = new ArrayList<>();
     private int score;
 
-    public TownHall(){
-
+    public TownHall(Position position){
+        super(position);
     }
 
     public TownHall(int villageWidth, int villageLength) {
-        super(new Position((villageWidth / 2) - 1, (villageLength / 2) - 1), 0);
+        super(new Position((villageWidth / 2) - 1, (villageLength / 2) - 1));
 
     }
 

@@ -11,7 +11,7 @@ import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 
-public abstract class Troop extends Entity implements Movable, Upgradable, Destroyable {
+public abstract class Troop extends Entity implements Movable, Upgradable {
     private transient Camp troopCamp;
     protected MoveType moveType;
     protected int speed;

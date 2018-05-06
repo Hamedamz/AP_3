@@ -49,7 +49,7 @@ public class JsonInterpreter {
         ArrayList<JsonBuilding> jsonBuildings = jsonVillage.buildings;
         for (int i = 0; i < jsonBuildings.size(); i++) {
             int buildingType = jsonBuildings.get(i).type;
-            switch (buildingType) {
+            switch (buildingType) {// FIXME: 5/6/2018 put this json numbers in config Arshia Moghimi
                 case 1:
                     addNewGoldMine(jsonBuildings.get(i), buildings);
                     break;
@@ -146,7 +146,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewTownHall(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        TownHall townHall = new TownHall();
+        TownHall townHall = new TownHall(new Position(jsonBuilding.x, jsonBuilding.y));
         townHall.setLevel(jsonBuilding.level);
         int hitPoints = (Integer) GameLogicConfig.getFromDictionary("TownHallHitPoints") + ((Integer) GameLogicConfig.getFromDictionary("TownHallUpgradeHitPointsAddition") * jsonBuilding.level);
         townHall.setHitPoints(hitPoints);

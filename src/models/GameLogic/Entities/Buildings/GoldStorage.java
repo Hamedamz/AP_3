@@ -3,12 +3,17 @@ package models.GameLogic.Entities.Buildings;
 import models.GameLogic.Bounty;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
+import models.ID;
+import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 public class GoldStorage extends Storage {
 
-    public GoldStorage(Position position, int number) {
-        super(position, number);
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
+
+    public GoldStorage(Position position, ID id) {
+        super(position, id);
     }
 
     @Override

@@ -3,9 +3,13 @@ package models.GameLogic.Entities.Buildings;
 import models.GameLogic.Bounty;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
+import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 public class ElixirMine extends Mine {
+
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
 
     public ElixirMine(Position position, int number) {
         super(position, number);

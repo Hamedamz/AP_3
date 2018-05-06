@@ -5,12 +5,17 @@ import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
+import models.ID;
+import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 public class AirDefense extends DefensiveBuilding {
 
-    public AirDefense(Position position, int number) {
-        super(position, number);
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
+
+    public AirDefense(Position position, boolean isFriendly) {
+        super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID() );
         this.targetType = BuildingTargetType.AIR;
         this.damageType = BuildingDamageType.SINGLE_TARGET;
     }

@@ -5,9 +5,13 @@ import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
+import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 public class Cannon extends DefensiveBuilding {
+
+    private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", );
+    private static final IDGenerator hostileIDGenerator = new IDGenerator("02", );
 
     public Cannon(Position position, int number) {
         super(position, number);
