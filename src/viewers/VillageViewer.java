@@ -10,11 +10,23 @@ public class VillageViewer extends BasicViewer {
         this.village = village;
     }
 
-    private int printResourcesList() {
+    public void printResourcesList() {
         Resource totalResourceStock = village.getTotalResourceStock();
-        System.out.println("Gold: " + totalResourceStock.getGold());
-        System.out.println("Elixir: " + totalResourceStock.getElixir());
-        System.out.println("Score: " + village.getTownHall().getScore());
-        return 0;
+        printPropertyValue("Gold", totalResourceStock.getGold());
+        printPropertyValue("Elixir", totalResourceStock.getElixir());
+        printPropertyValue("Score", village.getTownHall().getScore());
+    }
+
+    public void printMapCells() {
+        for (int i = 0; i < village.getMap().getWidth(); i++) {
+            for (int j = 0; j < village.getMap().getLength(); j++) {
+                if (village.getMap().isOccupied(i, j) || i == 0 || j == 0 || i == village.getMap().getWidth() - 1 || j == village.getMap().getLength() - 1) {
+                    System.out.print("1 ");
+                } else {
+                    System.out.print("0 ");
+                }
+            }
+            System.out.println();
+        }
     }
 }

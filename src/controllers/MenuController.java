@@ -2,12 +2,15 @@ package controllers;
 
 import controllers.Exceptions.InvalidInputException;
 import controllers.enums.*;
+import models.GameLogic.Entities.Entity;
 import models.Menu.*;
 import viewers.MenuViewer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
+
+import static controllers.enums.CommandType.*;
 
 public class MenuController {
     public static final String NUMBER = "\\d+";
@@ -63,7 +66,20 @@ public class MenuController {
 
     public void openMenu(Menu menu) {
 //        updateDynamicMenu(menu);
+        if (isMenuOpen()) {
+            menu.setModel(getActiveMenu().getModel());
+        }
         menuStack.push(menu);
+    }
+
+    public void openMenu(Menu menu, Entity model) {
+//        updateDynamicMenu(menu);
+        menu.setModel(model);
+        menuStack.push(menu);
+    }
+
+    public boolean isMenuOpen() {
+        return !menuStack.empty();
     }
 
     public void back() {
@@ -71,7 +87,7 @@ public class MenuController {
     }
 
     public void printMenu() {
-        menuViewer.printMenu(menuStack.peek());
+        menuViewer.printMenu(getActiveMenu());
     }
 
     public void printMenu(Menu menu) {
@@ -82,24 +98,23 @@ public class MenuController {
         return command.matches(NUMBER);
     }
 
-    MenuItem getRequestedMenuItem(String command) {
-        Menu menu = menuStack.peek();
+    public MenuItem getRequestedMenuItem(String command) throws InvalidInputException {
+        Menu menu = getActiveMenu();
         int maxIndex = menu.getItems().size() + menu.getDynamicItems().size() - 1;
-        try {
-            int menuItemIndex = Integer.parseInt(command) - 1;
-            if (menuItemIndex > maxIndex || menuItemIndex < 0) {
-                throw new InvalidInputException("Your input is out of range.");
+        int menuItemIndex = Integer.parseInt(command) - 1;
+        if (menuItemIndex > maxIndex || menuItemIndex < 0) {
+            throw new InvalidInputException("input is out of range");
+        } else {
+            if (menuItemIndex < menu.getItems().size()) {
+                return menu.getItems().get(menuItemIndex);
             } else {
-                if (menuItemIndex < menu.getItems().size()) {
-                    return menu.getItems().get(menuItemIndex);
-                } else {
-                    return menu.getDynamicItems().get(menuItemIndex - menu.getItems().size());
-                }
+                return menu.getDynamicItems().get(menuItemIndex - menu.getItems().size());
             }
-        } catch (InvalidInputException e) {
-            menuViewer.printErrorMessage(e.getMessage());
         }
-        return null;
+    }
+
+    public Menu getActiveMenu() {
+        return menuStack.peek();
     }
 
     private void updateDynamicMenu(Menu menu) {
@@ -114,9 +129,6 @@ public class MenuController {
                 break;
             case CONSTRUCTION_STATUS_LIST:
                 list = getConstructionStatusList();
-                break;
-            case AVAILABLE_BUILDINGS_LIST:
-                list = getAvailableBuildingsList();
                 break;
             case TROOPS_LIST:
                 list = getTroopsList();
@@ -172,35 +184,30 @@ public class MenuController {
         return null;
     }
 
-    private ArrayList<DynamicMenuItem> getAvailableBuildingsList() {
-        // buildings than can be built based on resources and aren't built yet
-        return null;
-    }
-
     private ArrayList<DynamicMenuItem> getConstructionStatusList() {
         // under construction buildings with turns left to be built
         return null;
     }
 
     private ArrayList<DynamicMenuItem> getBuildingsList() {
-        // all game buildings
+        // all village buildings
         return null;
     }
 
     private Menu buildEntranceMenu() {
         return MenuBuilder.aMenu()
                 .withLabel("main")
-                .withItem(new MenuItem(CommandType.NEW_GAME))
-                .withItem(new MenuItem(CommandType.LOAD_GAME))
+                .withItem(new MenuItem(NEW_GAME))
+                .withItem(new MenuItem(LOAD_GAME))
                 .build();
     }
 
     private Menu buildVillageMenu() {
         return MenuBuilder.aMenu()
                 .withLabel("village")
-                .withItem(new MenuItem(CommandType.BACK))
+                .withItem(new MenuItem(BACK))
                 .withItem(buildMenuWithDynamicItems("buildings", DynamicListType.BUILDINGS_LIST))
-                .withItem(new MenuItem(CommandType.RESOURCES_INFO))
+                .withItem(new MenuItem(RESOURCES_INFO))
                 .withItem(buildAttackMenu())
                 .build();
     }
@@ -208,8 +215,8 @@ public class MenuController {
     private Menu buildAttackMenu() {
         return MenuBuilder.aMenu()
                 .withLabel("attack")
-                .withItem(new MenuItem(CommandType.BACK))
-                .withItem(new MenuItem(CommandType.LOAD_MAP))
+                .withItem(new MenuItem(BACK))
+                .withItem(new MenuItem(LOAD_MAP))
                 .withDynamicList(DynamicListType.AVAILABLE_MAPS_LIST)
                 .build();
     }
@@ -217,40 +224,58 @@ public class MenuController {
     private Menu buildMapMenu() {
         return MenuBuilder.aMenu()
                 .withLabel("map")
-                .withItem(new MenuItem(CommandType.MAP_INFO))
-                .withItem(new MenuItem(CommandType.ATTACK_MAP))
+                .withItem(new MenuItem(MAP_INFO))
+                .withItem(new MenuItem(ATTACK_MAP))
                 .build();
     }
 
     private MenuItem buildMenuWithDynamicItems(String label, DynamicListType dynamicListType) {
         return MenuBuilder.aMenu()
                 .withLabel(label)
-                .withItem(new MenuItem(CommandType.BACK))
+                .withItem(new MenuItem(BACK))
                 .withDynamicList(dynamicListType)
                 .build();
     }
 
     private Menu buildTypicalBuildingMenu() {
         return MenuBuilder.aMenu()
-                .withItem(new MenuItem(CommandType.BACK))
+                .withItem(new MenuItem(BACK))
                 .withItem(buildInfoMenu())
+                .withItem(new MenuItem(UPGRADE_BUILDING))
                 .build();
     }
 
     private Menu buildInfoMenu() {
         return MenuBuilder.aMenu()
                 .withLabel("info")
-                .withItem(new MenuItem(CommandType.BACK))
-                .withItem(new MenuItem(CommandType.OVERALL_INFO))
-                .withItem(new MenuItem(CommandType.UPGRADE_INFO))
+                .withItem(new MenuItem(BACK))
+                .withItem(new MenuItem(OVERALL_INFO))
+                .withItem(new MenuItem(UPGRADE_INFO))
                 .build();
     }
 
     private Menu buildTownHallMenu() {
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("town hall")
-                .withItem(buildMenuWithDynamicItems("available buildings", DynamicListType.AVAILABLE_BUILDINGS_LIST))
+                .withItem(buildAvailableBuildingsMenu())
                 .withItem(buildMenuWithDynamicItems("status", DynamicListType.CONSTRUCTION_STATUS_LIST))
+                .build();
+    }
+
+    private MenuItem buildAvailableBuildingsMenu() {
+        return MenuBuilder.aMenu()
+                .withLabel("available buildings")
+                .withItem(new MenuItem(BACK))
+                .withItem(new MenuItem(BUILD_BUILDING, "AirDefense"))
+                .withItem(new MenuItem(BUILD_BUILDING, "ArcherTower"))
+                .withItem(new MenuItem(BUILD_BUILDING, "Barracks"))
+                .withItem(new MenuItem(BUILD_BUILDING, "Camp"))
+                .withItem(new MenuItem(BUILD_BUILDING, "Cannon"))
+                .withItem(new MenuItem(BUILD_BUILDING, "ElixirMine"))
+                .withItem(new MenuItem(BUILD_BUILDING, "ElixirStorage"))
+                .withItem(new MenuItem(BUILD_BUILDING, "GoldMine"))
+                .withItem(new MenuItem(BUILD_BUILDING, "GoldStorage"))
+                .withItem(new MenuItem(BUILD_BUILDING, "WizardTower"))
                 .build();
     }
 
@@ -264,7 +289,7 @@ public class MenuController {
 
     private Menu buildCampMenu() {
         Menu infoMenu = MenuBuilder.aMenuExtending(buildInfoMenu())
-                .withItem(new MenuItem(CommandType.CAPACITY_INFO))
+                .withItem(new MenuItem(CAPACITY_INFO))
                 .build();
 
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
@@ -283,7 +308,7 @@ public class MenuController {
 
     private Menu buildStorageMenu() {
         Menu infoMenu = MenuBuilder.aMenuExtending(buildInfoMenu())
-                .withItem(new MenuItem(CommandType.RESOURCES_INFO))
+                .withItem(new MenuItem(SOURCES_INFO))
                 .build();
 
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
@@ -294,7 +319,7 @@ public class MenuController {
 
     private Menu buildDefensiveBuildingsMenu() {
         Menu infoMenu = MenuBuilder.aMenuExtending(buildInfoMenu())
-                .withItem(new MenuItem(CommandType.ATTACK_INFO))
+                .withItem(new MenuItem(ATTACK_INFO))
                 .build();
 
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())

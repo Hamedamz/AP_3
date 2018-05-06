@@ -1,5 +1,7 @@
 package viewers;
 
+import controllers.Exceptions.InvalidInputException;
+
 import java.util.Scanner;
 
 public class BasicViewer {
@@ -13,7 +15,24 @@ public class BasicViewer {
         System.out.println(info);
     }
 
+    public void printPropertyValue(String property, Number value) {
+        System.out.format("%s: %s\n", property, value);
+    }
+
     public String getInput() {
         return scanner.nextLine();
+    }
+
+    public void requestForInput(String request) {
+        System.out.println(request);
+    }
+
+    public boolean getConfirmation() throws InvalidInputException {
+        if (getInput().matches("[yY]")) {
+            return true;
+        } else if (getInput().matches("[nN]")) {
+            return true;
+        }
+        throw new InvalidInputException("invalid input");
     }
 }

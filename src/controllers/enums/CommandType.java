@@ -3,23 +3,20 @@ package controllers.enums;
 public enum CommandType {
     NEW_GAME,
     LOAD_GAME,
-    SAVE_GAME,
-    SHOW_BUILDINGS,
-    SHOW_RESOURCES,
+    OPEN_BUILDING_MENU,
     UPGRADE_BUILDING,
-    AVAILABLE_BUILDINGS,
-    STATUS,
+    BUILD_BUILDING,
     LOAD_MAP,
     OVERALL_INFO,
     UPGRADE_INFO,
     CAPACITY_INFO,
     RESOURCES_INFO,
+    SOURCES_INFO,
     ATTACK_INFO,
     MAP_INFO,
     ATTACK_MAP,
     BACK,
-    OPEN_MENU,
-    OPEN_DYNAMIC_MENU;
+    OPEN_MENU;
 
     public String toString() {
         return this.name().replace('_', ' ').toLowerCase();
