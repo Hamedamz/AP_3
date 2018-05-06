@@ -4,6 +4,7 @@ import interfaces.Attacker;
 import interfaces.Destroyable;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
+import models.GameLogic.Entities.Buildings.Storage;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NoTargetFoundException;
@@ -23,8 +24,28 @@ public class BattleGroundGameEngine {
     }
 
     public void update() {
+        checkDestructions();
         battleGround.setNumberOfTroopsDeployed(new int[30][30]);
         isGameFinished = battleGround.isGameFinished();
+    }
+
+    private void checkDestructions() {
+        ArrayList<Building> buildings = battleGround.getMap().getBuildings();
+        for (int i = 0; i < buildings.size(); i++) {
+            if (buildings.get(i) instanceof Storage) {
+                if (buildings.get(i).isDestroyed()) {
+                   addBounty(buildings.get(i));
+                }
+            }
+        }
+    }
+
+    private void addBounty(Building building) {
+        Bounty bounty = building.getBounty();
+        battleGround.addBounty(bounty);
+        Resource myVillageAvailableResourceSpace = battleGround.getMyVillageAvailableResourceSpace();
+        battleGround.getVillage().addBounty(bounty);
+
     }
 
     public void updateTroopTarget() {
@@ -43,14 +64,17 @@ public class BattleGroundGameEngine {
     }
 
     public void updateBuildingTarget() {
-        ArrayList<Destroyable> destroyables = new ArrayList<>(battleGround.getTroops());
+        ArrayList<Destroyable> destroyables = new ArrayList<>();
+        for (Troop entry : battleGround.getTroops()) {
+            destroyables.add((Destroyable) entry);
+        }
         for (Building building : battleGround.getMap().getBuildings()) {
             if (building instanceof DefensiveBuilding) {
                 if (((Attacker) building).getTarget() == null || ((Attacker) building).getTarget().isDestroyed()) {
                     try {
                         ((Attacker) building).setTarget(destroyables);
                     } catch (NoTargetFoundException e) {
-                        e.printStackTrace();
+                        e.getMessage();
                     }
                 }
             }
