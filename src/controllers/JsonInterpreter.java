@@ -205,11 +205,6 @@ public class JsonInterpreter {
         buildings.add(goldMine);
     }
 
-    private static int findNumberForBuildings() {
-        currentBuildingNumber++;
-        return currentBuildingNumber;
-    }
-
     private static String toStringJson(String mapPath) throws FileNotFoundException {
         String jsonString = "";
         FileInputStream input = new FileInputStream(mapPath);
