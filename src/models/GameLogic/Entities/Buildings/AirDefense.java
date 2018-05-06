@@ -22,7 +22,7 @@ public class AirDefense extends DefensiveBuilding {
 
     @Override
     public Resource getUpgradeResource() {
-        int gold = (Integer) GameLogicConfig.getFromDictionary("AirDefenseUpgradeGold");
+        int gold = (int) GameLogicConfig.getFromDictionary("AirDefenseUpgradeGold");
         int elixir = 0;
         return new Resource(gold, elixir);
     }

@@ -18,7 +18,36 @@ public class Village {
     // FIXME: 4/28/2018 when you build a building become sure you put that building in correct catagory at above class
 
     public Village() {
-        townHall = new TownHall(map.getWidth(), map.getLength());
+        map = new Map((int) GameLogicConfig.getFromDictionary("VillageWidth"),
+                (int) GameLogicConfig.getFromDictionary("VillageHeight"));
+        townHall = new TownHall(new Position((map.getWidth() - 1) / 2, (map.getHeight() - 1) / 2), true);
+        GoldStorage goldStorage = new GoldStorage(new Position((map.getWidth() - 3) / 2, (map.getHeight() - 3) / 2), true);
+        map.addNewBuilding(townHall);
+        map.addNewBuilding(goldStorage);
+        initiateListOfBuildings();
+        listOfBuildingsByName.get(TownHall.class.getSimpleName()).add(townHall);
+        listOfBuildingsByName.get(Storage.class.getSimpleName()).add(townHall);
+        listOfBuildingsByName.get(Storage.class.getSimpleName()).add(goldStorage);
+        spreadResources(new Resource((int) GameLogicConfig.getFromDictionary("VillageInitialGold"), (int) GameLogicConfig.getFromDictionary("VillageInitialElixir")));
+
+    }
+
+    private void initiateListOfBuildings() {
+        listOfBuildingsByName.put(TownHall.class.getSimpleName(), new ArrayList<>());
+        listOfBuildingsByName.put(Storage.class.getSimpleName(), new ArrayList<>());
+
+        listOfBuildingsByName.put(ElixirStorage.class.getSimpleName(), new ArrayList<>());
+        listOfBuildingsByName.put(GoldMine.class.getSimpleName(), new ArrayList<>());
+
+        listOfBuildingsByName.put(Camp.class.getSimpleName(), new ArrayList<>());
+        listOfBuildingsByName.put(Camp.class.getSimpleName(), new ArrayList<>());
+
+        listOfBuildingsByName.put(DefensiveBuilding.class.getSimpleName(), new ArrayList<>());
+        listOfBuildingsByName.put(Cannon.class.getSimpleName(), new ArrayList<>());
+        listOfBuildingsByName.put(WizardTower.class.getSimpleName(), new ArrayList<>());
+        listOfBuildingsByName.put(ArcherTower.class.getSimpleName(), new ArrayList<>());
+        listOfBuildingsByName.put(AirDefense.class.getSimpleName(), new ArrayList<>());
+
     }
 
     public TownHall getTownHall() {
@@ -29,10 +58,9 @@ public class Village {
         return map;
     }
 
-    public ArrayList<Building> getBuildings(){
+    public ArrayList<Building> getBuildings() {
         return map.getBuildings();
     }
-
 
 
     public Building getBuildingByNumber(String buildingType, int buildingNumber) {
@@ -42,19 +70,19 @@ public class Village {
 
     public void build(String buildingType, int x, int y)
             throws NoFreeBuilderException, NotEnoughCapacityException, NotEnoughResourcesException, NotAvailableAtThisLevelException {
-        if(map.isOccupied(x, y)) {
+        if (map.isOccupied(x, y)) {
             throw new NotEnoughCapacityException();
         }
         Builder builder = townHall.getFreeBuilder();
-        spendResources(new Resource((Integer) GameLogicConfig.getFromDictionary(buildingType + "BuildGold"),
-                (Integer) GameLogicConfig.getFromDictionary(buildingType + "BuildElixir")));
+        spendResources(new Resource((int) GameLogicConfig.getFromDictionary(buildingType + "BuildGold"),
+                (int) GameLogicConfig.getFromDictionary(buildingType + "BuildElixir")));
         map.constructBuilding(x, y);
         // TODO: 5/3/2018 make new building here
 
 
     }
 
-    private  <T extends Building> T startConstruction(String buildingType, int x, int y) throws CountLimitReachedException {
+    private <T extends Building> T startConstruction(String buildingType, int x, int y) throws CountLimitReachedException {
 //        switch (buildingType) {
 //            case "AirDefence":
 //                return new AirDefense(x, y);
@@ -99,7 +127,7 @@ public class Village {
     public void upgrade(String buildingType, int num) throws NotEnoughResourcesException, BuildingNotFoundException, NotAvailableAtThisLevelException {
         ArrayList<Building> buildings = map.getBuildings();
         for (int i = 0; i < buildings.size(); i++) {
-            if (buildings.get(i).getClass().getName().equals(buildingType) && buildings.get(i).getNumber() == num) {
+            if (buildings.get(i).getClass().getSimpleName().equals(buildingType) && buildings.get(i).getID().getCount() == num) {
                 if (buildings.get(i).getLevel() >= townHall.getLevel()) {
                     throw new NotAvailableAtThisLevelException();
                 }
@@ -118,7 +146,7 @@ public class Village {
 
     public <T extends Building> ArrayList<T> findBuildingsWithSameType(Class<T> type) {
         ArrayList<T> res = new ArrayList<>();
-        for (Building building : listOfBuildingsByName.get(type.getName())) {
+        for (Building building : listOfBuildingsByName.get(type.getSimpleName())) {
             res.add((T) building);
         }
         return res;
@@ -149,7 +177,7 @@ public class Village {
 
     public boolean isThereAvailableSpaceForResources() {
 
-        for(Building building : findBuildingsWithSameType(Storage.class)) {
+        for (Building building : findBuildingsWithSameType(Storage.class)) {
             if (!((Storage) building).isStorageFull()) {
                 return true;
             }
@@ -173,9 +201,9 @@ public class Village {
         return result;
     }
 
-    public void spendResources(Resource resource) throws NotEnoughResourcesException{
+    public void spendResources(Resource resource) throws NotEnoughResourcesException {
         Resource totalResource = Resource.subtractResources(getTotalResourceStock(), resource);
-        if(totalResource.getGold() < 0 || totalResource.getElixir() < 0) {
+        if (totalResource.getGold() < 0 || totalResource.getElixir() < 0) {
             throw new NotEnoughResourcesException();
         }
         spreadResources(new Resource(-resource.getGold(), -resource.getElixir()));

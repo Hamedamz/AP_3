@@ -20,7 +20,7 @@ public abstract class Troop extends Entity implements Movable, Upgradable {
     public Troop() {
         super();
                 String className = this.getClass().getName();
-        this.speed = (Integer) GameLogicConfig.getFromDictionary(className + "Speed");
+        this.speed = (int) GameLogicConfig.getFromDictionary(className + "Speed");
     }
 
     public void setTroopCamp(Camp troopCamp) {

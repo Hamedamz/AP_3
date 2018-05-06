@@ -47,7 +47,7 @@ public class Barracks extends Building {
 
     @Override
     public Resource getUpgradeResource() {
-        int gold = (Integer) GameLogicConfig.getFromDictionary("BarracksUpgradeGold");
+        int gold = (int) GameLogicConfig.getFromDictionary("BarracksUpgradeGold");
         int elixir = 0;
         return new Resource(gold, elixir);
     }

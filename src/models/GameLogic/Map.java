@@ -1,20 +1,19 @@
 package models.GameLogic;
 
 import models.GameLogic.Entities.Buildings.Building;
-import models.GameLogic.Entities.Entity;
 
 import java.util.ArrayList;
 
 public class Map {
     // TODO: 4/12/2018 add map size to dic
-    private int width, length;
+    private int width, height;
     private ArrayList<Building> buildings;
     private boolean[][] isOccupied;
 
 
-    public Map(int width, int length) {
+    public Map(int width, int height) {
         this.width = width;
-        this.length = length;
+        this.height = height;
         buildings = new ArrayList<>();
     }
 
@@ -22,8 +21,8 @@ public class Map {
         return width;
     }
 
-    public int getLength() {
-        return length;
+    public int getHeight() {
+        return height;
     }
 
     public void addNewBuilding(Building building) {

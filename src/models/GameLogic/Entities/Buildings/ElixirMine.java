@@ -23,7 +23,7 @@ public class ElixirMine extends Mine {
 
     @Override
     public Resource getUpgradeResource() {
-        int gold = (Integer) GameLogicConfig.getFromDictionary("ElixirMineUpgradeGold");
+        int gold = (int) GameLogicConfig.getFromDictionary("ElixirMineUpgradeGold");
         int elixir = 0;
         return new Resource(gold, elixir);
     }

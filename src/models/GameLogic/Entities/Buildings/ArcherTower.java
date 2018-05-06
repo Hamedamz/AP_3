@@ -21,7 +21,7 @@ public class ArcherTower extends DefensiveBuilding {
 
     @Override
     public Resource getUpgradeResource() {
-        int gold = (Integer) GameLogicConfig.getFromDictionary("ArcherTowerUpgradeGold");
+        int gold = (int) GameLogicConfig.getFromDictionary("ArcherTowerUpgradeGold");
         int elixir = 0;
         return new Resource(gold, elixir);
     }

@@ -4,7 +4,6 @@ import models.GameLogic.Exceptions.FileNotFoundException;
 
 public class World {
     private Village myVillage;
-    private Village underAttackVillage;
     private BattleGround battleGround;
     private int turn;
 
@@ -15,10 +14,6 @@ public class World {
 
     public Village getMyVillage() {
         return myVillage;
-    }
-
-    public Village getUnderAttackVillage() {
-        return underAttackVillage;
     }
 
     public BattleGround getBattleGround() {
@@ -33,8 +28,9 @@ public class World {
 
     }
 
-    public void makeNewGame() {
-
+    public void initiateGame() {
+        myVillage = new Village();
+        //myVillage.
     }
 
     public void saveGame() {

@@ -15,16 +15,14 @@ public class TownHall extends ResourceBuilding {
     private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", 5);
     private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 5);
 
-    private ArrayList<Builder> builders = new ArrayList<>();
+    private ArrayList<Builder> builders;
     private int score;
 
-    public TownHall(Position position){
-        super(position);
-    }
-
-    public TownHall(int villageWidth, int villageLength) {
-        super(new Position((villageWidth / 2) - 1, (villageLength / 2) - 1));
-
+    public TownHall(Position position, boolean isFriendly){
+        super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID() );
+        score = 0;
+        builders = new ArrayList<>();
+        builders.add(new Builder());
     }
 
     public ArrayList<Builder> getBuilders() {

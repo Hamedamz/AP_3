@@ -27,8 +27,8 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     public DefensiveBuilding(Position position, ID id) {
         super(position, id);
         String className = this.getClass().getName();
-        this.damage = (Integer) GameLogicConfig.getFromDictionary(className + "Damage");
-        this.range = (Integer) GameLogicConfig.getFromDictionary(className + "Range");
+        this.damage = (int) GameLogicConfig.getFromDictionary(className + "Damage");
+        this.range = (int) GameLogicConfig.getFromDictionary(className + "Range");
     }
 
     public int getDamage() {

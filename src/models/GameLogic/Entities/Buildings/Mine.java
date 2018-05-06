@@ -11,7 +11,7 @@ public abstract class Mine extends ResourceBuilding{
     public Mine(Position position, ID id) {
         super(position, id);
         String className = this.getClass().getName();
-        this.productionRate = (Integer) GameLogicConfig.getFromDictionary(className + "ProductionRate");
+        this.productionRate = (int) GameLogicConfig.getFromDictionary(className + "ProductionRate");
     }
 
     public abstract Resource produce();

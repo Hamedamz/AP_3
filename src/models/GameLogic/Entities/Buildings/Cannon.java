@@ -21,7 +21,7 @@ public class Cannon extends DefensiveBuilding {
 
     @Override
     public Resource getUpgradeResource() {
-        int gold = (Integer) GameLogicConfig.getFromDictionary("CannonUpgradeGold");
+        int gold = (int) GameLogicConfig.getFromDictionary("CannonUpgradeGold");
         int elixir = 0;
         return new Resource(gold, elixir);
     }

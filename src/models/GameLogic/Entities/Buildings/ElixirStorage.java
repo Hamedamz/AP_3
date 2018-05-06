@@ -17,7 +17,7 @@ public class ElixirStorage extends Storage {
 
     @Override
     public Resource getUpgradeResource() {
-        int gold = (Integer) GameLogicConfig.getFromDictionary("ElixirStorageUpgradeGold");
+        int gold = (int) GameLogicConfig.getFromDictionary("ElixirStorageUpgradeGold");
         int elixir = 0;
         return new Resource(gold, elixir);
     }

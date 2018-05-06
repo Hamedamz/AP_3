@@ -1,23 +1,13 @@
 package models.GameLogic.Entities.Buildings;
 
-import interfaces.Attacker;
-import interfaces.Destroyable;
-import interfaces.Revivable;
 import interfaces.Upgradable;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Defender;
-import models.GameLogic.Entities.Entity;
-import models.GameLogic.Entities.Troop.Troop;
-import models.GameLogic.Exceptions.NotEnoughResourcesException;
-import models.GameLogic.enums.BuildingDamageType;
-import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.Bounty;
 import models.GameLogic.enums.MoveType;
 import models.ID;
-import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 
 public abstract class Building extends Defender implements Upgradable {
@@ -26,20 +16,24 @@ public abstract class Building extends Defender implements Upgradable {
     protected int maxHitPoint;
     protected int hitPoints;
     protected int level;
-    private ID troopID;
+    private ID id;
     protected boolean isDestroyed;
     protected boolean isUnderConstruct;
 
     public Building(Position position, ID id) {
         super(position);
-        troopID = id;
-        String className = this.getClass().getName();
+        this.id = id;
+        String className = this.getClass().getSimpleName();
         this.level = 0;
-        this.score = (Integer) GameLogicConfig.getFromDictionary(className + "DestructionScore");
-        this.hitPoints = (Integer) GameLogicConfig.getFromDictionary(className + "HitPoints");
+        this.score = (int) GameLogicConfig.getFromDictionary(className + "DestructionScore");
+        this.hitPoints = (int) GameLogicConfig.getFromDictionary(className + "HitPoints");
         this.maxHitPoint = this.hitPoints;
         this.isDestroyed = false;
         this.isUnderConstruct = false;
+    }
+
+    public ID getID() {
+        return id;
     }
 
     public static MoveType getMoveType() {

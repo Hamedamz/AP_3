@@ -1,5 +1,5 @@
 #Village
-    VillageInitialGold: 10000
+    VillageInitialGold: 1200
     VillageInitialElixir: 0
     VillageWidth: 30
     VillageHeight: 30
