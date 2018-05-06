@@ -58,7 +58,6 @@ public abstract class Building extends Defender implements Upgradable {
         return level;
     }
 
-
     @Override
     public void takeDamageFromAttack(int damage) {
         hitPoints -= damage;

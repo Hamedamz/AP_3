@@ -19,8 +19,8 @@ public class VillageViewer extends BasicViewer {
 
     public void printMapCells() {
         for (int i = 0; i < village.getMap().getWidth(); i++) {
-            for (int j = 0; j < village.getMap().getLength(); j++) {
-                if (village.getMap().isOccupied(i, j) || i == 0 || j == 0 || i == village.getMap().getWidth() - 1 || j == village.getMap().getLength() - 1) {
+            for (int j = 0; j < village.getMap().getHeight(); j++) {
+                if (village.getMap().isOccupied(i, j) || i == 0 || j == 0 || i == village.getMap().getWidth() - 1 || j == village.getMap().getHeight() - 1) {
                     System.out.print("1 ");
                 } else {
                     System.out.print("0 ");

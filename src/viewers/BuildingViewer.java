@@ -19,7 +19,7 @@ public class BuildingViewer extends BasicViewer{
 
     public void requestUpgradeConfirmation(Building building) {
         System.out.format(UPGRADE_CONFIRMATION_FORMAT,
-                building.getClass().getSimpleName() + " " + building.getTroopID().getCount(),
+                building.getClass().getSimpleName() + " " + building.getID().getCount(),
                 GameLogicConfig.getFromDictionary(building.getClass().getSimpleName() + "UpgradeGold"));
 
     }
