@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class TownHall extends ResourceBuilding {
 
-    private ArrayList<Builder> builders;
+    private ArrayList<Builder> builders = new ArrayList<>();
     private int score;
 
     public TownHall(){
@@ -40,6 +40,9 @@ public class TownHall extends ResourceBuilding {
 
     @Override
     public void upgrade() {
+        if (level % 5 == 0) {
+            builders.add(new Builder());
+        }
         this.setLevel(this.getLevel() + 1);
         int hitPointsAddition = (int) GameLogicConfig.getFromDictionary("TownHallUpgradeHitPointsAddition");
         this.setHitPoints(this.hitPoints + hitPointsAddition);
