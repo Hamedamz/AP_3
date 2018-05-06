@@ -119,9 +119,14 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     }
 
     @Override
-    public Position findAttackPosition(Entity target, Map map) {
+    public Position findActionPosition(Entity target, Map map) {
         return null;
         // TODO: 5/5/2018  
+    }
+
+    @Override
+    public int getEffectRange() {
+        return range;
     }
 }
 

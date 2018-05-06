@@ -10,11 +10,20 @@ public class Map {
     private int width, length;
     private ArrayList<Building> buildings;
     private boolean[][] isOccupied;
-    private ArrayList<Entity>[][] troops;
 
 
-    public Map() {
+    public Map(int width, int length) {
+        this.width = width;
+        this.length = length;
         buildings = new ArrayList<>();
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getLength() {
+        return length;
     }
 
     public void addNewBuilding(Building building) {
@@ -29,9 +38,6 @@ public class Map {
         isOccupied[i][j] = true;
     }
 
-    public ArrayList<Entity> getTroops(Position position) {
-        return troops[position.getX()][position.getY()];
-    }
 
     public Map clone() {
         return null;

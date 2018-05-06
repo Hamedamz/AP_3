@@ -3,18 +3,19 @@ package models.GameLogic.Entities.Troop;
 import interfaces.Destroyable;
 import interfaces.Movable;
 import interfaces.Upgradable;
-import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
 import models.Setting.GameLogicConfig;
 
+import java.util.ArrayList;
+
 public abstract class Troop extends Entity implements Movable, Upgradable, Destroyable {
     private transient Camp troopCamp;
     protected MoveType moveType;
     protected int speed;
-    private Position[] movementTarget;
+    private ArrayList<Position> movementPath;
 
     public Troop() {
         super();
@@ -24,6 +25,21 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Destr
 
     public void setTroopCamp(Camp troopCamp) {
         this.troopCamp = troopCamp;
+    }
+
+    @Override
+    public int getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public void setPath(ArrayList<Position> path) {
+        movementPath = path;
+    }
+
+    @Override
+    public ArrayList<Position> getPath() {
+        return movementPath;
     }
 
     public static Troop castStringToTroopType(String string) {

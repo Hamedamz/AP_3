@@ -51,14 +51,14 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
 
     @Override
     public void giveDamageTo(Destroyable destroyable, Map map) {
-        if (damageType == BuildingDamageType.AREA_SPLASH) {
+        if (damageType == BuildingDamageType.SINGLE_TARGET) {
             destroyable.takeDamageFromAttack(damage);
             if (destroyable.isDestroyed()) {
                 destroyable.destroy();
             }
         }
         else {
-            for (Entity entity : map.getTroops(destroyable.getPosition())) {
+            for (Entity entity : map.getTroops(destroyable.getPosition())) { // FIXME: 5/6/2018 
                 if(entity instanceof Destroyable) {
                     ((Destroyable) entity).takeDamageFromAttack(damage);
                     if (destroyable.isDestroyed()) {
@@ -79,5 +79,10 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     @Override
     public void setTarget(ArrayList<Destroyable> destroyables) {
         // TODO: 5/5/2018 Arshia Moghimi
+    }
+
+    @Override
+    public int getEffectRange() {
+        return getRange();
     }
 }

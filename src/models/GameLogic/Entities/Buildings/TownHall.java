@@ -3,6 +3,7 @@ package models.GameLogic.Entities.Buildings;
 import models.GameLogic.Bounty;
 import models.GameLogic.Builder;
 import models.GameLogic.Exceptions.NoFreeBuilderException;
+import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.Setting.GameLogicConfig;
 
@@ -13,9 +14,13 @@ public class TownHall extends ResourceBuilding {
     private ArrayList<Builder> builders;
     private int score;
 
-    public TownHall() {
-        super(null, 0);
-        //TODO complete this
+    public TownHall(){
+
+    }
+
+    public TownHall(int villageWidth, int villageLength) {
+        super(new Position((villageWidth / 2) - 1, (villageLength / 2) - 1), 0);
+
     }
 
     public ArrayList<Builder> getBuilders() {
@@ -55,7 +60,7 @@ public class TownHall extends ResourceBuilding {
 
 
     public Builder getFreeBuilder() throws NoFreeBuilderException {
-        for(Builder builder : builders) {
+        for (Builder builder : builders) {
             if (!builder.isBuilderBusy()) {
                 return builder;
             }

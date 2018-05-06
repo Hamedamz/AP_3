@@ -27,7 +27,7 @@ public class BattleGroundGameEngine {
         isGameFinished = battleGround.isGameFinished();
     }
 
-    public void updateTroopTarget() {
+    private void updateTroopTarget() {
         ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getVillage().getMap().getBuildings());
         for (Troop troop : battleGround.getTroops()) {
             if (troop instanceof AttackerTroop) {
@@ -42,7 +42,7 @@ public class BattleGroundGameEngine {
         }
     }
 
-    public void updateBuildingTarget() {
+    private void updateBuildingTarget() {
         for (Building building : battleGround.getMap().getBuildings()) {
             if (building instanceof DefensiveBuilding) {
                 if (((DefensiveBuilding) building).getTarget() == null || ((DefensiveBuilding) building).getTarget().isDestroyed()) {
@@ -52,15 +52,18 @@ public class BattleGroundGameEngine {
         }
     }
 
-    public void findMovableEffectPostion() {
+    private void findMovableEffectPostion() {
         for(Troop troop : battleGround.getTroops()) {
+            
             // TODO: 5/6/2018 bfs algorithm which gets a movable and
             // find an arraylist of Locatables with size of speed and set that in movable
+            troop.move(troop.getPath().get(troop.getSpeed()-1), battleGround.getMap());
+            //first phase only
         }
 
     }
 
-    public void performBuildingsEffects() {
+    private void performBuildingsEffects() {
         for (Building building : battleGround.getMap().getBuildings()) {
             if(building instanceof DefensiveBuilding) {
                 if(!building.isDestroyed() && ((DefensiveBuilding) building).getTarget() != null) {
@@ -72,7 +75,7 @@ public class BattleGroundGameEngine {
         }
     }
 
-    public void performTroopsEffects() {
+    private void performTroopsEffects() {
         //TODO arshia moghimi
         //don't forget to think about bounties!
     }

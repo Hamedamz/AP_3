@@ -13,11 +13,6 @@ public class Giant extends AttackerTroop {
     }
 
     @Override
-    public Position findAttackPosition(Entity target, Map map) {
-        return null;
-    }
-
-    @Override
     public void move(Position position, Map map) {
 
     }

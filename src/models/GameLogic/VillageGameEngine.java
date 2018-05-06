@@ -16,7 +16,7 @@ public class VillageGameEngine {
     }
 
     public void update() {
-        for(Revivable revivable : village.getBuildings()) {
+        for (Revivable revivable : village.getBuildings()) {
             if (revivable.isDestroyed()) {
                 revivable.revive();
             }
@@ -30,11 +30,11 @@ public class VillageGameEngine {
         }
 
         Resource addedResource = new Resource(0, 0);
-        for(Building building : village.findBuildingsWithSameType(ElixirMine.class)) {
+        for (Building building : village.findBuildingsWithSameType(ElixirMine.class)) {
             addedResource.addToThisResource(((Mine) building).produce());
         }
 
-        for(Building building : village.findBuildingsWithSameType(GoldMine.class)) {
+        for (Building building : village.findBuildingsWithSameType(GoldMine.class)) {
             addedResource.addToThisResource(((Mine) building).produce());
         }
 
@@ -43,19 +43,19 @@ public class VillageGameEngine {
     }
 
     public void updateTrainingTroops() {
-        for(Building building : village.findBuildingsWithSameType(Barracks.class)) {
-            for(TrainingTroop trainingTroop : ((Barracks) building).getTrainingTroops()) {
+        for (Building building : village.findBuildingsWithSameType(Barracks.class)) {
+            if(((Barracks) building).getTrainingTroops().size() > 0) {
+                TrainingTroop trainingTroop = ((Barracks) building).getTrainingTroops().get(0);
                 trainingTroop.update();
                 if (trainingTroop.hasEndedTraining()) {
                     try {
                         trainingTroop.moveToCamp(village.findCampForNewTroops());
+                        ((Barracks) building).getTrainingTroops().remove(trainingTroop);
                     } catch (NotEnoughCapacityException e) {
                         System.err.println("not enough capacity in camp");
                     }
-
                 }
             }
         }
     }
-
 }

@@ -18,7 +18,7 @@ public class Village {
     // FIXME: 4/28/2018 when you build a building become sure you put that building in correct catagory at above class
 
     public Village() {
-
+        townHall = new TownHall(map.getWidth(), map.getLength());
     }
 
     public TownHall getTownHall() {

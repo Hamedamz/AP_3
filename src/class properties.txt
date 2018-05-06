@@ -1,3 +1,8 @@
+#Village
+    VillageInitialGold: 10000
+    VillageInitialElixir: 0
+    VillageWidth: 30
+    VillageHeight: 30
 #Buildings:
     #Gold mine properties:
         GoldMineBuildGold: 150
