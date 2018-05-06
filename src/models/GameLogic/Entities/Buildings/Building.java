@@ -40,7 +40,6 @@ public abstract class Building extends Defender implements Upgradable {
         this.maxHitPoint = this.hitPoints;
         this.isDestroyed = false;
         this.isUnderConstruct = false;
-
     }
 
     public static MoveType getMoveType() {

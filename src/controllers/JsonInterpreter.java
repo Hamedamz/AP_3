@@ -98,7 +98,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewWizardTower(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        WizardTower wizardTower = new WizardTower(extractPosition(jsonBuilding), findNumberForBuildings());
+        WizardTower wizardTower = new WizardTower(extractPosition(jsonBuilding), false);
         wizardTower.setLevel(jsonBuilding.level);
         int hitPoints = (Integer) GameLogicConfig.getFromDictionary("WizardTowerHitPoints");
         wizardTower.setHitPoints(hitPoints);
@@ -106,7 +106,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewAirDefense(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        AirDefense airDefense = new AirDefense(extractPosition(jsonBuilding), findNumberForBuildings());
+        AirDefense airDefense = new AirDefense(extractPosition(jsonBuilding), false);
         airDefense.setLevel(jsonBuilding.level);
         int hitPoints = (Integer) GameLogicConfig.getFromDictionary("AirDefenseHitPoints");
         airDefense.setHitPoints(hitPoints);
@@ -114,7 +114,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewCannon(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        Cannon cannon = new Cannon(extractPosition(jsonBuilding), findNumberForBuildings());
+        Cannon cannon = new Cannon(extractPosition(jsonBuilding), false);
         cannon.setLevel(jsonBuilding.level);
         int hitPoints = (Integer) GameLogicConfig.getFromDictionary("CannonHitPoints");
         cannon.setHitPoints(hitPoints);
@@ -122,7 +122,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewArcherTower(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        ArcherTower archerTower = new ArcherTower(extractPosition(jsonBuilding), findNumberForBuildings());
+        ArcherTower archerTower = new ArcherTower(extractPosition(jsonBuilding), false);
         archerTower.setLevel(jsonBuilding.level);
         int hitPoints = (Integer) GameLogicConfig.getFromDictionary("ArcherTowerHitPoints");
         archerTower.setHitPoints(hitPoints);
@@ -130,7 +130,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewCamp(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        Camp camp = new Camp(extractPosition(jsonBuilding), findNumberForBuildings());
+        Camp camp = new Camp(extractPosition(jsonBuilding), false);
         camp.setLevel(jsonBuilding.level);
         int hitPoints = (Integer) GameLogicConfig.getFromDictionary("CampHitPoints");
         camp.setHitPoints(hitPoints);
@@ -138,7 +138,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewBarracks(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        Barracks barracks = new Barracks(extractPosition(jsonBuilding), findNumberForBuildings());
+        Barracks barracks = new Barracks(extractPosition(jsonBuilding), false);
         barracks.setLevel(jsonBuilding.level);
         int hitPoints = (Integer) GameLogicConfig.getFromDictionary("BarracksHitPoints");
         barracks.setHitPoints(hitPoints);
@@ -154,7 +154,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewElixirStorage(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        ElixirStorage elixirStorage = new ElixirStorage(extractPosition(jsonBuilding), findNumberForBuildings());
+        ElixirStorage elixirStorage = new ElixirStorage(extractPosition(jsonBuilding), false);
         elixirStorage.setLevel(jsonBuilding.level);
         int initialElixirCapacity = (Integer) GameLogicConfig.getFromDictionary("ElixirStorageGoldCapacity");
         int elixirStorageUpgradeCapacityAddition = (Integer) GameLogicConfig.getFromDictionary("ElixirStorageUpgradeCapacityAddition");
@@ -172,7 +172,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewGoldStorage(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        GoldStorage goldStorage = new GoldStorage(extractPosition(jsonBuilding), findNumberForBuildings());
+        GoldStorage goldStorage = new GoldStorage(extractPosition(jsonBuilding), false);
         goldStorage.setLevel(jsonBuilding.level);
         int initialGoldCapacity = (Integer) GameLogicConfig.getFromDictionary("GoldStorageGoldCapacity");
         int goldStorageUpgradeCapacityAddition = (Integer) GameLogicConfig.getFromDictionary("GoldStorageUpgradeCapacityAddition");
@@ -190,7 +190,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewElixirMine(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        ElixirMine elixirMine = new ElixirMine(extractPosition(jsonBuilding), findNumberForBuildings());
+        ElixirMine elixirMine = new ElixirMine(extractPosition(jsonBuilding), false);
         elixirMine.setLevel(jsonBuilding.level);
         int hitPoints = (Integer) GameLogicConfig.getFromDictionary("ElixirMineHitPoints");
         elixirMine.setHitPoints(hitPoints);
@@ -198,7 +198,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewGoldMine(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        GoldMine goldMine = new GoldMine(extractPosition(jsonBuilding), findNumberForBuildings());
+        GoldMine goldMine = new GoldMine(extractPosition(jsonBuilding), false);
         goldMine.setLevel(jsonBuilding.level);
         int hitPoints = (Integer) GameLogicConfig.getFromDictionary("GoldMineHitPoints");
         goldMine.setHitPoints(hitPoints);
