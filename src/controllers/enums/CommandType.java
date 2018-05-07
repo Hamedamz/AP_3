@@ -18,7 +18,7 @@ public enum CommandType {
     SOURCES_INFO,
     ATTACK_INFO,
     MAP_INFO,
-    TARGET_INFO,
+    TARGET,
     ATTACK_MAP,
     BACK,
     OPEN_MENU;

@@ -4,11 +4,9 @@ import controllers.Exceptions.InvalidInputException;
 import controllers.Exceptions.VillageAlreadyExists;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
-import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.*;
-import models.GameLogic.GameEngine;
 import models.GameLogic.Village;
 import models.GameLogic.World;
 import models.Menu.*;
@@ -121,7 +119,7 @@ public class Controller {
                     break;
                 case MAP_INFO:
                     break;
-                case TARGET_INFO:
+                case TARGET:
                     controller.buildingViewer.printTargetInfo((DefensiveBuilding) model);
                     break;
                 case ATTACK_MAP:

@@ -381,7 +381,7 @@ public class MenuController {
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("")
                 .withItem(infoMenu)
-                .withItem(new MenuItem(TARGET_INFO))
+                .withItem(new MenuItem(TARGET))
                 .build();
     }
 }

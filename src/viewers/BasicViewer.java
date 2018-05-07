@@ -15,7 +15,7 @@ public class BasicViewer {
         System.out.println(info);
     }
 
-    public void printPropertyValue(String property, Number value) {
+    public void printPropertyValue(String property, Object value) {
         System.out.format("%s: %s\n", property, value);
     }
 

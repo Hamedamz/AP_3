@@ -43,7 +43,9 @@ public class BuildingViewer extends BasicViewer{
     }
 
     public void printAttackInfo(DefensiveBuilding building) {
-//        printPropertyValue("Target", building.);
+        printPropertyValue("Target", building.getTargetType().toString());
+        printPropertyValue("Damage", building.getDamage());
+        printPropertyValue("Range", building.getRange());
     }
 
     public void printTargetInfo(DefensiveBuilding model) {
