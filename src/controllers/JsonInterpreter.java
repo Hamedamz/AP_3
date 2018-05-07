@@ -1,5 +1,6 @@
 package controllers;
 
+import com.gilecode.yagson.YaGson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.GameLogic.Entities.Buildings.*;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 public class JsonInterpreter {
     private static int currentBuildingNumber = 0;
     private static final String SAVED_MAPS_FOLDER_NAME = "savedMaps";
-    private static Gson gson = new GsonBuilder().create();
+    private static YaGson gson = new YaGson();
 
     public static void saveVillage(Village village, String villageName) {
         try {
@@ -35,40 +36,7 @@ public class JsonInterpreter {
 
     public static Village loadMyVillage(String mapPath) throws FileNotFoundException {
         String json = toStringJson(mapPath);
-        Village village =  gson.fromJson(json, Village.class); //TODO: troops camp is transient. delete if unnecessary or handle in controller if needed.
-        ArrayList<Building> buildings = new ArrayList<>();
-//        for (int i = 0; i < village.getMap().getBuildings().size(); i++) {
-//            switch (village.getMap().getBuildings().get(i).getJsonNumber()) {
-//                case 1:
-//                    buildings.add(village.getMap().getBuildings().get(i));
-//                    break;
-//                case 2:
-//                    break;
-//                case 3:
-//                    break;
-//                case 4:
-//                    break;
-//                case 5:
-//                    break;
-//                case 6:
-//                    break;
-//                case 7:
-//                    break;
-//                case 8:
-//                    break;
-//                case 9:
-//                    break;
-//                case 10:
-//                    break;
-//                case 11:
-//                    break;
-//                case 12:
-//                    break;
-//                case 13:
-//                    break;
-//            }
-//        }
-        return village;
+        return gson.fromJson(json, Village.class);
     }
 
     public static ArrayList<Building> loadEnemyVillageBuildings(String mapPath) throws FileNotFoundException{
