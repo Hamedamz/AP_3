@@ -104,14 +104,14 @@ public class Village {
         if (GameLogicConfig.getFromDictionary(buildingType + "BuildLimit") >= getBuildingCount(buildingType) ) {
             throw new CountLimitReachedException();
         }
-        if (map.isOccupied(x, y, 1)) {
+        if (map.isOccupied(x, y)) {
             throw new InvalidPositionException();
         }
         Builder builder = townHall.getFreeBuilder();
 
         spendResources(new Resource((int) GameLogicConfig.getFromDictionary(buildingType + "BuildGold"),
                 (int) GameLogicConfig.getFromDictionary(buildingType + "BuildElixir")));
-        map.constructBuilding(x, y, 1);
+        map.constructBuilding(x, y);
         Building newBuilding = Building.getNewBuilding(buildingType, x, y);
         builder.startBuilding(newBuilding);
         underConstructBuildings.add(newBuilding);
