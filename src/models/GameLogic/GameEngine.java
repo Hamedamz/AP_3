@@ -23,7 +23,7 @@ public class GameEngine {
     }
 
     public void loadNewVillage() {
-        villageGameEngine.loadVillage(world.getMyVillage());
+        VillageGameEngine villageGameEngine = new VillageGameEngine(world.getMyVillage());
     }
 
     public void loadBattleGround(BattleGround battleGround) {

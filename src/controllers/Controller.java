@@ -113,7 +113,6 @@ public class Controller {
                 case OPEN_MENU:
                     menuController.openMenu((Menu) requestedMenuItem);
                     break;
-
                 }
 
         } else {
