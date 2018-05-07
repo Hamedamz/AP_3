@@ -7,4 +7,7 @@ public abstract class Defender extends Entity implements Revivable {
     public Defender(Position position){
         super(position);
     }
+
+    public Defender() {
+    }
 }

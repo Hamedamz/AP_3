@@ -10,15 +10,19 @@ import models.Setting.GameLogicConfig;
 
 import java.util.Comparator;
 
-public abstract class Building extends Defender implements Upgradable {
+public class Building extends Defender implements Upgradable {
     //private int jsonNumber;
     protected int score;
     protected int maxHitPoint;
     protected int hitPoints;
     protected int level;
-    private ID id;
+    private transient ID id; //TODO changed
     protected boolean isDestroyed;
     protected boolean isUnderConstruct;
+
+    public Building() {
+        super();
+    }
 
     public Building(Position position, ID id) {
         super(position);
@@ -48,11 +52,11 @@ public abstract class Building extends Defender implements Upgradable {
         isUnderConstruct = false;
     }
 
-    public abstract Resource getUpgradeResource() ;
+    public  Resource getUpgradeResource() {return null;}
 
-    public abstract void upgrade();
+    public  void upgrade(){}
 
-    public abstract Bounty getBounty();
+    public  Bounty getBounty(){return null;}
 
     public int getLevel() {
         return level;
