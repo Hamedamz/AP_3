@@ -2,6 +2,7 @@ package controllers;
 
 import controllers.Exceptions.InvalidInputException;
 import controllers.enums.*;
+import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.World;
@@ -201,8 +202,13 @@ public class MenuController {
     }
 
     private HashMap<DynamicMenuItem, String> getConstructionStatusList() {
-        // under construction buildings with turns left to be built
-        return null;
+        HashMap<DynamicMenuItem, String> constructionStatusList = new HashMap<>();
+        ArrayList<Builder> builders = world.getMyVillage().getTownHall().getBuilders();
+        for (Builder builder : builders) {
+            if (builder.isBuilderBusy())
+                constructionStatusList.put(new DynamicMenuItem(NULL, builder.getUnderConstructBuilding()), String.valueOf(builder.getConstructRemainingTime()));
+        }
+        return constructionStatusList;
     }
 
     private HashMap<DynamicMenuItem, String> getBuildingsList() {

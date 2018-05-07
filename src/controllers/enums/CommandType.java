@@ -1,6 +1,7 @@
 package controllers.enums;
 
 public enum CommandType {
+    NULL,
     NEW_GAME,
     OPEN_BUILDING_MENU,
     UPGRADE_BUILDING,

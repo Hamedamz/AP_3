@@ -61,7 +61,7 @@ public abstract class Building extends Defender implements Upgradable {
 
     public static Building getNewBuilding(String buildingType, int x, int y) throws CountLimitReachedException {
         switch (buildingType) {
-            case "AirDefence":
+            case "AirDefense":
                 return new AirDefense(new Position(x, y), true);
             case "ArcherTower" :
                 return new ArcherTower(new Position(x, y), true);
