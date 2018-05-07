@@ -59,6 +59,8 @@ public class Controller {
             Entity model = controller.menuController.getActiveMenu().getModel();
 
             switch (requestedMenuItem.getCommandType()) {
+                case NULL:
+                    break;
                 case NEW_GAME:
                     newGame();
                     controller.menuController.openMenu(controller.menuController.getVillageMenu());
@@ -78,6 +80,8 @@ public class Controller {
                 case BUILD_BUILDING:
                     String buildingType = requestedMenuItem.getLabel();
                     buildBuilding(buildingType);
+                    break;
+                case TRAIN_TROOP:
                     break;
                 case LOAD_ENEMY_MAP:
                     break;
@@ -115,6 +119,8 @@ public class Controller {
                     break;
                 case MAP_INFO:
                     break;
+                case TARGET_INFO:
+                    break;
                 case ATTACK_MAP:
                     break;
                 case BACK:
@@ -123,6 +129,7 @@ public class Controller {
                 case OPEN_MENU:
                     controller.menuController.openMenu((Menu) requestedMenuItem);
                     break;
+
                 }
 
         } else {

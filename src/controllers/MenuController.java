@@ -212,7 +212,7 @@ public class MenuController {
         for (String troop : TROOPS) {
             int elixir = GameLogicConfig.getFromDictionary(troop + "TrainElixir");
             if (resourceStock.getElixir() - elixir >= 0) {
-                info = "A" + " x" + (elixir / resourceStock.getElixir());
+                info = "A" + " x" + (resourceStock.getElixir() / elixir);
             } else
                 info = "U";
             troopsList.put(new DynamicMenuItem(TRAIN_TROOP, troop), info);
