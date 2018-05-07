@@ -10,7 +10,7 @@ import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 
-public class TownHall extends ResourceBuilding {
+public class TownHall extends Storage {
 
     private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", 5);
     private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 5);

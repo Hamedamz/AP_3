@@ -222,7 +222,13 @@ public class Village {
         int storagesCount = storages.size();
         for (int i = 0; i < storagesCount; i++) {
             Storage storageNumberI = storages.get(i);
-            int addedGold = Math.min(storageNumberI.getCapacity().getGold(), gold / (storagesCount - i - 1));
+            int addedGold = 0;
+            try {
+                addedGold = Math.min(storageNumberI.getCapacity().getGold(), gold / (storagesCount - i - 1));
+            }
+            catch (Exception e) {
+                e.getMessage();
+            }
             gold -= addedGold;
             storageNumberI.setGold(addedGold);
         }
@@ -230,7 +236,13 @@ public class Village {
         storages.sort(new Storage.ElixirStorageComparator());
         for (int i = 0; i < storagesCount; i++) {
             Storage storageNumberI = storages.get(i);
-            int addedElixir = Math.min(storageNumberI.getCapacity().getElixir(), elixir / (storagesCount - i - 1));
+            int addedElixir = 0;
+            try {
+                addedElixir = Math.min(storageNumberI.getCapacity().getElixir(), elixir / (storagesCount - i - 1));
+            }
+            catch (Exception e) {
+                e.getMessage();
+            }
             elixir -= addedElixir;
             storageNumberI.setElixir(addedElixir);
         }

@@ -56,6 +56,8 @@
     #Town hall properties:
         TownHallBuildTime: 100
         TownHallHitPoints: 1000
+        TownHallGoldCapacity: 1000
+        TownHallElixirCapacity: 500
         TownHallDestructionScore: 8
         TownHallDestructionGold: 1000
         TownHallDestructionElixir: 500
