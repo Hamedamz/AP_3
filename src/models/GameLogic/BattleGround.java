@@ -1,23 +1,19 @@
 package models.GameLogic;
 
-import interfaces.Destroyable;
-import interfaces.Locatable;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.*;
 import models.GameLogic.Exceptions.CountLimitReachedException;
-import models.GameLogic.enums.MoveType;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Set;
 
 public class BattleGround {
     private int timeRemaining;
     private Village myVillage;
-    private Map map;
+    private Map enemyMap;
     private Set<Troop> troops;
     private Bounty availableBounty; //fixme set this at constructor
 
@@ -61,8 +57,8 @@ public class BattleGround {
         return troops;
     }
 
-    public Map getMap() {
-        return map;
+    public Map getEnemyMap() {
+        return enemyMap;
     }
 
     public Village getVillage() {
@@ -100,7 +96,7 @@ public class BattleGround {
         if (!myVillage.isThereAvailableSpaceForResources()) {
             return true;
         }
-        for (Defender defender : map.getBuildings()) {
+        for (Defender defender : enemyMap.getBuildings()) {
             if(!defender.isDestroyed()) {
                 return false;
             }

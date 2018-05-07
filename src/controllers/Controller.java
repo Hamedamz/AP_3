@@ -15,6 +15,7 @@ import viewers.BuildingViewer;
 import viewers.VillageViewer;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,11 +43,13 @@ public class Controller {
                 controller.viewer.printErrorMessage(e.getMessage());
             } catch (NumberFormatException e) {
                 controller.viewer.printErrorMessage("input is out of range");
+            } catch (FileNotFoundException e) {
+                controller.viewer.printErrorMessage("file not found!");
             }
         }
     }
 
-    private static void handleMenuInputs() throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException, NotAvailableAtThisLevelException {
+    private static void handleMenuInputs() throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException, NotAvailableAtThisLevelException, FileNotFoundException {
         controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
         controller.menuController.printMenu();
         String command = controller.viewer.getInput();
@@ -83,6 +86,9 @@ public class Controller {
                     trainTroop(troopType);
                     break;
                 case LOAD_ENEMY_MAP:
+                    controller.viewer.requestForInput("enter path:");
+                    command = controller.viewer.getInput();
+                    loadEnemyMap(command);
                     break;
                 case LOAD_GAME_FROM_FILE:
                     controller.viewer.requestForInput("enter path:");
@@ -147,7 +153,6 @@ public class Controller {
         }
     }
 
-
     private static void newGame() {
         try {
             controller.world.makeNewGame();
@@ -167,7 +172,7 @@ public class Controller {
         }
     }
 
-    private static void loadGame(String villageName) {
+    private static void loadGame(String villageName) throws FileNotFoundException {
         String path = controller.world.getVillagesNameAndPath().get(villageName);
         if (path != null) {
             loadGameFromFile(path);
@@ -176,21 +181,22 @@ public class Controller {
         }
     }
 
-    public static boolean loadGameFromFile(String path) {
-        try {
-            Village village = JsonInterpreter.loadMyVillage(path);
-            controller.world.setMyVillage(village);
-            controller.viewer.printInformation("game successfully loaded!");
-            controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
-            return true;
-        } catch (FileNotFoundException e) {
-            controller.viewer.printErrorMessage("file not found");
-            return false;
-        }
+    private static void loadEnemyMap(String path) throws FileNotFoundException {
+        ArrayList<Building> enemyBuildings = JsonInterpreter.loadEnemyVillageBuildings(path);
+        // TODO: 5/8/2018  
+
+    }
+
+    public static boolean loadGameFromFile(String path) throws FileNotFoundException {
+        Village village = JsonInterpreter.loadMyVillage(path);
+        controller.world.setMyVillage(village);
+        controller.viewer.printInformation("game successfully loaded!");
+        controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
+        return true;
     }
 
     private static void trainTroop(String troopType) throws NotEnoughResourcesException, NotAvailableAtThisLevelException {
-        controller.viewer.requestForInput("How many " + troopType + "s dou want to train?");
+        controller.viewer.requestForInput("How many " + troopType + "s do you want to train?");
         int count = Integer.parseInt(controller.viewer.getInput());
         Barracks barracks = (Barracks) controller.menuController.getActiveMenu().getModel();
         controller.world.getMyVillage().trainTroop(troopType, count, barracks);

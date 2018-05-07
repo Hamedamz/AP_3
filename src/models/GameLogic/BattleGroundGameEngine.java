@@ -30,7 +30,7 @@ public class BattleGroundGameEngine {
     }
 
     private void checkDestructions() {
-        ArrayList<Building> buildings = battleGround.getMap().getBuildings();
+        ArrayList<Building> buildings = battleGround.getEnemyMap().getBuildings();
         for (int i = 0; i < buildings.size(); i++) {
             if (buildings.get(i) instanceof Storage) {
                 if (buildings.get(i).isDestroyed()) {
@@ -49,7 +49,7 @@ public class BattleGroundGameEngine {
     }
 
     public void updateTroopTarget() {
-        ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getMap().getBuildings());
+        ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getEnemyMap().getBuildings());
         for (Troop troop : battleGround.getTroops()) {
             if (troop instanceof AttackerTroop) {
                 if (((AttackerTroop) troop).getTarget() == null || ((AttackerTroop) troop).getTarget().isDestroyed()) {
@@ -68,7 +68,7 @@ public class BattleGroundGameEngine {
         for (Troop entry : battleGround.getTroops()) {
             destroyables.add((Destroyable) entry);
         }
-        for (Building building : battleGround.getMap().getBuildings()) {
+        for (Building building : battleGround.getEnemyMap().getBuildings()) {
             if (building instanceof DefensiveBuilding) {
                 if (((Attacker) building).getTarget() == null || ((Attacker) building).getTarget().isDestroyed()) {
                     try {
