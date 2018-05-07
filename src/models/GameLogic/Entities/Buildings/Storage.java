@@ -15,7 +15,7 @@ public abstract class Storage extends ResourceBuilding {
         super(position, id);
         String className = this.getClass().getSimpleName();
         this.capacity = new Resource((int) GameLogicConfig.getFromDictionary(className + "GoldCapacity"), (int) GameLogicConfig.getFromDictionary(className + "ElixirCapacity"));
-        //this.stock = ;  FIXME complete me
+        this.stock = new Resource(0, 0);
     }
 
     public Resource getCapacity() {

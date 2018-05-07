@@ -18,18 +18,22 @@ public class Village {
     // FIXME: 4/28/2018 when you build a building become sure you put that building in correct catagory at above class
 
     public Village() {
-        map = new Map((int) GameLogicConfig.getFromDictionary("VillageWidth"),
-                (int) GameLogicConfig.getFromDictionary("VillageHeight"));
-        townHall = new TownHall(new Position((map.getWidth() - 1) / 2, (map.getHeight() - 1) / 2), true);
-        GoldStorage goldStorage = new GoldStorage(new Position((map.getWidth() - 3) / 2, (map.getHeight() - 3) / 2), true);
-        map.addNewBuilding(townHall);
-        map.addNewBuilding(goldStorage);
-        initiateListOfBuildings();
-        listOfBuildingsByName.get(TownHall.class.getSimpleName()).add(townHall);
-        listOfBuildingsByName.get(Storage.class.getSimpleName()).add(townHall);
-        listOfBuildingsByName.get(Storage.class.getSimpleName()).add(goldStorage);
-//        spreadResources(new Resource((int) GameLogicConfig.getFromDictionary("VillageInitialGold"), (int) GameLogicConfig.getFromDictionary("VillageInitialElixir")));
+    }
 
+    public static Village startNewVillage() {
+        Village village = new Village();
+        village.map = new Map((int) GameLogicConfig.getFromDictionary("VillageWidth"),
+                (int) GameLogicConfig.getFromDictionary("VillageHeight"));
+        village.townHall = new TownHall(new Position((village.map.getWidth() - 1) / 2, (village.map.getHeight() - 1) / 2), true);
+        GoldStorage goldStorage = new GoldStorage(new Position((village.map.getWidth() - 3) / 2, (village.map.getHeight() - 3) / 2), true);
+        village.map.addNewBuilding(village.townHall);
+        village.map.addNewBuilding(goldStorage);
+        village.initiateListOfBuildings();
+        village.listOfBuildingsByName.get(TownHall.class.getSimpleName()).add(village.townHall);
+        village.listOfBuildingsByName.get(Storage.class.getSimpleName()).add(village.townHall);
+        village.listOfBuildingsByName.get(Storage.class.getSimpleName()).add(goldStorage);
+        village.spreadResources(new Resource((int) GameLogicConfig.getFromDictionary("VillageInitialGold"), (int) GameLogicConfig.getFromDictionary("VillageInitialElixir")));
+        return village;
     }
 
     private void initiateListOfBuildings() {
@@ -186,8 +190,7 @@ public class Village {
     }
 
     public Resource getTotalResourceStock() {
-        Resource result = new Resource(0, 0);
-        for (Storage storage : findBuildingsWithSameType(Storage.class)) {
+        Resource result = new Resource(0, 0);for (Storage storage : findBuildingsWithSameType(Storage.class)) {
             result.addToThisResource(storage.getStock());
         }
         return result;
@@ -222,7 +225,13 @@ public class Village {
         int storagesCount = storages.size();
         for (int i = 0; i < storagesCount; i++) {
             Storage storageNumberI = storages.get(i);
-            int addedGold = Math.min(storageNumberI.getCapacity().getGold(), gold / (storagesCount - i - 1));
+            int addedGold = 0;
+            try {
+                addedGold = Math.min(storageNumberI.getCapacity().getGold(), gold / (storagesCount - i - 1));
+            }
+            catch (Exception e) {
+                e.getMessage();
+            }
             gold -= addedGold;
             storageNumberI.setGold(addedGold);
         }
@@ -230,7 +239,13 @@ public class Village {
         storages.sort(new Storage.ElixirStorageComparator());
         for (int i = 0; i < storagesCount; i++) {
             Storage storageNumberI = storages.get(i);
-            int addedElixir = Math.min(storageNumberI.getCapacity().getElixir(), elixir / (storagesCount - i - 1));
+            int addedElixir = 0;
+            try {
+                addedElixir = Math.min(storageNumberI.getCapacity().getElixir(), elixir / (storagesCount - i - 1));
+            }
+            catch (Exception e) {
+                e.getMessage();
+            }
             elixir -= addedElixir;
             storageNumberI.setElixir(addedElixir);
         }

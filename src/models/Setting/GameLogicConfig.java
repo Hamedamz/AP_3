@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public final class GameLogicConfig {
-    private static Map<String, Double> classProperties;
+    private static Map<String, Integer> classProperties;
 
     private static final String CONSTANTS_SAVE_LOCATION = "src\\class properties.txt";
     private static final String IGNORE_REGEX = "#.*";
@@ -40,9 +40,9 @@ public final class GameLogicConfig {
         } catch (FileNotFoundException e) {
             System.err.println("constant file not found");
         }
-        for (String str : classProperties.keySet()) {
-            //System.out.println(str + " " + classProperties.get(str));
-        }
+//        for (String str : classProperties.keySet()) {
+//            System.err.println(str + " " + classProperties.get(str));
+//        }
     }
 
     private static void addToClassProperties(String newLine) {
@@ -52,19 +52,18 @@ public final class GameLogicConfig {
             newLine = newLine.trim();
             String[] mapParts = newLine.split("\\s*:\\s*");
             if (mapParts.length == 2) {
-                classProperties.put(mapParts[0], Double.parseDouble(mapParts[1]));
+                classProperties.put(mapParts[0], Integer.parseInt(mapParts[1]));
             }
         }
 
     }
 
-    public static double getFromDictionary(String value) {
+    public static int getFromDictionary(String value) {
         try {
             return classProperties.get(value);
         } catch (Exception e) {
             System.out.println("Value " + value + " Not found: " + e.getLocalizedMessage());
-            throw e;
+            return 0;
         }
-        //return 0;
     }
 }
