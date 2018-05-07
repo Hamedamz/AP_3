@@ -21,6 +21,9 @@ public class DynamicMenuItem extends MenuItem {
 
     @Override
     public String getLabel() {
-        return model.getClass().getSimpleName();
+        if (model != null) {
+            return model.getClass().getSimpleName();
+        }
+        return super.getLabel();
     }
 }

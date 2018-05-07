@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.Exceptions.InvalidInputException;
+import controllers.Exceptions.VillageAlreadyExists;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
@@ -49,6 +50,7 @@ public class Controller {
 
             switch (requestedMenuItem.getCommandType()) {
                 case NEW_GAME:
+                    newGame();
                     menuController.openMenu(menuController.getVillageMenu());
                     break;
                 case OPEN_BUILDING_MENU:
@@ -79,10 +81,15 @@ public class Controller {
                 case LOAD_GAME_FROM_FILE:
                     viewer.requestForInput("enter path:");
                     command = viewer.getInput();
-                    loadGameFromFile(command);
+                    if (loadGameFromFile(command)) {
+                        menuController.openMenu(menuController.getVillageMenu());
+                    }
                     break;
                 case LOAD_GAME:
-
+                    dynamicMenuItem = (DynamicMenuItem) requestedMenuItem;
+                    String villageName = dynamicMenuItem.getLabel();
+                    loadGame(villageName);
+                    menuController.openMenu(menuController.getVillageMenu());
                     break;
                 case OPEN_MAP_MENU:
                     break;
@@ -129,6 +136,14 @@ public class Controller {
         }
     }
 
+    private static void newGame() {
+        try {
+            world.makeNewGame();
+        } catch (VillageAlreadyExists villageAlreadyExists) {
+            villageAlreadyExists.getMessage();
+        }
+    }
+
     private static String getArgument(int i, String command, String format) throws InvalidInputException {
         Pattern pattern = Pattern.compile(format);
         Matcher matcher = pattern.matcher(command);
@@ -136,6 +151,15 @@ public class Controller {
             return matcher.group(i);
         } else {
             throw new InvalidInputException("invalid input");
+        }
+    }
+
+    private static void loadGame(String villageName) {
+        String path = world.getVillagesNameAndPath().get(villageName);
+        if (path != null) {
+            loadGameFromFile(path);
+        } else {
+            viewer.printErrorMessage("no village with this name!");
         }
     }
 
@@ -152,7 +176,7 @@ public class Controller {
     }
 
     public static void saveGame(Village village, String name) {
-        JsonInterpreter.saveVillage(village, name);
+        world.saveGame(village, name);
     }
 
     public static void turn(int n) {

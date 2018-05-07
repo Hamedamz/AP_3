@@ -28,10 +28,11 @@ public class BasicViewer {
     }
 
     public boolean getConfirmation() throws InvalidInputException {
-        if (getInput().matches("[yY]")) {
+        String input = getInput();
+        if (input.matches("[yY]")) {
             return true;
-        } else if (getInput().matches("[nN]")) {
-            return true;
+        } else if (input.matches("[nN]")) {
+            return false;
         }
         throw new InvalidInputException("invalid input");
     }

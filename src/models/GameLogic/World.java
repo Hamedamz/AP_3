@@ -56,15 +56,16 @@ public class World {
     }
 
     public void makeNewGame() throws VillageAlreadyExists{
-        if(myVillage != null) {
-            throw new VillageAlreadyExists();
-        }
+//        if(myVillage != null) {
+//            throw new VillageAlreadyExists();
+//        }
         myVillage = Village.startNewVillage();
         gameEngine.loadNewVillage();
     }
 
-    public void saveGame() {
-
+    public void saveGame(Village village, String  name) {
+        JsonInterpreter.saveVillage(village, name);
+        villagesNameAndPath.put(name, "savedMaps\\" + name + ".json");
     }
 
     private boolean hasBattleEnded() {
