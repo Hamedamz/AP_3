@@ -3,7 +3,6 @@
     WarTime: 10000
 
 #Village
-
     VillageInitialGold: 1200
     VillageInitialElixir: 0
     VillageWidth: 30

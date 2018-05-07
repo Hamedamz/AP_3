@@ -40,7 +40,7 @@ public abstract class Storage extends ResourceBuilding {
     }
 
     public void setElixir(int elixir) {
-        stock.setGold(Math.min(elixir, capacity.getElixir()));
+        stock.setElixir(Math.min(elixir, capacity.getElixir()));
     }
 
     public boolean addResources(Resource resource) {

@@ -31,16 +31,16 @@ public class Resource {
     }
 
     public static Resource addResources(Resource resource1, Resource resource2) {
-        Resource newResource = new Resource(resource1.getGold(), resource1.getElixir());
+        Resource newResource = new Resource(resource1.gold, resource1.elixir);
         newResource.addToThisResource(resource2);
         return newResource;
     }
 
     public static Resource addResources(Resource resource1, Resource resource2, Resource totalCapacity) {
         Resource totalResource = addResources(resource1, resource2);
-        totalResource.setGold(Math.min(totalCapacity.getGold(), totalResource.getGold()));
-        totalResource.setElixir(Math.min(totalCapacity.getElixir(), totalResource.getElixir()));
-        return totalCapacity;
+        totalResource.gold = Math.min(totalCapacity.gold, totalResource.gold);
+        totalResource.elixir = Math.min(totalCapacity.elixir, totalResource.elixir);
+        return totalResource;
     }
 
     public static Resource subtractResources(Resource resource1, Resource resource2) {

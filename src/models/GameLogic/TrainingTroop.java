@@ -3,6 +3,7 @@ package models.GameLogic;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NotEnoughCapacityException;
+import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.Setting.GameLogicConfig;
 
 public class TrainingTroop {
@@ -53,13 +54,16 @@ public class TrainingTroop {
 
     public Troop convertToTroop() {
         for (int i = 0; i < level; i++) {
-            troop.upgrade();
+            try {
+                troop.upgrade();
+            } catch (UpgradeLimitReachedException e) {
+                System.err.println("Troop upgrade limit reached!");
+                throw new RuntimeException();
+            }
+
         }
         // TODO: 5/3/2018 i don't know whether it is level - 1 or level
         return troop;
     }
 
-//    public int getSpace() {
-//
-//    }
 }

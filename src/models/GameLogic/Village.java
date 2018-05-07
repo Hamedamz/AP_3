@@ -156,7 +156,7 @@ public class Village {
         map.getBuildings().add(building);
     }
 
-    public void upgrade(String buildingType, int num) throws NotEnoughResourcesException, BuildingNotFoundException, NotAvailableAtThisLevelException {
+    public void upgrade(String buildingType, int num) throws NotEnoughResourcesException, BuildingNotFoundException, NotAvailableAtThisLevelException, UpgradeLimitReachedException {
         ArrayList<Building> buildings = map.getBuildings();
         for (int i = 0; i < buildings.size(); i++) {
             if (buildings.get(i).getClass().getSimpleName().equals(buildingType) && buildings.get(i).getID().getCount() == num) {
@@ -260,6 +260,7 @@ public class Village {
         Resource totalResource = Resource.addResources(getTotalResourceStock(), resource, getTotalResourceCapacity());
         int gold = totalResource.getGold();
         int elixir = totalResource.getElixir();
+        System.out.println(totalResource.getGold());
         ArrayList<Storage> storages = findBuildingsWithSameType(Storage.class);
         storages.sort(new Storage.GoldStorageComparator());
         int storagesCount = storages.size();
@@ -267,12 +268,12 @@ public class Village {
             Storage storageNumberI = storages.get(i);
             int addedGold = 0;
             try {
-                addedGold = Math.min(storageNumberI.getCapacity().getGold(), gold / (storagesCount - i - 1));
-            } catch (Exception e) {
-                e.getMessage();
+                addedGold = Math.min(storageNumberI.getCapacity().getGold(), gold / (storagesCount - i));
+            } catch (ArithmeticException e) {
             }
             gold -= addedGold;
             storageNumberI.setGold(addedGold);
+            System.out.println(gold);
         }
         //CP
         storages.sort(new Storage.ElixirStorageComparator());
@@ -280,9 +281,9 @@ public class Village {
             Storage storageNumberI = storages.get(i);
             int addedElixir = 0;
             try {
-                addedElixir = Math.min(storageNumberI.getCapacity().getElixir(), elixir / (storagesCount - i - 1));
-            } catch (Exception e) {
-                e.getMessage();
+                addedElixir = Math.min(storageNumberI.getCapacity().getElixir(), elixir / (storagesCount - i));
+            } catch (ArithmeticException e) {
+
             }
             elixir -= addedElixir;
             storageNumberI.setElixir(addedElixir);
