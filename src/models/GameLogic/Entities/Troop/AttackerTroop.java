@@ -93,6 +93,13 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     }
 
     @Override
+    public void upgrade() {
+        setLevel(getLevel() + 1);
+        damage += GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeDamageAddition");
+        hitPoints += GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeHitPointsAddition");
+    }
+
+    @Override
     public boolean isDestroyed() {
         return hitPoints <= 0;
     }

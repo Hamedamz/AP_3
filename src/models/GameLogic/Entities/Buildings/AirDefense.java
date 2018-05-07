@@ -20,19 +20,7 @@ public class AirDefense extends DefensiveBuilding {
         this.damageType = BuildingDamageType.SINGLE_TARGET;
     }
 
-    @Override
-    public Resource getUpgradeResource() {
-        int gold = (int) GameLogicConfig.getFromDictionary("AirDefenseUpgradeGold");
-        int elixir = 0;
-        return new Resource(gold, elixir);
-    }
 
-    @Override
-    public void upgrade() {
-        this.setLevel(this.getLevel() + 1);
-        this.hitPoints += (int) GameLogicConfig.getFromDictionary("AirDefenseUpgradeHitPointsAddition");
-        this.damage += (int) GameLogicConfig.getFromDictionary("AirDefenseUpgradeDamageAddition");
-    }
 
     @Override
     public Bounty getBounty() {

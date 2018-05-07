@@ -3,6 +3,7 @@ package models.GameLogic.Entities.Buildings;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NotEnoughCapacityException;
+import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.TrainingTroop;
@@ -61,13 +62,13 @@ public class Camp extends Building {
     }
 
     @Override
-    public Resource getUpgradeResource() {
-        return null; //Camp is not upgradable
+    public Resource getUpgradeResource() throws UpgradeLimitReachedException {
+        throw new UpgradeLimitReachedException();
     }
 
     @Override
-    public void upgrade() {
-
+    public void upgrade() throws UpgradeLimitReachedException {
+        throw new UpgradeLimitReachedException();
     }
 
     @Override

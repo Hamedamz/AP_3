@@ -9,8 +9,4 @@ public class Dragon extends AttackerTroop {
         this.targetType = TroopTargetType.BUILDING;
     }
 
-    @Override
-    public void upgrade() {
-        // TODO: 5/5/2018  
-    }
 }

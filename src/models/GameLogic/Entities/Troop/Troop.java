@@ -16,11 +16,13 @@ public abstract class Troop extends Entity implements Movable, Upgradable {
     private transient Camp troopCamp;
     protected MoveType moveType;
     protected int speed;
+    private int level;
     private ArrayList<Position> movementPath;
 
     public Troop() {
         super();
-                String className = this.getClass().getName();
+        level = 0;
+        String className = this.getClass().getSimpleName();
         this.speed = (int) GameLogicConfig.getFromDictionary(className + "Speed");
     }
 
@@ -28,9 +30,17 @@ public abstract class Troop extends Entity implements Movable, Upgradable {
         this.troopCamp = troopCamp;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     @Override
     public Resource getUpgradeResource() {
-        return null;
+        return new Resource(0, 0);
     }
 
     @Override

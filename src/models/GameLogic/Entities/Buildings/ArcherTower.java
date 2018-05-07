@@ -20,20 +20,6 @@ public class ArcherTower extends DefensiveBuilding {
     }
 
     @Override
-    public Resource getUpgradeResource() {
-        int gold = (int) GameLogicConfig.getFromDictionary("ArcherTowerUpgradeGold");
-        int elixir = 0;
-        return new Resource(gold, elixir);
-    }
-
-    @Override
-    public void upgrade() {
-        this.setLevel(this.getLevel() + 1);
-        this.hitPoints += (int) GameLogicConfig.getFromDictionary("ArcherTowerUpgradeHitPointsAddition");
-        this.damage += (int) GameLogicConfig.getFromDictionary("ArcherTowerUpgradeDamageAddition");
-    }
-
-    @Override
     public Bounty getBounty() {
         int gold = (int) GameLogicConfig.getFromDictionary("ArcherTowerBuildGold");
         int elixir = 0;

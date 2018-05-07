@@ -27,13 +27,6 @@ public class WizardTower extends DefensiveBuilding {
     }
 
     @Override
-    public void upgrade() {
-        this.setLevel(this.getLevel() + 1);
-        this.hitPoints += (int) GameLogicConfig.getFromDictionary("WizardTowerUpgradeHitPointsAddition");
-        this.damage += (int) GameLogicConfig.getFromDictionary("WizardTowerUpgradeDamageAddition");
-    }
-
-    @Override
     public Bounty getBounty() {
         int gold = (int) GameLogicConfig.getFromDictionary("WizardTowerBuildGold");
         int elixir = 0;

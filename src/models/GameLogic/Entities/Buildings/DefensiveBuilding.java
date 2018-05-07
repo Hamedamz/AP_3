@@ -6,6 +6,7 @@ import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NoTargetFoundException;
+import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Map;
 import models.GameLogic.Position;
 import models.GameLogic.enums.BuildingDamageType;
@@ -53,6 +54,13 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     }
 
     @Override
+    public void upgrade() throws UpgradeLimitReachedException {
+        super.upgrade();
+        damage += GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeDamageAddition");
+        hitPoints += GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeHitPointsAddition");
+    }
+
+    @Override
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
         if (damageType == BuildingDamageType.SINGLE_TARGET) {
             destroyable.takeDamageFromAttack(damage);
@@ -77,7 +85,6 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     public Destroyable getTarget() {
         return target;
     }
-
 
     @Override
     public void setTarget(ArrayList<Destroyable> destroyables) {

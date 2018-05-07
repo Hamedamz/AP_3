@@ -12,18 +12,4 @@ public class Giant extends AttackerTroop {
         this.targetType = TroopTargetType.RESOURCES;
     }
 
-    @Override
-    public void move(Position position, Map map) {
-
-    }
-
-    @Override
-    public MoveType getTroopType() {
-        return null;
-    }
-
-    @Override
-    public void upgrade() {
-
-    }
 }

@@ -5,6 +5,7 @@ import models.GameLogic.*;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Bounty;
 import models.GameLogic.Exceptions.CountLimitReachedException;
+import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.enums.MoveType;
 import models.ID;
 import models.Setting.GameLogicConfig;
@@ -12,7 +13,7 @@ import models.Setting.GameLogicConfig;
 import java.util.Comparator;
 import java.util.Dictionary;
 
-public class Building extends Defender implements Upgradable {
+public abstract class Building extends Defender implements Upgradable {
     //private int jsonNumber;
     protected int score;
     protected int maxHitPoint;
@@ -58,7 +59,7 @@ public class Building extends Defender implements Upgradable {
         return MoveType.Ground;
     }
 
-    public static  Building getNewBuilding(String buildingType, int x, int y) throws CountLimitReachedException {
+    public static Building getNewBuilding(String buildingType, int x, int y) throws CountLimitReachedException {
         switch (buildingType) {
             case "AirDefence":
                 return new AirDefense(new Position(x, y), true);
@@ -88,14 +89,20 @@ public class Building extends Defender implements Upgradable {
         return null;
     }
 
-    public  Resource getUpgradeResource() {return null;}
-
-    public  void upgrade(){}
+    public Resource getUpgradeResource() throws UpgradeLimitReachedException {
+        return new Resource(GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeGold"),
+                GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeElixir"));
+    }
 
     public  Bounty getBounty(){return null;}
 
     public int getLevel() {
         return level;
+    }
+
+    @Override
+    public void upgrade() throws UpgradeLimitReachedException {
+        level++;
     }
 
     @Override
@@ -106,7 +113,6 @@ public class Building extends Defender implements Upgradable {
     @Override
     public void destroy() {
         isDestroyed = true;
-        return;
     }
 
     @Override

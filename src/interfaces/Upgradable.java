@@ -1,8 +1,9 @@
 package interfaces;
 
+import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Resource;
 
 public interface Upgradable {
-    void upgrade();
-    Resource getUpgradeResource();
+    void upgrade() throws UpgradeLimitReachedException;
+    Resource getUpgradeResource() throws UpgradeLimitReachedException;
 }

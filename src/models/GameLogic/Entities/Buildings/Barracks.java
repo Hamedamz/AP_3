@@ -62,11 +62,6 @@ public class Barracks extends Building {
         return new Resource(gold, elixir);
     }
 
-    @Override
-    public void upgrade() {
-        //reduceTroopsTrainingTime(); //TODO create method
-        this.setLevel(this.getLevel() + 1);
-    }
 
     @Override
     public Bounty getBounty() {
