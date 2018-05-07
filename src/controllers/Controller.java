@@ -26,7 +26,7 @@ public class Controller {
     private BasicViewer viewer = new BasicViewer();
     private World world = new World();
     private MenuController menuController = new MenuController(world);
-    private VillageViewer villageViewer = new VillageViewer(world.getMyVillage());
+    private VillageViewer villageViewer;
     private BuildingViewer buildingViewer = new BuildingViewer();
 
     public static void main(String[] args) {
@@ -71,13 +71,7 @@ public class Controller {
                 case BUILD_BUILDING:
                     // TODO: 5/7/2018 check if there is free builder
                     String buildingType = requestedMenuItem.getLabel();
-                    controller.buildingViewer.requestBuildConfirmation(buildingType);
-                    if (controller.viewer.getConfirmation()) {
-                        controller.villageViewer.printMapCells();
-                        controller.buildingViewer.requestPositionToBuild(buildingType);
-                        String position = controller.buildingViewer.getPositionToBuild();
-                        buildBuilding(buildingType, position);
-                    }
+                    buildBuilding(buildingType);
                     break;
                 case LOAD_ENEMY_MAP:
                     break;
@@ -142,6 +136,7 @@ public class Controller {
     private static void newGame() {
         try {
             controller.world.makeNewGame();
+            controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
         } catch (VillageAlreadyExists villageAlreadyExists) {
             villageAlreadyExists.getMessage();
         }
@@ -171,6 +166,7 @@ public class Controller {
             Village village = JsonInterpreter.loadMyVillage(path);
             controller.world.setMyVillage(village);
             controller.viewer.printInformation("game successfully loaded!");
+            controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
             return true;
         } catch (FileNotFoundException e) {
             controller.viewer.printErrorMessage("file not found");
@@ -193,9 +189,17 @@ public class Controller {
         // TODO: 5/6/2018 check if we have enough resources
     }
 
-    private static void buildBuilding(String buildingType, String position) throws InvalidInputException {
+    private static void buildBuilding(String buildingType) throws InvalidInputException {
+        controller.buildingViewer.requestBuildConfirmation(buildingType);
+        if (!controller.viewer.getConfirmation()) {
+            return;
+        }
+        controller.villageViewer.printMapCells();
+        controller.buildingViewer.requestPositionToBuild(buildingType);
+        String position = controller.buildingViewer.getPositionToBuild();
         int x = Integer.parseInt(getArgument(1, position, POSITION_FORMAT));
         int y = Integer.parseInt(getArgument(2, position, POSITION_FORMAT));
+
     }
 
     public static void attack() {
