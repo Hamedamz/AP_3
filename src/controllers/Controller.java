@@ -41,6 +41,7 @@ public class Controller {
     }
 
     private static void handleMenuInputs() throws InvalidInputException {
+        villageViewer = new VillageViewer(world.getMyVillage());
         menuController.printMenu();
         String command = viewer.getInput();
         if (menuController.isMenuItemNumber(command)) {
