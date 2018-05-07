@@ -18,6 +18,7 @@
         GoldMineHitPoints: 200
         GoldMineDestructionScore: 2
         GoldMineUpgradeGold: 100
+        GoldMineUpgradeElixir: 0
         GoldMineUpgradeProductionRateAddition: 60
         GoldMineProductionRate: 10
 
@@ -28,6 +29,7 @@
         ElixirMineHitPoints: 200
         ElixirMineDestructionScore: 2
         ElixirMineUpgradeGold: 100
+        ElixirMineUpgradeElixir: 0
         ElixirMineUpgradeProductionRateAddition: 60
         ElixirMineProductionRate: 5
 
@@ -38,6 +40,7 @@
         GoldStorageHitPoints: 300
         GoldStorageDestructionScore: 3
         GoldStorageUpgradeGold: 100
+        GoldStorageUpgradeGold: 0
         GoldStorageUpgradeCapacityAddition: 60
         GoldStorageGoldCapacity: 500
         GoldStorageElixirCapacity: 0
@@ -49,6 +52,7 @@
         ElixirStorageHitPoints: 300
         ElixirStorageDestructionScore: 3
         ElixirStorageUpgradeGold: 100
+        ElixirStorageUpgradeElixir: 0
         ElixirStorageUpgradeCapacityAddition: 60
         ElixirStorageElixirCapacity: 20
         ElixirStorageGoldCapacity: 0
@@ -62,17 +66,21 @@
         TownHallDestructionGold: 1000
         TownHallDestructionElixir: 500
         TownHallUpgradeGold: 500
+        TownHallUpgradeElixir: 0
         TownHallUpgradeHitPointsAddition: 500
 
     #Barracks properties:
         BarracksBuildGold: 200
+        BarracksBuildElixir: 0
         BarracksBuildTime: 100
         BarracksHitPoints: 300
         BarracksDestructionScore: 1
         BarracksUpgradeGold: 100
+        BarracksUpgradeElixir: 0
 
     #Camp properties:
         CampBuildGold: 200
+        CampBuildElixir: 0
         CampBuildTime: 100
         CampHitPoints: 900
         CampDestructionScore: 1
@@ -80,54 +88,64 @@
 
     #Archer tower properties:
         ArcherTowerBuildGold: 300
+        ArcherTowerBuildElixir: 0
         ArcherTowerBuildTime: 60
         ArcherTowerHitPoints: 300
         ArcherTowerDamage: 20
         ArcherTowerRange: 10
         ArcherTowerDestructionScore: 3
         ArcherTowerUpgradeGold: 100
+        ArcherTowerUpgradeElixir: 0
         ArcherTowerUpgradeDamageAddition: 1
         ArcherTowerUpgradeHitPointsAddition: 10
 
     #Cannon properties:
         CannonBuildGold: 400
+        CannonBuildElixir: 400
         CannonBuildTime: 100
         CannonHitPoints: 400
         CannonDamage: 20
         CannonRange: 13
         CannonDestructionScore: 4
         CannonUpgradeGold: 100
+        CannonUpgradeElixir: 0
         CannonUpgradeDamageAddition: 1
         CannonUpgradeHitPointsAddition: 10
 
     #Air defense properties:
         AirDefenseBuildGold: 300
+        AirDefenseBuildElixir: 0
         AirDefenseBuildTime: 60
         AirDefenseHitPoints: 300
         AirDefenseDamage: 20
         AirDefenseRange: 10
         AirDefenseDestructionScore: 3
         AirDefenseUpgradeGold: 100
+        AirDefenseUpgradeElixir: 0
         AirDefenseUpgradeDamageAddition: 1
         AirDefenseUpgradeHitPointsAddition: 10
 
     #Wizard tower properties:
         WizardTowerBuildGold: 500
+        WizardTowerBuildElixir: 0
         WizardTowerBuildTime: 120
         WizardTowerHitPoints: 700
         WizardTowerDamage: 20
         WizardTowerRange: 13
         WizardTowerDestructionScore: 5
         WizardTowerUpgradeGold: 100
+        WizardTowerUpgradeElixir: 100
         WizardTowerUpgradeDamageAddition: 1
         WizardTowerUpgradeHitPointsAddition: 10
 
     #Wall properties:
         #WallBuildGold: 100
+        #WallBuildElixir: 0
         #WallBuildTime: 20
         #WallBuildHitPoints: 100
         #WallDestructionScore: 1
         #WallUpgradeGold: 100
+        #WallUpgradeElixir: 0
         #WallUpgradeHitPointsAddition: 10
 
     #Trap properties:
@@ -146,6 +164,7 @@
 #Troops:
 
     #Guardian properties:
+        GuardianBuildGold: 0
         GuardianBuildElixir: 50
         GuardianBuildTime: 10
         GuardianHitPoints: 100
@@ -156,6 +175,7 @@
         GuardianUpgradeHitPointsAddition: 5
 
     #Giant properties:
+        GiantBuildElixir: 0
         GiantBuildElixir: 150
         GiantBuildTime: 30
         GiantHitPoints: 500
@@ -166,6 +186,7 @@
         GiantUpgradeHitPointsAddition: 5
 
     #Dragon properties:
+        DragonBuildGold: 0
         DragonBuildElixir: 200
         DragonBuildTime: 45
         DragonHitPoints: 700
@@ -176,6 +197,7 @@
         DragonUpgradeHitPointsAddition: 5
 
     #Archer properties:
+        ArcherBuildElixir: 0
         ArcherBuildElixir: 75
         ArcherBuildTime: 10
         ArcherHitPoints: 100
