@@ -17,6 +17,12 @@ public class Map {
         this.height = height;
         buildings = new ArrayList<>();
         isOccupied = new boolean[width][height];
+        for (int i = 0; i < width; i++) {
+            isOccupied[0][i] = true;
+            isOccupied[i][0] = true;
+            isOccupied[i][height - 1] = true;
+            isOccupied[width - 1][i] = true;
+        }
     }
 
     public int getWidth() {

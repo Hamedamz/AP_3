@@ -16,6 +16,7 @@ public class TownHall extends Storage {
     private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 5);
 
     private ArrayList<Builder> builders;
+    private int villageScore;
     private int townHallScore;
 
     public TownHall(Position position, boolean isFriendly){
@@ -23,6 +24,7 @@ public class TownHall extends Storage {
         townHallScore = GameLogicConfig.getFromDictionary("TownHallDestructionScore");
         builders = new ArrayList<>();
         builders.add(new Builder());
+        villageScore = 0;
         //jsonNumber = 5;
     }
 
@@ -30,8 +32,8 @@ public class TownHall extends Storage {
         return builders;
     }
 
-    public int getTownHallScore() {
-        return townHallScore;
+    public int getVillageScore() {
+        return villageScore;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class TownHall extends Storage {
     }
 
     public void addScore(int score) {
-        this.townHallScore += score;
+        this.villageScore += score;
     }
 
 

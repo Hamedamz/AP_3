@@ -14,6 +14,8 @@ public class Builder {
     }
 
     public void build() {
+        if (underConstructBuilding == null)
+            return;
         constructRemainingTime--;
         if (isBuildingFinished()) {
             underConstructBuilding.finishConstruct();
