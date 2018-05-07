@@ -1,6 +1,7 @@
 package models.GameLogic;
 
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.TownHall;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ public class Map {
         this.width = width;
         this.height = height;
         buildings = new ArrayList<>();
+        isOccupied = new boolean[width][height];
     }
 
     public int getWidth() {
@@ -27,14 +29,26 @@ public class Map {
 
     public void addNewBuilding(Building building) {
         buildings.add(building);
+        int x = building.getPosition().getX();
+        int y = building.getPosition().getY();
+        setOccupied(x, y);
+        if (building instanceof TownHall) {
+            setOccupied(x + 1, y + 1);
+            setOccupied(x + 1, y);
+            setOccupied(x, y + 1);
+        }
     }
 
-    public boolean isOccupied(int i, int j, int buildingSize) {
+    public boolean isOccupied(int i, int j) {
         return isOccupied[i][j];
     }
 
-    public void constructBuilding(int i, int j, int size) {
-        isOccupied[i][j] = true;
+    public void setOccupied(int x, int y) {
+        isOccupied[x][y] = true;
+    }
+
+    public void constructBuilding(int i, int j) {
+        setOccupied(i, j);
     }
 
 
