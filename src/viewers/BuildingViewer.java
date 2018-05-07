@@ -2,6 +2,7 @@ package viewers;
 
 import controllers.Exceptions.InvalidInputException;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.Setting.GameLogicConfig;
 
 import static controllers.InputFormats.POSITION_FORMAT;
@@ -39,5 +40,9 @@ public class BuildingViewer extends BasicViewer{
         if (position.matches(POSITION_FORMAT)) {
             return position;
         } else throw new InvalidInputException("invalid input");
+    }
+
+    public void printAttackInfo(DefensiveBuilding building) {
+//        printPropertyValue("Target", building.);
     }
 }

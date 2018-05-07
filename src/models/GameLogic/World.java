@@ -43,6 +43,10 @@ public class World {
         return myVillage;
     }
 
+    public void setMyVillage(Village myVillage) {
+        this.myVillage = myVillage;
+    }
+
     public BattleGround getBattleGround() {
         return battleGround;
     }

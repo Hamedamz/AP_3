@@ -2,11 +2,13 @@ package controllers.enums;
 
 public enum CommandType {
     NEW_GAME,
-    LOAD_GAME,
     OPEN_BUILDING_MENU,
     UPGRADE_BUILDING,
     BUILD_BUILDING,
-    LOAD_MAP,
+    LOAD_ENEMY_MAP,
+    LOAD_GAME_FROM_FILE,
+    LOAD_GAME,
+    OPEN_MAP_MENU,
     OVERALL_INFO,
     UPGRADE_INFO,
     CAPACITY_INFO,

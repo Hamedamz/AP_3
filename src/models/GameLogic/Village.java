@@ -28,7 +28,7 @@ public class Village {
         listOfBuildingsByName.get(TownHall.class.getSimpleName()).add(townHall);
         listOfBuildingsByName.get(Storage.class.getSimpleName()).add(townHall);
         listOfBuildingsByName.get(Storage.class.getSimpleName()).add(goldStorage);
-        spreadResources(new Resource((int) GameLogicConfig.getFromDictionary("VillageInitialGold"), (int) GameLogicConfig.getFromDictionary("VillageInitialElixir")));
+//        spreadResources(new Resource((int) GameLogicConfig.getFromDictionary("VillageInitialGold"), (int) GameLogicConfig.getFromDictionary("VillageInitialElixir")));
 
     }
 

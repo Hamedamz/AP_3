@@ -9,5 +9,6 @@ public enum DynamicListType {
     AVAILABLE_TROOPS_LIST,
     MINE,
     TARGET,
-    AVAILABLE_MAPS_LIST,
+    VILLAGE_MAPS_LIST,
+    AVAILABLE_ENEMY_MAPS_LIST;
 }

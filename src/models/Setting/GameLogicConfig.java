@@ -41,7 +41,7 @@ public final class GameLogicConfig {
             System.err.println("constant file not found");
         }
         for (String str : classProperties.keySet()) {
-            System.out.println(str + " " + classProperties.get(str));
+            //System.out.println(str + " " + classProperties.get(str));
         }
     }
 

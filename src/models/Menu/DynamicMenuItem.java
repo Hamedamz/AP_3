@@ -11,6 +11,10 @@ public class DynamicMenuItem extends MenuItem {
         this.model = model;
     }
 
+    public DynamicMenuItem(CommandType commandType, String label) {
+        super(commandType, label);
+    }
+
     public Entity getModel() {
         return model;
     }

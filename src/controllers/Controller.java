@@ -2,6 +2,7 @@ package controllers;
 
 import controllers.Exceptions.InvalidInputException;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Village;
 import models.GameLogic.World;
@@ -19,9 +20,9 @@ import static controllers.enums.GeneralCommand.*;
 
 public class Controller {
 
-    private static MenuController menuController = new MenuController();
     private static BasicViewer viewer = new BasicViewer();
     private static World world = new World();
+    private static MenuController menuController = new MenuController(world);
     private static VillageViewer villageViewer = new VillageViewer(world.getMyVillage());
     private static BuildingViewer buildingViewer = new BuildingViewer();
 
@@ -48,18 +49,7 @@ public class Controller {
 
             switch (requestedMenuItem.getCommandType()) {
                 case NEW_GAME:
-                    newGame();
                     menuController.openMenu(menuController.getVillageMenu());
-                    break;
-                case LOAD_GAME:
-                    viewer.requestForInput("enter path:");
-                    command = viewer.getInput();
-                    if (menuController.isMenuItemNumber(command)) {
-                        break;
-                    }
-                    if (loadGame(command)) {
-                        menuController.openMenu(menuController.getVillageMenu());
-                    }
                     break;
                 case OPEN_BUILDING_MENU:
                     dynamicMenuItem = (DynamicMenuItem) requestedMenuItem;
@@ -84,7 +74,17 @@ public class Controller {
                         buildBuilding(buildingType, position);
                     }
                     break;
-                case LOAD_MAP:
+                case LOAD_ENEMY_MAP:
+                    break;
+                case LOAD_GAME_FROM_FILE:
+                    viewer.requestForInput("enter path:");
+                    command = viewer.getInput();
+                    loadGameFromFile(command);
+                    break;
+                case LOAD_GAME:
+
+                    break;
+                case OPEN_MAP_MENU:
                     break;
                 case OVERALL_INFO:
                     buildingViewer.printOverallInfo((Building) model);
@@ -98,8 +98,10 @@ public class Controller {
                     villageViewer.printResourcesList();
                     break;
                 case SOURCES_INFO:
+                    villageViewer.printStorageCapacity((Building) model);
                     break;
                 case ATTACK_INFO:
+                    buildingViewer.printAttackInfo((DefensiveBuilding) model);
                     break;
                 case MAP_INFO:
                     break;
@@ -116,6 +118,7 @@ public class Controller {
 
         } else {
             if (command.matches(SAVE_GAME.toString())) {
+                viewer.requestForInput("enter name for your village:");
                 String name = viewer.getInput(); // TODO: 5/6/2018 Exception Handlings
                 saveGame(world.getMyVillage(), name);
             } else if (command.matches(TURN_FORMAT)) {
@@ -127,7 +130,6 @@ public class Controller {
         }
     }
 
-
     private static String getArgument(int i, String command, String format) throws InvalidInputException {
         Pattern pattern = Pattern.compile(format);
         Matcher matcher = pattern.matcher(command);
@@ -138,13 +140,10 @@ public class Controller {
         }
     }
 
-    public static void newGame() {
-        // TODO: 5/6/2018
-    }
-
-    public static boolean loadGame(String path) {
+    public static boolean loadGameFromFile(String path) {
         try {
             Village village = JsonInterpreter.loadMyVillage(path);
+            world.setMyVillage(village);
             viewer.printInformation("game successfully loaded!");
             return true;
         } catch (FileNotFoundException e) {
@@ -172,6 +171,7 @@ public class Controller {
         int x = Integer.parseInt(getArgument(1, position, POSITION_FORMAT));
         int y = Integer.parseInt(getArgument(2, position, POSITION_FORMAT));
     }
+
     public static void attack() {
 
     }

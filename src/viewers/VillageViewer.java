@@ -1,7 +1,11 @@
 package viewers;
 
+import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.GoldStorage;
 import models.GameLogic.Resource;
 import models.GameLogic.Village;
+
+import static controllers.OutputFormats.*;
 
 public class VillageViewer extends BasicViewer {
     private Village village;
@@ -28,5 +32,16 @@ public class VillageViewer extends BasicViewer {
             }
             System.out.println();
         }
+    }
+
+    public void printStorageCapacity(Building building) {
+        Resource totalResourceStock = village.getTotalResourceStock();
+        Resource totalResourceCapacity = village.getTotalResourceCapacity();
+        if (building instanceof GoldStorage) {
+            System.out.format(SOURCES_INFO_FORMAT, "Gold", totalResourceStock.getGold(), totalResourceCapacity.getGold());
+        } else {
+            System.out.format(SOURCES_INFO_FORMAT, "Elixir", totalResourceStock.getElixir(), totalResourceCapacity.getElixir());
+        }
+
     }
 }
