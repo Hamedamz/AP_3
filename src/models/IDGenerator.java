@@ -1,6 +1,6 @@
 package models;
 
-public class IDGenerator {
+public class IDGenerator { // FIXME: 5/7/2018 reset after new village
     private ID lastID;
     private final ID initialID;
 

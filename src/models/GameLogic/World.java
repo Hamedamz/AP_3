@@ -92,4 +92,8 @@ public class World {
     public void passTurn() {
 
     }
+
+    public GameEngine getGameEngine() {
+        return gameEngine;
+    }
 }
