@@ -9,6 +9,7 @@ import models.GameLogic.Exceptions.CountLimitReachedException;
 import models.GameLogic.Exceptions.InvalidPositionException;
 import models.GameLogic.Exceptions.NoFreeBuilderException;
 import models.GameLogic.Exceptions.NotEnoughResourcesException;
+import models.GameLogic.GameEngine;
 import models.GameLogic.Village;
 import models.GameLogic.World;
 import models.Menu.*;
@@ -186,8 +187,7 @@ public class Controller {
     public static void turn(int n) {
         if (n == 0)
             return;
-        System.out.format("turn %d", n);
-        // TODO: 5/6/2018
+        controller.world.getGameEngine().update();
     }
 
     public static void upgradeBuilding(Building building) {

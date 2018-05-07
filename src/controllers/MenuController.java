@@ -3,10 +3,14 @@ package controllers;
 import controllers.Exceptions.InvalidInputException;
 import controllers.enums.*;
 import models.GameLogic.Builder;
+import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Entity;
+import models.GameLogic.Resource;
+import models.GameLogic.TrainingTroop;
 import models.GameLogic.World;
 import models.Menu.*;
+import models.Setting.GameLogicConfig;
 import viewers.MenuViewer;
 
 import java.util.ArrayList;
@@ -72,16 +76,16 @@ public class MenuController {
     }
 
     public void openMenu(Menu menu) {
-        updateDynamicMenu(menu);
         if (isMenuOpen()) {
             menu.setModel(getActiveMenu().getModel());
         }
+        updateDynamicMenu(menu);
         menuStack.push(menu);
     }
 
     public void openMenu(Menu menu, Entity model) {
-        updateDynamicMenu(menu);
         menu.setModel(model);
+        updateDynamicMenu(menu);
         menuStack.push(menu);
     }
 
@@ -193,13 +197,32 @@ public class MenuController {
 
     private HashMap<DynamicMenuItem, String> getTrainingStatusList() {
         // troop that are being trained with turns left ro be trained
-        return null;
+        HashMap<DynamicMenuItem, String> trainingTroopsList = new HashMap<>();
+
+        Barracks barracks = (Barracks) getActiveMenu().getModel();
+        ArrayList<TrainingTroop> trainingTroops = barracks.getTrainingTroops();
+        for (TrainingTroop trainingTroop : trainingTroops) {
+            trainingTroopsList.put(new DynamicMenuItem(NULL, trainingTroop.getClass().getSimpleName()), String.valueOf(trainingTroop.getTimeRemaining()));
+        }
+        return trainingTroopsList;
     }
 
     private HashMap<DynamicMenuItem, String> getTroopsList() {
         // all troops with labels A and U that show availability
         // if troop can be built the possible number is also shown
-        return null;
+        HashMap<DynamicMenuItem, String> troopsList = new HashMap<>();
+        Resource resourceStock = world.getMyVillage().getTotalResourceStock();
+        String info;
+        String[] troops = {"Archer", "Dragon", "Giant", "Guardian"};
+        for (String troop : troops) {
+            int elixir = GameLogicConfig.getFromDictionary(troop + "TrainElixir");
+            if (resourceStock.getElixir() - elixir >= 0) {
+                info = "A" + " x" + (elixir / resourceStock.getElixir());
+            } else
+                info = "U";
+            troopsList.put(new DynamicMenuItem(TRAIN_TROOP, troop), info);
+        }
+        return troopsList;
     }
 
     private HashMap<DynamicMenuItem, String> getConstructionStatusList() {

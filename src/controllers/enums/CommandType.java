@@ -6,6 +6,7 @@ public enum CommandType {
     OPEN_BUILDING_MENU,
     UPGRADE_BUILDING,
     BUILD_BUILDING,
+    TRAIN_TROOP,
     LOAD_ENEMY_MAP,
     LOAD_GAME_FROM_FILE,
     LOAD_GAME,
