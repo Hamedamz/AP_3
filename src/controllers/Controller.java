@@ -122,6 +122,7 @@ public class Controller {
                 case MAP_INFO:
                     break;
                 case TARGET_INFO:
+                    controller.buildingViewer.printTargetInfo((DefensiveBuilding) model);
                     break;
                 case ATTACK_MAP:
                     break;
