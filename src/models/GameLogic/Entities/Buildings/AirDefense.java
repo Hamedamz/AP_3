@@ -20,8 +20,6 @@ public class AirDefense extends DefensiveBuilding {
         this.damageType = BuildingDamageType.SINGLE_TARGET;
     }
 
-
-
     @Override
     public Bounty getBounty() {
         int gold = (int) GameLogicConfig.getFromDictionary("AirDefenseBuildGold");

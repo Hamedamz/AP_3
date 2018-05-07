@@ -13,7 +13,7 @@ import models.Setting.GameLogicConfig;
 import java.util.Comparator;
 import java.util.Dictionary;
 
-public abstract class Building extends Defender implements Upgradable {
+public abstract class Building extends Defender implements Upgradable, Comparable<Building> {
     //private int jsonNumber;
     protected int score;
     protected int maxHitPoint;
@@ -168,12 +168,13 @@ public abstract class Building extends Defender implements Upgradable {
         this.score = score;
     }
 
-    public static class BuildingComparator implements Comparator<Building> {
-
-        @Override
-        public int compare(Building o1, Building o2) {
-            return o1.getClass().getSimpleName().compareTo(o2.getClass().getSimpleName());
+    @Override
+    public int compareTo(Building o) {
+        int compare =  this.getClass().getSimpleName().compareTo(o.getClass().getSimpleName());
+        if (compare == 0) {
+            return this.getID().getCount() - o.getID().getCount();
         }
+        return compare;
     }
 }
 

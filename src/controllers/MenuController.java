@@ -52,7 +52,8 @@ public class MenuController {
             modelBasedMenus.put("Barracks", buildBarracksMenu());
             modelBasedMenus.put("Camp", buildCampMenu());
             modelBasedMenus.put("Mine", buildMinesMenu());
-            modelBasedMenus.put("Storage", buildStorageMenu());
+            modelBasedMenus.put("GoldStorage", buildStorageMenu());
+            modelBasedMenus.put("ElixirStorage", buildStorageMenu());
             modelBasedMenus.put("DefensiveBuilding", buildDefensiveBuildingsMenu());
             modelBasedMenus.put("Map", buildMapMenu());
         }
@@ -213,6 +214,7 @@ public class MenuController {
 
     private HashMap<DynamicMenuItem, String> getBuildingsList() {
         ArrayList<Building> buildings = world.getMyVillage().getMap().getBuildings();
+        buildings.sort(Building::compareTo);
         HashMap<DynamicMenuItem, String> buildingsList = new HashMap<>();
         for (Building building : buildings) {
             buildingsList.put(new DynamicMenuItem(OPEN_BUILDING_MENU, building), String.valueOf(building.getID().getCount()));

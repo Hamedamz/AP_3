@@ -178,9 +178,9 @@
 #Troops:
 
     #Guardian properties:
-        GuardianBuildGold: 0
-        GuardianBuildElixir: 50
-        GuardianBuildTime: 10
+        GuardianTrainGold: 0
+        GuardianTrainElixir: 50
+        GuardianTrainTime: 10
         GuardianHitPoints: 100
         GuardianRange: 1
         GuardianDamage: 10
@@ -189,9 +189,9 @@
         GuardianUpgradeHitPointsAddition: 5
 
     #Giant properties:
-        GiantBuildElixir: 0
-        GiantBuildElixir: 150
-        GiantBuildTime: 30
+        GiantTrainGold: 0
+        GiantTrainElixir: 150
+        GiantTrainTime: 30
         GiantHitPoints: 500
         GiantRange: 1
         GiantDamage: 30
@@ -200,9 +200,9 @@
         GiantUpgradeHitPointsAddition: 5
 
     #Dragon properties:
-        DragonBuildGold: 0
-        DragonBuildElixir: 200
-        DragonBuildTime: 45
+        DragonTrainGold: 0
+        DragonTrainElixir: 200
+        DragonTrainTime: 45
         DragonHitPoints: 700
         DragonRange: 3
         DragonDamage: 30
@@ -211,9 +211,9 @@
         DragonUpgradeHitPointsAddition: 5
 
     #Archer properties:
-        ArcherBuildElixir: 0
-        ArcherBuildElixir: 75
-        ArcherBuildTime: 10
+        ArcherTrainGold: 0
+        ArcherTrainElixir: 75
+        ArcherTrainTime: 10
         ArcherHitPoints: 100
         ArcherRange: 10
         ArcherDamage: 10
