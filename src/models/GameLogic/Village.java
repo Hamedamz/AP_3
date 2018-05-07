@@ -260,7 +260,6 @@ public class Village {
         Resource totalResource = Resource.addResources(getTotalResourceStock(), resource, getTotalResourceCapacity());
         int gold = totalResource.getGold();
         int elixir = totalResource.getElixir();
-        System.out.println(totalResource.getGold());
         ArrayList<Storage> storages = findBuildingsWithSameType(Storage.class);
         storages.sort(new Storage.GoldStorageComparator());
         int storagesCount = storages.size();
@@ -273,7 +272,6 @@ public class Village {
             }
             gold -= addedGold;
             storageNumberI.setGold(addedGold);
-            System.out.println(gold);
         }
         //CP
         storages.sort(new Storage.ElixirStorageComparator());
