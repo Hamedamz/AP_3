@@ -1,11 +1,15 @@
 package models.GameLogic;
 
 public class GameEngine {
-    private World world;
+    private transient World world;
     private VillageGameEngine villageGameEngine;
     private BattleGroundGameEngine battleGroundGameEngine;
     private boolean isAttacking = false; //fixme put false in constructore
     // isAttacking First Phase Only
+
+    public GameEngine (World world) {
+        this.world = world;
+    }
 
     public void update() {
         if(isAttacking) {

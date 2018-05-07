@@ -10,17 +10,16 @@ public class World {
     private HashMap<String, String> villagesNameAndPath;
     private Village myVillage;
     private BattleGround battleGround;
-    private int turn;
+    private GameEngine gameEngine;
 
     public World() {
+        gameEngine = new GameEngine(this);
         villagesNameAndPath = new HashMap<>();
-        myVillage = new Village();
-        turn = 0;
     }
 
     public void loadVillage(String name) {
         try {
-            JsonInterpreter.loadMyVillage(name);
+            myVillage = JsonInterpreter.loadMyVillage(name);
         } catch (java.io.FileNotFoundException e) {
             e.getMessage();
         }
@@ -48,16 +47,16 @@ public class World {
     }
 
     public int getTurn() {
-        return turn;
+        return 0;
+        // TODO: 5/7/2018
     }
 
-    private void convertJsonToVillage(String[] jsonThings) {
-
-    }
-
-    public void initiateGame() {
-        myVillage = new Village();
-        //myVillage.
+    public void makeNewGame() throws VillageAlreadyExists{
+        if(myVillage != null) {
+            throw new VillageAlreadyExists();
+        }
+        myVillage = Village.startNewVillage();
+        gameEngine.loadNewVillage();
     }
 
     public void saveGame() {
