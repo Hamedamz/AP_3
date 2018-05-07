@@ -18,7 +18,7 @@ public class VillageViewer extends BasicViewer {
         Resource totalResourceStock = village.getTotalResourceStock();
         printPropertyValue("Gold", totalResourceStock.getGold());
         printPropertyValue("Elixir", totalResourceStock.getElixir());
-        printPropertyValue("Score", village.getTownHall().getTownHallScore());
+        printPropertyValue("Score", village.getTownHall().getVillageScore());
     }
 
     public void printMapCells() {
