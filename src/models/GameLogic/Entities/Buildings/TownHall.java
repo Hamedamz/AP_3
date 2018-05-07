@@ -16,11 +16,11 @@ public class TownHall extends ResourceBuilding {
     private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 5);
 
     private ArrayList<Builder> builders;
-    private int score;
+    private int townHallScore;
 
     public TownHall(Position position, boolean isFriendly){
         super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID() );
-        score = 0;
+        townHallScore = 0;
         builders = new ArrayList<>();
         builders.add(new Builder());
     }
@@ -29,8 +29,8 @@ public class TownHall extends ResourceBuilding {
         return builders;
     }
 
-    public int getScore() {
-        return score;
+    public int getTownHallScore() {
+        return townHallScore;
     }
 
     @Override
@@ -55,12 +55,12 @@ public class TownHall extends ResourceBuilding {
         int gold = 1000;
         int elixir = 500;
         Resource resource = new Resource(gold, elixir);
-        int score = this.score;
+        int score = this.townHallScore;
         return new Bounty(score, resource);
     }
 
     public void addScore(int score) {
-        this.score += score;
+        this.townHallScore += score;
     }
 
 

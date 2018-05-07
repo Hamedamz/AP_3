@@ -1,9 +1,16 @@
+#BattleGround:
+
+    WarTime: 10000
+
 #Village
+
     VillageInitialGold: 1200
     VillageInitialElixir: 0
     VillageWidth: 30
     VillageHeight: 30
+
 #Buildings:
+
     #Gold mine properties:
         GoldMineBuildGold: 150
         GoldMineBuildElixir: 5
@@ -35,7 +42,6 @@
         GoldStorageGoldCapacity: 500
         GoldStorageElixirCapacity: 0
 
-
     #Elixir storage properties:
         ElixirStorageBuildGold: 200
         ElixirStorageBuildElixir: 0
@@ -46,7 +52,6 @@
         ElixirStorageUpgradeCapacityAddition: 60
         ElixirStorageElixirCapacity: 20
         ElixirStorageGoldCapacity: 0
-
 
     #Town hall properties:
         TownHallBuildTime: 100

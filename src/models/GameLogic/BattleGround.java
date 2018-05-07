@@ -8,6 +8,7 @@ import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.*;
 import models.GameLogic.Exceptions.CountLimitReachedException;
 import models.GameLogic.enums.MoveType;
+import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,6 +35,7 @@ public class BattleGround {
         this.myVillage = myVillage;
         this.troops = troops;
         availableBounty = new Bounty(0, new Resource(0, 0));
+        this.timeRemaining = (int) GameLogicConfig.getFromDictionary("WarTime");
     }
 
     public void addBounty(Bounty bounty) {

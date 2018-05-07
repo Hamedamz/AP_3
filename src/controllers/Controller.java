@@ -10,6 +10,7 @@ import viewers.BasicViewer;
 import viewers.BuildingViewer;
 import viewers.VillageViewer;
 
+import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,8 +57,9 @@ public class Controller {
                     if (menuController.isMenuItemNumber(command)) {
                         break;
                     }
-                    loadGame(command);
-                    menuController.openMenu(menuController.getVillageMenu());
+                    if (loadGame(command)) {
+                        menuController.openMenu(menuController.getVillageMenu());
+                    }
                     break;
                 case OPEN_BUILDING_MENU:
                     dynamicMenuItem = (DynamicMenuItem) requestedMenuItem;
@@ -140,9 +142,15 @@ public class Controller {
         // TODO: 5/6/2018
     }
 
-    public static void loadGame(String path) {
-        // TODO: 5/6/2018
-        viewer.printInformation("game successfully loaded!");
+    public static boolean loadGame(String path) {
+        try {
+            Village village = JsonInterpreter.loadMyVillage(path);
+            viewer.printInformation("game successfully loaded!");
+            return true;
+        } catch (FileNotFoundException e) {
+            viewer.printErrorMessage("file not found");
+            return false;
+        }
     }
 
     public static void saveGame(Village village, String name) {
