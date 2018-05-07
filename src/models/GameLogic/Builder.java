@@ -9,7 +9,7 @@ public class Builder {
     private Building underConstructBuilding;
 
     public void startBuilding(Building building) {
-        constructRemainingTime = GameLogicConfig.getFromDictionary(building.getClass().getSimpleName() + "BuildTime");
+        constructRemainingTime = GameLogicConfig.getFromDictionary(building.getClass().getSimpleName() + "TrainTime");
         underConstructBuilding = building;
     }
 

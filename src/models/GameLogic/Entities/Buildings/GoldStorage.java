@@ -17,13 +17,6 @@ public class GoldStorage extends Storage {
     }
 
     @Override
-    public Resource getUpgradeResource() {
-        int gold = (int) GameLogicConfig.getFromDictionary("GoldStorageUpgradeGold");
-        int elixir = 0;
-        return new Resource(gold, elixir);
-    }
-
-    @Override
     public void upgrade() {
         this.setLevel(this.getLevel() + 1);
         int capacityAddition = (int) GameLogicConfig.getFromDictionary("GoldStorageUpgradeCapacityAddition");

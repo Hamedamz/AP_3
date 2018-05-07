@@ -16,17 +16,10 @@ public class ElixirStorage extends Storage {
     }
 
     @Override
-    public Resource getUpgradeResource() {
-        int gold = (int) GameLogicConfig.getFromDictionary("ElixirStorageUpgradeGold");
-        int elixir = 0;
-        return new Resource(gold, elixir);
-    }
-
-    @Override
     public void upgrade() {
         this.setLevel(this.getLevel() + 1);
         int capacityAddition = (int) GameLogicConfig.getFromDictionary("ElixirStorageUpgradeCapacityAddition");
-        this.capacity.setGold(this.capacity.getGold() + (this.capacity.getGold() * capacityAddition) / 100);
+        this.capacity.setElixir(this.capacity.getElixir() + (this.capacity.getElixir() * capacityAddition) / 100);
     }
 
     @Override

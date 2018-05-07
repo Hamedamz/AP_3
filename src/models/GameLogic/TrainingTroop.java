@@ -25,7 +25,7 @@ public class TrainingTroop {
     }
 
     public static Resource getTrainingResources(String troopType) {
-        int buildElixir = (int) GameLogicConfig.getFromDictionary(troopType + "BuildElixir");
+        int buildElixir = (int) GameLogicConfig.getFromDictionary(troopType + "TrainElixir");
         return new Resource(0, buildElixir);
     }
 

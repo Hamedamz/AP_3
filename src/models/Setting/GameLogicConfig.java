@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public final class GameLogicConfig {
     private static Map<String, Integer> classProperties;
@@ -16,6 +17,10 @@ public final class GameLogicConfig {
     private static final String CONSTANTS_SAVE_LOCATION = "src\\class properties.txt";
     private static final String IGNORE_REGEX = "#.*";
     private static final String PROPERTY_FORMAT = "((\\D(_\\d+ )?)|\\s)+:\\s+\\d+(\\.\\d+)?";
+
+    public static Set<String> getClassPropertiesName() {
+        return classProperties.keySet();
+    }
 
     static {
         loadConstants();

@@ -35,13 +35,6 @@ public class TownHall extends Storage {
     }
 
     @Override
-    public Resource getUpgradeResource() {
-        int gold = (int) GameLogicConfig.getFromDictionary("TownHallUpgradeGold");
-        int elixir = 0;
-        return new Resource(gold, elixir);
-    }
-
-    @Override
     public void upgrade() {
         if (level % 5 == 0) {
             builders.add(new Builder());

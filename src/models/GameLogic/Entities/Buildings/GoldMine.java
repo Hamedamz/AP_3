@@ -21,13 +21,6 @@ public class GoldMine extends Mine {
     }
 
     @Override
-    public Resource getUpgradeResource() {
-        int gold = (int) GameLogicConfig.getFromDictionary("GoldMineUpgradeGold");
-        int elixir = 0;
-        return new Resource(gold, elixir);
-    }
-
-    @Override
     public void upgrade() {
         this.setLevel(this.getLevel() + 1);
         int productionRateAddition = (int) GameLogicConfig.getFromDictionary("GoldMineUpgradeProductionRateAddition");

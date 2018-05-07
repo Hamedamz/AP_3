@@ -20,14 +20,6 @@ public class ElixirMine extends Mine {
         return new Resource(0, productionRate);
     }
 
-
-    @Override
-    public Resource getUpgradeResource() {
-        int gold = (int) GameLogicConfig.getFromDictionary("ElixirMineUpgradeGold");
-        int elixir = 0;
-        return new Resource(gold, elixir);
-    }
-
     @Override
     public void upgrade() {
         this.setLevel(this.getLevel() + 1);

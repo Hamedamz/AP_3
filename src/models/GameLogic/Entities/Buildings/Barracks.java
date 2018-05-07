@@ -2,6 +2,7 @@ package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
 import models.GameLogic.Exceptions.NotAvailableAtThisLevelException;
+import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.TrainingTroop;
@@ -56,12 +57,18 @@ public class Barracks extends Building {
     }
 
     @Override
-    public Resource getUpgradeResource() {
-        int gold = (int) GameLogicConfig.getFromDictionary("BarracksUpgradeGold");
-        int elixir = 0;
-        return new Resource(gold, elixir);
+    public void upgrade() throws UpgradeLimitReachedException {
+        int maxInitialConstructTime = 0;
+        for(String key : GameLogicConfig.getClassPropertiesName()) {
+            if(key.matches("TrainTime")) {
+                maxInitialConstructTime = Math.max(maxInitialConstructTime, GameLogicConfig.getFromDictionary(key));
+            }
+        }
+        if(level >= maxInitialConstructTime) {
+            throw new UpgradeLimitReachedException();
+        }
+        setLevel(getLevel() + 1);
     }
-
 
     @Override
     public Bounty getBounty() {

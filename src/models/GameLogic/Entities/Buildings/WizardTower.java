@@ -20,13 +20,6 @@ public class WizardTower extends DefensiveBuilding {
     }
 
     @Override
-    public Resource getUpgradeResource() {
-        int gold = (int) GameLogicConfig.getFromDictionary("WizardTowerUpgradeGold");
-        int elixir = 0;
-        return new Resource(gold, elixir);
-    }
-
-    @Override
     public Bounty getBounty() {
         int gold = (int) GameLogicConfig.getFromDictionary("WizardTowerBuildGold");
         int elixir = 0;
