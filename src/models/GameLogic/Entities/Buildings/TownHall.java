@@ -20,9 +20,10 @@ public class TownHall extends Storage {
 
     public TownHall(Position position, boolean isFriendly){
         super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID() );
-        townHallScore = 0;
+        townHallScore = GameLogicConfig.getFromDictionary("TownHallDestructionScore");
         builders = new ArrayList<>();
         builders.add(new Builder());
+        jsonNumber = 5;
     }
 
     public ArrayList<Builder> getBuilders() {
@@ -52,8 +53,8 @@ public class TownHall extends Storage {
 
     @Override
     public Bounty getBounty() {
-        int gold = 1000;
-        int elixir = 500;
+        int gold = GameLogicConfig.getFromDictionary("TownHallDestructionGold");
+        int elixir = GameLogicConfig.getFromDictionary("TownHallDestructionElixir");
         Resource resource = new Resource(gold, elixir);
         int score = this.townHallScore;
         return new Bounty(score, resource);
