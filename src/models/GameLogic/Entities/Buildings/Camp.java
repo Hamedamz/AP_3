@@ -54,6 +54,16 @@ public class Camp extends Building {
         return size > troops.size();
     }
 
+    public int getNumberOfTroop(String troopType) {
+        int number = 0;
+        for (Troop troop : troops) {
+            if (troop.getClass().getSimpleName().equals(troopType)) {
+                number++;
+            }
+        }
+        return number;
+    }
+
     public static class CampComparator implements Comparator<Camp> {
         @Override
         public int compare(Camp o1, Camp o2) {

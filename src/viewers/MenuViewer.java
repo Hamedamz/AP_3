@@ -1,7 +1,5 @@
 package viewers;
 
-import models.GameLogic.Resource;
-import models.GameLogic.Village;
 import models.Menu.DynamicMenuItem;
 import models.Menu.Menu;
 import models.Menu.MenuItem;

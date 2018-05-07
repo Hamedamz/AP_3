@@ -119,37 +119,37 @@ public class Village {
 
     public void addNewBuilding(Building building) {
         //building switch case
-        if(building instanceof DefensiveBuilding) {
+        if (building instanceof DefensiveBuilding) {
             listOfBuildingsByName.get(DefensiveBuilding.class.getSimpleName()).add(building);
         }
-        if(building instanceof TownHall) {
+        if (building instanceof TownHall) {
             listOfBuildingsByName.get(TownHall.class.getSimpleName()).add(building);
         }
-        if(building instanceof Storage) {
+        if (building instanceof Storage) {
             listOfBuildingsByName.get(Storage.class.getSimpleName()).add(building);
         }
-        if(building instanceof GoldStorage) {
+        if (building instanceof GoldStorage) {
             listOfBuildingsByName.get(GoldStorage.class.getSimpleName()).add(building);
         }
-        if(building instanceof ElixirStorage) {
+        if (building instanceof ElixirStorage) {
             listOfBuildingsByName.get(ElixirStorage.class.getSimpleName()).add(building);
         }
-        if(building instanceof GoldMine) {
+        if (building instanceof GoldMine) {
             listOfBuildingsByName.get(GoldMine.class.getSimpleName()).add(building);
         }
-        if(building instanceof ElixirMine) {
+        if (building instanceof ElixirMine) {
             listOfBuildingsByName.get(ElixirMine.class.getSimpleName()).add(building);
         }
-        if(building instanceof Cannon) {
+        if (building instanceof Cannon) {
             listOfBuildingsByName.get(Cannon.class.getSimpleName()).add(building);
         }
-        if(building instanceof ArcherTower) {
+        if (building instanceof ArcherTower) {
             listOfBuildingsByName.get(ArcherTower.class.getSimpleName()).add(building);
         }
-        if(building instanceof AirDefense) {
+        if (building instanceof AirDefense) {
             listOfBuildingsByName.get(AirDefense.class.getSimpleName()).add(building);
         }
-        if(building instanceof WizardTower) {
+        if (building instanceof WizardTower) {
             listOfBuildingsByName.get(WizardTower.class.getSimpleName()).add(building);
         }
 

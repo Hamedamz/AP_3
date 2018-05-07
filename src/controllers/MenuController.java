@@ -5,6 +5,7 @@ import controllers.enums.*;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Resource;
 import models.GameLogic.TrainingTroop;
@@ -153,12 +154,6 @@ public class MenuController {
             case AVAILABLE_TROOPS_LIST:
                 list = getAvailableTroopsList();
                 break;
-            case MINE:
-                list = getMineList(); // UNKNOWN
-                break;
-            case TARGET:
-                list = getTargetList(); // UNKNOWN
-                break;
             case VILLAGE_MAPS_LIST:
                 list = getVillageMapList();
                 break;
@@ -180,28 +175,26 @@ public class MenuController {
 
     private HashMap<DynamicMenuItem, String> getAvailableMapsList() {
         // enemy maps that can be attacked
-        return null;
-    }
 
-    private HashMap<DynamicMenuItem, String> getTargetList() {
-        // unknown
-        return null;
-    }
-
-    private HashMap<DynamicMenuItem, String> getMineList() {
-        // unknown
         return null;
     }
 
     private HashMap<DynamicMenuItem, String> getAvailableTroopsList() {
         // troops and number of each
-        return null;
+        HashMap<DynamicMenuItem, String> availableTroopsList = new HashMap<>();
+        Camp camp = (Camp) getActiveMenu().getModel();
+        for (String troop : TROOPS) {
+            int numberOfTroop = camp.getNumberOfTroop(troop);
+            if (numberOfTroop > 0) {
+                availableTroopsList.put(new DynamicMenuItem(NULL, troop), String.valueOf(numberOfTroop));
+            }
+        }
+        return availableTroopsList;
     }
 
     private HashMap<DynamicMenuItem, String> getTrainingStatusList() {
         // troop that are being trained with turns left ro be trained
         HashMap<DynamicMenuItem, String> trainingTroopsList = new HashMap<>();
-
         Barracks barracks = (Barracks) getActiveMenu().getModel();
         ArrayList<TrainingTroop> trainingTroops = barracks.getTrainingTroops();
         for (TrainingTroop trainingTroop : trainingTroops) {
@@ -216,8 +209,7 @@ public class MenuController {
         HashMap<DynamicMenuItem, String> troopsList = new HashMap<>();
         Resource resourceStock = world.getMyVillage().getTotalResourceStock();
         String info;
-        String[] troops = {"Archer", "Dragon", "Giant", "Guardian"};
-        for (String troop : troops) {
+        for (String troop : TROOPS) {
             int elixir = GameLogicConfig.getFromDictionary(troop + "TrainElixir");
             if (resourceStock.getElixir() - elixir >= 0) {
                 info = "A" + " x" + (elixir / resourceStock.getElixir());
@@ -365,7 +357,7 @@ public class MenuController {
     private Menu buildMinesMenu() {
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("mines")
-                .withItem(buildMenuWithDynamicItems("mine", MINE))
+//                .withItem(buildMenuWithDynamicItems("mine", MINE))
                 .build();
     }
 
@@ -374,8 +366,9 @@ public class MenuController {
                 .withItem(new MenuItem(SOURCES_INFO))
                 .build();
 
-        return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
+        return MenuBuilder.aMenu()
                 .withLabel("storage")
+                .withItem(new MenuItem(BACK))
                 .withItem(infoMenu)
                 .build();
     }
@@ -388,7 +381,7 @@ public class MenuController {
         return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("")
                 .withItem(infoMenu)
-                .withItem(buildMenuWithDynamicItems("target", TARGET))
+                .withItem(new MenuItem(TARGET_INFO))
                 .build();
     }
 }

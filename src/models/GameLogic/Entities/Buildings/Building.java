@@ -36,7 +36,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
         this.hitPoints = (int) GameLogicConfig.getFromDictionary(className + "HitPoints");
         this.maxHitPoint = this.hitPoints;
         this.isDestroyed = false;
-        if(id.getFirstPartCode().equals("01")) {
+        if (id.getFirstPartCode().equals("01")) {
             this.isUnderConstruct = true;
         } else {
             this.isUnderConstruct = false;
@@ -63,25 +63,25 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
         switch (buildingType) {
             case "AirDefense":
                 return new AirDefense(new Position(x, y), true);
-            case "ArcherTower" :
+            case "ArcherTower":
                 return new ArcherTower(new Position(x, y), true);
-            case "Barracks" :
+            case "Barracks":
                 return new Barracks(new Position(x, y), true);
-            case "Camp" :
+            case "Camp":
                 return new Camp(new Position(x, y), true);
-            case "Cannon" :
+            case "Cannon":
                 return new Cannon(new Position(x, y), true);
-            case "ElixirMine" :
+            case "ElixirMine":
                 return new ElixirMine(new Position(x, y), true);
-            case "ElixirStorage" :
+            case "ElixirStorage":
                 return new ElixirStorage(new Position(x, y), true);
-            case "GoldMine" :
+            case "GoldMine":
                 return new GoldMine(new Position(x, y), true);
-            case "GoldStorage" :
+            case "GoldStorage":
                 return new GoldStorage(new Position(x, y), true);
-            case "TownHall" :
+            case "TownHall":
                 throw new CountLimitReachedException();
-            case "WizardTower" :
+            case "WizardTower":
                 return new WizardTower(new Position(x, y), true);
             default:
                 break;
@@ -94,7 +94,9 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
                 GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeElixir"));
     }
 
-    public  Bounty getBounty(){return null;}
+    public Bounty getBounty() {
+        return null;
+    }
 
     public int getLevel() {
         return level;
@@ -117,10 +119,10 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
 
     @Override
     public boolean isDestroyed() {
-        if(isDestroyed) {
+        if (isDestroyed) {
             return true;
         }
-        if(hitPoints <= 0) {
+        if (hitPoints <= 0) {
             isDestroyed = true;
         }
         return isDestroyed;
@@ -138,8 +140,8 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
 
     @Override
     public void revive() {
-        hitPoints += maxHitPoint/getReviveTime();
-        if(hitPoints > maxHitPoint) {
+        hitPoints += maxHitPoint / getReviveTime();
+        if (hitPoints > maxHitPoint) {
             isDestroyed = false;
             hitPoints = maxHitPoint;
         }
@@ -170,7 +172,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
 
     @Override
     public int compareTo(Building o) {
-        int compare =  this.getClass().getSimpleName().compareTo(o.getClass().getSimpleName());
+        int compare = this.getClass().getSimpleName().compareTo(o.getClass().getSimpleName());
         if (compare == 0) {
             return this.getID().getCount() - o.getID().getCount();
         }

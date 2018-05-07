@@ -45,7 +45,7 @@ public class TrainingTroop {
     public boolean hasEndedTraining() {
         return timeRemaining <= 0;
     }
-    
+
     public void moveToCamp(Camp camp) throws NotEnoughCapacityException {
         Troop trainedTroop = this.convertToTroop();
         camp.addTroop(trainedTroop);

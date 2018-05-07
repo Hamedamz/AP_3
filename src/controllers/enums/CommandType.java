@@ -18,6 +18,7 @@ public enum CommandType {
     SOURCES_INFO,
     ATTACK_INFO,
     MAP_INFO,
+    TARGET_INFO,
     ATTACK_MAP,
     BACK,
     OPEN_MENU;
@@ -25,4 +26,5 @@ public enum CommandType {
     public String toString() {
         return this.name().replace('_', ' ').toLowerCase();
     }
+    public static final String[] TROOPS = new String[]{"Archer", "Dragon", "Giant", "Guardian"};
 }

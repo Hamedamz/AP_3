@@ -39,8 +39,8 @@ public class Barracks extends Building {
     }
 
     public void trainNewTroop(String troopType) throws NotAvailableAtThisLevelException {
-        if(troopType.equals("Dragon")) {
-            if(level < 2) {
+        if (troopType.equals("Dragon")) {
+            if (level < 2) {
                 throw new NotAvailableAtThisLevelException();
             }
         }
@@ -59,12 +59,12 @@ public class Barracks extends Building {
     @Override
     public void upgrade() throws UpgradeLimitReachedException {
         int maxInitialConstructTime = 0;
-        for(String key : GameLogicConfig.getClassPropertiesName()) {
-            if(key.matches("TrainTime")) {
+        for (String key : GameLogicConfig.getClassPropertiesName()) {
+            if (key.matches("TrainTime")) {
                 maxInitialConstructTime = Math.max(maxInitialConstructTime, GameLogicConfig.getFromDictionary(key));
             }
         }
-        if(level >= maxInitialConstructTime) {
+        if (level >= maxInitialConstructTime) {
             throw new UpgradeLimitReachedException();
         }
         setLevel(getLevel() + 1);
