@@ -18,12 +18,12 @@ import static controllers.enums.DynamicListType.*;
 public class MenuController {
     public static final String NUMBER = "\\d+";
 
-    private static World world;
-    private static MenuViewer menuViewer = new MenuViewer();
-    private static Stack<Menu> menuStack = new Stack<>();
-    private static Menu entranceMenu;
-    private static Menu villageMenu;
-    private static HashMap<String, Menu> modelBasedMenus;
+    private World world;
+    private MenuViewer menuViewer = new MenuViewer();
+    private Stack<Menu> menuStack = new Stack<>();
+    private Menu entranceMenu;
+    private Menu villageMenu;
+    private HashMap<String, Menu> modelBasedMenus;
 
     public MenuController(World world) {
         this.world = world;
