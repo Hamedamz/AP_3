@@ -21,6 +21,14 @@ public class Builder {
         }
     }
 
+    public Building getUnderConstructBuilding() {
+        return underConstructBuilding;
+    }
+
+    public int getConstructRemainingTime() {
+        return constructRemainingTime;
+    }
+
     public boolean isBuilderBusy() {
         return underConstructBuilding != null;
     }

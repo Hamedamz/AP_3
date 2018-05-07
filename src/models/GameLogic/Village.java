@@ -101,9 +101,9 @@ public class Village {
 
     public void build(String buildingType, int x, int y)
             throws NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
-        if (GameLogicConfig.getFromDictionary(buildingType + "BuildLimit") >= getBuildingCount(buildingType) ) {
-            throw new CountLimitReachedException();
-        }
+//        if (GameLogicConfig.getFromDictionary(buildingType + "BuildLimit") >= getBuildingCount(buildingType) ) {
+//            throw new CountLimitReachedException();
+//        }
         if (map.isOccupied(x, y)) {
             throw new InvalidPositionException();
         }

@@ -5,6 +5,10 @@ import controllers.Exceptions.VillageAlreadyExists;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
+import models.GameLogic.Exceptions.CountLimitReachedException;
+import models.GameLogic.Exceptions.InvalidPositionException;
+import models.GameLogic.Exceptions.NoFreeBuilderException;
+import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import models.GameLogic.Village;
 import models.GameLogic.World;
 import models.Menu.*;
@@ -34,15 +38,17 @@ public class Controller {
         while (controller.menuController.isMenuOpen()) {
             try {
                 handleMenuInputs();
-            } catch (InvalidInputException e) {
+            } catch (InvalidInputException | NoFreeBuilderException | NotEnoughResourcesException | InvalidPositionException e) {
                 controller.viewer.printErrorMessage(e.getMessage());
             } catch (NumberFormatException e) {
                 controller.viewer.printErrorMessage("input is out of range");
+            } catch (CountLimitReachedException e) {
+                e.printStackTrace();
             }
         }
     }
 
-    private static void handleMenuInputs() throws InvalidInputException {
+    private static void handleMenuInputs() throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
         controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
         controller.menuController.printMenu();
         String command = controller.viewer.getInput();
@@ -69,7 +75,6 @@ public class Controller {
                     }
                     break;
                 case BUILD_BUILDING:
-                    // TODO: 5/7/2018 check if there is free builder
                     String buildingType = requestedMenuItem.getLabel();
                     buildBuilding(buildingType);
                     break;
@@ -189,7 +194,8 @@ public class Controller {
         // TODO: 5/6/2018 check if we have enough resources
     }
 
-    private static void buildBuilding(String buildingType) throws InvalidInputException {
+    private static void buildBuilding(String buildingType) throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
+        controller.world.getMyVillage().getTownHall().getFreeBuilder();
         controller.buildingViewer.requestBuildConfirmation(buildingType);
         if (!controller.viewer.getConfirmation()) {
             return;
@@ -197,9 +203,9 @@ public class Controller {
         controller.villageViewer.printMapCells();
         controller.buildingViewer.requestPositionToBuild(buildingType);
         String position = controller.buildingViewer.getPositionToBuild();
-        int x = Integer.parseInt(getArgument(1, position, POSITION_FORMAT));
-        int y = Integer.parseInt(getArgument(2, position, POSITION_FORMAT));
-
+        int x = Integer.parseInt(getArgument(1, position, POSITION_FORMAT)) - 1;
+        int y = Integer.parseInt(getArgument(2, position, POSITION_FORMAT)) - 1;
+        controller.world.getMyVillage().build(buildingType, x, y);
     }
 
     public static void attack() {

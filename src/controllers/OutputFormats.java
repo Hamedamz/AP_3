@@ -6,8 +6,6 @@ public class OutputFormats {
     public static final String UPGRADE_INFO_FORMAT = "Upgrade info";
     public static final String UPGRADE_COST_FORMAT = "Upgrade Cost: %d";
     public static final String UPGRADE_CONFIRMATION_FORMAT = "Do you want to upgrade %s for %s gold? [Y/N]\n";
-    public static final String VILLAGE_ENTRANCE_FORMAT = "You have entered village.";
-    public static final String VILLAGE_PRESENCE_FORMAT = "You are in village.";
     public static final String BUILD_CONFIRMATION_FORMAT = "Do you want to build %s for %s gold and %s elixir? [Y/N]\n";
     public static final String CHOOSE_POSITION_TO_BUILD_FORMAT = "Where do you want to build %s? (x, y)\n";
     public static final String BUILD_SOLDIER_QUANTITY_FORMAT = "How many of this soldier do you want to build?";
