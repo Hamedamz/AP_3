@@ -4,6 +4,7 @@ import controllers.Exceptions.InvalidInputException;
 import controllers.Exceptions.VillageAlreadyExists;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.*;
@@ -107,6 +108,7 @@ public class Controller {
                     controller.buildingViewer.printUpgradeInfo((Building) model);
                     break;
                 case CAPACITY_INFO:
+                    controller.villageViewer.printCampCapacity();
                     break;
                 case RESOURCES_INFO:
                     controller.villageViewer.printResourcesList();

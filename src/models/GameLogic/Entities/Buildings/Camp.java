@@ -64,6 +64,10 @@ public class Camp extends Building {
         return number;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public static class CampComparator implements Comparator<Camp> {
         @Override
         public int compare(Camp o1, Camp o2) {

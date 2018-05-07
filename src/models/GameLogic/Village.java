@@ -228,6 +228,22 @@ public class Village {
         return false;
     }
 
+    public int getTotalCampTroops() {
+        int result = 0;
+        for (Camp camp : findBuildingsWithSameType(Camp.class)) {
+            result += camp.getTroops().size();
+        }
+        return result;
+    }
+
+    public int getTotalCampCapacity() {
+        int result = 0;
+        for (Camp camp : findBuildingsWithSameType(Camp.class)) {
+            result += camp.getSize();
+        }
+        return result;
+    }
+
     public Resource getTotalResourceStock() {
         Resource result = new Resource(0, 0);
         for (Storage storage : findBuildingsWithSameType(Storage.class)) {

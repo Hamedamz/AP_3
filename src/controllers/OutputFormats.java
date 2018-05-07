@@ -9,8 +9,8 @@ public class OutputFormats {
     public static final String BUILD_CONFIRMATION_FORMAT = "Do you want to build %s for %s gold and %s elixir? [Y/N]\n";
     public static final String CHOOSE_POSITION_TO_BUILD_FORMAT = "Where do you want to build %s? (x, y)\n";
     public static final String BUILD_SOLDIER_QUANTITY_FORMAT = "How many of this soldier do you want to build?";
-    public static final String CAMPS_CAPACITY_FORMAT = "Your camps capacity is %d / %d";
-    public static final String SOURCES_INFO_FORMAT = "Your %s storage is %d / %d loaded.";
+    public static final String CAMPS_CAPACITY_FORMAT = "Your camps capacity is %d / %d\n";
+    public static final String STORAGE_CAPACITY_FORMAT = "Your %s storage is %d / %d loaded.";
     public static final String ATTACK_INFO_PATTERN = "Target: %s\nDamage: %d\nDamage Range: %d";
     public static final String ENTER_PATH_FORMAT = "Enter path:";
     public static final String SHOW_STATUS_RESOURCES_FORMAT = "gold achieved: %d\nelixir achieves: %d\ngold remained in map: %d\nelixir remained in map: %d";

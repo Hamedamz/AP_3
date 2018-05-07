@@ -38,10 +38,16 @@ public class VillageViewer extends BasicViewer {
         Resource totalResourceStock = village.getTotalResourceStock();
         Resource totalResourceCapacity = village.getTotalResourceCapacity();
         if (building instanceof GoldStorage) {
-            System.out.format(SOURCES_INFO_FORMAT, "Gold", totalResourceStock.getGold(), totalResourceCapacity.getGold());
+            System.out.format(STORAGE_CAPACITY_FORMAT, "Gold", totalResourceStock.getGold(), totalResourceCapacity.getGold());
         } else {
-            System.out.format(SOURCES_INFO_FORMAT, "Elixir", totalResourceStock.getElixir(), totalResourceCapacity.getElixir());
+            System.out.format(STORAGE_CAPACITY_FORMAT, "Elixir", totalResourceStock.getElixir(), totalResourceCapacity.getElixir());
         }
 
+    }
+
+    public void printCampCapacity() {
+        int totalCampTroops = village.getTotalCampTroops();
+        int totalCampCapacity = village.getTotalCampCapacity();
+        System.out.printf(CAMPS_CAPACITY_FORMAT, totalCampTroops, totalCampCapacity);
     }
 }
