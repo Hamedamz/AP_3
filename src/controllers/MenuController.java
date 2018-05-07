@@ -79,13 +79,11 @@ public class MenuController {
         if (isMenuOpen()) {
             menu.setModel(getActiveMenu().getModel());
         }
-        updateDynamicMenu(menu);
         menuStack.push(menu);
     }
 
     public void openMenu(Menu menu, Entity model) {
         menu.setModel(model);
-        updateDynamicMenu(menu);
         menuStack.push(menu);
     }
 
@@ -98,6 +96,7 @@ public class MenuController {
     }
 
     public void printMenu() {
+        updateDynamicMenu(getActiveMenu());
         menuViewer.printMenu(getActiveMenu());
     }
 
