@@ -1,15 +1,42 @@
 package models.GameLogic;
 
+import controllers.Exceptions.VillageAlreadyExists;
+import controllers.JsonInterpreter;
 import models.GameLogic.Exceptions.FileNotFoundException;
 
+import java.util.HashMap;
+
 public class World {
+    private HashMap<String, String> villagesNameAndPath;
     private Village myVillage;
     private BattleGround battleGround;
     private int turn;
 
     public World() {
+        villagesNameAndPath = new HashMap<>();
         myVillage = new Village();
         turn = 0;
+    }
+
+    public void loadVillage(String name) {
+        try {
+            JsonInterpreter.loadMyVillage(name);
+        } catch (java.io.FileNotFoundException e) {
+            e.getMessage();
+        }
+    }
+
+    public void addNewVillage(String name, String path) throws VillageAlreadyExists {
+        if (villagesNameAndPath.containsKey(name)) {
+            throw new VillageAlreadyExists();
+        }
+        else {
+            villagesNameAndPath.put(name, path);
+        }
+    }
+
+    public HashMap<String, String> getVillagesNameAndPath() {
+        return villagesNameAndPath;
     }
 
     public Village getMyVillage() {
