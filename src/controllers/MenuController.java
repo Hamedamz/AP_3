@@ -124,7 +124,7 @@ public class MenuController {
 
     private void updateDynamicMenu(Menu menu) {
         DynamicListType listType = menu.getDynamicListType();
-        ArrayList<DynamicMenuItem> list = null;
+        HashMap<DynamicMenuItem, String> list = null;
 
         switch (listType) {
             case EMPTY:
@@ -161,55 +161,55 @@ public class MenuController {
         menu.updateDynamicItems(list);
     }
 
-    private ArrayList<DynamicMenuItem> getVillageMapList() {
-        ArrayList<DynamicMenuItem> villageMapList = new ArrayList<>();
+    private HashMap<DynamicMenuItem, String> getVillageMapList() {
+        HashMap<DynamicMenuItem, String> villageMapList = new HashMap<>();
         for (String villageName : world.getVillagesNameAndPath().keySet()) {
-            villageMapList.add(new DynamicMenuItem(LOAD_GAME, villageName));
+            villageMapList.put(new DynamicMenuItem(LOAD_GAME, villageName), "");
         }
         return villageMapList;
     }
 
-    private ArrayList<DynamicMenuItem> getAvailableMapsList() {
+    private HashMap<DynamicMenuItem, String> getAvailableMapsList() {
         // enemy maps that can be attacked
         return null;
     }
 
-    private ArrayList<DynamicMenuItem> getTargetList() {
+    private HashMap<DynamicMenuItem, String> getTargetList() {
         // unknown
         return null;
     }
 
-    private ArrayList<DynamicMenuItem> getMineList() {
+    private HashMap<DynamicMenuItem, String> getMineList() {
         // unknown
         return null;
     }
 
-    private ArrayList<DynamicMenuItem> getAvailableTroopsList() {
+    private HashMap<DynamicMenuItem, String> getAvailableTroopsList() {
         // troops and number of each
         return null;
     }
 
-    private ArrayList<DynamicMenuItem> getTrainingStatusList() {
+    private HashMap<DynamicMenuItem, String> getTrainingStatusList() {
         // troop that are being trained with turns left ro be trained
         return null;
     }
 
-    private ArrayList<DynamicMenuItem> getTroopsList() {
+    private HashMap<DynamicMenuItem, String> getTroopsList() {
         // all troops with labels A and U that show availability
         // if troop can be built the possible number is also shown
         return null;
     }
 
-    private ArrayList<DynamicMenuItem> getConstructionStatusList() {
+    private HashMap<DynamicMenuItem, String> getConstructionStatusList() {
         // under construction buildings with turns left to be built
         return null;
     }
 
-    private ArrayList<DynamicMenuItem> getBuildingsList() {
+    private HashMap<DynamicMenuItem, String> getBuildingsList() {
         ArrayList<Building> buildings = world.getMyVillage().getMap().getBuildings();
-        ArrayList<DynamicMenuItem> buildingsList = new ArrayList<>();
+        HashMap<DynamicMenuItem, String> buildingsList = new HashMap<>();
         for (Building building : buildings) {
-            buildingsList.add(new DynamicMenuItem(OPEN_BUILDING_MENU, building));
+            buildingsList.put(new DynamicMenuItem(OPEN_BUILDING_MENU, building), String.valueOf(building.getID().getCount()));
         }
         return buildingsList;
     }

@@ -4,11 +4,12 @@ import controllers.enums.*;
 import models.GameLogic.Entities.Entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Menu extends MenuItem {
     private String label;
     private ArrayList<MenuItem> items;
-    private ArrayList<DynamicMenuItem> dynamicItems;
+    private HashMap<DynamicMenuItem, String> dynamicItems;
     private DynamicListType dynamicListType;
     private Entity model;
 
@@ -16,7 +17,7 @@ public class Menu extends MenuItem {
         super(CommandType.OPEN_MENU);
         this.dynamicListType = DynamicListType.EMPTY;
         items = new ArrayList<>();
-        dynamicItems = new ArrayList<>();
+        dynamicItems = new HashMap<>();
     }
 
     @Override
@@ -37,10 +38,14 @@ public class Menu extends MenuItem {
     }
 
     public ArrayList<DynamicMenuItem> getDynamicItems() {
+        return new ArrayList<>(dynamicItems.keySet());
+    }
+
+    public HashMap<DynamicMenuItem, String> getDynamicItemsHashMap() {
         return dynamicItems;
     }
 
-    public void updateDynamicItems(ArrayList<DynamicMenuItem> dynamicItems) {
+    public void updateDynamicItems(HashMap<DynamicMenuItem, String> dynamicItems) {
         this.dynamicItems = dynamicItems;
     }
 
