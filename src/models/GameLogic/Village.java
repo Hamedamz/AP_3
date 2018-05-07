@@ -160,9 +160,18 @@ public class Village {
         return null;
     }
 
-    public void trainTroop(String troopType, int barracksNum)
-            throws NotEnoughResourcesException, NotAvailableAtThisLevelException, NotEnoughCapacityException {
+    public void trainTroop(String troopType, int count, Barracks barracks) //bad smell! it must be in barracks
+            throws NotEnoughResourcesException, NotAvailableAtThisLevelException {
+        if (barracks.getMaxAvailableTrainingTroop(troopType, getTotalResourceStock()) < count) {
+            throw new NotEnoughResourcesException();
+        }
 
+        Resource trainCost = new Resource(0, 0);
+        for (int i = 0; i < count; i++) {
+            barracks.trainNewTroop(troopType);
+            trainCost.addToThisResource(TrainingTroop.getTrainingResources(troopType));
+        }
+        spendResources(trainCost);
     }
 
     public Camp findCampForNewTroops() {
@@ -190,7 +199,8 @@ public class Village {
     }
 
     public Resource getTotalResourceStock() {
-        Resource result = new Resource(0, 0);for (Storage storage : findBuildingsWithSameType(Storage.class)) {
+        Resource result = new Resource(0, 0);
+        for (Storage storage : findBuildingsWithSameType(Storage.class)) {
             result.addToThisResource(storage.getStock());
         }
         return result;
@@ -228,8 +238,7 @@ public class Village {
             int addedGold = 0;
             try {
                 addedGold = Math.min(storageNumberI.getCapacity().getGold(), gold / (storagesCount - i - 1));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.getMessage();
             }
             gold -= addedGold;
@@ -242,8 +251,7 @@ public class Village {
             int addedElixir = 0;
             try {
                 addedElixir = Math.min(storageNumberI.getCapacity().getElixir(), elixir / (storagesCount - i - 1));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.getMessage();
             }
             elixir -= addedElixir;

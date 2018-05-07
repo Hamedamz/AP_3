@@ -49,6 +49,24 @@ public class Resource {
         return newResource;
     }
 
+    public static int devideResources(Resource resource1, Resource resource2) {
+        int goldResult, elixirResult;
+
+        if(resource2.gold == 0) {
+            goldResult = Integer.MAX_VALUE;
+        } else {
+            goldResult = resource1.gold/resource2.gold;
+        }
+
+        if(resource2.elixir == 0) {
+            elixirResult = Integer.MAX_VALUE;
+        } else {
+            elixirResult = resource1.elixir/resource2.elixir;
+        }
+
+        return Math.min(goldResult, elixirResult);
+
+    }
 
 }
 

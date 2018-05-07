@@ -1,6 +1,7 @@
 package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
+import models.GameLogic.Exceptions.NotAvailableAtThisLevelException;
 import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
@@ -31,13 +32,21 @@ public class Barracks extends Building {
         // TODO: 5/5/2018
     }
 
-    public boolean trainNewTroop(TrainingTroop trainingTroop) {
-        return true;
-        // TODO: 5/5/2018
+    public int getMaxAvailableTrainingTroop(String troopType, Resource stock) {
+        return Resource.devideResources(stock, TrainingTroop.getTrainingResources(troopType));
     }
 
-    public boolean removeTroop(String troopName) {
-        return true;
+    public void trainNewTroop(String troopType) throws NotAvailableAtThisLevelException {
+        if(troopType.equals("Dragon")) {
+            if(level < 2) {
+                throw new NotAvailableAtThisLevelException();
+            }
+        }
+        TrainingTroop newTroop = new TrainingTroop(troopType, level);
+        trainingTroops.add(newTroop);
+    }
+
+    public void removeTroop(String troopName) {
         // TODO: 5/5/2018
     }
 

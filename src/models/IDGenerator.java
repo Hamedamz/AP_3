@@ -18,7 +18,7 @@ public class IDGenerator {
      * @return
      */
     public ID getNewID() {
-        lastID = new ID(lastID.getFirstPartCode(), lastID.getJsonNumber(), lastID.getCount() + 1);
+        lastID = new ID(lastID.getFirstPartCode(), lastID.getJsonNumber(), (lastID.getCount() + 1) % 10000);
         return lastID;
     }
 

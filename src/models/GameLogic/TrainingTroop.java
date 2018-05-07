@@ -7,13 +7,13 @@ import models.Setting.GameLogicConfig;
 
 public class TrainingTroop {
     private int timeRemaining;
-    private Resource buildingResource; //extra feature
+    private Resource trainingCost; //extra feature
     private int level;
     private Troop troop;
 
     public TrainingTroop(String troopType, int barracksLevel) {
         int buildElixir = (int) GameLogicConfig.getFromDictionary(troopType + "BuildElixir");
-        buildingResource = new Resource(0, buildElixir);
+        trainingCost = new Resource(0, buildElixir);
         level = barracksLevel;
         troop = Troop.castStringToTroopType(troopType);
         timeRemaining = (int) GameLogicConfig.getFromDictionary(troopType + "BuildTime");
@@ -23,13 +23,18 @@ public class TrainingTroop {
         }
     }
 
+    public static Resource getTrainingResources(String troopType) {
+        int buildElixir = (int) GameLogicConfig.getFromDictionary(troopType + "BuildElixir");
+        return new Resource(0, buildElixir);
+    }
+
 
     public int getTimeRemaining() {
         return timeRemaining;
     }
 
-    public Resource getBuildingResource() {
-        return buildingResource;
+    public Resource getTrainingCost() {
+        return trainingCost;
     }
 
     public void update() {

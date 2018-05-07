@@ -52,7 +52,7 @@ public class VillageGameEngine {
                         trainingTroop.moveToCamp(village.findCampForNewTroops());
                         ((Barracks) building).getTrainingTroops().remove(trainingTroop);
                     } catch (NotEnoughCapacityException e) {
-                        System.err.println("not enough capacity in camp");
+                        System.err.println("not enough capacity in camp"); // FIXME: 5/7/2018 no eror massage needed after debug
                     }
                 }
             }

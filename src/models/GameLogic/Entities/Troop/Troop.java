@@ -6,6 +6,7 @@ import interfaces.Upgradable;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Position;
+import models.GameLogic.Resource;
 import models.GameLogic.enums.MoveType;
 import models.Setting.GameLogicConfig;
 
@@ -25,6 +26,11 @@ public abstract class Troop extends Entity implements Movable, Upgradable {
 
     public void setTroopCamp(Camp troopCamp) {
         this.troopCamp = troopCamp;
+    }
+
+    @Override
+    public Resource getUpgradeResource() {
+        return null;
     }
 
     @Override
