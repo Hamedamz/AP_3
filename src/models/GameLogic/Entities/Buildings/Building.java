@@ -4,11 +4,13 @@ import interfaces.Upgradable;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Bounty;
+import models.GameLogic.Exceptions.CountLimitReachedException;
 import models.GameLogic.enums.MoveType;
 import models.ID;
 import models.Setting.GameLogicConfig;
 
 import java.util.Comparator;
+import java.util.Dictionary;
 
 public class Building extends Defender implements Upgradable {
     //private int jsonNumber;
@@ -18,7 +20,7 @@ public class Building extends Defender implements Upgradable {
     protected int level;
     private transient ID id; //TODO changed
     protected boolean isDestroyed;
-    protected boolean isUnderConstruct;
+    private boolean isUnderConstruct;
 
     public Building() {
         super();
@@ -33,15 +35,15 @@ public class Building extends Defender implements Upgradable {
         this.hitPoints = (int) GameLogicConfig.getFromDictionary(className + "HitPoints");
         this.maxHitPoint = this.hitPoints;
         this.isDestroyed = false;
-        this.isUnderConstruct = false;
+        if(id.getFirstPartCode().equals("01")) {
+            this.isUnderConstruct = true;
+        } else {
+            this.isUnderConstruct = false;
+        }
     }
 
     public ID getID() {
         return id;
-    }
-
-    public static MoveType getMoveType() {
-        return MoveType.Ground;
     }
 
     public boolean isUnderConstruct() {
@@ -50,6 +52,40 @@ public class Building extends Defender implements Upgradable {
 
     public void finishConstruct() {
         isUnderConstruct = false;
+    }
+
+    public static MoveType getMoveType() {
+        return MoveType.Ground;
+    }
+
+    public static  Building getNewBuilding(String buildingType, int x, int y) throws CountLimitReachedException {
+        switch (buildingType) {
+            case "AirDefence":
+                return new AirDefense(new Position(x, y), true);
+            case "ArcherTower" :
+                return new ArcherTower(new Position(x, y), true);
+            case "Barracks" :
+                return new Barracks(new Position(x, y), true);
+            case "Camp" :
+                return new Camp(new Position(x, y), true);
+            case "Cannon" :
+                return new Cannon(new Position(x, y), true);
+            case "ElixirMine" :
+                return new ElixirMine(new Position(x, y), true);
+            case "ElixirStorage" :
+                return new ElixirStorage(new Position(x, y), true);
+            case "GoldMine" :
+                return new GoldMine(new Position(x, y), true);
+            case "GoldStorage" :
+                return new GoldStorage(new Position(x, y), true);
+            case "TownHall" :
+                throw new CountLimitReachedException();
+            case "WizardTower" :
+                return new WizardTower(new Position(x, y), true);
+            default:
+                break;
+        }
+        return null;
     }
 
     public  Resource getUpgradeResource() {return null;}

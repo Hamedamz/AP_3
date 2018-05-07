@@ -37,37 +37,37 @@ public class JsonInterpreter {
         String json = toStringJson(mapPath);
         Village village =  gson.fromJson(json, Village.class); //TODO: troops camp is transient. delete if unnecessary or handle in controller if needed.
         ArrayList<Building> buildings = new ArrayList<>();
-        for (int i = 0; i < village.getMap().getBuildings().size(); i++) {
-            switch (village.getMap().getBuildings().get(i).getJsonNumber()) {
-                case 1:
-                    buildings.add(village.getMap().getBuildings().get(i));
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
-                case 9:
-                    break;
-                case 10:
-                    break;
-                case 11:
-                    break;
-                case 12:
-                    break;
-                case 13:
-                    break;
-            }
-        }
+//        for (int i = 0; i < village.getMap().getBuildings().size(); i++) {
+//            switch (village.getMap().getBuildings().get(i).getJsonNumber()) {
+//                case 1:
+//                    buildings.add(village.getMap().getBuildings().get(i));
+//                    break;
+//                case 2:
+//                    break;
+//                case 3:
+//                    break;
+//                case 4:
+//                    break;
+//                case 5:
+//                    break;
+//                case 6:
+//                    break;
+//                case 7:
+//                    break;
+//                case 8:
+//                    break;
+//                case 9:
+//                    break;
+//                case 10:
+//                    break;
+//                case 11:
+//                    break;
+//                case 12:
+//                    break;
+//                case 13:
+//                    break;
+//            }
+//        }
         return village;
     }
 

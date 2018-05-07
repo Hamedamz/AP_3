@@ -2,7 +2,6 @@ package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
 import models.GameLogic.Exceptions.NotAvailableAtThisLevelException;
-import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.TrainingTroop;
@@ -20,10 +19,12 @@ public class Barracks extends Building {
 
     public Barracks(Position position, boolean isFriendly) {
         super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
+        trainingTroops = new ArrayList<>();
     }
 
     public Barracks(ArrayList<TrainingTroop> trainingTroops, Position position, boolean isFriendly) {
         super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
+        trainingTroops = new ArrayList<>();
         this.trainingTroops.addAll(trainingTroops);
     }
 
@@ -33,7 +34,7 @@ public class Barracks extends Building {
     }
 
     public int getMaxAvailableTrainingTroop(String troopType, Resource stock) {
-        return Resource.devideResources(stock, TrainingTroop.getTrainingResources(troopType));
+        return Resource.divideResources(stock, TrainingTroop.getTrainingResources(troopType));
     }
 
     public void trainNewTroop(String troopType) throws NotAvailableAtThisLevelException {

@@ -23,7 +23,7 @@ public class TownHall extends Storage {
         townHallScore = GameLogicConfig.getFromDictionary("TownHallDestructionScore");
         builders = new ArrayList<>();
         builders.add(new Builder());
-        jsonNumber = 5;
+        //jsonNumber = 5;
     }
 
     public ArrayList<Builder> getBuilders() {

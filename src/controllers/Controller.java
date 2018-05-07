@@ -21,125 +21,127 @@ import static controllers.enums.GeneralCommand.*;
 
 public class Controller {
 
-    private static BasicViewer viewer = new BasicViewer();
-    private static World world = new World();
-    private static MenuController menuController = new MenuController(world);
-    private static VillageViewer villageViewer = new VillageViewer(world.getMyVillage());
-    private static BuildingViewer buildingViewer = new BuildingViewer();
+    private static Controller controller = new Controller();
+
+    private BasicViewer viewer = new BasicViewer();
+    private World world = new World();
+    private MenuController menuController = new MenuController(world);
+    private VillageViewer villageViewer = new VillageViewer(world.getMyVillage());
+    private BuildingViewer buildingViewer = new BuildingViewer();
 
     public static void main(String[] args) {
-        menuController.openMenu(menuController.getEntranceMenu());
-        while (menuController.isMenuOpen()) {
+        controller.menuController.openMenu(controller.menuController.getEntranceMenu());
+        while (controller.menuController.isMenuOpen()) {
             try {
                 handleMenuInputs();
             } catch (InvalidInputException e) {
-                viewer.printErrorMessage(e.getMessage());
+                controller.viewer.printErrorMessage(e.getMessage());
             } catch (NumberFormatException e) {
-                viewer.printErrorMessage("input is out of range");
+                controller.viewer.printErrorMessage("input is out of range");
             }
         }
     }
 
     private static void handleMenuInputs() throws InvalidInputException {
-        villageViewer = new VillageViewer(world.getMyVillage());
-        menuController.printMenu();
-        String command = viewer.getInput();
-        if (menuController.isMenuItemNumber(command)) {
-            MenuItem requestedMenuItem = menuController.getRequestedMenuItem(command);
+        controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
+        controller.menuController.printMenu();
+        String command = controller.viewer.getInput();
+        if (controller.menuController.isMenuItemNumber(command)) {
+            MenuItem requestedMenuItem = controller.menuController.getRequestedMenuItem(command);
             DynamicMenuItem dynamicMenuItem;
-            Entity model = menuController.getActiveMenu().getModel();
+            Entity model = controller.menuController.getActiveMenu().getModel();
 
             switch (requestedMenuItem.getCommandType()) {
                 case NEW_GAME:
                     newGame();
-                    menuController.openMenu(menuController.getVillageMenu());
+                    controller.menuController.openMenu(controller.menuController.getVillageMenu());
                     break;
                 case OPEN_BUILDING_MENU:
                     dynamicMenuItem = (DynamicMenuItem) requestedMenuItem;
                     Entity dynamicItemModel = dynamicMenuItem.getModel();
-                    Menu menu = menuController.getModelBasedMenus().get(dynamicItemModel.getClass().getSimpleName());
-                    menuController.openMenu(menu, dynamicItemModel);
+                    Menu menu = controller.menuController.getModelBasedMenus().get(dynamicItemModel.getClass().getSimpleName());
+                    controller.menuController.openMenu(menu, dynamicItemModel);
                     break;
                 case UPGRADE_BUILDING:
-                    buildingViewer.requestUpgradeConfirmation((Building) model);
-                    if (viewer.getConfirmation()) {
+                    controller.buildingViewer.requestUpgradeConfirmation((Building) model);
+                    if (controller.viewer.getConfirmation()) {
                         upgradeBuilding((Building) model);
                     }
                     break;
                 case BUILD_BUILDING:
                     // TODO: 5/7/2018 check if there is free builder
                     String buildingType = requestedMenuItem.getLabel();
-                    buildingViewer.requestBuildConfirmation(buildingType);
-                    if (viewer.getConfirmation()) {
-                        villageViewer.printMapCells();
-                        buildingViewer.requestPositionToBuild(buildingType);
-                        String position = buildingViewer.getPositionToBuild();
+                    controller.buildingViewer.requestBuildConfirmation(buildingType);
+                    if (controller.viewer.getConfirmation()) {
+                        controller.villageViewer.printMapCells();
+                        controller.buildingViewer.requestPositionToBuild(buildingType);
+                        String position = controller.buildingViewer.getPositionToBuild();
                         buildBuilding(buildingType, position);
                     }
                     break;
                 case LOAD_ENEMY_MAP:
                     break;
                 case LOAD_GAME_FROM_FILE:
-                    viewer.requestForInput("enter path:");
-                    command = viewer.getInput();
+                    controller.viewer.requestForInput("enter path:");
+                    command = controller.viewer.getInput();
                     if (loadGameFromFile(command)) {
-                        menuController.openMenu(menuController.getVillageMenu());
+                        controller.menuController.openMenu(controller.menuController.getVillageMenu());
                     }
                     break;
                 case LOAD_GAME:
                     dynamicMenuItem = (DynamicMenuItem) requestedMenuItem;
                     String villageName = dynamicMenuItem.getLabel();
                     loadGame(villageName);
-                    menuController.openMenu(menuController.getVillageMenu());
+                    controller.menuController.openMenu(controller.menuController.getVillageMenu());
                     break;
                 case OPEN_MAP_MENU:
                     break;
                 case OVERALL_INFO:
-                    buildingViewer.printOverallInfo((Building) model);
+                    controller.buildingViewer.printOverallInfo((Building) model);
                     break;
                 case UPGRADE_INFO:
-                    buildingViewer.printUpgradeInfo((Building) model);
+                    controller.buildingViewer.printUpgradeInfo((Building) model);
                     break;
                 case CAPACITY_INFO:
                     break;
                 case RESOURCES_INFO:
-                    villageViewer.printResourcesList();
+                    controller.villageViewer.printResourcesList();
                     break;
                 case SOURCES_INFO:
-                    villageViewer.printStorageCapacity((Building) model);
+                    controller.villageViewer.printStorageCapacity((Building) model);
                     break;
                 case ATTACK_INFO:
-                    buildingViewer.printAttackInfo((DefensiveBuilding) model);
+                    controller.buildingViewer.printAttackInfo((DefensiveBuilding) model);
                     break;
                 case MAP_INFO:
                     break;
                 case ATTACK_MAP:
                     break;
                 case BACK:
-                    menuController.back();
+                    controller.menuController.back();
                     break;
                 case OPEN_MENU:
-                    menuController.openMenu((Menu) requestedMenuItem);
+                    controller.menuController.openMenu((Menu) requestedMenuItem);
                     break;
                 }
 
         } else {
             if (command.matches(SAVE_GAME.toString())) {
-                viewer.requestForInput("enter name for your village:");
-                String name = viewer.getInput(); // TODO: 5/6/2018 Exception Handlings
-                saveGame(world.getMyVillage(), name);
+                controller.viewer.requestForInput("enter name for your village:");
+                String name = controller.viewer.getInput(); // TODO: 5/6/2018 Exception Handlings
+                saveGame(controller.world.getMyVillage(), name);
             } else if (command.matches(TURN_FORMAT)) {
                 int n = Integer.parseInt(getArgument(1, command, TURN_FORMAT));
                 turn(n);
             } else if (command.matches(RESOURCES.toString())) {
-                villageViewer.printResourcesList();
+                controller.villageViewer.printResourcesList();
             }
         }
     }
 
     private static void newGame() {
         try {
-            world.makeNewGame();
+            controller.world.makeNewGame();
         } catch (VillageAlreadyExists villageAlreadyExists) {
             villageAlreadyExists.getMessage();
         }
@@ -156,28 +158,28 @@ public class Controller {
     }
 
     private static void loadGame(String villageName) {
-        String path = world.getVillagesNameAndPath().get(villageName);
+        String path = controller.world.getVillagesNameAndPath().get(villageName);
         if (path != null) {
             loadGameFromFile(path);
         } else {
-            viewer.printErrorMessage("no village with this name!");
+            controller.viewer.printErrorMessage("no village with this name!");
         }
     }
 
     public static boolean loadGameFromFile(String path) {
         try {
             Village village = JsonInterpreter.loadMyVillage(path);
-            world.setMyVillage(village);
-            viewer.printInformation("game successfully loaded!");
+            controller.world.setMyVillage(village);
+            controller.viewer.printInformation("game successfully loaded!");
             return true;
         } catch (FileNotFoundException e) {
-            viewer.printErrorMessage("file not found");
+            controller.viewer.printErrorMessage("file not found");
             return false;
         }
     }
 
     public static void saveGame(Village village, String name) {
-        world.saveGame(village, name);
+        controller.world.saveGame(village, name);
     }
 
     public static void turn(int n) {

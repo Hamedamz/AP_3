@@ -49,7 +49,7 @@ public class Resource {
         return newResource;
     }
 
-    public static int devideResources(Resource resource1, Resource resource2) {
+    public static int divideResources(Resource resource1, Resource resource2) {
         int goldResult, elixirResult;
 
         if(resource2.gold == 0) {

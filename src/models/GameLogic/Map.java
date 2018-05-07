@@ -29,11 +29,11 @@ public class Map {
         buildings.add(building);
     }
 
-    public boolean isOccupied(int i, int j) {
+    public boolean isOccupied(int i, int j, int buildingSize) {
         return isOccupied[i][j];
     }
 
-    public void constructBuilding(int i, int j) {
+    public void constructBuilding(int i, int j, int size) {
         isOccupied[i][j] = true;
     }
 

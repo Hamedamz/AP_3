@@ -28,6 +28,12 @@ public class VillageGameEngine {
         for (Builder builder : village.getTownHall().getBuilders()) {
             builder.build();
         }
+        for (Building building : village.getUnderConstructBuildings()) {
+            if (!building.isUnderConstruct()) {
+                village.getUnderConstructBuildings().remove(building);
+                village.addNewBuilding(building);
+            }
+        }
 
         Resource addedResource = new Resource(0, 0);
         for (Building building : village.findBuildingsWithSameType(ElixirMine.class)) {
@@ -52,7 +58,7 @@ public class VillageGameEngine {
                         trainingTroop.moveToCamp(village.findCampForNewTroops());
                         ((Barracks) building).getTrainingTroops().remove(trainingTroop);
                     } catch (NotEnoughCapacityException e) {
-                        System.err.println("not enough capacity in camp"); // FIXME: 5/7/2018 no eror massage needed after debug
+                        System.err.println("not enough capacity in camp"); // FIXME: 5/7/2018 no error massage needed after debug
                     }
                 }
             }
