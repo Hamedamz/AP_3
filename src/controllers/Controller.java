@@ -2,13 +2,11 @@ package controllers;
 
 import controllers.Exceptions.InvalidInputException;
 import controllers.Exceptions.VillageAlreadyExists;
+import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
-import models.GameLogic.Exceptions.CountLimitReachedException;
-import models.GameLogic.Exceptions.InvalidPositionException;
-import models.GameLogic.Exceptions.NoFreeBuilderException;
-import models.GameLogic.Exceptions.NotEnoughResourcesException;
+import models.GameLogic.Exceptions.*;
 import models.GameLogic.GameEngine;
 import models.GameLogic.Village;
 import models.GameLogic.World;
@@ -39,17 +37,17 @@ public class Controller {
         while (controller.menuController.isMenuOpen()) {
             try {
                 handleMenuInputs();
-            } catch (InvalidInputException | NoFreeBuilderException | NotEnoughResourcesException | InvalidPositionException e) {
+            } catch (InvalidInputException | NoFreeBuilderException |
+                    NotEnoughResourcesException | InvalidPositionException |
+                    NotAvailableAtThisLevelException | CountLimitReachedException e) {
                 controller.viewer.printErrorMessage(e.getMessage());
             } catch (NumberFormatException e) {
                 controller.viewer.printErrorMessage("input is out of range");
-            } catch (CountLimitReachedException e) {
-                e.printStackTrace();
             }
         }
     }
 
-    private static void handleMenuInputs() throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
+    private static void handleMenuInputs() throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException, NotAvailableAtThisLevelException {
         controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
         controller.menuController.printMenu();
         String command = controller.viewer.getInput();
@@ -82,6 +80,8 @@ public class Controller {
                     buildBuilding(buildingType);
                     break;
                 case TRAIN_TROOP:
+                    String troopType = requestedMenuItem.getLabel();
+                    trainTroop(troopType);
                     break;
                 case LOAD_ENEMY_MAP:
                     break;
@@ -146,6 +146,7 @@ public class Controller {
         }
     }
 
+
     private static void newGame() {
         try {
             controller.world.makeNewGame();
@@ -187,6 +188,13 @@ public class Controller {
         }
     }
 
+    private static void trainTroop(String troopType) throws NotEnoughResourcesException, NotAvailableAtThisLevelException {
+        controller.viewer.requestForInput("How many " + troopType + "s dou want to train?");
+        int count = Integer.parseInt(controller.viewer.getInput());
+        Barracks barracks = (Barracks) controller.menuController.getActiveMenu().getModel();
+        controller.world.getMyVillage().trainTroop(troopType, count, barracks);
+    }
+
     public static void saveGame(Village village, String name) {
         controller.world.saveGame(village, name);
     }
@@ -215,6 +223,7 @@ public class Controller {
         int x = Integer.parseInt(getArgument(1, position, POSITION_FORMAT)) - 1;
         int y = Integer.parseInt(getArgument(2, position, POSITION_FORMAT)) - 1;
         controller.world.getMyVillage().build(buildingType, x, y);
+        controller.viewer.printInformation("building process started");
     }
 
     public static void attack() {
