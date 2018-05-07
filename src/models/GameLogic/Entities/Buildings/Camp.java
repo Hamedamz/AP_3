@@ -24,14 +24,14 @@ public class Camp extends Building {
 
     public Camp(Position position, boolean isFriendly) {
         super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
-        String className = this.getClass().getName();
+        String className = this.getClass().getSimpleName();
         this.size = (int) GameLogicConfig.getFromDictionary(className + "Capacity");
     }
 
     public Camp(ArrayList<Troop> troops, Position position, boolean isFriendly) {
         super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
         this.troops.addAll(troops);
-        String className = this.getClass().getName();
+        String className = this.getClass().getSimpleName();
         this.size = (int) GameLogicConfig.getFromDictionary(className + "Capacity");
     }
 
