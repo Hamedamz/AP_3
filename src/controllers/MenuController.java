@@ -198,7 +198,7 @@ public class MenuController {
         Barracks barracks = (Barracks) getActiveMenu().getModel();
         ArrayList<TrainingTroop> trainingTroops = barracks.getTrainingTroops();
         for (TrainingTroop trainingTroop : trainingTroops) {
-            trainingTroopsList.put(new DynamicMenuItem(NULL, trainingTroop.getClass().getSimpleName()), String.valueOf(trainingTroop.getTimeRemaining()));
+            trainingTroopsList.put(new DynamicMenuItem(NULL, trainingTroop.getTroop().getClass().getSimpleName()), String.valueOf(trainingTroop.getTimeRemaining()));
         }
         return trainingTroopsList;
     }

@@ -34,6 +34,10 @@ public class TrainingTroop {
         return timeRemaining;
     }
 
+    public Troop getTroop() {
+        return troop;
+    }
+
     public Resource getTrainingCost() {
         return trainingCost;
     }
