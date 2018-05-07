@@ -187,7 +187,9 @@ public class Controller {
     public static void turn(int n) {
         if (n == 0)
             return;
-        controller.world.getGameEngine().update();
+        for (int i = 0; i < n; i++) {
+            controller.world.getGameEngine().update();
+        }
     }
 
     public static void upgradeBuilding(Building building) {

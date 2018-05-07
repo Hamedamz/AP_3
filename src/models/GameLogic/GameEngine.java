@@ -23,10 +23,11 @@ public class GameEngine {
     }
 
     public void loadNewVillage() {
-        VillageGameEngine villageGameEngine = new VillageGameEngine(world.getMyVillage());
+        villageGameEngine = new VillageGameEngine(world.getMyVillage());
     }
 
     public void loadBattleGround(BattleGround battleGround) {
+        battleGroundGameEngine = new BattleGroundGameEngine(battleGround);
         battleGroundGameEngine.loadBattleGround(world.getBattleGround());
     }
 }

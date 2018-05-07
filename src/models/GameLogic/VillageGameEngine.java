@@ -4,6 +4,9 @@ import interfaces.Revivable;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Exceptions.NotEnoughCapacityException;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class VillageGameEngine {
     private Village village;
 
@@ -28,12 +31,14 @@ public class VillageGameEngine {
         for (Builder builder : village.getTownHall().getBuilders()) {
             builder.build();
         }
+        ArrayList<Building> removeBuildings = new ArrayList<>();
         for (Building building : village.getUnderConstructBuildings()) {
             if (!building.isUnderConstruct()) {
-                village.getUnderConstructBuildings().remove(building);
+                removeBuildings.add(building);
                 village.addNewBuilding(building);
             }
         }
+        village.getUnderConstructBuildings().removeAll(removeBuildings);
 
         Resource addedResource = new Resource(0, 0);
         for (Building building : village.findBuildingsWithSameType(ElixirMine.class)) {
