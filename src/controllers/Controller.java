@@ -67,7 +67,7 @@ public class Controller {
                 case NULL:
                     break;
                 case NEW_GAME:
-                    newGame();
+                    controller.newGame();
                     controller.menuController.openMenu(controller.menuController.getVillageMenu());
                     break;
                 case OPEN_BUILDING_MENU:
@@ -79,12 +79,12 @@ public class Controller {
                 case UPGRADE_BUILDING:
                     controller.buildingViewer.requestUpgradeConfirmation((Building) model);
                     if (controller.viewer.getConfirmation()) {
-                        upgradeBuilding((Building) model);
+                        controller.upgradeBuilding((Building) model);
                     }
                     break;
                 case BUILD_BUILDING:
                     String buildingType = requestedMenuItem.getLabel();
-                    buildBuilding(buildingType);
+                    controller.buildBuilding(buildingType);
                     break;
                 case TRAIN_TROOP:
                     String troopType = requestedMenuItem.getLabel();
@@ -93,13 +93,13 @@ public class Controller {
                 case LOAD_ENEMY_MAP:
                     controller.viewer.requestForInput("enter path:");
                     command = controller.viewer.getInput();
-                    loadEnemyMap(command);
+                    controller.loadEnemyMap(command);
                     break;
                 case LOAD_GAME_FROM_FILE:
                     controller.viewer.requestForInput("enter path:");
                     command = controller.viewer.getInput();
                     try {
-                        loadGameFromFile(command);
+                        controller.loadGameFromFile(command);
                         controller.menuController.openMenu(controller.menuController.getVillageMenu());
                     }
                     catch (FileNotFoundException e) {
@@ -109,7 +109,7 @@ public class Controller {
                 case LOAD_GAME:
                     dynamicMenuItem = (DynamicMenuItem) requestedMenuItem;
                     String villageName = dynamicMenuItem.getLabel();
-                    loadGame(villageName);
+                    controller.loadGame(villageName);
                     controller.menuController.openMenu(controller.menuController.getVillageMenu());
                     break;
                 case OPEN_MAP_MENU:
@@ -158,10 +158,10 @@ public class Controller {
             if (command.matches(SAVE_GAME.toString())) {
                 controller.viewer.requestForInput("enter name for your village:");
                 String name = controller.viewer.getInput(); // TODO: 5/6/2018 Exception Handlings
-                saveGame(controller.world.getMyVillage(), name);
+                controller.saveGame(controller.world.getMyVillage(), name);
             } else if (command.matches(TURN_FORMAT)) {
-                int n = Integer.parseInt(getArgument(1, command, TURN_FORMAT));
-                turn(n);
+                int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
+                controller.turn(n);
             } else if (command.matches(RESOURCES.toString())) {
                 controller.villageViewer.printResourcesList();
             }
