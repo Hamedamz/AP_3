@@ -2,14 +2,11 @@ package controllers;
 
 import controllers.Exceptions.InvalidInputException;
 import controllers.enums.*;
-import models.GameLogic.Builder;
+import models.GameLogic.*;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
-import models.GameLogic.Resource;
-import models.GameLogic.TrainingTroop;
-import models.GameLogic.World;
 import models.Menu.*;
 import models.Setting.GameLogicConfig;
 import viewers.MenuViewer;
@@ -175,8 +172,15 @@ public class MenuController {
 
     private HashMap<DynamicMenuItem, String> getAvailableMapsList() {
         // enemy maps that can be attacked
+        HashMap<DynamicMenuItem, String> enemyMapList = new HashMap<>();
+        for (java.util.Map.Entry<String, Map> pathMapEntry : world.getEnemyVillagesPathAndMap().entrySet()) {
+            String mapPath = pathMapEntry.getKey();
+            mapPath = mapPath.substring(mapPath.lastIndexOf("\\"));
+            mapPath = mapPath.substring(0, mapPath.lastIndexOf("."));
+            enemyMapList.put(new DynamicMenuItem(OPEN_MAP_MENU, pathMapEntry.getValue()), mapPath);
+        }
 
-        return null;
+        return enemyMapList;
     }
 
     private HashMap<DynamicMenuItem, String> getAvailableTroopsList() {

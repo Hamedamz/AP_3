@@ -33,6 +33,4 @@ public class Entity implements Locatable {
         );
     }
 
-
-
 }

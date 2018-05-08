@@ -2,10 +2,11 @@ package models.GameLogic;
 
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.TownHall;
+import models.GameLogic.Entities.Entity;
 
 import java.util.ArrayList;
 
-public class Map {
+public class Map extends Entity {
     // TODO: 4/12/2018 add map size to dic
     private int width, height;
     private ArrayList<Building> buildings;

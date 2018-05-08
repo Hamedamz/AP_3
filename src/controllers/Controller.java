@@ -68,9 +68,9 @@ public class Controller {
                     break;
                 case OPEN_BUILDING_MENU:
                     dynamicMenuItem = (DynamicMenuItem) requestedMenuItem;
-                    Entity dynamicItemModel = dynamicMenuItem.getModel();
-                    Menu menu = controller.menuController.getModelBasedMenus().get(dynamicItemModel.getClass().getSimpleName());
-                    controller.menuController.openMenu(menu, dynamicItemModel);
+                    Entity buildingModel = dynamicMenuItem.getModel();
+                    Menu buildingMenu = controller.menuController.getModelBasedMenus().get(buildingModel.getClass().getSimpleName());
+                    controller.menuController.openMenu(buildingMenu, buildingModel);
                     break;
                 case UPGRADE_BUILDING:
                     controller.buildingViewer.requestUpgradeConfirmation((Building) model);
@@ -105,6 +105,10 @@ public class Controller {
                     controller.menuController.openMenu(controller.menuController.getVillageMenu());
                     break;
                 case OPEN_MAP_MENU:
+                    dynamicMenuItem = (DynamicMenuItem) requestedMenuItem;
+                    Entity mapModel = dynamicMenuItem.getModel();
+                    Menu mapMenu = controller.menuController.getModelBasedMenus().get(mapModel.getClass().getSimpleName());
+                    controller.menuController.openMenu(mapMenu, mapModel);
                     break;
                 case OVERALL_INFO:
                     controller.buildingViewer.printOverallInfo((Building) model);
@@ -183,8 +187,8 @@ public class Controller {
     }
 
     private static void loadEnemyMap(String path) throws FileNotFoundException {
-        ArrayList<Building> enemyBuildings = JsonInterpreter.loadEnemyVillageBuildings(path);
-        // TODO: 5/8/2018  
+        controller.world.loadEnemyMap(path);
+        // TODO: 5/8/2018
 
     }
 

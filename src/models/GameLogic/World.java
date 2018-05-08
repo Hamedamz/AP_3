@@ -92,12 +92,11 @@ public class World {
         ArrayList<Building> buildings = JsonInterpreter.loadEnemyVillageBuildings(path);
         Map map = new Map(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
         map.setBuildings(buildings);
-        battleGround.setEnemyMap(map);
         enemyVillagesPathAndMap.put(path, map);
     }
 
 
-    public boolean attackVillage(String path) throws FileNotFoundException {
+    public boolean attackVillage() throws FileNotFoundException {
         // TODO: 5/5/2018
         return true;
         //maybe this changes
