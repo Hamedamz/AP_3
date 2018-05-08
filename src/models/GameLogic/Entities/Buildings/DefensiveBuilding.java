@@ -3,7 +3,9 @@ package models.GameLogic.Entities.Buildings;
 import interfaces.Attacker;
 import interfaces.Destroyable;
 import models.GameLogic.BattleGround;
+import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;
+import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
@@ -78,8 +80,9 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
                 }
             }
         }
-
     }
+
+
 
     @Override
     public Destroyable getTarget() {
@@ -88,33 +91,21 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
 
     @Override
     public void setTarget(ArrayList<Destroyable> destroyables) {
-//        int x = building.getPosition().getX();
-//        int y = building.getPosition().getY();
-//        if (building instanceof DefensiveBuilding) {
-//            for (int i = -((DefensiveBuilding) building).getRange(); i <((DefensiveBuilding) building).getRange(); i++) {
-//                x += i;
-//                for (int j = -((DefensiveBuilding) building).getRange(); j <= ((DefensiveBuilding) building).getRange(); j++) {
-//                    y += j;
-//                    if (x >= 30)
-//                        x = 29;
-//                    if (y >= 30)
-//                        y = 29;
-//                    if (x < 0)
-//                        x = 0;
-//                    if (y < 0)
-//                        y = 0;
-//                    if (building.getPosition().calculateDistance(new Position(x, y)) > ((DefensiveBuilding) building).getRange()) {
-//                        continue;
-//                    }
-//                    for (Iterator<Troop> it = battleGround.getTroops().iterator(); it.hasNext(); ) {
-//                        Troop troop = it.next();
-//                        if (troop.getPosition().getX() == x && troop.getPosition().getY() == y)
-//                            return troop;
-//                    }
-//                }
-//            }
-//        }
-        return;
+        double minDistance = Double.MAX_VALUE;
+        Destroyable minDistanceDestroyable = null;
+        for (Destroyable destroyable : destroyables) {
+            if (!destroyable.isDestroyed() && BuildingTargetType.isBuildingTargetAppropriate(this, (AttackerTroop) destroyable)) {
+                double distance = this.getPosition().calculateDistance(destroyable.getPosition());
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    minDistanceDestroyable = destroyable;
+                }
+            }
+        }
+        if (minDistance < Double.MAX_VALUE && minDistance < this.getRange()) {
+            this.target = minDistanceDestroyable;
+        }
+        this.target = null;
     }
 
     @Override
