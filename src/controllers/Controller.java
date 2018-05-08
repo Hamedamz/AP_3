@@ -299,7 +299,8 @@ public class Controller {
                 int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
                 controller.turn(n);
             }
-        } while (!command.matches(QUIT_ATTACK_FORMAT));
+        } while (!command.matches(QUIT_ATTACK_FORMAT) || controller.world.getBattleGround().isGameFinished());
+        controller.battleGroundViewer.printAttackFinishedInfo();
     }
 
     private void startSelectingTroops() {

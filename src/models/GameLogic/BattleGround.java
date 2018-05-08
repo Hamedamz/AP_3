@@ -58,8 +58,8 @@ public class BattleGround {
         myVillage.addBounty(bounty);
     }
 
-    public Resource getLootedResources() {
-        return lootedBounty.getResource();
+    public Bounty getLootedBounty() {
+        return lootedBounty;
     }
 
     public Resource getRemainingResources() {

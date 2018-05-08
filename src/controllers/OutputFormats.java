@@ -14,5 +14,5 @@ public class OutputFormats {
     public static final String SHOW_STATUS_RESOURCES_FORMAT = "gold achieved: %d\nelixir achieves: %d\ngold remained in map: %d\nelixir remained in map: %d\n";
     public static final String SHOW_STATUS_UNIT_FORMAT = "%s level = %d in (%d,%d) with health = %d\n";
     public static final String SHOW_STATUS_TOWER_FORMAT = "%s level = %d in (%d,%d) with health = %d\n";
-    public static final String WAR_END_MESSAGE_FORMAT = "The war ended with %d golds, %d elixirs and %d scores achieved!";
+    public static final String ATTACK_FINISHED_INFO_FORMAT = "the war ended with %d golds, %d elixirs and %d scores achieved!\n";
 }

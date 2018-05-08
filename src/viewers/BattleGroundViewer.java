@@ -4,8 +4,6 @@ import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Troop.Troop;
 
-import java.util.ArrayList;
-
 import static controllers.OutputFormats.*;
 import static controllers.enums.CommandType.TOWERS;
 import static controllers.enums.CommandType.TROOPS;
@@ -18,8 +16,8 @@ public class BattleGroundViewer extends BasicViewer {
     }
 
     public void printStatusResources() {
-        printPropertyValue("Gold achieved", battleGround.getLootedResources().getGold());
-        printPropertyValue("Elixir achieved", battleGround.getLootedResources().getElixir());
+        printPropertyValue("Gold achieved", battleGround.getLootedBounty().getGold());
+        printPropertyValue("Elixir achieved", battleGround.getLootedBounty().getElixir());
         printPropertyValue("Gold remained", battleGround.getRemainingResources().getGold());
         printPropertyValue("Elixir remained", battleGround.getRemainingResources().getElixir());
     }
@@ -58,5 +56,12 @@ public class BattleGroundViewer extends BasicViewer {
         printStatusResources();
         printStatusUnit();
         printStatusTower();
+    }
+
+    public void printAttackFinishedInfo() {
+        System.out.format(ATTACK_FINISHED_INFO_FORMAT,
+                battleGround.getLootedBounty().getGold(),
+                battleGround.getLootedBounty().getElixir(),
+                battleGround.getLootedBounty().getScore());
     }
 }
