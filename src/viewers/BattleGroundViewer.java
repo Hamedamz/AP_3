@@ -31,9 +31,11 @@ public class BattleGroundViewer extends BasicViewer {
 
     public void printStatusUnit(String troopType) {
         for (Troop troop : battleGround.getDeployedTroops()) {
-            System.out.format(SHOW_STATUS_UNIT_FORMAT, troopType, troop.getLevel(),
-                    troop.getPosition().getX(), troop.getPosition().getY(),
-                    troop.getLevel());
+            if (troop.getClass().getSimpleName().equals(troopType)) {
+                System.out.format(SHOW_STATUS_UNIT_FORMAT, troopType, troop.getLevel(),
+                        troop.getPosition().getX(), troop.getPosition().getY(),
+                        troop.getLevel());
+            }
         }
     }
 
@@ -45,10 +47,12 @@ public class BattleGroundViewer extends BasicViewer {
 
     public void printStatusTower(String towerType) {
         for (Building building : battleGround.getEnemyMap().getBuildings()) {
-            System.out.format(SHOW_STATUS_TOWER_FORMAT,
-                    towerType, building.getLevel(),
-                    building.getPosition().getX(), building.getPosition().getY(),
-                    building.getHitPoints());
+            if (building.getClass().getName().equals(towerType)) {
+                System.out.format(SHOW_STATUS_TOWER_FORMAT,
+                        towerType, building.getLevel(),
+                        building.getPosition().getX(), building.getPosition().getY(),
+                        building.getHitPoints());
+            }
         }
     }
 
