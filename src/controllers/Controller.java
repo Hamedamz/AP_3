@@ -254,17 +254,21 @@ public class Controller {
         controller.viewer.printInformation("building process started");
     }
 
-    private void initializeAttack(Map map) throws InvalidInputException, TroopNotFoundException, CountLimitReachedException, InvalidPositionException {
+    private void initializeAttack(Map map) throws InvalidInputException, CountLimitReachedException, InvalidPositionException {
         controller.world.attackMap(map);
         controller.battleGroundViewer.setBattleGround(controller.world.getBattleGround());
         HashMap<String, Integer> selectedTroops = startSelectTroop();
         for (java.util.Map.Entry<String, Integer> typeNumber : selectedTroops.entrySet()) {
-            controller.world.sendTroopToAttack(typeNumber.getKey(), typeNumber.getValue());
+            try {
+                controller.world.sendTroopToAttack(typeNumber.getKey(), typeNumber.getValue());
+            } catch (TroopNotFoundException e) {
+                controller.viewer.printErrorMessage(e.getMessage());
+            }
         }
         controller.startAttack();
     }
 
-    private void startAttack() throws InvalidInputException, TroopNotFoundException, InvalidPositionException, CountLimitReachedException {
+    private void startAttack() throws InvalidInputException, InvalidPositionException, CountLimitReachedException {
         String command;
         do {
             command = controller.viewer.getInput();
@@ -292,7 +296,11 @@ public class Controller {
                 int number = Integer.parseInt(controller.getArgument(2, command, PUT_TROOP_FORMAT));
                 int x = Integer.parseInt(controller.getArgument(3, command, PUT_TROOP_FORMAT));
                 int y = Integer.parseInt(controller.getArgument(4, command, PUT_TROOP_FORMAT));
-                controller.world.getBattleGround().putTroop(unitType, number, new Position(x, y));
+                try {
+                    controller.world.getBattleGround().putTroop(unitType, number, new Position(x, y));
+                } catch (TroopNotFoundException e) {
+                    controller.viewer.printErrorMessage(e.getMessage());
+                }
             } else if (command.matches(GO_NEXT_TURN_FORMAT)) {
                 controller.turn(1);
             } else if (command.matches(TURN_FORMAT)) {
