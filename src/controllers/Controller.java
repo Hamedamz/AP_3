@@ -13,7 +13,6 @@ import models.Menu.*;
 import viewers.*;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -257,14 +256,7 @@ public class Controller {
     private void initializeAttack(Map map) throws InvalidInputException, CountLimitReachedException, InvalidPositionException {
         controller.world.attackMap(map);
         controller.battleGroundViewer.setBattleGround(controller.world.getBattleGround());
-        HashMap<String, Integer> selectedTroops = startSelectTroop();
-        for (java.util.Map.Entry<String, Integer> typeNumber : selectedTroops.entrySet()) {
-            try {
-                controller.world.sendTroopToAttack(typeNumber.getKey(), typeNumber.getValue());
-            } catch (TroopNotFoundException e) {
-                controller.viewer.printErrorMessage(e.getMessage());
-            }
-        }
+        startSelectingTroops();
         controller.startAttack();
     }
 
@@ -310,21 +302,20 @@ public class Controller {
         } while (!command.matches(QUIT_ATTACK_FORMAT));
     }
 
-    private HashMap<String, Integer> startSelectTroop() {
-        HashMap<String, Integer> selectTroops = new HashMap<>();
+    private void startSelectingTroops() {
         controller.viewer.requestForInput(START_SELECT_FORMAT);
         String command = controller.viewer.getInput();
         while (!command.matches(END_SELECT_FORMAT)) {
             String troopType = null;
             try {
                 troopType = getArgument(1, command, SELECT_TROOP_FORMAT);
-                String number = getArgument(2, command, SELECT_TROOP_FORMAT);
-                selectTroops.put(troopType, Integer.parseInt(number));
-            } catch (InvalidInputException e) {
+                int number = Integer.parseInt(getArgument(2, command, SELECT_TROOP_FORMAT));
+                    controller.world.sendTroopToAttack(troopType, number);
+
+            } catch (InvalidInputException | TroopNotFoundException e) {
                 controller.viewer.printErrorMessage(e.getMessage());
             }
             command = controller.viewer.getInput();
         }
-        return selectTroops;
     }
 }
