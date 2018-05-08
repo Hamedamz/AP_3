@@ -283,6 +283,7 @@ public class MenuController {
     private Menu buildMapMenu() {
         return MenuBuilder.aMenu()
                 .withLabel("map")
+                .withItem(new MenuItem(BACK))
                 .withItem(new MenuItem(MAP_INFO))
                 .withItem(new MenuItem(ATTACK_MAP))
                 .build();
@@ -351,8 +352,9 @@ public class MenuController {
                 .withItem(new MenuItem(CAPACITY_INFO))
                 .build();
 
-        return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
+        return MenuBuilder.aMenu()
                 .withLabel("camp")
+                .withItem(new MenuItem(BACK))
                 .withItem(infoMenu)
                 .withItem(buildMenuWithDynamicItems("soldiers", AVAILABLE_TROOPS_LIST))
                 .build();
@@ -370,9 +372,8 @@ public class MenuController {
                 .withItem(new MenuItem(SOURCES_INFO))
                 .build();
 
-        return MenuBuilder.aMenu()
+        return MenuBuilder.aMenuExtending(buildTypicalBuildingMenu())
                 .withLabel("storage")
-                .withItem(new MenuItem(BACK))
                 .withItem(infoMenu)
                 .build();
     }
