@@ -10,9 +10,6 @@ import models.GameLogic.enums.MoveType;
 import models.ID;
 import models.Setting.GameLogicConfig;
 
-import java.util.Comparator;
-import java.util.Dictionary;
-
 public abstract class Building extends Defender implements Upgradable, Comparable<Building> {
     //private int jsonNumber;
     protected int score;
@@ -56,7 +53,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
     }
 
     public static MoveType getMoveType() {
-        return MoveType.Ground;
+        return MoveType.GROUND;
     }
 
     public static Building getNewBuilding(String buildingType, int x, int y) throws CountLimitReachedException {

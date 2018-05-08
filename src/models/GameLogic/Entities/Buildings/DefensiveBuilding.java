@@ -3,20 +3,15 @@ package models.GameLogic.Entities.Buildings;
 import interfaces.Attacker;
 import interfaces.Destroyable;
 import models.GameLogic.*;
-import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.AttackerTroop;
-import models.GameLogic.Entities.Troop.Troop;
-import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.ID;
-import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public abstract class DefensiveBuilding extends Building implements Attacker {
     protected int damage;
@@ -62,6 +57,9 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
 
     @Override
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
+        if (destroyable == null ) {
+            return;
+        }
         if (damageType == BuildingDamageType.SINGLE_TARGET) {
             destroyable.takeDamageFromAttack(damage);
             if (destroyable.isDestroyed()) {
@@ -69,7 +67,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
             }
         }
         else {
-            for (Entity entity : battleGround.getAttackerEntitiesInPosition(destroyable.getPosition())) {
+            for (Entity entity : battleGround.getAttackerInPosition(destroyable.getPosition())) {
                 if(entity instanceof Destroyable) {
                     ((Destroyable) entity).takeDamageFromAttack(damage);
                     if (destroyable.isDestroyed()) {

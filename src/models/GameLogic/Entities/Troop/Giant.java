@@ -10,6 +10,7 @@ public class Giant extends AttackerTroop {
 
     public Giant() {
         this.targetType = TroopTargetType.RESOURCES;
+        this.moveType = MoveType.GROUND;
     }
 
 }

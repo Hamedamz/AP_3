@@ -12,6 +12,7 @@ public class GameEngine {
     public GameEngine(World world) {
         this.world = world;
         villageGameEngine = new VillageGameEngine();
+        battleGroundGameEngine = new BattleGroundGameEngine();
     }
 
     public void update() {
@@ -29,8 +30,8 @@ public class GameEngine {
         villageGameEngine.loadVillage(world.getMyVillage());
     }
 
-    public void loadBattleGround(BattleGround battleGround) {
-        battleGroundGameEngine = new BattleGroundGameEngine(battleGround);
+    public void loadBattleGround() {
         battleGroundGameEngine.loadBattleGround(world.getBattleGround());
+        isAttacking = true;
     }
 }
