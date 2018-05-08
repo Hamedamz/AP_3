@@ -143,7 +143,7 @@ public class Controller {
                     controller.buildingViewer.printTargetInfo((DefensiveBuilding) model);
                     break;
                 case ATTACK_MAP:
-                    controller.attack((Map) model);
+                    attack((Map) model);
                     break;
                 case BACK:
                     controller.menuController.back();
@@ -168,7 +168,7 @@ public class Controller {
         }
     }
 
-    private static void newGame() {
+    private void newGame() {
         try {
             controller.world.makeNewGame();
             controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
@@ -177,7 +177,7 @@ public class Controller {
         }
     }
 
-    private static String getArgument(int i, String command, String format) throws InvalidInputException {
+    private String getArgument(int i, String command, String format) throws InvalidInputException {
         Pattern pattern = Pattern.compile(format);
         Matcher matcher = pattern.matcher(command);
         if (matcher.find()) {
@@ -187,7 +187,7 @@ public class Controller {
         }
     }
 
-    private static void loadGame(String villageName) throws FileNotFoundException {
+    private void loadGame(String villageName) throws FileNotFoundException {
         String path = controller.world.getMyVillagesNameAndPath().get(villageName);
         if (path != null) {
             loadGameFromFile(path);
@@ -196,13 +196,13 @@ public class Controller {
         }
     }
 
-    private static void loadEnemyMap(String path) throws FileNotFoundException {
+    private void loadEnemyMap(String path) throws FileNotFoundException {
         controller.world.loadEnemyMap(path);
         // TODO: 5/8/2018
 
     }
 
-    public static void loadGameFromFile(String path) throws FileNotFoundException {
+    private void loadGameFromFile(String path) throws FileNotFoundException {
         Village village = JsonInterpreter.loadMyVillage(path);
         controller.world.setMyVillage(village);
         controller.viewer.printInformation("game successfully loaded!");
@@ -217,11 +217,11 @@ public class Controller {
         controller.world.getMyVillage().trainTroop(troopType, count, barracks);
     }
 
-    public static void saveGame(Village village, String name) {
+    private void saveGame(Village village, String name) {
         controller.world.saveGame(village, name);
     }
 
-    public static void turn(int n) {
+    private void turn(int n) {
         if (n == 0)
             return;
         for (int i = 0; i < n; i++) {
@@ -229,7 +229,7 @@ public class Controller {
         }
     }
 
-    public static void upgradeBuilding(Building building) {
+    private void upgradeBuilding(Building building) {
         Resource upgradeResource = null;
         try {
             upgradeResource = building.getUpgradeResource();
@@ -246,7 +246,7 @@ public class Controller {
         }
     }
 
-    private static void buildBuilding(String buildingType) throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
+    private void buildBuilding(String buildingType) throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
         controller.world.getMyVillage().getTownHall().getFreeBuilder();
         controller.buildingViewer.requestBuildConfirmation(buildingType);
         if (!controller.viewer.getConfirmation()) {
@@ -261,11 +261,11 @@ public class Controller {
         controller.viewer.printInformation("building process started");
     }
 
-    public static void attack(Map map) throws InvalidInputException {
+    private void attack(Map map) throws InvalidInputException {
         HashMap<String, Integer> selectTroops = startSelectTroop();
     }
 
-    private static HashMap<String, Integer> startSelectTroop() {
+    private HashMap<String, Integer> startSelectTroop() {
         HashMap<String, Integer> selectTroops = new HashMap<>();
         controller.viewer.requestForInput("select troops and number of them:");
         String command = controller.viewer.getInput();
@@ -282,6 +282,4 @@ public class Controller {
         }
         return selectTroops;
     }
-
-
 }
