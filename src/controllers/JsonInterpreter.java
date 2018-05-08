@@ -163,11 +163,11 @@ public class JsonInterpreter {
         for (int i = 0; i < jsonBuilding.level; i++) {
             elixirCapacity = elixirCapacity + (elixirCapacity * elixirStorageUpgradeCapacityAddition / 100);
         }
-        Resource capacity = new Resource(elixirCapacity, 0);
+        Resource capacity = new Resource(0, elixirCapacity);
         elixirStorage.setCapacity(capacity);
         int hitPoints = (int) GameLogicConfig.getFromDictionary("ElixirStorageHitPoints");
         elixirStorage.setHitPoints(hitPoints);
-        Resource stock = new Resource(jsonBuilding.amount, 0);
+        Resource stock = new Resource(0, jsonBuilding.amount);
         elixirStorage.setStock(stock);
         buildings.add(elixirStorage);
     }
