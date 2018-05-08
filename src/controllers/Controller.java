@@ -18,7 +18,6 @@ import viewers.MapViewer;
 import viewers.VillageViewer;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -101,8 +100,7 @@ public class Controller {
                     try {
                         controller.loadGameFromFile(command);
                         controller.menuController.openMenu(controller.menuController.getVillageMenu());
-                    }
-                    catch (FileNotFoundException e) {
+                    } catch (FileNotFoundException e) {
                         System.err.println(e.getMessage());
                     }
                     break;
@@ -143,7 +141,7 @@ public class Controller {
                     controller.buildingViewer.printTargetInfo((DefensiveBuilding) model);
                     break;
                 case ATTACK_MAP:
-                    controller.attack((Map) model);
+                    controller.initializeAttack((Map) model);
                     break;
                 case BACK:
                     controller.menuController.back();
@@ -152,7 +150,7 @@ public class Controller {
                     controller.menuController.openMenu((Menu) requestedMenuItem);
                     break;
 
-                }
+            }
 
         } else {
             if (command.matches(SAVE_GAME.toString())) {
@@ -222,8 +220,6 @@ public class Controller {
     }
 
     private void turn(int n) {
-        if (n == 0)
-            return;
         for (int i = 0; i < n; i++) {
             controller.world.getGameEngine().update();
         }
@@ -261,8 +257,40 @@ public class Controller {
         controller.viewer.printInformation("building process started");
     }
 
-    private void attack(Map map) throws InvalidInputException {
-        HashMap<String, Integer> selectTroops = startSelectTroop();
+    private void initializeAttack(Map map) throws InvalidInputException {
+        HashMap<String, Integer> selectedTroops = startSelectTroop();
+        controller.attack(map, selectedTroops);
+
+    }
+
+    private void attack(Map map, HashMap<String, Integer> selectedTroops) throws InvalidInputException {
+        String command;
+        do {
+            command = controller.viewer.getInput();
+            if (command.matches(STATUS_RESOURCES_FORMAT)) {
+
+            } else if (command.matches(STATUS_UNIT_FORMAT)) {
+                String unitType = controller.getArgument(1, command, STATUS_UNIT_FORMAT);
+            } else if (command.matches(STATUS_UNITS_FORMAT)) {
+
+            } else if (command.matches(STATUS_TOWER_FORMAT)) {
+                String towerType = controller.getArgument(1, command, STATUS_TOWER_FORMAT);
+            } else if (command.matches(STATUS_TOWERS_FORMAT)) {
+
+            } else if (command.matches(STATUS_ALL_FORMAT)) {
+
+            } else if (command.matches(PUT_TROOP_FORMAT)) {
+                String utitType = controller.getArgument(1, command, PUT_TROOP_FORMAT);
+                int number = Integer.parseInt(controller.getArgument(2, command, PUT_TROOP_FORMAT));
+                int x = Integer.parseInt(controller.getArgument(3, command, PUT_TROOP_FORMAT));
+                int y = Integer.parseInt(controller.getArgument(4, command, PUT_TROOP_FORMAT));
+            } else if (command.matches(GO_NEXT_TURN_FORMAT)) {
+                controller.turn(1);
+            } else if (command.matches(TURN_FORMAT)) {
+                int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
+                controller.turn(n);
+            }
+        } while (!command.matches(QUIT_ATTACK_FORMAT));
     }
 
     private HashMap<String, Integer> startSelectTroop() {
@@ -273,7 +301,7 @@ public class Controller {
             String troopType = null;
             try {
                 troopType = getArgument(1, command, SELECT_TROOP_FORMAT);
-                String number = getArgument(2, command,SELECT_TROOP_FORMAT);
+                String number = getArgument(2, command, SELECT_TROOP_FORMAT);
                 selectTroops.put(troopType, Integer.parseInt(number));
             } catch (InvalidInputException e) {
                 controller.viewer.printErrorMessage(e.getMessage());
