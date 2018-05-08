@@ -233,7 +233,7 @@ public class Controller {
             try {
                 building.upgrade();
             } catch (UpgradeLimitReachedException e) {
-                e.printStackTrace();
+                controller.viewer.printErrorMessage(e.getMessage());
             }
         }
     }

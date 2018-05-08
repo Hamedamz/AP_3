@@ -60,7 +60,7 @@ public class Barracks extends Building {
     public void upgrade() throws UpgradeLimitReachedException {
         int maxInitialConstructTime = 0;
         for (String key : GameLogicConfig.getClassPropertiesName()) {
-            if (key.matches("TrainTime")) {
+            if (key.contains("TrainTime")) {
                 maxInitialConstructTime = Math.max(maxInitialConstructTime, GameLogicConfig.getFromDictionary(key));
             }
         }
