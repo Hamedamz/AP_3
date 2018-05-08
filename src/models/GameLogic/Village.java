@@ -191,18 +191,7 @@ public class Village {
         return res;
     }
 
-    //Troop managing;
-    public ArrayList<Troop> getTroops() throws BuildingNotFoundException {
-        ArrayList<Troop> result = new ArrayList<>();
-        ArrayList<Camp> camps = findBuildingsWithSameType(Camp.class);
-        if (camps.size() == 0) {
-            throw new BuildingNotFoundException();
-        }
-        for(Camp camp : camps) {
-            result.addAll(camp.getTroops());
-        }
-        return result;
-    }
+    //Troop managing:
 
     public void trainTroop(String troopType, int count, Barracks barracks) //bad smell! it must be in barracks
             throws NotEnoughResourcesException, NotAvailableAtThisLevelException {
@@ -229,17 +218,28 @@ public class Village {
 
     public ArrayList<Troop> sendTroopToBattleGround(String troopType, int count) throws TroopNotFoundException{
         ArrayList<Troop> result = new ArrayList<>();
-        ArrayList<Troop> allTroops;
+        HashMap<Troop, Camp> allTroops = new HashMap<>();
         try {
-            allTroops = getTroops();
-        } catch (BuildingNotFoundException e) {
+            outer:
+            for(Camp camp : findBuildingsWithSameType(Camp.class)) {
+                for (Troop troop : camp.getTroops()) {
+                    allTroops.put(troop, camp);
+                    count --;
+                    if(count == 0) {
+                        break outer;
+                    }
+                }
+            }
+            if (count != 0) {
+                throw new TroopNotFoundException();
+            }
+        } catch (NullPointerException e) {
             throw new TroopNotFoundException();
         }
 
-        for (int i = 0; i < allTroops.size() && result.size() < count; i++) {
-            if(allTroops.get(i).getClass().getSimpleName().equals(troopType)) {
-                result.add(allTroops.get(i));
-            }
+        for (Troop troop : allTroops.keySet()) {
+            allTroops.get(troop).getTroops().remove(troop);
+            result.add(troop);
         }
 
         return result;
