@@ -295,9 +295,9 @@ public class Controller {
 
     private HashMap<String, Integer> startSelectTroop() {
         HashMap<String, Integer> selectTroops = new HashMap<>();
-        controller.viewer.requestForInput("select troops and number of them:");
+        controller.viewer.requestForInput(START_SELECT_FORMAT);
         String command = controller.viewer.getInput();
-        while (!command.matches("end select")) {
+        while (!command.matches(END_SELECT_FORMAT)) {
             String troopType = null;
             try {
                 troopType = getArgument(1, command, SELECT_TROOP_FORMAT);

@@ -27,4 +27,18 @@ public enum CommandType {
         return this.name().replace('_', ' ').toLowerCase();
     }
     public static final String[] TROOPS = new String[]{"Archer", "Dragon", "Giant", "Guardian"};
+    public static final String[] TOWERS = new String[]{"AirDefense", "ArcherTower", "Barracks", "Camp", "Cannon", "ElixirMine", "ElixirStorage", "GoldMine", "GoldStorage", "TownHall", "WizardTower"};
+    public static boolean isTypeValid(String type, String cat) {
+        String[] list;
+        if (cat.equals("troop")) {
+            list = TROOPS;
+        } else
+            list = TOWERS;
+        for (String troop : list) {
+            if (type.equals(troop)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
