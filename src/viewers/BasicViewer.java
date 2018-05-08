@@ -8,7 +8,7 @@ public class BasicViewer {
     protected Scanner scanner = new Scanner(System.in);
 
     public void printErrorMessage(String error) {
-        System.out.println(error);
+        System.err.println(error);
     }
 
     public void printInformation(String info) {

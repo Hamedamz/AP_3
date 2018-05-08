@@ -19,6 +19,7 @@ import viewers.VillageViewer;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -142,6 +143,7 @@ public class Controller {
                     controller.buildingViewer.printTargetInfo((DefensiveBuilding) model);
                     break;
                 case ATTACK_MAP:
+                    controller.attack((Map) model);
                     break;
                 case BACK:
                     controller.menuController.back();
@@ -259,8 +261,26 @@ public class Controller {
         controller.viewer.printInformation("building process started");
     }
 
-    public static void attack() {
+    public static void attack(Map map) throws InvalidInputException {
+        HashMap<String, Integer> selectTroops = startSelectTroop();
+    }
 
+    private static HashMap<String, Integer> startSelectTroop() {
+        HashMap<String, Integer> selectTroops = new HashMap<>();
+        controller.viewer.requestForInput("select troops and number of them:");
+        String command = controller.viewer.getInput();
+        while (!command.matches("end select")) {
+            String troopType = null;
+            try {
+                troopType = getArgument(1, command, SELECT_TROOP_FORMAT);
+                String number = getArgument(2, command,SELECT_TROOP_FORMAT);
+                selectTroops.put(troopType, Integer.parseInt(number));
+            } catch (InvalidInputException e) {
+                controller.viewer.printErrorMessage(e.getMessage());
+            }
+            command = controller.viewer.getInput();
+        }
+        return selectTroops;
     }
 
 

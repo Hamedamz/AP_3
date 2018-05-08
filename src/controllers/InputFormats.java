@@ -16,7 +16,7 @@ public class InputFormats {
     public static final String ATTACK_FORMAT = "attack";
     public static final String LOAD_MAP_FORMAT = "Load map";
     public static final String START_SELECT_FORMAT = "Start select";
-    public static final String SELECT_UNIT_FORMAT = "Select \\w+ \\d+";
+    public static final String SELECT_TROOP_FORMAT = "(\\w+) (\\d+)";
     public static final String GET_UNIT_STATUS_FORMAT = "status unit \\w+";
     public static final String GET_UNITS_STATUS_FORMAT = "status units";
     public static final String GET_TOWER_STATUS_FORMAT = "status tower \\w+";
