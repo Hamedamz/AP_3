@@ -32,11 +32,10 @@ public class BattleGroundGameEngine {
     private void checkDestructions() {
         ArrayList<Building> buildings = battleGround.getEnemyMap().getBuildings();
         for (int i = 0; i < buildings.size(); i++) {
-            if (buildings.get(i) instanceof Storage) {
-                if (buildings.get(i).isDestroyed()) {
-                   addBounty(buildings.get(i));
-                }
+            if (buildings.get(i).isDestroyed()) {
+                addBounty(buildings.get(i));
             }
+
         }
     }
 

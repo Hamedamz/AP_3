@@ -41,7 +41,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
 
     @Override
     public void setTarget(ArrayList<Destroyable> destroyables) throws NoTargetFoundException {
-        double minDistance = -1;
+        double minDistance = Double.MAX_VALUE;
         Destroyable minDistantDestroyable = null;
         for (Destroyable destroyable : destroyables) {
             if (!destroyable.isDestroyed() && TroopTargetType.isTroopTargetAppropriate(this, (Defender) destroyable)) {
