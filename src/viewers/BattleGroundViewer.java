@@ -50,7 +50,7 @@ public class BattleGroundViewer extends BasicViewer {
             if (building.getClass().getSimpleName().equals(towerType)) {
                 System.out.format(SHOW_STATUS_TOWER_FORMAT,
                         towerType, building.getLevel(),
-                        building.getPosition().getX(), building.getPosition().getY(),
+                        building.getPosition().getX() + 1, building.getPosition().getY() + 1,
                         building.getHitPoints());
             }
         }
