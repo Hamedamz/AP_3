@@ -1,5 +1,6 @@
 package models.GameLogic;
 
+import controllers.Exceptions.NoCampException;
 import interfaces.Revivable;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Exceptions.NotEnoughCapacityException;
@@ -64,6 +65,8 @@ public class VillageGameEngine {
                         ((Barracks) building).getTrainingTroops().remove(trainingTroop);
                     } catch (NotEnoughCapacityException e) {
                         System.err.println("not enough capacity in camp"); // FIXME: 5/7/2018 no error massage needed after debug
+                    } catch (NoCampException e) {
+                        System.err.println("You have no camps.");
                     }
                 }
             }

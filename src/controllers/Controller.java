@@ -7,6 +7,7 @@ import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.*;
+import models.GameLogic.Resource;
 import models.GameLogic.Village;
 import models.GameLogic.World;
 import models.Menu.*;
@@ -215,7 +216,20 @@ public class Controller {
     }
 
     public static void upgradeBuilding(Building building) {
-        // TODO: 5/6/2018 check if we have enough resources
+        Resource upgradeResource = null;
+        try {
+            upgradeResource = building.getUpgradeResource();
+        } catch (UpgradeLimitReachedException e) {
+            System.out.format("%s is already at the maximum level", building.getClass().getSimpleName());
+            return;
+        }
+        if (upgradeResource.getGold() <= controller.world.getMyVillage().getTotalResourceStock().getGold() && upgradeResource.getElixir() <= controller.world.getMyVillage().getTotalResourceStock().getElixir()) {
+            try {
+                building.upgrade();
+            } catch (UpgradeLimitReachedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private static void buildBuilding(String buildingType) throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {

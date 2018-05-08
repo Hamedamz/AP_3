@@ -1,5 +1,6 @@
 package models.GameLogic;
 
+import controllers.Exceptions.NoCampException;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Troop.Archer;
 import models.GameLogic.Entities.Troop.Troop;
@@ -122,6 +123,9 @@ public class Village {
         if (building instanceof DefensiveBuilding) {
             listOfBuildingsByName.get(DefensiveBuilding.class.getSimpleName()).add(building);
         }
+        if (building instanceof Barracks) {
+            listOfBuildingsByName.get(Barracks.class.getSimpleName()).add(building);
+        }
         if (building instanceof TownHall) {
             listOfBuildingsByName.get(TownHall.class.getSimpleName()).add(building);
         }
@@ -203,8 +207,11 @@ public class Village {
         spendResources(trainCost);
     }
 
-    public Camp findCampForNewTroops() {
+    public Camp findCampForNewTroops() throws NoCampException {
         ArrayList<Camp> camps = findBuildingsWithSameType(Camp.class);
+        if (camps.size() == 0) {
+            throw new NoCampException();
+        }
         camps.sort(new Camp.CampComparator());
         return camps.get(0);
     }
