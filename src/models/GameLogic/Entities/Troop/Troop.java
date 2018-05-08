@@ -13,7 +13,7 @@ import models.Setting.GameLogicConfig;
 import java.util.ArrayList;
 
 public abstract class Troop extends Entity implements Movable, Upgradable {
-    private transient Camp troopCamp;
+    private  Camp troopCamp;
     protected MoveType moveType;
     protected int speed;
     private int level;

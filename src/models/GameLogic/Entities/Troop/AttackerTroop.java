@@ -24,7 +24,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     protected Defender currentTarget;
 
     public AttackerTroop() {
-        String className = this.getClass().getName();
+        String className = this.getClass().getSimpleName();
         this.range = (int) GameLogicConfig.getFromDictionary(className + "Range");
         this.hitPoints = (int) GameLogicConfig.getFromDictionary(className + "HitPoints");
         this.maxHitPoints = this.hitPoints;

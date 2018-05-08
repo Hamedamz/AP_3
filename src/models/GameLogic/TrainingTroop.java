@@ -13,11 +13,11 @@ public class TrainingTroop {
     private Troop troop;
 
     public TrainingTroop(String troopType, int barracksLevel) {
-        int buildElixir = (int) GameLogicConfig.getFromDictionary(troopType + "BuildElixir");
+        int buildElixir = (int) GameLogicConfig.getFromDictionary(troopType + "TrainElixir");
         trainingCost = new Resource(0, buildElixir);
         level = barracksLevel;
         troop = Troop.castStringToTroopType(troopType);
-        timeRemaining = (int) GameLogicConfig.getFromDictionary(troopType + "BuildTime");
+        timeRemaining = (int) GameLogicConfig.getFromDictionary(troopType + "TrainTime");
         timeRemaining -= level;
         if (timeRemaining < 0) {
             timeRemaining = 0;
