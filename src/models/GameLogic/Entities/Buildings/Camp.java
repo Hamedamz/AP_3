@@ -19,7 +19,7 @@ public class Camp extends Building {
     private static final IDGenerator friendlyIDGenerator = new IDGenerator("01", 7);
     private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 7);
 
-    private ArrayList<Troop> troops;
+    private ArrayList<Troop> troops = new ArrayList<>();
     private int size;
 
     public Camp(Position position, boolean isFriendly) {

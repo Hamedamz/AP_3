@@ -126,6 +126,9 @@ public class Village {
         if (building instanceof Barracks) {
             listOfBuildingsByName.get(Barracks.class.getSimpleName()).add(building);
         }
+        if (building instanceof Camp) {
+            listOfBuildingsByName.get(Camp.class.getSimpleName()).add(building);
+        }
         if (building instanceof TownHall) {
             listOfBuildingsByName.get(TownHall.class.getSimpleName()).add(building);
         }
