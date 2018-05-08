@@ -14,19 +14,9 @@ import java.util.Set;
 public class BattleGround {
     private int timeRemaining;
     private Village myVillage;
-
     private Map enemyMap;
-
     private ArrayList<Troop> troops;
     private Bounty availableBounty; //fixme set this at constructor
-    public void setNumberOfTroopsDeployed(int[][] numberOfTroopsDeployed) {
-        this.numberOfTroopsDeployed = numberOfTroopsDeployed;
-    }
-
-    public int[][] getNumberOfTroopsDeployed() {
-        return numberOfTroopsDeployed;
-    }
-
     private int[][] numberOfTroopsDeployed = new int[30][30];
 
     public BattleGround(Village myVillage, ArrayList<Building> enemyBuildings, ArrayList<Troop> troops) {
@@ -34,6 +24,14 @@ public class BattleGround {
         this.troops = troops;
         availableBounty = new Bounty(0, new Resource(0, 0));
         this.timeRemaining = (int) GameLogicConfig.getFromDictionary("WarTime");
+    }
+
+    public void setNumberOfTroopsDeployed(int[][] numberOfTroopsDeployed) {
+        this.numberOfTroopsDeployed = numberOfTroopsDeployed;
+    }
+
+    public int[][] getNumberOfTroopsDeployed() {
+        return numberOfTroopsDeployed;
     }
 
     public void addBounty(Bounty bounty) {
