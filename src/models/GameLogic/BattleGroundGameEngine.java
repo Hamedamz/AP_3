@@ -4,6 +4,7 @@ import interfaces.Attacker;
 import interfaces.Destroyable;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
+import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NoTargetFoundException;
@@ -28,6 +29,7 @@ public class BattleGroundGameEngine {
         collectBounties();
         battleGround.setNumberOfTroopsDeployed(new int[30][30]);
         battleGround.reset();
+        removeDestroyedDestroyables();
         isGameFinished = battleGround.isGameFinished();
         if (isGameFinished) {
             battleGround.endBattle();
@@ -36,7 +38,7 @@ public class BattleGroundGameEngine {
     }
 
     private void collectBounties() {
-        ArrayList<Building> buildings = battleGround.getEnemyMap().getBuildings();
+        ArrayList<Building> buildings = battleGround.getEnemyBuildings();
         for (int i = 0; i < buildings.size(); i++) {
             if (buildings.get(i).isDestroyed()) {
                 addBounty(buildings.get(i));
@@ -53,7 +55,7 @@ public class BattleGroundGameEngine {
     }
 
     public void updateTroopTarget() {
-        ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getEnemyMap().getBuildings());
+        ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getEnemyDefenders());
         for (Troop troop : battleGround.getTroops()) {
             if (troop instanceof AttackerTroop) {
                 if (((AttackerTroop) troop).getTarget() == null || ((AttackerTroop) troop).getTarget().isDestroyed()) {
@@ -67,16 +69,16 @@ public class BattleGroundGameEngine {
         }
     }
 
-    public void updateBuildingTarget() {
+    public void updateDefendersTarget() {
         ArrayList<Destroyable> destroyables = new ArrayList<>();
         for (Troop entry : battleGround.getTroops()) {
             destroyables.add((Destroyable) entry);
         }
-        for (Building building : battleGround.getEnemyMap().getBuildings()) {
-            if (building instanceof DefensiveBuilding) {
-                if (((Attacker) building).getTarget() == null || ((Attacker) building).getTarget().isDestroyed()) {
+        for (Defender defender : battleGround.getEnemyDefenders()) {
+            if (defender instanceof Attacker) {
+                if (((Attacker) defender).getTarget() == null || ((Attacker) defender).getTarget().isDestroyed()) { // FIXME: 5/8/2018
                     try {
-                        ((Attacker) building).setTarget(destroyables);
+                        ((Attacker) defender).setTarget(destroyables);
                     } catch (NoTargetFoundException e) {
                         e.getMessage();
                     }
@@ -85,6 +87,19 @@ public class BattleGroundGameEngine {
         }
     }
 
+    public void removeDestroyedDestroyables() {
+        for(Defender defender : battleGround.getEnemyDefenders()) {
+            if(defender.isDestroyed()) {
+                battleGround.getEnemyDefenders().remove(defender);
+            }
+        }
+        for (Troop troop: battleGround.getTroops()) {
+            if(troop.isDestroyed()) {
+                battleGround.getTroops().remove(troop);
+            }
 
+        }
+
+    }
 
 }

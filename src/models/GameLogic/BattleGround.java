@@ -13,6 +13,7 @@ public class BattleGround {
     private int timeRemaining;
     private Village myVillage;
     private Map enemyMap;
+    private ArrayList<Building> enemyBuildings;
     private ArrayList<Troop> troops;
     private Bounty thisLootedBounty; //fixme set this at constructor
     private Bounty lootedBounty;
@@ -20,6 +21,7 @@ public class BattleGround {
 
     public BattleGround(Village myVillage, Map enemyMap) {
         troops = new ArrayList<>();
+        enemyBuildings = new ArrayList<>(enemyMap.getBuildings());
         this.myVillage = myVillage;
         this.enemyMap = enemyMap;
         lootedBounty = new Bounty(0, new Resource(0, 0));
@@ -89,8 +91,17 @@ public class BattleGround {
         return troops;
     }
 
-    public Map getEnemyMap() {
-        return enemyMap;
+//    public Map getEnemyMap() {
+//        return enemyMap;
+//    }
+//
+
+    public ArrayList<Building> getEnemyBuildings() {
+        return enemyBuildings;
+    }
+
+    public ArrayList<Defender> getEnemyDefenders(){
+        return new ArrayList<>(enemyBuildings);
     }
 
     public Village getVillage() {

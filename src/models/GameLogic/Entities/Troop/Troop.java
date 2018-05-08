@@ -3,6 +3,7 @@ package models.GameLogic.Entities.Troop;
 import interfaces.Destroyable;
 import interfaces.Movable;
 import interfaces.Upgradable;
+import interfaces.Vulnerable;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Position;
@@ -12,7 +13,7 @@ import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 
-public abstract class Troop extends Entity implements Movable, Upgradable {
+public abstract class Troop extends Entity implements Movable, Upgradable, Vulnerable {
     private  Camp troopCamp;
     protected MoveType moveType;
     protected int speed;
