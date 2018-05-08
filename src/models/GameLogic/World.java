@@ -92,7 +92,6 @@ public class World {
         ArrayList<Building> buildings = JsonInterpreter.loadEnemyVillageBuildings(path);
         Map map = new Map(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
         map.setBuildings(buildings);
-        battleGround.setEnemyMap(map);
         enemyVillagesPathAndMap.put(path, map);
     }
 

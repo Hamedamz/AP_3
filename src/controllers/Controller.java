@@ -7,12 +7,14 @@ import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.*;
+import models.GameLogic.Map;
 import models.GameLogic.Resource;
 import models.GameLogic.Village;
 import models.GameLogic.World;
 import models.Menu.*;
 import viewers.BasicViewer;
 import viewers.BuildingViewer;
+import viewers.MapViewer;
 import viewers.VillageViewer;
 
 import java.io.FileNotFoundException;
@@ -32,6 +34,7 @@ public class Controller {
     private MenuController menuController = new MenuController(world);
     private VillageViewer villageViewer;
     private BuildingViewer buildingViewer = new BuildingViewer();
+    private MapViewer mapViewer = new MapViewer();
 
     public static void main(String[] args) {
         controller.menuController.openMenu(controller.menuController.getEntranceMenu());
@@ -129,6 +132,7 @@ public class Controller {
                     controller.buildingViewer.printAttackInfo((DefensiveBuilding) model);
                     break;
                 case MAP_INFO:
+                    controller.mapViewer.printMapInfo((Map) model);
                     break;
                 case TARGET:
                     controller.buildingViewer.printTargetInfo((DefensiveBuilding) model);
