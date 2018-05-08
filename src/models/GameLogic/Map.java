@@ -11,7 +11,6 @@ public class Map {
     private ArrayList<Building> buildings;
     private boolean[][] isOccupied;
 
-
     public Map(int width, int height) {
         this.width = width;
         this.height = height;
@@ -51,6 +50,13 @@ public class Map {
 
     public void setOccupied(int x, int y) {
         isOccupied[x][y] = true;
+    }
+
+    public void setBuildings(ArrayList<Building> buildings) {
+        this.buildings = buildings;
+        for (Building building : buildings) {
+            setOccupied(building.getPosition().getX(), building.getPosition().getY());
+        }
     }
 
     public void constructBuilding(int i, int j) {

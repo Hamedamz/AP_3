@@ -13,10 +13,11 @@ import java.util.Set;
 public class BattleGround {
     private int timeRemaining;
     private Village myVillage;
+
     private Map enemyMap;
+
     private Set<Troop> troops;
     private Bounty availableBounty; //fixme set this at constructor
-
     public void setNumberOfTroopsDeployed(int[][] numberOfTroopsDeployed) {
         this.numberOfTroopsDeployed = numberOfTroopsDeployed;
     }
@@ -67,13 +68,14 @@ public class BattleGround {
 
     private Entity findTroopLocationTarget(Troop troop, Building targetedBuilding) {
         return null;
-        // TODO: 5/5/2018  
+        // TODO: 5/5/2018
     }
+
     //private void heal(Troop troop){ }
 
     //private void isHealerAlive() { }
-
     //TODO check position correctness -> not occupied
+
     public void putTroop(Troop troop, Position position) throws CountLimitReachedException {
         if (numberOfTroopsDeployed[position.getX()][position.getY()] >= 5) {
             throw new CountLimitReachedException();
@@ -81,9 +83,12 @@ public class BattleGround {
         troop.setPosition(position);
         numberOfTroopsDeployed[position.getX()][position.getY()]++;
     }
-
     private void move(Troop troop) {
 
+    }
+
+    public void setEnemyMap(Map enemyMap) {
+        this.enemyMap = enemyMap;
     }
 
     public boolean isGameFinished() {

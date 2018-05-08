@@ -174,7 +174,7 @@ public class Controller {
     }
 
     private static void loadGame(String villageName) throws FileNotFoundException {
-        String path = controller.world.getVillagesNameAndPath().get(villageName);
+        String path = controller.world.getMyVillagesNameAndPath().get(villageName);
         if (path != null) {
             loadGameFromFile(path);
         } else {

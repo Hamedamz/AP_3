@@ -167,7 +167,7 @@ public class MenuController {
 
     private HashMap<DynamicMenuItem, String> getVillageMapList() {
         HashMap<DynamicMenuItem, String> villageMapList = new HashMap<>();
-        for (String villageName : world.getVillagesNameAndPath().keySet()) {
+        for (String villageName : world.getMyVillagesNameAndPath().keySet()) {
             villageMapList.put(new DynamicMenuItem(LOAD_GAME, villageName), "");
         }
         return villageMapList;

@@ -2,19 +2,25 @@ package models.GameLogic;
 
 import controllers.Exceptions.VillageAlreadyExists;
 import controllers.JsonInterpreter;
+import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Exceptions.FileNotFoundException;
+import models.Setting.GameLogicConfig;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class World {
-    private HashMap<String, String> villagesNameAndPath;
+    private HashMap<String, String> myVillagesNameAndPath;
+    private HashMap<String, Map> enemyVillagesPathAndMap;
     private Village myVillage;
     private BattleGround battleGround;
     private GameEngine gameEngine;
 
     public World() {
+
         gameEngine = new GameEngine(this);
-        villagesNameAndPath = new HashMap<>();
+        myVillagesNameAndPath = new HashMap<>();
+        enemyVillagesPathAndMap = new HashMap<>();
     }
 
     public void loadVillage(String name) {
@@ -26,16 +32,20 @@ public class World {
     }
 
     public void addNewVillage(String name, String path) throws VillageAlreadyExists {
-        if (villagesNameAndPath.containsKey(name)) {
+        if (myVillagesNameAndPath.containsKey(name)) {
             throw new VillageAlreadyExists();
         }
         else {
-            villagesNameAndPath.put(name, path);
+            myVillagesNameAndPath.put(name, path);
         }
     }
 
-    public HashMap<String, String> getVillagesNameAndPath() {
-        return villagesNameAndPath;
+    public HashMap<String, String> getMyVillagesNameAndPath() {
+        return myVillagesNameAndPath;
+    }
+
+    public HashMap<String, Map> getEnemyVillagesPathAndMap() {
+        return enemyVillagesPathAndMap;
     }
 
     public Village getMyVillage() {
@@ -65,7 +75,7 @@ public class World {
 
     public void saveGame(Village village, String  name) {
         JsonInterpreter.saveVillage(village, name);
-        villagesNameAndPath.put(name, "savedMaps\\" + name + ".json");
+        myVillagesNameAndPath.put(name, "savedMaps\\" + name + ".json");
     }
 
     private boolean hasBattleEnded() {
@@ -78,8 +88,12 @@ public class World {
 
     }
 
-    public void loadEnemyVillage(String path) throws FileNotFoundException {
-
+    public void loadEnemyMap(String path) throws java.io.FileNotFoundException {
+        ArrayList<Building> buildings = JsonInterpreter.loadEnemyVillageBuildings(path);
+        Map map = new Map(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
+        map.setBuildings(buildings);
+        battleGround.setEnemyMap(map);
+        enemyVillagesPathAndMap.put(path, map);
     }
 
 
