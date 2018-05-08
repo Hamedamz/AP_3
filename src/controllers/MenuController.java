@@ -215,6 +215,7 @@ public class MenuController {
         // if troop can be built the possible number is also shown
         LinkedHashMap<DynamicMenuItem, String> troopsList = new LinkedHashMap<>();
         Resource resourceStock = world.getMyVillage().getTotalResourceStock();
+        Barracks barracks = (Barracks) getActiveMenu().getModel();
         String info;
         for (String troop : TROOPS) {
             int elixir = GameLogicConfig.getFromDictionary(troop + "TrainElixir");
@@ -222,6 +223,9 @@ public class MenuController {
                 info = "A" + " x" + (resourceStock.getElixir() / elixir);
             } else
                 info = "U";
+            if (barracks.getLevel() < 2 && troop.equals("Dragon")) {
+                info = "U";
+            }
             troopsList.put(new DynamicMenuItem(TRAIN_TROOP, troop), info);
         }
         return troopsList;
