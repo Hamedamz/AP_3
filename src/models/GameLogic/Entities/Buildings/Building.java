@@ -94,9 +94,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
                 GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeElixir"));
     }
 
-    public Bounty getBounty() {
-        return null;
-    }
+    public abstract Bounty getBounty();
 
     public int getLevel() {
         return level;

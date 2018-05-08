@@ -19,5 +19,12 @@ public class Cannon extends DefensiveBuilding {
         this.damageType = BuildingDamageType.AREA_SPLASH;
     }
 
-
+    @Override
+    public Bounty getBounty() {
+        int gold = (int) GameLogicConfig.getFromDictionary("CannonBuildGold");
+        int elixir = 0;
+        Resource resource = new Resource(gold, elixir);
+        int score = this.score;
+        return new Bounty(score, resource);
+    }
 }

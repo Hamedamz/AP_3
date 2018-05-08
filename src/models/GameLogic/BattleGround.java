@@ -66,7 +66,7 @@ public class BattleGround {
         Resource availableResources = new Resource(0, 0);
         for (Building building : enemyMap.getBuildings()) {
             if(!building.isDestroyed()) {
-                availableResources.addToThisResource(lootedBounty.getResource());
+                availableResources.addToThisResource(building.getBounty().getResource());
             }
         }
         return availableResources;

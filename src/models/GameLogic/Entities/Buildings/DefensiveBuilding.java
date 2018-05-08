@@ -2,15 +2,13 @@ package models.GameLogic.Entities.Buildings;
 
 import interfaces.Attacker;
 import interfaces.Destroyable;
-import models.GameLogic.BattleGround;
+import models.GameLogic.*;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
-import models.GameLogic.Map;
-import models.GameLogic.Position;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.ID;

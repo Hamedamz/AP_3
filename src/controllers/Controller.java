@@ -266,11 +266,13 @@ public class Controller {
             command = controller.viewer.getInput();
             if (command.matches(STATUS_RESOURCES_FORMAT)) {
                 controller.battleGroundViewer.printStatusResources();
+
             } else if (command.matches(STATUS_UNIT_FORMAT)) {
                 String unitType = controller.getArgument(1, command, STATUS_UNIT_FORMAT);
                 if (CommandType.isTypeValid(unitType, "troop")) {
                     controller.battleGroundViewer.printStatusUnit(unitType);
-                }
+                } else throw new InvalidInputException("no such a unit!");
+
             } else if (command.matches(STATUS_UNITS_FORMAT)) {
                 controller.battleGroundViewer.printStatusUnit();
 
@@ -278,11 +280,14 @@ public class Controller {
                 String towerType = controller.getArgument(1, command, STATUS_TOWER_FORMAT);
                 if (CommandType.isTypeValid(towerType, "tower")) {
                     controller.battleGroundViewer.printStatusTower(towerType);
-                }
+                } else throw new InvalidInputException("no such a tower!");
+
             } else if (command.matches(STATUS_TOWERS_FORMAT)) {
                 controller.battleGroundViewer.printStatusTower();
+
             } else if (command.matches(STATUS_ALL_FORMAT)) {
                 controller.battleGroundViewer.printStatusAll();
+
             } else if (command.matches(PUT_TROOP_FORMAT)) {
                 String unitType = controller.getArgument(1, command, PUT_TROOP_FORMAT);
                 int number = Integer.parseInt(controller.getArgument(2, command, PUT_TROOP_FORMAT));
@@ -293,13 +298,18 @@ public class Controller {
                 } catch (TroopNotFoundException e) {
                     controller.viewer.printErrorMessage(e.getMessage());
                 }
+
             } else if (command.matches(GO_NEXT_TURN_FORMAT)) {
                 controller.turn(1);
+
             } else if (command.matches(TURN_FORMAT)) {
                 int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
                 controller.turn(n);
-            }
-        } while (!command.matches(QUIT_ATTACK_FORMAT) || controller.world.getBattleGround().isGameFinished());
+
+            } else
+                throw new InvalidInputException("invalid input");
+
+        } while (!command.matches(QUIT_ATTACK_FORMAT) || !controller.world.getBattleGround().isGameFinished());
         controller.battleGroundViewer.printAttackFinishedInfo();
     }
 
