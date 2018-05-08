@@ -25,6 +25,10 @@ public class Map extends Entity {
         }
     }
 
+    public boolean[][] getIsOccupied() {
+        return isOccupied;
+    }
+
     public int getWidth() {
         return width;
     }
