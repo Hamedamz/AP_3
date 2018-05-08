@@ -185,7 +185,8 @@ public class Controller {
         }
     }
 
-    private static void loadGame(String villageName) throws FileNotFoundException {
+    private static void loadGame(String villageName) throws FileNotFoundException
+    {
         String path = controller.world.getMyVillagesNameAndPath().get(villageName);
         if (path != null) {
             loadGameFromFile(path);
@@ -193,7 +194,6 @@ public class Controller {
             controller.viewer.printErrorMessage("no village with this name!");
         }
     }
-
     private static void loadEnemyMap(String path) throws FileNotFoundException {
         controller.world.loadEnemyMap(path);
         // TODO: 5/8/2018

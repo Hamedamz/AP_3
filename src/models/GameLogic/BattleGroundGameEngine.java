@@ -30,6 +30,9 @@ public class BattleGroundGameEngine {
         checkDestructions();
         battleGround.setNumberOfTroopsDeployed(new int[30][30]);
         isGameFinished = battleGround.isGameFinished();
+        if (isGameFinished) {
+            battleGround.endBattle();
+        }
         time++;
     }
 

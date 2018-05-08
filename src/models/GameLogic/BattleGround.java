@@ -108,4 +108,7 @@ public class BattleGround {
         return true;
     }
 
+    public void endBattle() {
+        myVillage.spreadTroops(troops);
+    }
 }

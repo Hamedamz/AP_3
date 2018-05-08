@@ -319,5 +319,18 @@ public class Village {
         townHall.addScore(bounty.getScore());
     }
 
+    public void spreadTroops(ArrayList<Troop> troops) {
+        ArrayList<Camp> camps = findBuildingsWithSameType(Camp.class);
+        int campCounter = 0;
+        for (int i = 0; i < troops.size(); i++) {
+            try {
+                camps.get(campCounter).addTroop(troops.get(i));
+            } catch (NotEnoughCapacityException e) {
+                e.getMessage();
+                campCounter++;
+                 i -= 1;
+            }
+        }
+    }
 }
 
