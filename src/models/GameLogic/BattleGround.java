@@ -20,7 +20,7 @@ public class BattleGround {
     private Map enemyMap;
     private ArrayList<Building> enemyBuildings;
     private ArrayList<Troop> deployedTroops;
-    private HashMap<String, ArrayList<Troop>> allTroops;
+    private HashMap<String, ArrayList<Troop>> unDeployedTroops;
     private Bounty thisLootedBounty;
     private Bounty lootedBounty;
     private int[][] numberOfTroopsDeployed = new int[30][30];
@@ -28,7 +28,7 @@ public class BattleGround {
     public BattleGround(Village myVillage, Map enemyMap) {
         deployedTroops = new ArrayList<>();
         enemyBuildings = new ArrayList<>(enemyMap.getBuildings());
-        allTroops = new HashMap<>();
+        unDeployedTroops = new HashMap<>();
         this.myVillage = myVillage;
         this.enemyMap = enemyMap;
         lootedBounty = new Bounty(0, new Resource(0, 0));
@@ -39,7 +39,7 @@ public class BattleGround {
 
     private void initiateAllTroops() {
         for (String troopType : GameLogicConfig.TROOPS) {
-            allTroops.put(troopType, new ArrayList<>());
+            unDeployedTroops.put(troopType, new ArrayList<>());
         }
     }
 
@@ -52,10 +52,10 @@ public class BattleGround {
     }
 
     public void addTroops(String troopType, ArrayList<Troop> troops) {
-        if(allTroops.keySet().contains(troopType)) {
-            allTroops.get(troopType).addAll(troops);
+        if(unDeployedTroops.keySet().contains(troopType)) {
+            unDeployedTroops.get(troopType).addAll(troops);
         } else {
-            allTroops.put(troopType, troops);
+            unDeployedTroops.put(troopType, troops);
         }
     }
 
@@ -111,8 +111,8 @@ public class BattleGround {
         return deployedTroops;
     }
 
-    public HashMap<String, ArrayList<Troop>> getAllTroops() {
-        return allTroops;
+    public HashMap<String, ArrayList<Troop>> getUnDeployedTroops() {
+        return unDeployedTroops;
     }
 
     public Map getEnemyMap() {
@@ -139,7 +139,7 @@ public class BattleGround {
 
     public void putTroop(String troopType, int count, Position position)
             throws CountLimitReachedException, InvalidPositionException, TroopNotFoundException {
-        ArrayList<Troop> troops = allTroops.get(troopType);
+        ArrayList<Troop> troops = unDeployedTroops.get(troopType);
         if(troops.size() < count) {
             throw new TroopNotFoundException();
         }
@@ -152,6 +152,7 @@ public class BattleGround {
         }
         for (int i = 0; i < count; i++) {
             deployedTroops.add(troops.get(i));
+            unDeployedTroops.get(troops.get(i).getClass().getSimpleName()).remove(troops.get(i));
             troops.get(i).setPosition(position);
             numberOfTroopsDeployed[position.getX()][position.getY()]+=count;
         }
@@ -163,8 +164,8 @@ public class BattleGround {
             return true;
         }
         boolean flag = false;
-        for (String troopType : allTroops.keySet()) {
-            if(allTroops.get(troopType).size() > 0) {
+        for (String troopType : unDeployedTroops.keySet()) {
+            if(unDeployedTroops.get(troopType).size() > 0) {
                 flag = true;
                 break;
             }
@@ -184,6 +185,16 @@ public class BattleGround {
     }
 
     public void endBattle() {
-        myVillage.spreadTroops(allTroops);
+        for (int i = 0; i < deployedTroops.size(); i++) {
+            if (unDeployedTroops.containsKey(deployedTroops.get(i).getClass().getSimpleName())) {
+                unDeployedTroops.get(deployedTroops.get(i).getClass().getSimpleName()).add(deployedTroops.get(i));
+            }
+            else {
+                ArrayList<Troop> troops = new ArrayList<>();
+                troops.add(deployedTroops.get(i));
+                unDeployedTroops.put(deployedTroops.get(i).getClass().getSimpleName(), troops);
+            }
+        }
+        myVillage.spreadTroops(unDeployedTroops);
     }
 }
