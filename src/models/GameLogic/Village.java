@@ -192,8 +192,16 @@ public class Village {
     }
 
     //Troop managing;
-    public ArrayList<Troop> getTroops() {
-        return null;
+    public ArrayList<Troop> getTroops() throws BuildingNotFoundException {
+        ArrayList<Troop> result = new ArrayList<>();
+        ArrayList<Camp> camps = findBuildingsWithSameType(Camp.class);
+        if (camps.size() == 0) {
+            throw new BuildingNotFoundException();
+        }
+        for(Camp camp : camps) {
+            result.addAll(camp.getTroops());
+        }
+        return result;
     }
 
     public void trainTroop(String troopType, int count, Barracks barracks) //bad smell! it must be in barracks
@@ -219,12 +227,28 @@ public class Village {
         return camps.get(0);
     }
 
-    public void removeTrainingTroop(String troopType, int barracksNum) {
+    public ArrayList<Troop> sendTroopToBattleGround(String troopType, int count) throws TroopNotFoundException{
+        ArrayList<Troop> result = new ArrayList<>();
+        ArrayList<Troop> allTroops;
+        try {
+            allTroops = getTroops();
+        } catch (BuildingNotFoundException e) {
+            throw new TroopNotFoundException();
+        }
 
+        for (int i = 0; i < allTroops.size() || result.size() == count; i++) {
+            if(allTroops.get(i).getClass().getSimpleName().equals(troopType)) {
+                result.add(allTroops.get(i));
+            }
+        }
+
+        return result;
+    }
+
+    public void removeTrainingTroop(String troopType, int barracksNum) {
     }
 
     private void removeTroop(String troopType, int campNum) {
-
     }
 
     //resource Managing

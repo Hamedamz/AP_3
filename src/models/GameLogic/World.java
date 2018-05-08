@@ -3,7 +3,9 @@ package models.GameLogic;
 import controllers.Exceptions.VillageAlreadyExists;
 import controllers.JsonInterpreter;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.FileNotFoundException;
+import models.GameLogic.Exceptions.TroopNotFoundException;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
@@ -70,4 +72,11 @@ public class World {
         return gameEngine;
     } // FIXME: 5/8/2018 gameEngine must not be passed
 
+    public void attackMap(Map map) {
+        battleGround = new BattleGround(myVillage, map);
+    }
+
+    public void sendTroopToAttack(String troopType, int count) throws TroopNotFoundException {
+        battleGround.addTroops(myVillage.sendTroopToBattleGround(troopType, count));
+    }
 }
