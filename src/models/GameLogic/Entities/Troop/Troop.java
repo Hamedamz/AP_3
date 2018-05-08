@@ -16,7 +16,7 @@ import models.Setting.GameLogicConfig;
 import java.util.ArrayList;
 
 public abstract class Troop extends Entity implements Movable, Upgradable, Vulnerable {
-    private  Camp troopCamp;
+   // private  Camp troopCamp;
     protected MoveType moveType;
     protected int speed;
     private int level;
@@ -35,9 +35,9 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
         this.position = this.movementPath.get(Math.min(speed, getPath().size() - 1));
     }
 
-    public void setTroopCamp(Camp troopCamp) {
-        this.troopCamp = troopCamp;
-    }
+//    public void setTroopCamp(Camp troopCamp) {
+//        this.troopCamp = troopCamp;
+//    }
 
     public void setMovementPath(ArrayList<Position> movementPath) {
         this.movementPath = movementPath;
