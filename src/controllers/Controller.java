@@ -273,7 +273,7 @@ public class Controller {
         do {
             command = controller.viewer.getInput();
             if (command.matches(STATUS_RESOURCES_FORMAT)) {
-
+                controller.battleGroundViewer.printStatusResources();
             } else if (command.matches(STATUS_UNIT_FORMAT)) {
                 String unitType = controller.getArgument(1, command, STATUS_UNIT_FORMAT);
                 if (CommandType.isTypeValid(unitType, "troop")) {

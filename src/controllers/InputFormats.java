@@ -23,7 +23,7 @@ public class InputFormats {
     public static final String STATUS_TOWERS_FORMAT = "status towers";
     public static final String STATUS_ALL_FORMAT = "status all";
     public static final String QUIT_ATTACK_FORMAT = "quit attack";
-    public static final String STATUS_RESOURCES_FORMAT = "status resources";
+    public static final String STATUS_RESOURCES_FORMAT = "status resource[s]{0,1}";
     public static final String GO_NEXT_TURN_FORMAT = "go next turn";
     public static final String PUT_TROOP_FORMAT = "put (\\w+) (\\d+) in (\\d+),[\\s]*(\\d+)";
     public static final String END_SELECT_FORMAT = "end select";
