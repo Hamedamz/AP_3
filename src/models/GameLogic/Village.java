@@ -236,7 +236,7 @@ public class Village {
             throw new TroopNotFoundException();
         }
 
-        for (int i = 0; i < allTroops.size() || result.size() == count; i++) {
+        for (int i = 0; i < allTroops.size() && result.size() < count; i++) {
             if(allTroops.get(i).getClass().getSimpleName().equals(troopType)) {
                 result.add(allTroops.get(i));
             }

@@ -4,6 +4,8 @@ import interfaces.Destroyable;
 import interfaces.Movable;
 import interfaces.Upgradable;
 import interfaces.Vulnerable;
+import models.GameLogic.BFS;
+import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Position;
@@ -18,6 +20,7 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
     protected MoveType moveType;
     protected int speed;
     private int level;
+
     private ArrayList<Position> movementPath;
 
     public Troop() {
@@ -27,8 +30,17 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
         this.speed = (int) GameLogicConfig.getFromDictionary(className + "Speed");
     }
 
+    @Override
+    public void move() {
+        this.position = this.movementPath.get(Math.min(speed, getPath().size() - 1));
+    }
+
     public void setTroopCamp(Camp troopCamp) {
         this.troopCamp = troopCamp;
+    }
+
+    public void setMovementPath(ArrayList<Position> movementPath) {
+        this.movementPath = movementPath;
     }
 
     public int getLevel() {
@@ -47,11 +59,6 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
     @Override
     public int getSpeed() {
         return speed;
-    }
-
-    @Override
-    public void setPath(ArrayList<Position> path) {
-        movementPath = path;
     }
 
     @Override

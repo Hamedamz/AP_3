@@ -3,7 +3,7 @@ package models.GameLogic;
 import java.util.ArrayList;
 
 public class BFS {
-    public static ArrayList<Position> getPath(Map map, Position origin, Position destination) {
+    public static ArrayList<Position> getPath(Map map, Position origin, Position destination, int range) {
         ArrayList<Position> positions = new ArrayList<>();
         boolean[][] isOccupied = map.getIsOccupied();
         boolean[][] visited = new boolean[map.getWidth()][map.getHeight()];
@@ -16,7 +16,7 @@ public class BFS {
             int x = position.getX();
             int y = position.getY();
             visited[x][y] = true;
-            if (Math.abs(position.calculateDistance(destination) - 1f) < 0.001) {
+            if (Math.abs(position.calculateDistance(destination) - range) < 0.01) {
                 positions.add(position);
                 break;
             }

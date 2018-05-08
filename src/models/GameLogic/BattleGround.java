@@ -74,6 +74,8 @@ public class BattleGround {
 
     public void reset() {
         thisLootedBounty = new Bounty(0, new Resource(0, 0));
+        setNumberOfTroopsDeployed(new int[30][30]);
+
     }
 
     public int getTimeRemaining() {
@@ -123,11 +125,6 @@ public class BattleGround {
         return myVillage;
     }
 
-    private Entity findTroopLocationTarget(Troop troop, Building targetedBuilding) {
-        return null;
-        // TODO: 5/5/2018
-    }
-
     //private void heal(Troop troop){ }
 
     //private void isHealerAlive() { }
@@ -156,9 +153,6 @@ public class BattleGround {
         }
 
 
-
-    }
-    private void move(Troop troop) {
 
     }
 

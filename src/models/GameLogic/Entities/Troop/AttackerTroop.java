@@ -2,12 +2,10 @@ package models.GameLogic.Entities.Troop;
 
 import interfaces.Destroyable;
 import interfaces.MovingAttacker;
+import models.GameLogic.BFS;
 import models.GameLogic.BattleGround;
-import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Defender;
-import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.NoTargetFoundException;
-import models.GameLogic.Map;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
 import models.GameLogic.enums.TroopTargetType;
@@ -83,6 +81,11 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     }
 
     @Override
+    public void findPath(BattleGround battleGround) {
+        setMovementPath(BFS.getPath(battleGround.getEnemyMap(), this.position, getTarget().getPosition(), this.range));
+    }
+
+    @Override
     public void takeDamageFromAttack(int damage) {
         hitPoints -= damage;
     }
@@ -114,19 +117,9 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
         return maxHitPoints;
     }
 
-    @Override
-    public void move(Position position, Map map) {
-        // TODO: 5/5/2018 SoroushVT this may not belong to here 
-    }
 
     @Override
     public MoveType getTroopType() {
-        return null;
-        // TODO: 5/5/2018  
-    }
-
-    @Override
-    public Position findActionPosition(Entity target, Map map) {
         return null;
         // TODO: 5/5/2018  
     }

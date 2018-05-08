@@ -1,5 +1,6 @@
 package interfaces;
 
+import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Map;
 import models.GameLogic.Position;
@@ -8,10 +9,9 @@ import models.GameLogic.enums.MoveType;
 import java.util.ArrayList;
 
 public interface Movable extends Effector<Destroyable> {
-    void move(Position position, Map map);
+    void move();
     MoveType getTroopType();
-    Position findActionPosition(Entity target, Map map);
+    void findPath(BattleGround battleGround);
     ArrayList<Position> getPath();
-    void setPath(ArrayList<Position> path);
     int getSpeed();
 }
