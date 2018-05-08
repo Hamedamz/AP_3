@@ -4,7 +4,6 @@ import interfaces.Attacker;
 import interfaces.Destroyable;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
-import models.GameLogic.Entities.Buildings.Storage;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NoTargetFoundException;
@@ -13,12 +12,10 @@ import java.util.ArrayList;
 
 public class BattleGroundGameEngine {
     private BattleGround battleGround;
-    private int time;
     private boolean isGameFinished;
 
     public BattleGroundGameEngine(BattleGround battleGround) {
         this.battleGround = battleGround;
-        time = 0;
         isGameFinished = false;;
     }
 
@@ -27,22 +24,23 @@ public class BattleGroundGameEngine {
     }
 
     public void update() {
-        checkDestructions();
+        battleGround.setTimeRemaining(battleGround.getTimeRemaining());
+        collectBounties();
         battleGround.setNumberOfTroopsDeployed(new int[30][30]);
+        battleGround.reset();
         isGameFinished = battleGround.isGameFinished();
         if (isGameFinished) {
             battleGround.endBattle();
         }
-        time++;
+
     }
 
-    private void checkDestructions() {
+    private void collectBounties() {
         ArrayList<Building> buildings = battleGround.getEnemyMap().getBuildings();
         for (int i = 0; i < buildings.size(); i++) {
             if (buildings.get(i).isDestroyed()) {
                 addBounty(buildings.get(i));
             }
-
         }
     }
 

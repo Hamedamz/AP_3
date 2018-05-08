@@ -8,21 +8,21 @@ import models.GameLogic.Exceptions.CountLimitReachedException;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
 
 public class BattleGround {
     private int timeRemaining;
     private Village myVillage;
     private Map enemyMap;
     private ArrayList<Troop> troops;
-    private Bounty availableBounty; //fixme set this at constructor
+    private Bounty thisLootedBounty; //fixme set this at constructor
+    private Bounty lootedBounty;
     private int[][] numberOfTroopsDeployed = new int[30][30];
 
     public BattleGround(Village myVillage, ArrayList<Building> enemyBuildings, ArrayList<Troop> troops) {
         this.myVillage = myVillage;
         this.troops = troops;
-        availableBounty = new Bounty(0, new Resource(0, 0));
+        lootedBounty = new Bounty(0, new Resource(0, 0));
+        thisLootedBounty = new Bounty(0, new Resource(0, 0));
         this.timeRemaining = (int) GameLogicConfig.getFromDictionary("WarTime");
     }
 
@@ -35,8 +35,35 @@ public class BattleGround {
     }
 
     public void addBounty(Bounty bounty) {
-        this.availableBounty.addToThisBounty(bounty);
+        this.thisLootedBounty.addToThisBounty(bounty);
+        this.lootedBounty.addToThisBounty(bounty);
         myVillage.addBounty(bounty);
+    }
+
+    public Resource getLootedResources() {
+        return lootedBounty.getResource();
+    }
+
+    public Resource getRemainingResources() {
+        Resource availableResources = new Resource(0, 0);
+        for (Building building : enemyMap.getBuildings()) {
+            if(!building.isDestroyed()) {
+                availableResources.addToThisResource(lootedBounty.getResource());
+            }
+        }
+        return availableResources;
+    }
+
+    public void reset() {
+        thisLootedBounty = new Bounty(0, new Resource(0, 0));
+    }
+
+    public int getTimeRemaining() {
+        return timeRemaining;
+    }
+
+    public void setTimeRemaining(int timeRemaining) {
+        this.timeRemaining = timeRemaining;
     }
 
     public Resource getMyVillageAvailableResourceSpace() {

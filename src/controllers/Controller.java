@@ -260,10 +260,10 @@ public class Controller {
     private void initializeAttack(Map map) throws InvalidInputException {
         HashMap<String, Integer> selectedTroops = startSelectTroop();
         controller.attack(map, selectedTroops);
-
     }
 
     private void attack(Map map, HashMap<String, Integer> selectedTroops) throws InvalidInputException {
+        // TODO: 5/8/2018  
         String command;
         do {
             command = controller.viewer.getInput();
