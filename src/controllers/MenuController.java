@@ -176,7 +176,7 @@ public class MenuController {
         for (java.util.Map.Entry<String, Map> pathMapEntry : world.getEnemyVillagesPathAndMap().entrySet()) {
             String mapPath = pathMapEntry.getKey();
             mapPath = mapPath.substring(mapPath.lastIndexOf("\\"));
-            mapPath = mapPath.substring(0, mapPath.lastIndexOf("."));
+            mapPath = mapPath.substring(1, mapPath.lastIndexOf("."));
             enemyMapList.put(new DynamicMenuItem(OPEN_MAP_MENU, pathMapEntry.getValue()), mapPath);
         }
 
