@@ -18,6 +18,10 @@ public final class GameLogicConfig {
     private static final String IGNORE_REGEX = "#.*";
     private static final String PROPERTY_FORMAT = "((\\D(_\\d+ )?)|\\s)+:\\s+\\d+(\\.\\d+)?";
 
+    public static final String[] TROOPS = new String[]{"Archer", "Dragon", "Giant", "Guardian"};
+    public static final String[] TOWERS = new String[]{"AirDefense", "ArcherTower", "Barracks", "Camp", "Cannon", "ElixirMine", "ElixirStorage", "GoldMine", "GoldStorage", "TownHall", "WizardTower"};
+
+
     public static Set<String> getClassPropertiesName() {
         return classProperties.keySet();
     }

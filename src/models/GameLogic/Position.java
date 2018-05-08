@@ -1,5 +1,7 @@
 package models.GameLogic;
 
+import javafx.geometry.Pos;
+
 public class Position {
     private int x;
     private int y;
@@ -35,5 +37,13 @@ public class Position {
                 Math.pow(this.x - position.x, 2) +
                         Math.pow(this.y - position.y, 2)
         );
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Position) {
+            return ((Position) obj).x == x && ((Position) obj).y == y;
+        }
+        return false;
     }
 }

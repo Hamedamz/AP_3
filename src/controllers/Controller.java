@@ -292,8 +292,9 @@ public class Controller {
                 } else if (command.matches(PUT_TROOP_FORMAT)) {
                     String unitType = controller.getArgument(1, command, PUT_TROOP_FORMAT);
                     int number = Integer.parseInt(controller.getArgument(2, command, PUT_TROOP_FORMAT));
-                    int x = Integer.parseInt(controller.getArgument(3, command, PUT_TROOP_FORMAT));
-                    int y = Integer.parseInt(controller.getArgument(4, command, PUT_TROOP_FORMAT));
+                    int x = Integer.parseInt(controller.getArgument(3, command, PUT_TROOP_FORMAT)) - 1;
+                    int y = Integer.parseInt(controller.getArgument(4, command, PUT_TROOP_FORMAT)) - 1;
+
                     try {
                         controller.world.getBattleGround().putTroop(unitType, number, new Position(x, y));
                     } catch (TroopNotFoundException e) {
@@ -317,7 +318,7 @@ public class Controller {
                 controller.viewer.printErrorMessage(e.getMessage());
             }
 
-        } while (controller.world.getBattleGround().isGameFinished());
+        } while (!controller.world.getBattleGround().isGameFinished());
         controller.battleGroundViewer.printAttackFinishedInfo();
     }
 

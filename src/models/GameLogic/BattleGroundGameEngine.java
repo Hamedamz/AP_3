@@ -16,8 +16,7 @@ public class BattleGroundGameEngine {
     private BattleGround battleGround;
     private boolean isGameFinished;
 
-    public BattleGroundGameEngine(BattleGround battleGround) {
-        this.battleGround = battleGround;
+    public BattleGroundGameEngine() {
         isGameFinished = false;
     }
 
@@ -120,7 +119,10 @@ public class BattleGroundGameEngine {
     public void performDefendersAttack() {
         for (int i = 0; i < battleGround.getEnemyBuildings().size(); i++) {
             if (!battleGround.getEnemyBuildings().get(i).isDestroyed()) {
-                ((DefensiveBuilding) battleGround.getEnemyBuildings().get(i)).giveDamageTo(((DefensiveBuilding) battleGround.getEnemyBuildings().get(i)).getTarget(), battleGround);
+                if (battleGround.getEnemyBuildings().get(i) instanceof DefensiveBuilding){
+                    ((DefensiveBuilding) battleGround.getEnemyBuildings().get(i)).giveDamageTo(((DefensiveBuilding) battleGround.getEnemyBuildings().get(i)).getTarget(), battleGround);
+
+                }
             }
         }
     }

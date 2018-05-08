@@ -74,6 +74,7 @@ public class World {
 
     public void attackMap(Map map) {
         battleGround = new BattleGround(myVillage, map);
+        gameEngine.loadBattleGround();
     }
 
     public void sendTroopToAttack(String troopType, int count) throws TroopNotFoundException {

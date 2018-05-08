@@ -6,6 +6,12 @@ public class BFS {
     public static ArrayList<Position> getPath(Map map, Position origin, Position destination, int range) {
         ArrayList<Position> positions = new ArrayList<>();
         boolean[][] isOccupied = map.getIsOccupied();
+        for (int i = 0; i < map.getWidth(); i++) {
+            isOccupied[0][i] = false;
+            isOccupied[i][0] = false;
+            isOccupied[i][map.getHeight() - 1] = false;
+            isOccupied[map.getWidth() - 1][i] = false;
+        }
         boolean[][] visited = new boolean[map.getWidth()][map.getHeight()];
         visited[origin.getX()][origin.getY()] = true;
         ArrayList<Position> queue = new ArrayList<>();
@@ -42,7 +48,6 @@ public class BFS {
             } catch (ArrayIndexOutOfBoundsException ignored) {}
             positions.add(queue.get(0));
             queue.remove(0);
-
         }
         return positions;
     }

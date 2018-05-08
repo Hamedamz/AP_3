@@ -34,6 +34,13 @@ public class BattleGround {
         lootedBounty = new Bounty(0, new Resource(0, 0));
         thisLootedBounty = new Bounty(0, new Resource(0, 0));
         this.timeRemaining = (int) GameLogicConfig.getFromDictionary("WarTime");
+        initiateAllTroops();
+    }
+
+    private void initiateAllTroops() {
+        for (String troopType : GameLogicConfig.TROOPS) {
+            allTroops.put(troopType, new ArrayList<>());
+        }
     }
 
     public void setNumberOfTroopsDeployed(int[][] numberOfTroopsDeployed) {
@@ -90,7 +97,7 @@ public class BattleGround {
         return myVillage.getTotalResourceCapacity();
     }
 
-    public  ArrayList<Entity> getAttackerEntitiesInPosition(Position pos) {
+    public  ArrayList<Entity> getAttackerInPosition(Position pos) {
         ArrayList<Entity> result = new ArrayList<>();
         for (Troop troop : deployedTroops) {
             if (troop.getPosition().equals(pos)) {
@@ -143,16 +150,11 @@ public class BattleGround {
         if (numberOfTroopsDeployed[position.getX()][position.getY()] + count > MAX_UNITS_IN_POSITION) {
             throw new CountLimitReachedException();
         }
-        ArrayList<Troop> result = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            result.add(troops.get(i));
+            deployedTroops.add(troops.get(i));
+            troops.get(i).setPosition(position);
+            numberOfTroopsDeployed[position.getX()][position.getY()]+=count;
         }
-        for (Troop troop : result) {
-            troop.setPosition(position);
-            numberOfTroopsDeployed[position.getX()][position.getY()]++;
-        }
-
-
 
     }
 
@@ -160,7 +162,14 @@ public class BattleGround {
         if (timeRemaining <= 0) {
             return true;
         }
-        if (deployedTroops.size() == 0) {
+        boolean flag = false;
+        for (String troopType : allTroops.keySet()) {
+            if(allTroops.get(troopType).size() > 0) {
+                flag = true;
+                break;
+            }
+        }
+        if(!flag) {
             return true;
         }
         if (!myVillage.isThereAvailableSpaceForResources()) {
