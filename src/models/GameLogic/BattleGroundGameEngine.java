@@ -16,7 +16,7 @@ public class BattleGroundGameEngine {
 
     public BattleGroundGameEngine(BattleGround battleGround) {
         this.battleGround = battleGround;
-        isGameFinished = false;;
+        isGameFinished = false;
     }
 
     public void loadBattleGround(BattleGround battleGround) {
