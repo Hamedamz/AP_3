@@ -18,9 +18,10 @@ public class BattleGround {
     private Bounty lootedBounty;
     private int[][] numberOfTroopsDeployed = new int[30][30];
 
-    public BattleGround(Village myVillage, ArrayList<Building> enemyBuildings, ArrayList<Troop> troops) {
+    public BattleGround(Village myVillage, Map enemyMap) {
+        troops = new ArrayList<>();
         this.myVillage = myVillage;
-        this.troops = troops;
+        this.enemyMap = enemyMap;
         lootedBounty = new Bounty(0, new Resource(0, 0));
         thisLootedBounty = new Bounty(0, new Resource(0, 0));
         this.timeRemaining = (int) GameLogicConfig.getFromDictionary("WarTime");
@@ -32,6 +33,10 @@ public class BattleGround {
 
     public int[][] getNumberOfTroopsDeployed() {
         return numberOfTroopsDeployed;
+    }
+
+    public void addTroops(ArrayList<Troop> troops) {
+        this.troops.addAll(troops);
     }
 
     public void addBounty(Bounty bounty) {
@@ -111,10 +116,6 @@ public class BattleGround {
     }
     private void move(Troop troop) {
 
-    }
-
-    public void setEnemyMap(Map enemyMap) {
-        this.enemyMap = enemyMap;
     }
 
     public boolean isGameFinished() {
