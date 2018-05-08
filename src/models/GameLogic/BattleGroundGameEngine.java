@@ -13,10 +13,13 @@ import java.util.ArrayList;
 
 public class BattleGroundGameEngine {
     private BattleGround battleGround;
-    private boolean isGameFinished = false;
+    private int time;
+    private boolean isGameFinished;
 
     public BattleGroundGameEngine(BattleGround battleGround) {
         this.battleGround = battleGround;
+        time = 0;
+        isGameFinished = false;;
     }
 
     public void loadBattleGround(BattleGround battleGround) {
@@ -27,6 +30,7 @@ public class BattleGroundGameEngine {
         checkDestructions();
         battleGround.setNumberOfTroopsDeployed(new int[30][30]);
         isGameFinished = battleGround.isGameFinished();
+        time++;
     }
 
     private void checkDestructions() {

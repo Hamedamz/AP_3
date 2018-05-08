@@ -9,6 +9,7 @@ public class GameEngine {
 
     public GameEngine(World world) {
         this.world = world;
+        villageGameEngine = new VillageGameEngine();
     }
 
     public void update() {
@@ -23,7 +24,7 @@ public class GameEngine {
     }
 
     public void loadNewVillage() {
-        villageGameEngine = new VillageGameEngine(world.getMyVillage());
+        villageGameEngine.loadVillage(world.getMyVillage());
     }
 
     public void loadBattleGround(BattleGround battleGround) {
