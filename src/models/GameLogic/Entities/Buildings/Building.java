@@ -16,7 +16,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
     protected int maxHitPoint;
     protected int hitPoints;
     protected int level;
-    private transient ID id; //TODO changed
+    private transient ID id;
     protected boolean isDestroyed;
     private boolean isUnderConstruct;
 

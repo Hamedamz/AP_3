@@ -39,6 +39,14 @@ public class Position {
         );
     }
 
+    public static Position addPostions(Position position1, Position position2) {
+        return new Position(position1.x + position2.x, position1.y + position2.y);
+    }
+
+    public boolean isInBoundary(Map map) {
+        return x >= 0 && y >= 0 && x < map.getWidth() && y < map.getHeight();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Position) {

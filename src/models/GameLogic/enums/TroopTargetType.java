@@ -29,7 +29,9 @@ public enum TroopTargetType {
                 }
                 break;
             case BUILDING:
-                return true;
+                //if (!defender instanceof Wall) {
+                    return true;
+                //}
         }
         return false;
     }

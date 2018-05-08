@@ -43,11 +43,6 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
         return targetType;
     }
 
-    public boolean canTowerAttack(Entity Troop) {
-        return true;
-        // TODO: 5/5/2018
-    }
-
     @Override
     public void upgrade() throws UpgradeLimitReachedException {
         super.upgrade();
