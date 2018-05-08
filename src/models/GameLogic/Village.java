@@ -5,6 +5,7 @@ import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Troop.Archer;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.*;
+import models.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 import java.util.*;
@@ -23,6 +24,7 @@ public class Village {
     public Village() {
         underConstructBuildings = new ArrayList<>();
         listOfBuildingsByName = new HashMap<>();
+        IDGenerator.resetIDGenerator();
     }
 
     public static Village startNewVillage() {
