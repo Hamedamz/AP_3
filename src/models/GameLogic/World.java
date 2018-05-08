@@ -23,22 +23,6 @@ public class World {
         enemyVillagesPathAndMap = new HashMap<>();
     }
 
-    public void loadVillage(String name) {
-        try {
-            myVillage = JsonInterpreter.loadMyVillage(name);
-        } catch (java.io.FileNotFoundException e) {
-            e.getMessage();
-        }
-    }
-
-    public void addNewVillage(String name, String path) throws VillageAlreadyExists {
-        if (myVillagesNameAndPath.containsKey(name)) {
-            throw new VillageAlreadyExists();
-        }
-        else {
-            myVillagesNameAndPath.put(name, path);
-        }
-    }
 
     public HashMap<String, String> getMyVillagesNameAndPath() {
         return myVillagesNameAndPath;
@@ -60,11 +44,6 @@ public class World {
         return battleGround;
     }
 
-    public int getTurn() {
-        return 0;
-        // TODO: 5/7/2018
-    }
-
     public void makeNewGame() throws VillageAlreadyExists{
 //        if(myVillage != null) {
 //            throw new VillageAlreadyExists();
@@ -78,15 +57,6 @@ public class World {
         myVillagesNameAndPath.put(name, "savedMaps\\" + name + ".json");
     }
 
-    private boolean hasBattleEnded() {
-        return true;
-        // TODO: 5/5/2018
-    }
-
-
-    public void loadMyVillage(String path) throws FileNotFoundException {
-
-    }
 
     public void loadEnemyMap(String path) throws java.io.FileNotFoundException {
         ArrayList<Building> buildings = JsonInterpreter.loadEnemyVillageBuildings(path);
@@ -96,17 +66,7 @@ public class World {
     }
 
 
-    public boolean attackVillage() throws FileNotFoundException {
-        // TODO: 5/5/2018
-        return true;
-        //maybe this changes
-    }
-
-    public void passTurn() {
-
-    }
-
     public GameEngine getGameEngine() {
         return gameEngine;
-    }
+    } // FIXME: 5/8/2018 gameEngine must not be passed
 }

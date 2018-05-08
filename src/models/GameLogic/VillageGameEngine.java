@@ -10,8 +10,7 @@ import java.util.ArrayList;
 public class VillageGameEngine {
     private Village village;
 
-    public VillageGameEngine(Village village) {
-        this.village = village;
+    public VillageGameEngine() {
     }
 
     public void loadVillage(Village village) {
