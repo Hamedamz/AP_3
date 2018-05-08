@@ -307,6 +307,9 @@ public class Controller {
                     int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
                     controller.turn(n);
 
+                } else if(command.matches(QUIT_ATTACK_FORMAT)) {
+                    controller.world.getBattleGround().endBattle();
+                    break;
                 } else
                     throw new InvalidInputException("invalid input");
 
@@ -314,7 +317,7 @@ public class Controller {
                 controller.viewer.printErrorMessage(e.getMessage());
             }
 
-        } while (!command.matches(QUIT_ATTACK_FORMAT) || !controller.world.getBattleGround().isGameFinished());
+        } while (controller.world.getBattleGround().isGameFinished());
         controller.battleGroundViewer.printAttackFinishedInfo();
     }
 

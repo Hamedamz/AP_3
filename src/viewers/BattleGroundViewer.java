@@ -47,7 +47,7 @@ public class BattleGroundViewer extends BasicViewer {
 
     public void printStatusTower(String towerType) {
         for (Building building : battleGround.getEnemyMap().getBuildings()) {
-            if (building.getClass().getName().equals(towerType)) {
+            if (building.getClass().getSimpleName().equals(towerType)) {
                 System.out.format(SHOW_STATUS_TOWER_FORMAT,
                         towerType, building.getLevel(),
                         building.getPosition().getX(), building.getPosition().getY(),
