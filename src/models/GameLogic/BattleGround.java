@@ -8,6 +8,7 @@ import models.GameLogic.Exceptions.CountLimitReachedException;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 public class BattleGround {
@@ -16,7 +17,7 @@ public class BattleGround {
 
     private Map enemyMap;
 
-    private Set<Troop> troops;
+    private ArrayList<Troop> troops;
     private Bounty availableBounty; //fixme set this at constructor
     public void setNumberOfTroopsDeployed(int[][] numberOfTroopsDeployed) {
         this.numberOfTroopsDeployed = numberOfTroopsDeployed;
@@ -28,7 +29,7 @@ public class BattleGround {
 
     private int[][] numberOfTroopsDeployed = new int[30][30];
 
-    public BattleGround(Village myVillage, ArrayList<Building> enemyBuildings, Set<Troop> troops) {
+    public BattleGround(Village myVillage, ArrayList<Building> enemyBuildings, ArrayList<Troop> troops) {
         this.myVillage = myVillage;
         this.troops = troops;
         availableBounty = new Bounty(0, new Resource(0, 0));
@@ -54,7 +55,7 @@ public class BattleGround {
         return result;
     }
 
-    public Set<Troop> getTroops() {
+    public ArrayList<Troop> getTroops() {
         return troops;
     }
 
