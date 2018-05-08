@@ -4,10 +4,7 @@ import models.Menu.DynamicMenuItem;
 import models.Menu.Menu;
 import models.Menu.MenuItem;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.SortedMap;
+import java.util.*;
 
 public class MenuViewer extends BasicViewer {
 
@@ -20,16 +17,12 @@ public class MenuViewer extends BasicViewer {
         printMenuItemsList(menu.getItems(), menu.getDynamicItemsHashMap());
     }
 
-    private void printMenuItemsList(ArrayList<MenuItem> Items, HashMap<DynamicMenuItem, String> dynamicItems) {
+    private void printMenuItemsList(ArrayList<MenuItem> Items, LinkedHashMap<DynamicMenuItem, String> dynamicItems) {
         int index = 1;
         for (MenuItem item : Items) {
             System.out.printf(MENU_ITEM_FORMAT, index++, item.getLabel());
         }
-//        ArrayList<DynamicMenuItem> sortedDynamicItems = new ArrayList<>(dynamicItems.keySet());
-//        sortedDynamicItems.sort(DynamicMenuItem::compareTo);
-//        for (DynamicMenuItem sortedDynamicItem : sortedDynamicItems) {
-//            System.out.printf(MENU_ITEM_INFO_FORMAT, index++, sortedDynamicItem.getLabel(), dynamicItems.get(sortedDynamicItem));
-//        }
+
         for (Map.Entry<DynamicMenuItem, String> dynamicItem : dynamicItems.entrySet()) {
             System.out.printf(MENU_ITEM_INFO_FORMAT, index++, dynamicItem.getKey().getLabel(), dynamicItem.getValue());
         }

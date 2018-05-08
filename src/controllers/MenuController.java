@@ -13,6 +13,7 @@ import viewers.MenuViewer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Stack;
 
 import static controllers.enums.CommandType.*;
@@ -131,7 +132,7 @@ public class MenuController {
 
     private void updateDynamicMenu(Menu menu) {
         DynamicListType listType = menu.getDynamicListType();
-        HashMap<DynamicMenuItem, String> list = null;
+        LinkedHashMap<DynamicMenuItem, String> list = null;
 
         switch (listType) {
             case EMPTY:
@@ -162,17 +163,17 @@ public class MenuController {
         menu.updateDynamicItems(list);
     }
 
-    private HashMap<DynamicMenuItem, String> getVillageMapList() {
-        HashMap<DynamicMenuItem, String> villageMapList = new HashMap<>();
+    private LinkedHashMap<DynamicMenuItem, String> getVillageMapList() {
+        LinkedHashMap<DynamicMenuItem, String> villageMapList = new LinkedHashMap<>();
         for (String villageName : world.getMyVillagesNameAndPath().keySet()) {
             villageMapList.put(new DynamicMenuItem(LOAD_GAME, villageName), "");
         }
         return villageMapList;
     }
 
-    private HashMap<DynamicMenuItem, String> getAvailableMapsList() {
+    private LinkedHashMap<DynamicMenuItem, String> getAvailableMapsList() {
         // enemy maps that can be attacked
-        HashMap<DynamicMenuItem, String> enemyMapList = new HashMap<>();
+        LinkedHashMap<DynamicMenuItem, String> enemyMapList = new LinkedHashMap<>();
         for (java.util.Map.Entry<String, Map> pathMapEntry : world.getEnemyVillagesPathAndMap().entrySet()) {
             String mapPath = pathMapEntry.getKey();
             mapPath = mapPath.substring(mapPath.lastIndexOf("\\"));
@@ -183,9 +184,9 @@ public class MenuController {
         return enemyMapList;
     }
 
-    private HashMap<DynamicMenuItem, String> getAvailableTroopsList() {
+    private LinkedHashMap<DynamicMenuItem, String> getAvailableTroopsList() {
         // troops and number of each
-        HashMap<DynamicMenuItem, String> availableTroopsList = new HashMap<>();
+        LinkedHashMap<DynamicMenuItem, String> availableTroopsList = new LinkedHashMap<>();
         Camp camp = (Camp) getActiveMenu().getModel();
         for (String troop : TROOPS) {
             int numberOfTroop = camp.getNumberOfTroop(troop);
@@ -196,9 +197,9 @@ public class MenuController {
         return availableTroopsList;
     }
 
-    private HashMap<DynamicMenuItem, String> getTrainingStatusList() {
+    private LinkedHashMap<DynamicMenuItem, String> getTrainingStatusList() {
         // troop that are being trained with turns left ro be trained
-        HashMap<DynamicMenuItem, String> trainingTroopsList = new HashMap<>();
+        LinkedHashMap<DynamicMenuItem, String> trainingTroopsList = new LinkedHashMap<>();
         Barracks barracks = (Barracks) getActiveMenu().getModel();
         ArrayList<TrainingTroop> trainingTroops = barracks.getTrainingTroops();
         for (TrainingTroop trainingTroop : trainingTroops) {
@@ -207,10 +208,10 @@ public class MenuController {
         return trainingTroopsList;
     }
 
-    private HashMap<DynamicMenuItem, String> getTroopsList() {
+    private LinkedHashMap<DynamicMenuItem, String> getTroopsList() {
         // all troops with labels A and U that show availability
         // if troop can be built the possible number is also shown
-        HashMap<DynamicMenuItem, String> troopsList = new HashMap<>();
+        LinkedHashMap<DynamicMenuItem, String> troopsList = new LinkedHashMap<>();
         Resource resourceStock = world.getMyVillage().getTotalResourceStock();
         String info;
         for (String troop : TROOPS) {
@@ -224,8 +225,8 @@ public class MenuController {
         return troopsList;
     }
 
-    private HashMap<DynamicMenuItem, String> getConstructionStatusList() {
-        HashMap<DynamicMenuItem, String> constructionStatusList = new HashMap<>();
+    private LinkedHashMap<DynamicMenuItem, String> getConstructionStatusList() {
+        LinkedHashMap<DynamicMenuItem, String> constructionStatusList = new LinkedHashMap<>();
         ArrayList<Builder> builders = world.getMyVillage().getTownHall().getBuilders();
         for (Builder builder : builders) {
             if (builder.isBuilderBusy())
@@ -234,10 +235,10 @@ public class MenuController {
         return constructionStatusList;
     }
 
-    private HashMap<DynamicMenuItem, String> getBuildingsList() {
+    private LinkedHashMap<DynamicMenuItem, String> getBuildingsList() {
         ArrayList<Building> buildings = world.getMyVillage().getMap().getBuildings();
         buildings.sort(Building::compareTo);
-        HashMap<DynamicMenuItem, String> buildingsList = new HashMap<>();
+        LinkedHashMap<DynamicMenuItem, String> buildingsList = new LinkedHashMap<>();
         for (Building building : buildings) {
             buildingsList.put(new DynamicMenuItem(OPEN_BUILDING_MENU, building), String.valueOf(building.getID().getCount()));
         }
