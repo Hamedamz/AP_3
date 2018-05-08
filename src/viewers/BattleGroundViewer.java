@@ -32,7 +32,7 @@ public class BattleGroundViewer extends BasicViewer {
     }
 
     public void printStatusUnit(String troopType) {
-        for (Troop troop : battleGround.getTroops()) {
+        for (Troop troop : battleGround.getDeployedTroops()) {
             System.out.format(SHOW_STATUS_UNIT_FORMAT, troopType, troop.getLevel(),
                     troop.getPosition().getX(), troop.getPosition().getY(),
                     troop.getLevel());
