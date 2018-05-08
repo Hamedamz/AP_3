@@ -52,7 +52,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
                 }
             }
         }
-        if (minDistance >= 0) {
+        if (minDistance < Double.MAX_VALUE) {
             currentTarget = (Defender) minDistantDestroyable;
             return;
         }
@@ -67,7 +67,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
             }
         }
 
-        if(minDistance >= 0) {
+        if(minDistance < Double.MAX_VALUE) {
             currentTarget = (Defender) minDistantDestroyable;
             return;
         }
