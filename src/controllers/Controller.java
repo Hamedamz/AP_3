@@ -97,8 +97,12 @@ public class Controller {
                 case LOAD_GAME_FROM_FILE:
                     controller.viewer.requestForInput("enter path:");
                     command = controller.viewer.getInput();
-                    if (loadGameFromFile(command)) {
+                    try {
+                        loadGameFromFile(command);
                         controller.menuController.openMenu(controller.menuController.getVillageMenu());
+                    }
+                    catch (FileNotFoundException e) {
+                        System.err.println(e.getMessage());
                     }
                     break;
                 case LOAD_GAME:
@@ -196,12 +200,12 @@ public class Controller {
 
     }
 
-    public static boolean loadGameFromFile(String path) throws FileNotFoundException {
+    public static void loadGameFromFile(String path) throws FileNotFoundException {
         Village village = JsonInterpreter.loadMyVillage(path);
         controller.world.setMyVillage(village);
         controller.viewer.printInformation("game successfully loaded!");
         controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
-        return true;
+        return;
     }
 
     private static void trainTroop(String troopType) throws NotEnoughResourcesException, NotAvailableAtThisLevelException {
