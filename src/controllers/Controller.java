@@ -260,54 +260,59 @@ public class Controller {
         controller.startAttack();
     }
 
-    private void startAttack() throws InvalidInputException, InvalidPositionException, CountLimitReachedException {
+    private void startAttack() {
         String command;
         do {
             command = controller.viewer.getInput();
-            if (command.matches(STATUS_RESOURCES_FORMAT)) {
-                controller.battleGroundViewer.printStatusResources();
+            try {
+                if (command.matches(STATUS_RESOURCES_FORMAT)) {
+                    controller.battleGroundViewer.printStatusResources();
 
-            } else if (command.matches(STATUS_UNIT_FORMAT)) {
-                String unitType = controller.getArgument(1, command, STATUS_UNIT_FORMAT);
-                if (CommandType.isTypeValid(unitType, "troop")) {
-                    controller.battleGroundViewer.printStatusUnit(unitType);
-                } else throw new InvalidInputException("no such a unit!");
+                } else if (command.matches(STATUS_UNIT_FORMAT)) {
+                    String unitType = controller.getArgument(1, command, STATUS_UNIT_FORMAT);
+                    if (CommandType.isTypeValid(unitType, "troop")) {
+                        controller.battleGroundViewer.printStatusUnit(unitType);
+                    } else throw new InvalidInputException("no such a unit!");
 
-            } else if (command.matches(STATUS_UNITS_FORMAT)) {
-                controller.battleGroundViewer.printStatusUnit();
+                } else if (command.matches(STATUS_UNITS_FORMAT)) {
+                    controller.battleGroundViewer.printStatusUnit();
 
-            } else if (command.matches(STATUS_TOWER_FORMAT)) {
-                String towerType = controller.getArgument(1, command, STATUS_TOWER_FORMAT);
-                if (CommandType.isTypeValid(towerType, "tower")) {
-                    controller.battleGroundViewer.printStatusTower(towerType);
-                } else throw new InvalidInputException("no such a tower!");
+                } else if (command.matches(STATUS_TOWER_FORMAT)) {
+                    String towerType = controller.getArgument(1, command, STATUS_TOWER_FORMAT);
+                    if (CommandType.isTypeValid(towerType, "tower")) {
+                        controller.battleGroundViewer.printStatusTower(towerType);
+                    } else throw new InvalidInputException("no such a tower!");
 
-            } else if (command.matches(STATUS_TOWERS_FORMAT)) {
-                controller.battleGroundViewer.printStatusTower();
+                } else if (command.matches(STATUS_TOWERS_FORMAT)) {
+                    controller.battleGroundViewer.printStatusTower();
 
-            } else if (command.matches(STATUS_ALL_FORMAT)) {
-                controller.battleGroundViewer.printStatusAll();
+                } else if (command.matches(STATUS_ALL_FORMAT)) {
+                    controller.battleGroundViewer.printStatusAll();
 
-            } else if (command.matches(PUT_TROOP_FORMAT)) {
-                String unitType = controller.getArgument(1, command, PUT_TROOP_FORMAT);
-                int number = Integer.parseInt(controller.getArgument(2, command, PUT_TROOP_FORMAT));
-                int x = Integer.parseInt(controller.getArgument(3, command, PUT_TROOP_FORMAT));
-                int y = Integer.parseInt(controller.getArgument(4, command, PUT_TROOP_FORMAT));
-                try {
-                    controller.world.getBattleGround().putTroop(unitType, number, new Position(x, y));
-                } catch (TroopNotFoundException e) {
-                    controller.viewer.printErrorMessage(e.getMessage());
-                }
+                } else if (command.matches(PUT_TROOP_FORMAT)) {
+                    String unitType = controller.getArgument(1, command, PUT_TROOP_FORMAT);
+                    int number = Integer.parseInt(controller.getArgument(2, command, PUT_TROOP_FORMAT));
+                    int x = Integer.parseInt(controller.getArgument(3, command, PUT_TROOP_FORMAT));
+                    int y = Integer.parseInt(controller.getArgument(4, command, PUT_TROOP_FORMAT));
+                    try {
+                        controller.world.getBattleGround().putTroop(unitType, number, new Position(x, y));
+                    } catch (TroopNotFoundException e) {
+                        controller.viewer.printErrorMessage(e.getMessage());
+                    }
 
-            } else if (command.matches(GO_NEXT_TURN_FORMAT)) {
-                controller.turn(1);
+                } else if (command.matches(GO_NEXT_TURN_FORMAT)) {
+                    controller.turn(1);
 
-            } else if (command.matches(TURN_FORMAT)) {
-                int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
-                controller.turn(n);
+                } else if (command.matches(TURN_FORMAT)) {
+                    int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
+                    controller.turn(n);
 
-            } else
-                throw new InvalidInputException("invalid input");
+                } else
+                    throw new InvalidInputException("invalid input");
+
+            } catch (CountLimitReachedException | InvalidInputException | InvalidPositionException e) {
+                controller.viewer.printErrorMessage(e.getMessage());
+            }
 
         } while (!command.matches(QUIT_ATTACK_FORMAT) || !controller.world.getBattleGround().isGameFinished());
         controller.battleGroundViewer.printAttackFinishedInfo();

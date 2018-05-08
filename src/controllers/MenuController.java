@@ -216,7 +216,7 @@ public class MenuController {
         String info;
         for (String troop : TROOPS) {
             int elixir = GameLogicConfig.getFromDictionary(troop + "TrainElixir");
-            if (resourceStock.getElixir() - elixir >= 0) {
+            if (resourceStock.getElixir() - elixir >= 0) { // FIXME: 5/8/2018
                 info = "A" + " x" + (resourceStock.getElixir() / elixir);
             } else
                 info = "U";
