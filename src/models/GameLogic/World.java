@@ -38,8 +38,9 @@ public class World {
         return myVillage;
     }
 
-    public void setMyVillage(Village myVillage) {
+    public void setMyVillage(Village myVillage) { // FIXME: 5/9/2018 soroushVT
         this.myVillage = myVillage;
+        gameEngine.loadNewVillage();
     }
 
     public BattleGround getBattleGround() {

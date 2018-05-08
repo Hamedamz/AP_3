@@ -93,10 +93,9 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
                 }
             }
         }
-        if (minDistance < Double.MAX_VALUE && minDistance < this.getRange()) {
+        if (minDistance < this.getEffectRange()) {
             this.target = minDistanceDestroyable;
         }
-        this.target = null;
     }
 
     @Override

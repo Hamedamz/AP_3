@@ -1,7 +1,9 @@
 package viewers;
 
+import interfaces.Attacker;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Troop;
 
 import static controllers.OutputFormats.*;
@@ -34,7 +36,7 @@ public class BattleGroundViewer extends BasicViewer {
             if (troop.getClass().getSimpleName().equals(troopType)) {
                 System.out.format(SHOW_STATUS_UNIT_FORMAT, troopType, troop.getLevel(),
                         troop.getPosition().getX(), troop.getPosition().getY(),
-                        troop.getLevel());
+                        ((AttackerTroop) troop).getHitPoints());
             }
         }
     }
