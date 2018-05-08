@@ -29,11 +29,6 @@ public class Barracks extends Building {
         this.trainingTroops.addAll(trainingTroops);
     }
 
-    public boolean hasSpace() {
-        return true;
-        // TODO: 5/5/2018
-    }
-
     public int getMaxAvailableTrainingTroop(String troopType, Resource stock) {
         return Resource.divideResources(stock, TrainingTroop.getTrainingResources(troopType));
     }

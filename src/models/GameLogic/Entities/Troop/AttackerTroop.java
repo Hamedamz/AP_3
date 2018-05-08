@@ -120,12 +120,6 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
 
 
     @Override
-    public MoveType getTroopType() {
-        return null;
-        // TODO: 5/5/2018  
-    }
-
-    @Override
     public int getEffectRange() {
         return range;
     }

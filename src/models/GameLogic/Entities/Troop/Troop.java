@@ -47,6 +47,11 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
     }
 
     @Override
+    public MoveType getTroopMoveType() {
+        return moveType;
+    }
+
+    @Override
     public Resource getUpgradeResource() {
         return new Resource(0, 0);
     }

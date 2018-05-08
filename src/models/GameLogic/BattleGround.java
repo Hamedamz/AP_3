@@ -21,7 +21,7 @@ public class BattleGround {
     private ArrayList<Building> enemyBuildings;
     private ArrayList<Troop> deployedTroops;
     private HashMap<String, ArrayList<Troop>> allTroops;
-    private Bounty thisLootedBounty; //fixme set this at constructor
+    private Bounty thisLootedBounty;
     private Bounty lootedBounty;
     private int[][] numberOfTroopsDeployed = new int[30][30];
 
