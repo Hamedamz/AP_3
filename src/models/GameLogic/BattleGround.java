@@ -5,23 +5,31 @@ import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.*;
 import models.GameLogic.Exceptions.CountLimitReachedException;
+import models.GameLogic.Exceptions.InvalidPositionException;
+import models.GameLogic.Exceptions.TroopNotFoundException;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BattleGround {
+
+    public static final int MAX_UNITS_IN_POSITION = 5;
+
     private int timeRemaining;
     private Village myVillage;
     private Map enemyMap;
     private ArrayList<Building> enemyBuildings;
-    private ArrayList<Troop> troops;
+    private ArrayList<Troop> deployedTroops;
+    private HashMap<String, ArrayList<Troop>> allTroops;
     private Bounty thisLootedBounty; //fixme set this at constructor
     private Bounty lootedBounty;
     private int[][] numberOfTroopsDeployed = new int[30][30];
 
     public BattleGround(Village myVillage, Map enemyMap) {
-        troops = new ArrayList<>();
+        deployedTroops = new ArrayList<>();
         enemyBuildings = new ArrayList<>(enemyMap.getBuildings());
+        allTroops = new HashMap<>();
         this.myVillage = myVillage;
         this.enemyMap = enemyMap;
         lootedBounty = new Bounty(0, new Resource(0, 0));
@@ -37,8 +45,12 @@ public class BattleGround {
         return numberOfTroopsDeployed;
     }
 
-    public void addTroops(ArrayList<Troop> troops) {
-        this.troops.addAll(troops);
+    public void addTroops(String troopType, ArrayList<Troop> troops) {
+        if(allTroops.keySet().contains(troopType)) {
+            allTroops.get(troopType).addAll(troops);
+        } else {
+            allTroops.put(troopType, troops);
+        }
     }
 
     public void addBounty(Bounty bounty) {
@@ -79,7 +91,7 @@ public class BattleGround {
 
     public  ArrayList<Entity> getAttackerEntitiesInPosition(Position pos) {
         ArrayList<Entity> result = new ArrayList<>();
-        for (Troop troop : troops) {
+        for (Troop troop : deployedTroops) {
             if (troop.getPosition().equals(pos)) {
                 result.add(troop);
             }
@@ -87,14 +99,18 @@ public class BattleGround {
         return result;
     }
 
-    public ArrayList<Troop> getTroops() {
-        return troops;
+    public ArrayList<Troop> getDeployedTroops() {
+        return deployedTroops;
     }
 
-//    public Map getEnemyMap() {
-//        return enemyMap;
-//    }
-//
+    public HashMap<String, ArrayList<Troop>> getAllTroops() {
+        return allTroops;
+    }
+
+    public Map getEnemyMap() {
+        return enemyMap;
+    }
+
 
     public ArrayList<Building> getEnemyBuildings() {
         return enemyBuildings;
@@ -118,12 +134,30 @@ public class BattleGround {
     //private void isHealerAlive() { }
     //TODO check position correctness -> not occupied
 
-    public void putTroop(Troop troop, Position position) throws CountLimitReachedException {
-        if (numberOfTroopsDeployed[position.getX()][position.getY()] >= 5) {
+    public void putTroop(String troopType, int count, Position position)
+            throws CountLimitReachedException, InvalidPositionException, TroopNotFoundException {
+        ArrayList<Troop> troops = allTroops.get(troopType);
+        if(troops.size() < count) {
+            throw new TroopNotFoundException();
+        }
+        if (!(position.getX() == 0 || position.getX() == enemyMap.getWidth() - 1 ||
+                position.getY() == 0 || position.getY() == enemyMap.getHeight() - 1)) {
+            throw new InvalidPositionException();
+        }
+        if (numberOfTroopsDeployed[position.getX()][position.getY()] + count > MAX_UNITS_IN_POSITION) {
             throw new CountLimitReachedException();
         }
-        troop.setPosition(position);
-        numberOfTroopsDeployed[position.getX()][position.getY()]++;
+        ArrayList<Troop> result = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            result.add(troops.get(i));
+        }
+        for (Troop troop : result) {
+            troop.setPosition(position);
+            numberOfTroopsDeployed[position.getX()][position.getY()]++;
+        }
+
+
+
     }
     private void move(Troop troop) {
 
@@ -133,7 +167,7 @@ public class BattleGround {
         if (timeRemaining <= 0) {
             return true;
         }
-        if (troops.size() == 0) {
+        if (deployedTroops.size() == 0) {
             return true;
         }
         if (!myVillage.isThereAvailableSpaceForResources()) {
@@ -148,6 +182,6 @@ public class BattleGround {
     }
 
     public void endBattle() {
-        myVillage.spreadTroops(troops);
+        myVillage.spreadTroops(allTroops);
     }
 }

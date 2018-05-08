@@ -3,7 +3,6 @@ package models.GameLogic;
 import interfaces.Attacker;
 import interfaces.Destroyable;
 import models.GameLogic.Entities.Buildings.Building;
-import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Troop;
@@ -56,7 +55,7 @@ public class BattleGroundGameEngine {
 
     public void updateTroopTarget() {
         ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getEnemyDefenders());
-        for (Troop troop : battleGround.getTroops()) {
+        for (Troop troop : battleGround.getDeployedTroops()) {
             if (troop instanceof AttackerTroop) {
                 if (((AttackerTroop) troop).getTarget() == null || ((AttackerTroop) troop).getTarget().isDestroyed()) {
                     try {
@@ -71,7 +70,7 @@ public class BattleGroundGameEngine {
 
     public void updateDefendersTarget() {
         ArrayList<Destroyable> destroyables = new ArrayList<>();
-        for (Troop entry : battleGround.getTroops()) {
+        for (Troop entry : battleGround.getDeployedTroops()) {
             destroyables.add((Destroyable) entry);
         }
         for (Defender defender : battleGround.getEnemyDefenders()) {
@@ -93,11 +92,11 @@ public class BattleGroundGameEngine {
                 battleGround.getEnemyDefenders().remove(defender);
             }
         }
-        for (Troop troop: battleGround.getTroops()) {
+        for (Troop troop: battleGround.getDeployedTroops()) {
             if(troop.isDestroyed()) {
-                battleGround.getTroops().remove(troop);
+                battleGround.getAllTroops().get(troop.getClass().getSimpleName()).remove(troop);
+                battleGround.getDeployedTroops().remove(troop);
             }
-
         }
 
     }

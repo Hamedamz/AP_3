@@ -77,6 +77,6 @@ public class World {
     }
 
     public void sendTroopToAttack(String troopType, int count) throws TroopNotFoundException {
-        battleGround.addTroops(myVillage.sendTroopToBattleGround(troopType, count));
+        battleGround.addTroops(troopType, myVillage.sendTroopToBattleGround(troopType, count));
     }
 }

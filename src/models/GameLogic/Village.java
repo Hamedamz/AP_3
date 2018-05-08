@@ -343,18 +343,23 @@ public class Village {
         townHall.addScore(bounty.getScore());
     }
 
-    public void spreadTroops(ArrayList<Troop> troops) {
+    public void spreadTroops(HashMap<String ,ArrayList<Troop>> allTroops) {
         ArrayList<Camp> camps = findBuildingsWithSameType(Camp.class);
         int campCounter = 0;
-        for (int i = 0; i < troops.size(); i++) {
-            try {
-                camps.get(campCounter).addTroop(troops.get(i));
-            } catch (NotEnoughCapacityException e) {
-                e.getMessage();
-                campCounter++;
-                 i -= 1;
+        for(String troopType: allTroops.keySet()) {
+            ArrayList<Troop> troops = allTroops.get(troopType);
+            for (Troop troop : troops) {
+                try {
+                    findCampForNewTroops().addTroop(troop);
+                } catch (NotEnoughCapacityException e) {
+                    System.err.println("there is no place for returning troops");
+                    break;
+                } catch (BuildingNotFoundException e) {
+                }
             }
         }
+
+
     }
 }
 
