@@ -3,7 +3,7 @@ package models.Menu;
 import controllers.enums.CommandType;
 import models.GameLogic.Entities.Entity;
 
-public class DynamicMenuItem extends MenuItem {
+public class DynamicMenuItem extends MenuItem implements Comparable<DynamicMenuItem> {
     private Entity model;
 
     public DynamicMenuItem(CommandType commandType, Entity model) {
@@ -25,5 +25,10 @@ public class DynamicMenuItem extends MenuItem {
             return model.getClass().getSimpleName();
         }
         return super.getLabel();
+    }
+
+    @Override
+    public int compareTo(DynamicMenuItem o) {
+        return this.getLabel().compareTo(o.getLabel());
     }
 }
