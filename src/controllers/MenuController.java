@@ -11,6 +11,7 @@ import models.Menu.*;
 import models.Setting.GameLogicConfig;
 import viewers.MenuViewer;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -176,8 +177,9 @@ public class MenuController {
         LinkedHashMap<DynamicMenuItem, String> enemyMapList = new LinkedHashMap<>();
         for (java.util.Map.Entry<String, Map> pathMapEntry : world.getEnemyVillagesPathAndMap().entrySet()) {
             String mapPath = pathMapEntry.getKey();
-            mapPath = mapPath.substring(mapPath.lastIndexOf("\\"));
-            mapPath = mapPath.substring(1, mapPath.lastIndexOf("."));
+            String[] split = mapPath.split("[\\\\]");
+            mapPath = split[split.length - 1];
+            mapPath = mapPath.substring(0, mapPath.lastIndexOf("."));
             enemyMapList.put(new DynamicMenuItem(OPEN_MAP_MENU, pathMapEntry.getValue()), mapPath);
         }
 
