@@ -7,6 +7,7 @@ import models.Menu.MenuItem;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
 
 public class MenuViewer extends BasicViewer {
 
@@ -24,8 +25,10 @@ public class MenuViewer extends BasicViewer {
         for (MenuItem item : Items) {
             System.out.printf(MENU_ITEM_FORMAT, index++, item.getLabel());
         }
-        for (Map.Entry<DynamicMenuItem, String> dynamicItem : dynamicItems.entrySet()) {
-            System.out.printf(MENU_ITEM_INFO_FORMAT, index++, dynamicItem.getKey().getLabel(), dynamicItem.getValue());
+        ArrayList<DynamicMenuItem> sortedDynamicItems = new ArrayList<>(dynamicItems.keySet());
+        sortedDynamicItems.sort(DynamicMenuItem::compareTo);
+        for (DynamicMenuItem sortedDynamicItem : sortedDynamicItems) {
+            System.out.printf(MENU_ITEM_INFO_FORMAT, index++, sortedDynamicItem.getLabel(), dynamicItems.get(sortedDynamicItem));
         }
     }
 }
