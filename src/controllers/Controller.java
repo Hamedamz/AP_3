@@ -2,20 +2,15 @@ package controllers;
 
 import controllers.Exceptions.InvalidInputException;
 import controllers.Exceptions.VillageAlreadyExists;
+import controllers.enums.CommandType;
+import models.GameLogic.*;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.*;
-import models.GameLogic.Map;
-import models.GameLogic.Resource;
-import models.GameLogic.Village;
-import models.GameLogic.World;
 import models.Menu.*;
-import viewers.BasicViewer;
-import viewers.BuildingViewer;
-import viewers.MapViewer;
-import viewers.VillageViewer;
+import viewers.*;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -35,6 +30,7 @@ public class Controller {
     private VillageViewer villageViewer;
     private BuildingViewer buildingViewer = new BuildingViewer();
     private MapViewer mapViewer = new MapViewer();
+    private BattleGroundViewer battleGroundViewer = new BattleGroundViewer();
 
     public static void main(String[] args) {
         controller.menuController.openMenu(controller.menuController.getEntranceMenu());
@@ -43,7 +39,8 @@ public class Controller {
                 handleMenuInputs();
             } catch (InvalidInputException | NoFreeBuilderException |
                     NotEnoughResourcesException | InvalidPositionException |
-                    NotAvailableAtThisLevelException | CountLimitReachedException e) {
+                    NotAvailableAtThisLevelException | CountLimitReachedException |
+                    TroopNotFoundException e) {
                 controller.viewer.printErrorMessage(e.getMessage());
             } catch (NumberFormatException e) {
                 controller.viewer.printErrorMessage("input is out of range");
@@ -53,7 +50,7 @@ public class Controller {
         }
     }
 
-    private static void handleMenuInputs() throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException, NotAvailableAtThisLevelException, FileNotFoundException {
+    private static void handleMenuInputs() throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException, NotAvailableAtThisLevelException, FileNotFoundException, TroopNotFoundException {
         controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
         controller.menuController.printMenu();
         String command = controller.viewer.getInput();
@@ -257,13 +254,17 @@ public class Controller {
         controller.viewer.printInformation("building process started");
     }
 
-    private void initializeAttack(Map map) throws InvalidInputException {
+    private void initializeAttack(Map map) throws InvalidInputException, TroopNotFoundException, CountLimitReachedException, InvalidPositionException {
+        controller.world.attackMap(map);
+        controller.battleGroundViewer.setBattleGround(controller.world.getBattleGround());
         HashMap<String, Integer> selectedTroops = startSelectTroop();
-        controller.attack(map, selectedTroops);
+        for (java.util.Map.Entry<String, Integer> typeNumber : selectedTroops.entrySet()) {
+            controller.world.sendTroopToAttack(typeNumber.getKey(), typeNumber.getValue());
+        }
+        controller.startAttack();
     }
 
-    private void attack(Map map, HashMap<String, Integer> selectedTroops) throws InvalidInputException {
-        // TODO: 5/8/2018  
+    private void startAttack() throws InvalidInputException, TroopNotFoundException, InvalidPositionException, CountLimitReachedException {
         String command;
         do {
             command = controller.viewer.getInput();
@@ -271,19 +272,27 @@ public class Controller {
 
             } else if (command.matches(STATUS_UNIT_FORMAT)) {
                 String unitType = controller.getArgument(1, command, STATUS_UNIT_FORMAT);
+                if (CommandType.isTypeValid(unitType, "troop")) {
+                    controller.battleGroundViewer.printStatusUnit(unitType);
+                }
             } else if (command.matches(STATUS_UNITS_FORMAT)) {
+                controller.battleGroundViewer.printStatusUnit();
 
             } else if (command.matches(STATUS_TOWER_FORMAT)) {
                 String towerType = controller.getArgument(1, command, STATUS_TOWER_FORMAT);
+                if (CommandType.isTypeValid(towerType, "tower")) {
+                    controller.battleGroundViewer.printStatusTower(towerType);
+                }
             } else if (command.matches(STATUS_TOWERS_FORMAT)) {
-
+                controller.battleGroundViewer.printStatusTower();
             } else if (command.matches(STATUS_ALL_FORMAT)) {
-
+                controller.battleGroundViewer.printStatusAll();
             } else if (command.matches(PUT_TROOP_FORMAT)) {
-                String utitType = controller.getArgument(1, command, PUT_TROOP_FORMAT);
+                String unitType = controller.getArgument(1, command, PUT_TROOP_FORMAT);
                 int number = Integer.parseInt(controller.getArgument(2, command, PUT_TROOP_FORMAT));
                 int x = Integer.parseInt(controller.getArgument(3, command, PUT_TROOP_FORMAT));
                 int y = Integer.parseInt(controller.getArgument(4, command, PUT_TROOP_FORMAT));
+                controller.world.getBattleGround().putTroop(unitType, number, new Position(x, y));
             } else if (command.matches(GO_NEXT_TURN_FORMAT)) {
                 controller.turn(1);
             } else if (command.matches(TURN_FORMAT)) {
