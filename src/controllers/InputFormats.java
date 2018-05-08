@@ -15,7 +15,7 @@ public class InputFormats {
     public static final String POSITION_FORMAT = "[(](\\d+),[\\s]*(\\d+)[)]";
     public static final String ATTACK_FORMAT = "attack";
     public static final String LOAD_MAP_FORMAT = "Load map";
-    public static final String START_SELECT_FORMAT = "select troops and number of them:";
+    public static final String START_SELECT_FORMAT = "select troops and number of them: (when done enter \"end select\")";
     public static final String SELECT_TROOP_FORMAT = "(\\w+) (\\d+)";
     public static final String STATUS_UNIT_FORMAT = "status unit (\\w+)";
     public static final String STATUS_UNITS_FORMAT = "status units";
