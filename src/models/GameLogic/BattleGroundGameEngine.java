@@ -103,7 +103,6 @@ public class BattleGroundGameEngine {
         }
         for (Troop troop : battleGround.getDeployedTroops()) {
             if (troop.isDestroyed()) {
-                battleGround.getAllTroops().get(troop.getClass().getSimpleName()).remove(troop);
                 battleGround.getDeployedTroops().remove(troop);
             }
         }

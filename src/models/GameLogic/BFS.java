@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class BFS {
     public static ArrayList<Position> getPath(Map map, Position origin, Position destination, int range) {
         ArrayList<Position> positions = new ArrayList<>();
-        boolean[][] isOccupied = map.getIsOccupied();
+        boolean[][] isOccupied = map.getIsOccupied().clone();
         for (int i = 0; i < map.getWidth(); i++) {
             isOccupied[0][i] = false;
             isOccupied[i][0] = false;
