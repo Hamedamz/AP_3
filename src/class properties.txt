@@ -215,7 +215,7 @@
         ArcherTrainElixir: 75
         ArcherTrainTime: 10
         ArcherHitPoints: 100
-        ArcherRange: 10
+        ArcherRange: 2
         ArcherDamage: 10
         ArcherSpeed: 2
         ArcherUpgradeDamageAddition: 1
