@@ -42,7 +42,7 @@
         GoldStorageHitPoints: 300
         GoldStorageDestructionScore: 3
         GoldStorageUpgradeGold: 100
-        GoldStorageUpgradeGold: 0
+        GoldStorageUpgradeElixir: 0
         GoldStorageUpgradeCapacityAddition: 60
         GoldStorageGoldCapacity: 500
         GoldStorageElixirCapacity: 0

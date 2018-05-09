@@ -55,7 +55,8 @@ public class MenuController {
             modelBasedMenus.put("TownHall", buildTownHallMenu());
             modelBasedMenus.put("Barracks", buildBarracksMenu());
             modelBasedMenus.put("Camp", buildCampMenu());
-            modelBasedMenus.put("Mine", buildMinesMenu());
+            modelBasedMenus.put("GoldMine", buildMinesMenu());
+            modelBasedMenus.put("ElixirMine", buildMinesMenu());
             modelBasedMenus.put("GoldStorage", buildStorageMenu());
             modelBasedMenus.put("ElixirStorage", buildStorageMenu());
             Menu defensiveBuildingsMenu = buildDefensiveBuildingsMenu();
