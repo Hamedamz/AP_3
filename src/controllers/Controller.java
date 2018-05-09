@@ -256,7 +256,7 @@ public class Controller {
         controller.viewer.printInformation("building process started");
     }
 
-    private void initializeAttack(Map map) throws InvalidInputException, CountLimitReachedException, InvalidPositionException {
+    private void initializeAttack(Map map) {
         controller.world.attackMap(map);
         controller.battleGroundViewer.setBattleGround(controller.world.getBattleGround());
         startSelectingTroops();
