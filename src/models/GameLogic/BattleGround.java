@@ -151,11 +151,12 @@ public class BattleGround {
             throw new CountLimitReachedException();
         }
         for (int i = 0; i < count; i++) {
-            deployedTroops.add(troops.get(i));
-            unDeployedTroops.get(troops.get(i).getClass().getSimpleName()).remove(troops.get(i));
-            troops.get(i).setPosition(position);
-            numberOfTroopsDeployed[position.getX()][position.getY()]+=count;
+            Troop deployedTroop = troops.get(troops.size() - 1);
+            deployedTroops.add(deployedTroop);
+            troops.remove(troops.size()-1);
+            deployedTroop.setPosition(position);
         }
+        numberOfTroopsDeployed[position.getX()][position.getY()]+=count;
 
     }
 
@@ -170,7 +171,7 @@ public class BattleGround {
                 break;
             }
         }
-        if(!flag) {
+        if(!flag && deployedTroops.size() == 0) {
             return true;
         }
         if (!myVillage.isThereAvailableSpaceForResources()) {

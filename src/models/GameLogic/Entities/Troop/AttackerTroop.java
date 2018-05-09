@@ -18,14 +18,14 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     protected int maxHitPoints;
     protected int hitPoints;
     protected int range;
-    protected int damage;
+    private int damage;
     protected Defender currentTarget;
 
     public AttackerTroop() {
         String className = this.getClass().getSimpleName();
-        this.damage = (int) GameLogicConfig.getFromDictionary(className + "Damage");
-        this.range = (int) GameLogicConfig.getFromDictionary(className + "Range");
-        this.hitPoints = (int) GameLogicConfig.getFromDictionary(className + "HitPoints");
+        this.damage =  GameLogicConfig.getFromDictionary(className + "Damage");
+        this.range =  GameLogicConfig.getFromDictionary(className + "Range");
+        this.hitPoints = GameLogicConfig.getFromDictionary(className + "HitPoints");
         this.maxHitPoints = this.hitPoints;
     }
 
@@ -79,11 +79,6 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
         if (destroyable.isDestroyed()) {
             destroyable.destroy();
         }
-    }
-
-    @Override
-    public void findPath(BattleGround battleGround) {
-        setMovementPath(BFS.getPath(battleGround.getEnemyMap(), this.position, getTarget().getPosition(), this.range));
     }
 
     @Override

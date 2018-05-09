@@ -25,15 +25,15 @@ public class BattleGroundGameEngine {
     }
 
     public void update() {
-        battleGround.setTimeRemaining(battleGround.getTimeRemaining());
+        battleGround.setTimeRemaining(battleGround.getTimeRemaining() - 1);
         updateTroopEffectTarget();
         updateDefendersTarget();
         collectBounties();
         findMovablesPath();
         moveMovables();
-        removeDestroyedDestroyables();
         performDefendersAttack();
         performTroopsAttack();
+        removeDestroyedDestroyables();
         battleGround.reset();
         isGameFinished = battleGround.isGameFinished();
         if (isGameFinished) {
@@ -96,12 +96,13 @@ public class BattleGroundGameEngine {
     }
 
     public void removeDestroyedDestroyables() {
+
         for (Defender defender : battleGround.getEnemyDefenders()) {
             if (defender.isDestroyed()) {
-                battleGround.getEnemyDefenders().remove(defender);
+                battleGround.getEnemyBuildings().remove(defender); // FIXME: 5/9/2018
             }
         }
-        for (Troop troop : battleGround.getDeployedTroops()) {
+        for (Troop troop : new ArrayList<>(battleGround.getDeployedTroops())) {
             if (troop.isDestroyed()) {
                 battleGround.getDeployedTroops().remove(troop);
             }

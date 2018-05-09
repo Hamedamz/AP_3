@@ -223,10 +223,13 @@ public class Village {
             outer:
             for(Camp camp : findBuildingsWithSameType(Camp.class)) {
                 for (Troop troop : camp.getTroops()) {
-                    allTroops.put(troop, camp);
-                    count --;
-                    if(count == 0) {
-                        break outer;
+                    if (troop.getClass().getSimpleName().equals(troopType)) {
+                        allTroops.put(troop, camp);
+                        count --;
+                        if(count == 0) {
+                            break outer;
+                        }
+
                     }
                 }
             }

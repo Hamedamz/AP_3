@@ -1,5 +1,6 @@
 package viewers;
 
+import interfaces.Attacker;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Troop.AttackerTroop;

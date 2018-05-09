@@ -13,12 +13,12 @@ public enum BuildingTargetType {
     public static boolean isBuildingTargetAppropriate(DefensiveBuilding defensiveBuilding, AttackerTroop troop) {
         switch (defensiveBuilding.getTargetType()) {
             case GROUND:
-                if (troop instanceof Archer || troop instanceof Guardian || troop instanceof Giant) {
+                if (troop.getTroopMoveType().equals(MoveType.GROUND)) {
                     return true;
                 }
                 break;
             case AIR:
-                if (troop instanceof Dragon) {
+                if (troop.getTroopMoveType().equals(MoveType.Air)) {
                     return true;
                 }
                 break;
