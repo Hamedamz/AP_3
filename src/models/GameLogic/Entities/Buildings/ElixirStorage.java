@@ -1,6 +1,7 @@
 package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
+import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.IDGenerator;
@@ -16,8 +17,8 @@ public class ElixirStorage extends Storage {
     }
 
     @Override
-    public void upgrade() {
-        this.setLevel(this.getLevel() + 1);
+    public void upgrade() throws UpgradeLimitReachedException {
+        super.upgrade();
         int capacityAddition = (int) GameLogicConfig.getFromDictionary("ElixirStorageUpgradeCapacityAddition");
         this.capacity.setElixir(this.capacity.getElixir() + (this.capacity.getElixir() * capacityAddition) / 100);
     }

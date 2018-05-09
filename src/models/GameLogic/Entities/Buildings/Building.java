@@ -19,6 +19,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
     private transient ID id;
     protected boolean isDestroyed;
     private boolean isUnderConstruct;
+    public static int maxLevel;
 
     public Building() {
         super();
@@ -29,6 +30,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
         this.id = id;
         String className = this.getClass().getSimpleName();
         this.level = 0;
+        maxLevel = level;
         this.score = (int) GameLogicConfig.getFromDictionary(className + "DestructionScore");
         this.hitPoints = (int) GameLogicConfig.getFromDictionary(className + "HitPoints");
         this.maxHitPoint = this.hitPoints;
@@ -38,6 +40,14 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
         } else {
             this.isUnderConstruct = false;
         }
+    }
+
+    public int getMaxLevel() {
+        return maxLevel;
+    }
+
+    public static void setMaxLevel(int maxLevelToSet) {
+        maxLevel = maxLevelToSet;
     }
 
     public ID getID() {
@@ -99,6 +109,8 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
 
     @Override
     public void upgrade() throws UpgradeLimitReachedException {
+        if (level >= maxLevel)
+            throw new UpgradeLimitReachedException();
         level++;
     }
 
@@ -110,6 +122,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
     @Override
     public void destroy() {
         isDestroyed = true;
+        this.hitPoints = 0;
     }
 
     @Override
