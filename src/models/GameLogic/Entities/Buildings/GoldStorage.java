@@ -1,6 +1,7 @@
 package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
+import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.ID;
@@ -17,8 +18,8 @@ public class GoldStorage extends Storage {
     }
 
     @Override
-    public void upgrade() {
-        this.setLevel(this.getLevel() + 1);
+    public void upgrade() throws UpgradeLimitReachedException {
+        super.upgrade();
         int capacityAddition = (int) GameLogicConfig.getFromDictionary("GoldStorageUpgradeCapacityAddition");
         this.capacity.setGold(this.capacity.getGold() + (this.capacity.getGold() * capacityAddition) / 100);
     }

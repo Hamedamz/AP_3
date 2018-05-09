@@ -232,8 +232,11 @@ public class Controller {
         if (upgradeResource.getGold() <= controller.world.getMyVillage().getTotalResourceStock().getGold() && upgradeResource.getElixir() <= controller.world.getMyVillage().getTotalResourceStock().getElixir()) {
             try {
                 building.upgrade();
+                controller.world.getMyVillage().spendResources(upgradeResource);
             } catch (UpgradeLimitReachedException e) {
                 controller.viewer.printErrorMessage(e.getMessage());
+            } catch (NotEnoughResourcesException e) {
+                e.printStackTrace();
             }
         }
     }

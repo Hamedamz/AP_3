@@ -62,7 +62,7 @@ public class Barracks extends Building {
         if (level >= maxInitialConstructTime) {
             throw new UpgradeLimitReachedException();
         }
-        setLevel(getLevel() + 1);
+        super.upgrade();
     }
 
     @Override

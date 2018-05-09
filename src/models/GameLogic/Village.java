@@ -174,8 +174,8 @@ public class Village {
                 if (upgradeResource.getGold() > getTotalResourceStock().getGold() || upgradeResource.getElixir() > getTotalResourceStock().getElixir()) {
                     throw new NotEnoughResourcesException();
                 }
-                spendResources(upgradeResource);
                 buildings.get(i).upgrade();
+                spendResources(upgradeResource);
                 return;
             }
         }

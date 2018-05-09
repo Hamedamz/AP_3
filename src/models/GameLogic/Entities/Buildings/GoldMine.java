@@ -1,6 +1,7 @@
 package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
+import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.IDGenerator;
@@ -21,8 +22,8 @@ public class GoldMine extends Mine {
     }
 
     @Override
-    public void upgrade() {
-        this.setLevel(this.getLevel() + 1);
+    public void upgrade() throws UpgradeLimitReachedException {
+        super.upgrade();
         int productionRateAddition = (int) GameLogicConfig.getFromDictionary("GoldMineUpgradeProductionRateAddition");
         this.productionRate += (this.productionRate * productionRateAddition) / 100;
     }

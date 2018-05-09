@@ -42,6 +42,7 @@ public class TownHall extends Storage {
             builders.add(new Builder());
         }
         this.setLevel(this.getLevel() + 1);
+        Building.setMaxLevel(level);
         int hitPointsAddition = (int) GameLogicConfig.getFromDictionary("TownHallUpgradeHitPointsAddition");
         this.setHitPoints(this.hitPoints + hitPointsAddition);
     }

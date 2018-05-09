@@ -35,7 +35,7 @@ public class BattleGroundViewer extends BasicViewer {
         for (Troop troop : battleGround.getDeployedTroops()) {
             if (troop.getClass().getSimpleName().equals(troopType)) {
                 System.out.format(SHOW_STATUS_UNIT_FORMAT, troopType, troop.getLevel(),
-                        troop.getPosition().getX(), troop.getPosition().getY(),
+                        troop.getPosition().getX() + 1, troop.getPosition().getY() + 1,
                         ((AttackerTroop) troop).getHitPoints());
             }
         }
