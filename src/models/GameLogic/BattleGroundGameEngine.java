@@ -98,6 +98,7 @@ public class BattleGroundGameEngine {
         for (Defender defender : battleGround.getEnemyDefenders()) {
             if (defender.isDestroyed()) {
                 battleGround.getEnemyBuildings().remove(defender); // FIXME: 5/9/2018
+                defender.destroy();
             }
         }
         for (Troop troop : new ArrayList<>(battleGround.getDeployedTroops())) {

@@ -62,7 +62,7 @@ public abstract class Storage extends ResourceBuilding {
 
     public boolean isStorageFull() {
         Resource resource = Resource.subtractResources(capacity, stock);
-        return !(resource.getElixir() == 0 && resource.getGold() == 0);
+        return (resource.getElixir() == 0 && resource.getGold() == 0);
     }
 
     @Override
