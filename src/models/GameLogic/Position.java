@@ -1,6 +1,6 @@
 package models.GameLogic;
 
-import javafx.geometry.Pos;
+//import javafx.geometry.Pos;
 
 public class Position {
     private int x;

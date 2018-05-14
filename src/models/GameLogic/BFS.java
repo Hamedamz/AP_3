@@ -1,19 +1,17 @@
 package models.GameLogic;
 
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
 
-import static javafx.scene.input.KeyCode.Q;
+//import static javafx.scene.input.KeyCode.Q;
 
 public class BFS {
 
-    public static final Double EBSILON;
+    public static final Double EPSILON;
     public static Position[] DIRECTIONS;
 
     static {
-        EBSILON = 1e-6;
+        EPSILON = 1e-6;
         Position DIR_UP = new Position(0, -1);
         Position DIR_RIGHT = new Position(1, 0);
         Position DIR_DOWN = new Position(0, 1);
@@ -33,7 +31,7 @@ public class BFS {
             int x = position.getX();
             int y = position.getY();
             isVisited[x][y] = true;
-            if (position.calculateDistance(destination) <= range + EBSILON) {
+            if (position.calculateDistance(destination) <= range + EPSILON) {
                 break;
             }
             for(Position dir : DIRECTIONS) {
