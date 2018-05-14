@@ -28,11 +28,11 @@ public class BattleGroundGameEngine {
         battleGround.setTimeRemaining(battleGround.getTimeRemaining() - 1);
         updateTroopEffectTarget();
         updateDefendersTarget();
-        collectBounties();
         findMovablesPath();
         moveMovables();
         performDefendersAttack();
         performTroopsAttack();
+        collectBounties();
         removeDestroyedDestroyables();
         battleGround.reset();
         isGameFinished = battleGround.isGameFinished();
@@ -60,8 +60,6 @@ public class BattleGroundGameEngine {
     private void addBounty(Building building) {
         Bounty bounty = building.getBounty();
         battleGround.addBounty(bounty);
-        battleGround.getVillage().addBounty(bounty);
-
     }
 
     public void updateTroopEffectTarget() {
