@@ -6,13 +6,13 @@ import models.GameLogic.Entities.Entity;
 
 import java.util.ArrayList;
 
-public class Map extends Entity {
+public class EnemyMap extends Entity {
     // TODO: 4/12/2018 add map size to dic
     private int width, height;
     private ArrayList<Building> buildings;
     private boolean[][] isOccupied;
 
-    public Map(int width, int height) {
+    public EnemyMap(int width, int height) {
         this.width = width;
         this.height = height;
         buildings = new ArrayList<>();
@@ -69,7 +69,7 @@ public class Map extends Entity {
     }
 
 
-    public Map clone() {
+    public EnemyMap clone() {
         return null;
         // TODO: 5/5/2018
     }

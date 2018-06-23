@@ -23,7 +23,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
 
     public Building() {
         super();
-    }
+    } // FIXME: 6/24/2018 
 
     public Building(Position position, ID id) {
         super(position);

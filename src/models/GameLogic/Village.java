@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Village {
     private TownHall townHall;
-    private Map map;
+    private EnemyMap enemyMap;
     private ArrayList<Building> underConstructBuildings;
     /**
      * listOfBuildingsByName must contain following Classes other than Basic Classes
@@ -27,12 +27,12 @@ public class Village {
 
     public static Village startNewVillage() {
         Village village = new Village();
-        village.map = new Map((int) GameLogicConfig.getFromDictionary("VillageWidth"),
+        village.enemyMap = new EnemyMap((int) GameLogicConfig.getFromDictionary("VillageWidth"),
                 (int) GameLogicConfig.getFromDictionary("VillageHeight"));
-        village.townHall = new TownHall(new Position((village.map.getWidth() - 1) / 2, (village.map.getHeight() - 1) / 2), true);
-        GoldStorage goldStorage = new GoldStorage(new Position((village.map.getWidth() - 3) / 2, (village.map.getHeight() - 3) / 2), true);
-        village.map.addNewBuilding(village.townHall);
-        village.map.addNewBuilding(goldStorage);
+        village.townHall = new TownHall(new Position((village.enemyMap.getWidth() - 1) / 2, (village.enemyMap.getHeight() - 1) / 2), true);
+        GoldStorage goldStorage = new GoldStorage(new Position((village.enemyMap.getWidth() - 3) / 2, (village.enemyMap.getHeight() - 3) / 2), true);
+        village.enemyMap.addNewBuilding(village.townHall);
+        village.enemyMap.addNewBuilding(goldStorage);
         village.initiateListOfBuildings();
         village.listOfBuildingsByName.get(TownHall.class.getSimpleName()).add(village.townHall);
         village.listOfBuildingsByName.get(Storage.class.getSimpleName()).add(village.townHall);
@@ -66,8 +66,8 @@ public class Village {
         return townHall;
     }
 
-    public Map getMap() {
-        return map;
+    public EnemyMap getEnemyMap() {
+        return enemyMap;
     }
 
     //building managing
@@ -77,12 +77,12 @@ public class Village {
     }
 
     public ArrayList<Building> getBuildings() {
-        return map.getBuildings();
+        return enemyMap.getBuildings();
     }
 
     public int getBuildingCount(String buildingType) {
         int count = 0;
-        for (Building building : map.getBuildings()) {
+        for (Building building : enemyMap.getBuildings()) {
             if (building.getClass().getSimpleName().equals(buildingType)) {
                 count++;
             }
@@ -105,14 +105,14 @@ public class Village {
 //        if (GameLogicConfig.getFromDictionary(buildingType + "BuildLimit") >= getBuildingCount(buildingType) ) {
 //            throw new CountLimitReachedException();
 //        }
-        if (map.isOccupied(x, y)) {
+        if (enemyMap.isOccupied(x, y)) {
             throw new InvalidPositionException();
         }
         Builder builder = townHall.getFreeBuilder();
 
         spendResources(new Resource((int) GameLogicConfig.getFromDictionary(buildingType + "BuildGold"),
                 (int) GameLogicConfig.getFromDictionary(buildingType + "BuildElixir")));
-        map.constructBuilding(x, y);
+        enemyMap.constructBuilding(x, y);
         Building newBuilding = Building.getNewBuilding(buildingType, x, y);
         builder.startBuilding(newBuilding);
         underConstructBuildings.add(newBuilding);
@@ -160,11 +160,11 @@ public class Village {
             listOfBuildingsByName.get(WizardTower.class.getSimpleName()).add(building);
         }
 
-        map.getBuildings().add(building);
+        enemyMap.getBuildings().add(building);
     }
 
     public void upgrade(String buildingType, int num) throws NotEnoughResourcesException, BuildingNotFoundException, NotAvailableAtThisLevelException, UpgradeLimitReachedException {
-        ArrayList<Building> buildings = map.getBuildings();
+        ArrayList<Building> buildings = enemyMap.getBuildings();
         for (int i = 0; i < buildings.size(); i++) {
             if (buildings.get(i).getClass().getSimpleName().equals(buildingType) && buildings.get(i).getID().getCount() == num) {
                 if (buildings.get(i).getLevel() >= townHall.getLevel()) {

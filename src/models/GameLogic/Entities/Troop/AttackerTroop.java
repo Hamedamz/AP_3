@@ -2,12 +2,9 @@ package models.GameLogic.Entities.Troop;
 
 import interfaces.Destroyable;
 import interfaces.MovingAttacker;
-import models.GameLogic.BFS;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Exceptions.NoTargetFoundException;
-import models.GameLogic.Position;
-import models.GameLogic.enums.MoveType;
 import models.GameLogic.enums.TroopTargetType;
 import models.Setting.GameLogicConfig;
 
@@ -18,7 +15,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     protected int maxHitPoints;
     protected int hitPoints;
     protected int range;
-    private int damage;
+    protected int damage;
     protected Defender currentTarget;
 
     public AttackerTroop() {
@@ -110,10 +107,16 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
         return maxHitPoints;
     }
 
-
     @Override
     public int getEffectRange() {
         return range;
+    }
+
+    public void heal(int amount){
+        hitPoints += amount;
+        if(hitPoints > maxHitPoints){
+            hitPoints = maxHitPoints;
+        }
     }
 }
 

@@ -1,12 +1,10 @@
 package models.GameLogic.Entities.Troop;
 
-import interfaces.Destroyable;
 import interfaces.Movable;
 import interfaces.Upgradable;
 import interfaces.Vulnerable;
-import models.GameLogic.BFS;
+import models.GameLogic.utills.BFS;
 import models.GameLogic.BattleGround;
-import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
@@ -48,7 +46,7 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
 
     @Override
     public void findPath(BattleGround battleGround) {
-        setMovementPath(BFS.getPath(battleGround.getEnemyMap(), this.position, getTarget().getPosition(), this.getEffectRange()));
+        setMovementPath(BFS.getPath(battleGround.getEnemyEnemyMap(), this.position, getTarget().getPosition(), this.getEffectRange()));
     }
 
     @Override

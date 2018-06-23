@@ -4,6 +4,7 @@ import interfaces.Attacker;
 import interfaces.Destroyable;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Buildings.Storage;
+import models.GameLogic.Entities.Buildings.Wall;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Troop;
@@ -14,9 +15,9 @@ public enum TroopTargetType {
     public static boolean isTroopTargetAppropriate(AttackerTroop attackerTroop, Defender defender) {
         switch (attackerTroop.getTargetType()) {
             case WALL:
-//                if (defender instanceof Wall) {
-//                    return true;
-//                }
+                if (defender instanceof Wall) {
+                    return true;
+                }
                 break;
             case TOWER:
                 if (defender instanceof DefensiveBuilding) {
@@ -29,9 +30,9 @@ public enum TroopTargetType {
                 }
                 break;
             case BUILDING:
-                //if (!defender instanceof Wall) {
+                if (!(defender instanceof Wall)) {
                     return true;
-                //}
+                }
         }
         return false;
     }

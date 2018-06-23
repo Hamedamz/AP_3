@@ -3,18 +3,15 @@ package models.GameLogic;
 import controllers.Exceptions.VillageAlreadyExists;
 import controllers.JsonInterpreter;
 import models.GameLogic.Entities.Buildings.Building;
-import models.GameLogic.Entities.Troop.Troop;
-import models.GameLogic.Exceptions.FileNotFoundException;
 import models.GameLogic.Exceptions.TroopNotFoundException;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 public class World {
     private HashMap<String, String> myVillagesNameAndPath;
-    private HashMap<String, Map> enemyVillagesPathAndMap;
+    private HashMap<String, EnemyMap> enemyVillagesPathAndMap;
     private Village myVillage;
     private BattleGround battleGround;
     private GameEngine gameEngine;
@@ -30,7 +27,7 @@ public class World {
         return myVillagesNameAndPath;
     }
 
-    public HashMap<String, Map> getEnemyVillagesPathAndMap() {
+    public HashMap<String, EnemyMap> getEnemyVillagesPathAndMap() {
         return enemyVillagesPathAndMap;
     }
 
@@ -63,9 +60,9 @@ public class World {
 
     public void loadEnemyMap(String path) throws java.io.FileNotFoundException {
         ArrayList<Building> buildings = JsonInterpreter.loadEnemyVillageBuildings(path);
-        Map map = new Map(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
-        map.setBuildings(buildings);
-        enemyVillagesPathAndMap.put(path, map);
+        EnemyMap enemyMap = new EnemyMap(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
+        enemyMap.setBuildings(buildings);
+        enemyVillagesPathAndMap.put(path, enemyMap);
     }
 
 
@@ -73,8 +70,8 @@ public class World {
         return gameEngine;
     } // FIXME: 5/8/2018 gameEngine must not be passed
 
-    public void attackMap(Map map) {
-        battleGround = new BattleGround(myVillage, map);
+    public void attackMap(EnemyMap enemyMap) {
+        battleGround = new BattleGround(myVillage, enemyMap);
         gameEngine.loadBattleGround();
     }
 

@@ -17,7 +17,7 @@ public class BattleGround {
 
     private int timeRemaining;
     private Village myVillage;
-    private Map enemyMap;
+    private EnemyMap enemyEnemyMap;
     private ArrayList<Building> enemyBuildings;
     private ArrayList<Troop> deployedTroops;
     private HashMap<String, ArrayList<Troop>> unDeployedTroops;
@@ -25,12 +25,12 @@ public class BattleGround {
     private Bounty lootedBounty;
     private int[][] numberOfTroopsDeployed = new int[30][30];
 
-    public BattleGround(Village myVillage, Map enemyMap) {
+    public BattleGround(Village myVillage, EnemyMap enemyEnemyMap) {
         deployedTroops = new ArrayList<>();
-        enemyBuildings = new ArrayList<>(enemyMap.getBuildings());
+        enemyBuildings = new ArrayList<>(enemyEnemyMap.getBuildings());
         unDeployedTroops = new HashMap<>();
         this.myVillage = myVillage;
-        this.enemyMap = enemyMap;
+        this.enemyEnemyMap = enemyEnemyMap;
         lootedBounty = new Bounty(0, new Resource(0, 0));
         thisLootedBounty = new Bounty(0, new Resource(0, 0));
         this.timeRemaining = (int) GameLogicConfig.getFromDictionary("WarTime");
@@ -71,7 +71,7 @@ public class BattleGround {
 
     public Resource getRemainingResources() {
         Resource availableResources = new Resource(0, 0);
-        for (Building building : enemyMap.getBuildings()) {
+        for (Building building : enemyEnemyMap.getBuildings()) {
             if(!building.isDestroyed()) {
                 availableResources.addToThisResource(building.getBounty().getResource());
             }
@@ -115,8 +115,8 @@ public class BattleGround {
         return unDeployedTroops;
     }
 
-    public Map getEnemyMap() {
-        return enemyMap;
+    public EnemyMap getEnemyEnemyMap() {
+        return enemyEnemyMap;
     }
 
 
@@ -143,8 +143,8 @@ public class BattleGround {
         if(troops.size() < count) {
             throw new TroopNotFoundException();
         }
-        if (!(position.getX() == 0 || position.getX() == enemyMap.getWidth() - 1 ||
-                position.getY() == 0 || position.getY() == enemyMap.getHeight() - 1)) {
+        if (!(position.getX() == 0 || position.getX() == enemyEnemyMap.getWidth() - 1 ||
+                position.getY() == 0 || position.getY() == enemyEnemyMap.getHeight() - 1)) {
             throw new InvalidPositionException();
         }
         if (numberOfTroopsDeployed[position.getX()][position.getY()] + count > MAX_UNITS_IN_POSITION) {
@@ -177,7 +177,7 @@ public class BattleGround {
         if (!myVillage.isThereAvailableSpaceForResources()) {
             return true;
         }
-        for (Defender defender : enemyMap.getBuildings()) {
+        for (Defender defender : enemyEnemyMap.getBuildings()) {
             if(!defender.isDestroyed()) {
                 return false;
             }

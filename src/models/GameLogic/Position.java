@@ -43,8 +43,8 @@ public class Position {
         return new Position(position1.x + position2.x, position1.y + position2.y);
     }
 
-    public boolean isInBoundary(Map map) {
-        return x >= 0 && y >= 0 && x < map.getWidth() && y < map.getHeight();
+    public boolean isInBoundary(EnemyMap enemyMap) {
+        return x >= 0 && y >= 0 && x < enemyMap.getWidth() && y < enemyMap.getHeight();
     }
 
     @Override
