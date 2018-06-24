@@ -82,24 +82,37 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
 
     @Override
     public void setTarget(ArrayList<Destroyable> destroyables) {
-        double minDistance = Double.MAX_VALUE;
-        Destroyable minDistanceDestroyable = null;
-        for (Destroyable destroyable : destroyables) {
-            if (!destroyable.isDestroyed() && BuildingTargetType.isBuildingTargetAppropriate(this, (AttackerTroop) destroyable)) {
-                double distance = this.getPosition().calculateDistance(destroyable.getPosition());
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    minDistanceDestroyable = destroyable;
-                }
+        if(target != null) {
+            if(target.isDestroyed() || target.getPosition().calculateDistance(getPosition()) < getEffectRange()) {
+                target = null;
             }
         }
-        if (minDistance < this.getEffectRange()) {
-            this.target = minDistanceDestroyable;
+        if(target == null) {
+            double minDistance = Double.MAX_VALUE;
+            Destroyable minDistanceDestroyable = null;
+            for (Destroyable destroyable : destroyables) {
+                if (!destroyable.isDestroyed() && BuildingTargetType.isBuildingTargetAppropriate(this, (AttackerTroop) destroyable)) {
+                    double distance = this.getPosition().calculateDistance(destroyable.getPosition());
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        minDistanceDestroyable = destroyable;
+                    }
+                }
+            }
+            if (minDistance < this.getEffectRange()) {
+                this.target = minDistanceDestroyable;
+            }
         }
+
     }
 
     @Override
     public int getEffectRange() {
         return getRange();
+    }
+
+    @Override
+    public void removeTarget() {
+        target = null;
     }
 }

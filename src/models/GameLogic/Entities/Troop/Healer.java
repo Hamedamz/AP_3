@@ -1,21 +1,23 @@
 package models.GameLogic.Entities.Troop;
 
 import interfaces.Destroyable;
+import interfaces.TimedEvent;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
-import sun.security.krb5.internal.crypto.Des;
+import models.GameLogic.enums.MoveType;
 
 import java.util.ArrayList;
 
-public class Healer extends Troop {
+public class Healer extends Troop implements TimedEvent {
     private int healingRange;
     private int healingAmount;
-    private int remiainigTime;
+    private int remainingTime;
 
     private Destroyable target;
 
     public Healer() {
+        moveType = MoveType.Air;
         // TODO: 6/24/2018
     }
 
@@ -62,7 +64,7 @@ public class Healer extends Troop {
 
     @Override
     public boolean isDestroyed() {
-        return remiainigTime <= 0;
+        return remainingTime <= 0;
     }
 
     public void heal(BattleGround battleGround) {
@@ -75,7 +77,13 @@ public class Healer extends Troop {
         }
     }
 
-    public void reduceRemainingTime(){
-        remiainigTime--;
+    @Override
+    public void removeTarget() {
+        target = null;
+    }
+
+    @Override
+    public void reduceTime() {
+        remainingTime--;
     }
 }

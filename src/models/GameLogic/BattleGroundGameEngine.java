@@ -1,12 +1,10 @@
 package models.GameLogic;
 
-import interfaces.Attacker;
-import interfaces.Destroyable;
-import interfaces.Effector;
+import interfaces.*;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Defender;
-import models.GameLogic.Entities.Troop.AttackerTroop;
+import models.GameLogic.Entities.Troop.Healer;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NoTargetFoundException;
 
@@ -30,9 +28,11 @@ public class BattleGroundGameEngine {
         updateDefendersTarget();
         findMovablesPath();
         moveMovables();
+        healTroops();
         performDefendersAttack();
         performTroopsAttack();
         collectBounties();
+        handleTimedEvents();
         removeDestroyedDestroyables();
         battleGround.reset();
         isGameFinished = battleGround.isGameFinished();
@@ -43,8 +43,13 @@ public class BattleGroundGameEngine {
     }
 
     private void moveMovables() {
-        for (int i = 0; i < battleGround.getDeployedTroops().size(); i++) {
-            battleGround.getDeployedTroops().get(i).move();
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            troop.move();
+        }
+        for (Defender defender : battleGround.getEnemyDefenders()) {
+            if(defender instanceof Movable) {
+                ((Movable) defender).move();
+            }
         }
     }
 
@@ -65,9 +70,9 @@ public class BattleGroundGameEngine {
     public void updateTroopEffectTarget() {
         ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getEnemyDefenders());
         for (Troop troop : battleGround.getDeployedTroops()) {
-            if (((AttackerTroop) troop).getTarget() == null || ((AttackerTroop) troop).getTarget().isDestroyed()) {
+            if (troop.getTarget() == null || troop.getTarget().isDestroyed()) {
                 try {
-                    ((AttackerTroop) troop).setTarget(listOfDefensiveUnits);
+                    troop.setTarget(listOfDefensiveUnits);
                 } catch (NoTargetFoundException e) {
                     isGameFinished = true;
                 }
@@ -78,11 +83,13 @@ public class BattleGroundGameEngine {
     public void updateDefendersTarget() {
         ArrayList<Destroyable> destroyables = new ArrayList<>();
         for (Troop entry : battleGround.getDeployedTroops()) {
-            destroyables.add((Destroyable) entry);
+            if (entry instanceof Destroyable) {
+                destroyables.add((Destroyable) entry);
+            }
         }
         for (Defender defender : battleGround.getEnemyDefenders()) {
-            if (defender instanceof Effector) {
-                if (((Attacker) defender).getTarget() == null || ((Attacker) defender).getTarget().isDestroyed()) { // FIXME: 5/8/2018
+            if (defender instanceof Attacker) {
+                if (((Attacker) defender).getTarget() == null || ((Attacker) defender).getTarget().isDestroyed()) {
                     try {
                         ((Attacker) defender).setTarget(destroyables);
                     } catch (NoTargetFoundException e) {
@@ -110,16 +117,18 @@ public class BattleGroundGameEngine {
     }
 
     public void performTroopsAttack() {
-        for (int i = 0; i < battleGround.getDeployedTroops().size(); i++) {
-            ((AttackerTroop) battleGround.getDeployedTroops().get(i)).giveDamageTo(((AttackerTroop) battleGround.getDeployedTroops().get(i)).getTarget(), battleGround);
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            if(troop instanceof Attacker) {
+                ((Attacker) troop).giveDamageTo(troop.getTarget(), battleGround);
+            }
         }
     }
 
     public void performDefendersAttack() {
-        for (int i = 0; i < battleGround.getEnemyBuildings().size(); i++) {
-            if (!battleGround.getEnemyBuildings().get(i).isDestroyed()) {
-                if (battleGround.getEnemyBuildings().get(i) instanceof DefensiveBuilding){
-                    ((DefensiveBuilding) battleGround.getEnemyBuildings().get(i)).giveDamageTo(((DefensiveBuilding) battleGround.getEnemyBuildings().get(i)).getTarget(), battleGround);
+        for (Defender defender : battleGround.getEnemyDefenders()) {
+            if (!defender.isDestroyed()) {
+                if (defender instanceof Attacker){
+                    ((Attacker) defender).giveDamageTo(((Attacker) defender).getTarget(), battleGround);
 
                 }
             }
@@ -127,9 +136,29 @@ public class BattleGroundGameEngine {
     }
 
     public void findMovablesPath() {
-        for (int i = 0; i < battleGround.getDeployedTroops().size(); i++) {
-            battleGround.getDeployedTroops().get(i).findPath(battleGround);
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            troop.findPath(battleGround);
+        }
+        for(Defender defender : battleGround.getEnemyDefenders()) {
+            if (defender instanceof Movable) {
+                ((Movable) defender).findPath(battleGround);
+            }
         }
     }
 
+    public void healTroops() {
+        for(Troop troop : battleGround.getDeployedTroops()) {
+            if(troop instanceof Healer) {
+                ((Healer) troop).heal(battleGround);
+            }
+        }
+    }
+
+    public void handleTimedEvents(){
+        for(Troop troop : battleGround.getDeployedTroops()) {
+            if(troop instanceof TimedEvent) {
+                ((TimedEvent) troop).reduceTime();
+            }
+        }
+    }
 }

@@ -118,5 +118,10 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
             hitPoints = maxHitPoints;
         }
     }
+
+    @Override
+    public void removeTarget() {
+        currentTarget = null;
+    }
 }
 

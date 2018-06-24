@@ -1,5 +1,7 @@
 package models.GameLogic;
 
+import interfaces.Effector;
+import javafx.scene.effect.Effect;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;
@@ -132,9 +134,6 @@ public class BattleGround {
         return myVillage;
     }
 
-    //private void heal(Troop troop){ }
-
-    //private void isHealerAlive() { }
     //TODO check position correctness -> not occupied
 
     public void putTroop(String troopType, int count, Position position)
@@ -186,14 +185,24 @@ public class BattleGround {
     }
 
     public void endBattle() {
-        for (int i = 0; i < deployedTroops.size(); i++) {
-            if (unDeployedTroops.containsKey(deployedTroops.get(i).getClass().getSimpleName())) {
-                unDeployedTroops.get(deployedTroops.get(i).getClass().getSimpleName()).add(deployedTroops.get(i));
+        for (Troop troop : deployedTroops) {
+            if (unDeployedTroops.containsKey(troop.getClass().getSimpleName())) {
+                unDeployedTroops.get(troop.getClass().getSimpleName()).add(troop);
             }
             else {
                 ArrayList<Troop> troops = new ArrayList<>();
-                troops.add(deployedTroops.get(i));
-                unDeployedTroops.put(deployedTroops.get(i).getClass().getSimpleName(), troops);
+                troops.add(troop);
+                unDeployedTroops.put(troop.getClass().getSimpleName(), troops);
+            }
+        }
+        for(String name : unDeployedTroops.keySet()) {
+            for(Troop troop : unDeployedTroops.get(name)) {
+                troop.removeTarget();
+            }
+        }
+        for(Defender defender : getEnemyDefenders()) {
+            if(defender instanceof Effector) {
+                ((Effector) defender).removeTarget();
             }
         }
         myVillage.spreadTroops(unDeployedTroops);
