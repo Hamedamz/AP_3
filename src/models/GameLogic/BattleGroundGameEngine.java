@@ -4,6 +4,7 @@ import interfaces.*;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Defender;
+import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Healer;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NoTargetFoundException;
@@ -47,7 +48,7 @@ public class BattleGroundGameEngine {
             troop.move();
         }
         for (Defender defender : battleGround.getEnemyDefenders()) {
-            if(defender instanceof Movable) {
+            if (defender instanceof Movable) {
                 ((Movable) defender).move();
             }
         }
@@ -69,13 +70,29 @@ public class BattleGroundGameEngine {
 
     public void updateTroopEffectTarget() {
         ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getEnemyDefenders());
+        ArrayList<Thread> threads = new ArrayList<>();
         for (Troop troop : battleGround.getDeployedTroops()) {
             if (troop.getTarget() == null || troop.getTarget().isDestroyed()) {
-                try {
-                    troop.setTarget(listOfDefensiveUnits);
-                } catch (NoTargetFoundException e) {
-                    isGameFinished = true;
-                }
+
+                Thread thread = new Thread(() -> {
+                    try {
+                        troop.setTarget(listOfDefensiveUnits);
+                    } catch (NoTargetFoundException e) {
+                        if (troop instanceof AttackerTroop) {
+                            isGameFinished = true;
+
+                        }
+                    }
+                });
+                thread.start();
+                threads.add(thread);
+            }
+        }
+        for(Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -118,7 +135,7 @@ public class BattleGroundGameEngine {
 
     public void performTroopsAttack() {
         for (Troop troop : battleGround.getDeployedTroops()) {
-            if(troop instanceof Attacker) {
+            if (troop instanceof Attacker) {
                 ((Attacker) troop).giveDamageTo(troop.getTarget(), battleGround);
             }
         }
@@ -127,7 +144,7 @@ public class BattleGroundGameEngine {
     public void performDefendersAttack() {
         for (Defender defender : battleGround.getEnemyDefenders()) {
             if (!defender.isDestroyed()) {
-                if (defender instanceof Attacker){
+                if (defender instanceof Attacker) {
                     ((Attacker) defender).giveDamageTo(((Attacker) defender).getTarget(), battleGround);
 
                 }
@@ -139,7 +156,7 @@ public class BattleGroundGameEngine {
         for (Troop troop : battleGround.getDeployedTroops()) {
             troop.findPath(battleGround);
         }
-        for(Defender defender : battleGround.getEnemyDefenders()) {
+        for (Defender defender : battleGround.getEnemyDefenders()) {
             if (defender instanceof Movable) {
                 ((Movable) defender).findPath(battleGround);
             }
@@ -147,16 +164,16 @@ public class BattleGroundGameEngine {
     }
 
     public void healTroops() {
-        for(Troop troop : battleGround.getDeployedTroops()) {
-            if(troop instanceof Healer) {
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            if (troop instanceof Healer) {
                 ((Healer) troop).heal(battleGround);
             }
         }
     }
 
-    public void handleTimedEvents(){
-        for(Troop troop : battleGround.getDeployedTroops()) {
-            if(troop instanceof TimedEvent) {
+    public void handleTimedEvents() {
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            if (troop instanceof TimedEvent) {
                 ((TimedEvent) troop).reduceTime();
             }
         }
