@@ -11,7 +11,6 @@ import models.Menu.*;
 import models.Setting.GameLogicConfig;
 import viewers.MenuViewer;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -64,7 +63,7 @@ public class MenuController {
             modelBasedMenus.put("ArcherTower", defensiveBuildingsMenu);
             modelBasedMenus.put("Cannon", defensiveBuildingsMenu);
             modelBasedMenus.put("WizardTower", defensiveBuildingsMenu);
-            modelBasedMenus.put("Map", buildMapMenu());
+            modelBasedMenus.put("EnemyMap", buildMapMenu());
         }
     }
 
@@ -176,7 +175,7 @@ public class MenuController {
     private LinkedHashMap<DynamicMenuItem, String> getAvailableMapsList() {
         // enemy maps that can be attacked
         LinkedHashMap<DynamicMenuItem, String> enemyMapList = new LinkedHashMap<>();
-        for (java.util.Map.Entry<String, Map> pathMapEntry : world.getEnemyVillagesPathAndMap().entrySet()) {
+        for (java.util.Map.Entry<String, EnemyMap> pathMapEntry : world.getEnemyVillagesPathAndMap().entrySet()) {
             String mapPath = pathMapEntry.getKey();
             String[] split = mapPath.split("[\\\\]");
             mapPath = split[split.length - 1];
@@ -243,7 +242,7 @@ public class MenuController {
     }
 
     private LinkedHashMap<DynamicMenuItem, String> getBuildingsList() {
-        ArrayList<Building> buildings = world.getMyVillage().getMap().getBuildings();
+        ArrayList<Building> buildings = world.getMyVillage().getEnemyMap().getBuildings();
         buildings.sort(Building::compareTo);
         LinkedHashMap<DynamicMenuItem, String> buildingsList = new LinkedHashMap<>();
         for (Building building : buildings) {

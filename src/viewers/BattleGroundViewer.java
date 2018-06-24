@@ -1,6 +1,5 @@
 package viewers;
 
-import interfaces.Attacker;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Troop.AttackerTroop;
@@ -48,7 +47,7 @@ public class BattleGroundViewer extends BasicViewer {
     }
 
     public void printStatusTower(String towerType) {
-        for (Building building : battleGround.getEnemyMap().getBuildings()) {
+        for (Building building : battleGround.getEnemyEnemyMap().getBuildings()) {
             if (building.getClass().getSimpleName().equals(towerType)) {
                 System.out.format(SHOW_STATUS_TOWER_FORMAT,
                         towerType, building.getLevel(),

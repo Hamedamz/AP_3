@@ -1,8 +1,6 @@
 package interfaces;
 
 import models.GameLogic.BattleGround;
-import models.GameLogic.Entities.Entity;
-import models.GameLogic.Map;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
 

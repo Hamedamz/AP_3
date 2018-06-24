@@ -22,9 +22,9 @@ public class VillageViewer extends BasicViewer {
     }
 
     public void printMapCells() {
-        for (int i = 0; i < village.getMap().getWidth(); i++) {
-            for (int j = 0; j < village.getMap().getHeight(); j++) {
-                if (village.getMap().isOccupied(i, j)) {
+        for (int i = 0; i < village.getEnemyMap().getWidth(); i++) {
+            for (int j = 0; j < village.getEnemyMap().getHeight(); j++) {
+                if (village.getEnemyMap().isOccupied(i, j)) {
                     System.out.print("1 ");
                 } else {
                     System.out.print("0 ");

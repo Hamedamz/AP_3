@@ -131,13 +131,13 @@ public class Controller {
                     controller.buildingViewer.printAttackInfo((DefensiveBuilding) model);
                     break;
                 case MAP_INFO:
-                    controller.mapViewer.printMapInfo((Map) model);
+                    controller.mapViewer.printMapInfo((EnemyMap) model);
                     break;
                 case TARGET:
                     controller.buildingViewer.printTargetInfo((DefensiveBuilding) model);
                     break;
                 case ATTACK_MAP:
-                    controller.initializeAttack((Map) model);
+                    controller.initializeAttack((EnemyMap) model);
                     break;
                 case BACK:
                     controller.menuController.back();
@@ -256,8 +256,8 @@ public class Controller {
         controller.viewer.printInformation("building process started");
     }
 
-    private void initializeAttack(Map map) {
-        controller.world.attackMap(map);
+    private void initializeAttack(EnemyMap enemyMap) {
+        controller.world.attackMap(enemyMap);
         controller.battleGroundViewer.setBattleGround(controller.world.getBattleGround());
         startSelectingTroops();
         controller.startAttack();

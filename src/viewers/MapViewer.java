@@ -1,16 +1,16 @@
 package viewers;
 
+import models.GameLogic.EnemyMap;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Storage;
-import models.GameLogic.Map;
 import models.GameLogic.Resource;
 
 import java.util.HashMap;
 
 public class MapViewer extends BasicViewer {
-    public void printMapInfo(Map map) {
-        Resource enemyMapResourceStock = getEnemyMapResourceStock(map);
-        HashMap<String, Integer> towerTypeNumber = getTowerTypeNumber(map);
+    public void printMapInfo(EnemyMap enemyMap) {
+        Resource enemyMapResourceStock = getEnemyMapResourceStock(enemyMap);
+        HashMap<String, Integer> towerTypeNumber = getTowerTypeNumber(enemyMap);
         printPropertyValue("Gold", enemyMapResourceStock.getGold());
         printPropertyValue("Elixir", enemyMapResourceStock.getElixir());
         for (java.util.Map.Entry<String, Integer> stringIntegerEntry : towerTypeNumber.entrySet()) {
@@ -18,9 +18,9 @@ public class MapViewer extends BasicViewer {
         }
     }
 
-    private Resource getEnemyMapResourceStock(Map map) {
+    private Resource getEnemyMapResourceStock(EnemyMap enemyMap) {
         Resource resource = new Resource(0, 0);
-        for (Building building : map.getBuildings()) {
+        for (Building building : enemyMap.getBuildings()) {
             if (building instanceof Storage) {
                 Storage storage = (Storage) building;
                 resource.addToThisResource(storage.getStock());
@@ -29,9 +29,9 @@ public class MapViewer extends BasicViewer {
         return resource;
     }
 
-    private HashMap<String , Integer> getTowerTypeNumber(Map map) {
+    private HashMap<String , Integer> getTowerTypeNumber(EnemyMap enemyMap) {
         HashMap<String, Integer> towerTypeNumber = new HashMap<>();
-        for (Building building : map.getBuildings()) {
+        for (Building building : enemyMap.getBuildings()) {
             String Building = building.getClass().getSimpleName();
             if (towerTypeNumber.keySet().contains(building.getClass().getSimpleName())) {
                 towerTypeNumber.put(Building, towerTypeNumber.get(Building) + 1);

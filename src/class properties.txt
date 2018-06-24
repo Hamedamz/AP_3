@@ -149,28 +149,28 @@
         WizardTowerUpgradeHitPointsAddition: 10
 
     #Wall properties:
-        #WallBuildGold: 100
-        #WallBuildElixir: 0
-        #WallBuildTime: 20
-        #WallBuildLimit: 1000
-        #WallBuildHitPoints: 100
-        #WallDestructionScore: 1
-        #WallUpgradeGold: 100
-        #WallUpgradeElixir: 0
-        #WallUpgradeHitPointsAddition: 10
+        WallBuildGold: 100
+        WallBuildElixir: 0
+        WallBuildTime: 20
+        WallBuildLimit: 1000
+        WallBuildHitPoints: 100
+        WallDestructionScore: 1
+        WallUpgradeGold: 100
+        WallUpgradeElixir: 0
+        WallUpgradeHitPointsAddition: 10
 
     #Trap properties:
-        #TrapBuildGold: 100
-        #TrapBuildElixir: 0
-        #TrapBuildTime: 40
-        #TrapBuildLimit: 1000
-        #TrapHitPoints: 100
-        #TrapDamage: 100
-        #TrapRange = 1
-        #TrapDestructionScore: 1
-        #TrapUpgradeGold: 100
-        #TrapUpgradeDamageAddition: 1
-        #TrapUpgradeHitPointsAddition: 10
+        TrapBuildGold: 100
+        TrapBuildElixir: 0
+        TrapBuildTime: 40
+        TrapBuildLimit: 1000
+        TrapHitPoints: 100
+        TrapDamage: 100
+        TrapRange = 1
+        TrapDestructionScore: 1
+        TrapUpgradeGold: 100
+        TrapUpgradeDamageAddition: 1
+        TrapUpgradeHitPointsAddition: 10
 
     #Guardian giant properties:
 

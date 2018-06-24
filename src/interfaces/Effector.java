@@ -8,4 +8,5 @@ public interface Effector<T> {
     int getEffectRange();
     void setTarget(ArrayList<T> tList) throws NoTargetFoundException;
     T getTarget();
+    void removeTarget();
 }
