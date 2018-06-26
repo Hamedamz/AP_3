@@ -13,8 +13,24 @@ public class Position {
         this.y = y;
     }
 
+    public static Position newMapPosition(int x, int y) {
+        return new Position(x * CELL_SIZE + 1, y * CELL_SIZE + 1);
+    }
+
+    /**
+     * return the exact x of a position
+     * @return x
+     */
     public int getX() {
         return x;
+    }
+
+    /**
+     * return x of the cell which this position is in
+     * @return (x/CELL_SIZE)
+     */
+    public int getMapX() {
+        return x / CELL_SIZE;
     }
 
     public void setX(int x) {
@@ -23,6 +39,10 @@ public class Position {
 
     public int getY() {
         return y;
+    }
+
+    public int getMapY() {
+        return y / CELL_SIZE;
     }
 
     public void setY(int y) {
@@ -41,17 +61,17 @@ public class Position {
         );
     }
 
-    public static Position addPostions(Position position1, Position position2) {
+    public static Position addPositions(Position position1, Position position2) {
         return new Position(position1.x + position2.x, position1.y + position2.y);
     }
 
-    public boolean isInBoundary(EnemyMap enemyMap) {
-        return x >= 0 && y >= 0 && x < enemyMap.getWidth() && y < enemyMap.getHeight();
+    public boolean isInBoundary(GameMap gameMap) {
+        return x >= 0 && y >= 0 && x < gameMap.getWidth() && y < gameMap.getHeight();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Position) {
+        if (obj instanceof Position) {
             return ((Position) obj).x == x && ((Position) obj).y == y;
         }
         return false;

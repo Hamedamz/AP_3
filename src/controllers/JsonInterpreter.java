@@ -147,7 +147,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewTownHall(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        TownHall townHall = new TownHall(new Position(jsonBuilding.x, jsonBuilding.y), false);
+        TownHall townHall = new TownHall(Position.newMapPosition(jsonBuilding.x, jsonBuilding.y), false);
         townHall.setLevel(jsonBuilding.level);
         int hitPoints = (int) GameLogicConfig.getFromDictionary("TownHallHitPoints") + ((int) GameLogicConfig.getFromDictionary("TownHallUpgradeHitPointsAddition") * jsonBuilding.level);
         townHall.setHitPoints(hitPoints);
@@ -225,7 +225,7 @@ public class JsonInterpreter {
     }
 
     private static Position extractPosition(JsonBuilding jsonBuilding) {
-        Position position = new Position(jsonBuilding.x, jsonBuilding.y);
+        Position position = Position.newMapPosition(jsonBuilding.x, jsonBuilding.y);
         return position;
     }
 }

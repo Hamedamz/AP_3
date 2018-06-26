@@ -1,6 +1,6 @@
 package models.GameLogic.utills;
 
-import models.GameLogic.EnemyMap;
+import models.GameLogic.GameMap;
 import models.GameLogic.Position;
 
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ public class BFS {
         DIRECTIONS = new Position[]{DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_LEFT};
     }
 
-    public static ArrayList<Position> getPath(EnemyMap enemyMap, Position origin, Position destination, int range) {
-        boolean[][] isVisited = new boolean[enemyMap.getWidth()][enemyMap.getHeight()];
-        Position[][] lastPositionInPath = new Position[enemyMap.getWidth()][enemyMap.getHeight()];
+    public static ArrayList<Position> getPath(GameMap gameMap, Position origin, Position destination, int range) {
+        boolean[][] isVisited = new boolean[gameMap.getWidth()][gameMap.getHeight()];
+        Position[][] lastPositionInPath = new Position[gameMap.getWidth()][gameMap.getHeight()];
         isVisited[origin.getX()][origin.getY()] = true;
         LinkedList<Position> queue = new LinkedList<>();
         Position position = null;
@@ -38,8 +38,8 @@ public class BFS {
                 break;
             }
             for(Position dir : DIRECTIONS) {
-                Position neighbour = Position.addPostions(position, dir);
-                if (neighbour.isInBoundary(enemyMap) && !isVisited[neighbour.getX()][neighbour.getY()]) {
+                Position neighbour = Position.addPositions(position, dir);
+                if (neighbour.isInBoundary(gameMap) && !isVisited[neighbour.getX()][neighbour.getY()]) {
                     lastPositionInPath[neighbour.getX()][neighbour.getY()] = position;
                     queue.addLast(neighbour);
                 }

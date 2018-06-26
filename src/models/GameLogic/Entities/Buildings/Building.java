@@ -69,27 +69,27 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
     public static Building getNewBuilding(String buildingType, int x, int y) throws CountLimitReachedException {
         switch (buildingType) {
             case "AirDefense":
-                return new AirDefense(new Position(x, y), true);
+                return new AirDefense(Position.newMapPosition(x, y), true);
             case "ArcherTower":
-                return new ArcherTower(new Position(x, y), true);
+                return new ArcherTower(Position.newMapPosition(x, y), true);
             case "Barracks":
-                return new Barracks(new Position(x, y), true);
+                return new Barracks(Position.newMapPosition(x, y), true);
             case "Camp":
-                return new Camp(new Position(x, y), true);
+                return new Camp(Position.newMapPosition(x, y), true);
             case "Cannon":
-                return new Cannon(new Position(x, y), true);
+                return new Cannon(Position.newMapPosition(x, y), true);
             case "ElixirMine":
-                return new ElixirMine(new Position(x, y), true);
+                return new ElixirMine(Position.newMapPosition(x, y), true);
             case "ElixirStorage":
-                return new ElixirStorage(new Position(x, y), true);
+                return new ElixirStorage(Position.newMapPosition(x, y), true);
             case "GoldMine":
-                return new GoldMine(new Position(x, y), true);
+                return new GoldMine(Position.newMapPosition(x, y), true);
             case "GoldStorage":
-                return new GoldStorage(new Position(x, y), true);
+                return new GoldStorage(Position.newMapPosition(x, y), true);
             case "TownHall":
                 throw new CountLimitReachedException();
             case "WizardTower":
-                return new WizardTower(new Position(x, y), true);
+                return new WizardTower(Position.newMapPosition(x, y), true);
             default:
                 break;
         }

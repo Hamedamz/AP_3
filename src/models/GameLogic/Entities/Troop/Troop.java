@@ -46,7 +46,7 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
 
     @Override
     public void findPath(BattleGround battleGround) {
-        setMovementPath(BFS.getPath(battleGround.getEnemyEnemyMap(), this.position, getTarget().getPosition(), this.getEffectRange()));
+        setMovementPath(BFS.getPath(battleGround.getEnemyGameMap(), this.position, getTarget().getPosition(), this.getEffectRange()));
     }
 
     @Override

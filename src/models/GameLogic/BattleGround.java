@@ -1,7 +1,6 @@
 package models.GameLogic;
 
 import interfaces.Effector;
-import javafx.scene.effect.Effect;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;
@@ -19,20 +18,21 @@ public class BattleGround {
 
     private int timeRemaining;
     private Village myVillage;
-    private EnemyMap enemyEnemyMap;
+    private GameMap enemyGameMap;
     private ArrayList<Building> enemyBuildings;
     private ArrayList<Troop> deployedTroops;
     private HashMap<String, ArrayList<Troop>> unDeployedTroops;
     private Bounty thisLootedBounty;
     private Bounty lootedBounty;
-    private int[][] numberOfTroopsDeployed = new int[30][30];
+    private int[][] numberOfTroopsDeployed;
 
-    public BattleGround(Village myVillage, EnemyMap enemyEnemyMap) {
+    public BattleGround(Village myVillage, GameMap enemyGameMap) {
+        numberOfTroopsDeployed = new int[enemyGameMap.getMapWidth()][enemyGameMap.getMapWidth()];
         deployedTroops = new ArrayList<>();
-        enemyBuildings = new ArrayList<>(enemyEnemyMap.getBuildings());
+        enemyBuildings = new ArrayList<>(enemyGameMap.getBuildings());
         unDeployedTroops = new HashMap<>();
         this.myVillage = myVillage;
-        this.enemyEnemyMap = enemyEnemyMap;
+        this.enemyGameMap = enemyGameMap;
         lootedBounty = new Bounty(0, new Resource(0, 0));
         thisLootedBounty = new Bounty(0, new Resource(0, 0));
         this.timeRemaining = (int) GameLogicConfig.getFromDictionary("WarTime");
@@ -73,7 +73,7 @@ public class BattleGround {
 
     public Resource getRemainingResources() {
         Resource availableResources = new Resource(0, 0);
-        for (Building building : enemyEnemyMap.getBuildings()) {
+        for (Building building : enemyGameMap.getBuildings()) {
             if(!building.isDestroyed()) {
                 availableResources.addToThisResource(building.getBounty().getResource());
             }
@@ -83,7 +83,7 @@ public class BattleGround {
 
     public void reset() {
         thisLootedBounty = new Bounty(0, new Resource(0, 0));
-        setNumberOfTroopsDeployed(new int[30][30]);
+        setNumberOfTroopsDeployed(new int[enemyGameMap.getMapWidth()][enemyGameMap.getMapHeight()]);
 
     }
 
@@ -117,8 +117,8 @@ public class BattleGround {
         return unDeployedTroops;
     }
 
-    public EnemyMap getEnemyEnemyMap() {
-        return enemyEnemyMap;
+    public GameMap getEnemyGameMap() {
+        return enemyGameMap;
     }
 
 
@@ -142,11 +142,11 @@ public class BattleGround {
         if(troops.size() < count) {
             throw new TroopNotFoundException();
         }
-        if (!(position.getX() == 0 || position.getX() == enemyEnemyMap.getWidth() - 1 ||
-                position.getY() == 0 || position.getY() == enemyEnemyMap.getHeight() - 1)) {
+        if (!(position.getMapX() == 0 || position.getMapX() == enemyGameMap.getMapWidth() - 1 ||
+                position.getMapY() == 0 || position.getMapY() == enemyGameMap.getMapHeight() - 1)) {
             throw new InvalidPositionException();
         }
-        if (numberOfTroopsDeployed[position.getX()][position.getY()] + count > MAX_UNITS_IN_POSITION) {
+        if (numberOfTroopsDeployed[position.getMapX()][position.getMapY()] + count > MAX_UNITS_IN_POSITION) {
             throw new CountLimitReachedException();
         }
         for (int i = 0; i < count; i++) {
@@ -155,7 +155,7 @@ public class BattleGround {
             troops.remove(troops.size()-1);
             deployedTroop.setPosition(position);
         }
-        numberOfTroopsDeployed[position.getX()][position.getY()]+=count;
+        numberOfTroopsDeployed[position.getMapX()][position.getMapY()] += count;
 
     }
 
@@ -176,7 +176,7 @@ public class BattleGround {
         if (!myVillage.isThereAvailableSpaceForResources()) {
             return true;
         }
-        for (Defender defender : enemyEnemyMap.getBuildings()) {
+        for (Defender defender : enemyGameMap.getBuildings()) {
             if(!defender.isDestroyed()) {
                 return false;
             }

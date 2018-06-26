@@ -6,13 +6,13 @@ import models.GameLogic.Entities.Entity;
 
 import java.util.ArrayList;
 
-public class EnemyMap extends Entity {
+public class GameMap extends Entity {
     // TODO: 4/12/2018 add map size to dic
     private int width, height;
     private ArrayList<Building> buildings;
     private boolean[][] isOccupied;
 
-    public EnemyMap(int width, int height) {
+    public GameMap(int width, int height) {
         this.width = width;
         this.height = height;
         buildings = new ArrayList<>();
@@ -29,18 +29,26 @@ public class EnemyMap extends Entity {
         return isOccupied;
     }
 
-    public int getWidth() {
+    public int getMapWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public int getWidth() {
+        return width * Position.CELL_SIZE;
+    }
+
+    public int getMapHeight() {
         return height;
+    }
+
+    public int getHeight() {
+        return height * Position.CELL_SIZE;
     }
 
     public void addNewBuilding(Building building) {
         buildings.add(building);
-        int x = building.getPosition().getX();
-        int y = building.getPosition().getY();
+        int x = building.getPosition().getMapX();
+        int y = building.getPosition().getMapY();
         setOccupied(x, y);
         if (building instanceof TownHall) {
             setOccupied(x + 1, y + 1);
@@ -60,7 +68,7 @@ public class EnemyMap extends Entity {
     public void setBuildings(ArrayList<Building> buildings) {
         this.buildings = buildings;
         for (Building building : buildings) {
-            setOccupied(building.getPosition().getX(), building.getPosition().getY());
+            setOccupied(building.getPosition().getMapX(), building.getPosition().getMapY());
         }
     }
 
@@ -69,7 +77,7 @@ public class EnemyMap extends Entity {
     }
 
 
-    public EnemyMap clone() {
+    public GameMap clone() {
         return null;
         // TODO: 5/5/2018
     }

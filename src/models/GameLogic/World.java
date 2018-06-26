@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class World {
     private HashMap<String, String> myVillagesNameAndPath;
-    private HashMap<String, EnemyMap> enemyVillagesPathAndMap;
+    private HashMap<String, GameMap> enemyVillagesPathAndMap;
     private Village myVillage;
     private BattleGround battleGround;
     private GameEngine gameEngine;
@@ -27,7 +27,7 @@ public class World {
         return myVillagesNameAndPath;
     }
 
-    public HashMap<String, EnemyMap> getEnemyVillagesPathAndMap() {
+    public HashMap<String, GameMap> getEnemyVillagesPathAndMap() {
         return enemyVillagesPathAndMap;
     }
 
@@ -60,9 +60,9 @@ public class World {
 
     public void loadEnemyMap(String path) throws java.io.FileNotFoundException {
         ArrayList<Building> buildings = JsonInterpreter.loadEnemyVillageBuildings(path);
-        EnemyMap enemyMap = new EnemyMap(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
-        enemyMap.setBuildings(buildings);
-        enemyVillagesPathAndMap.put(path, enemyMap);
+        GameMap gameMap = new GameMap(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
+        gameMap.setBuildings(buildings);
+        enemyVillagesPathAndMap.put(path, gameMap);
     }
 
 
@@ -70,8 +70,8 @@ public class World {
         return gameEngine;
     } // FIXME: 5/8/2018 gameEngine must not be passed
 
-    public void attackMap(EnemyMap enemyMap) {
-        battleGround = new BattleGround(myVillage, enemyMap);
+    public void attackMap(GameMap gameMap) {
+        battleGround = new BattleGround(myVillage, gameMap);
         gameEngine.loadBattleGround();
     }
 
