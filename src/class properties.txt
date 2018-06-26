@@ -166,13 +166,25 @@
         TrapBuildLimit: 1000
         TrapHitPoints: 100
         TrapDamage: 100
-        TrapRange = 1
+        TrapRange: 1
         TrapDestructionScore: 1
         TrapUpgradeGold: 100
         TrapUpgradeDamageAddition: 1
         TrapUpgradeHitPointsAddition: 10
 
     #Guardian giant properties:
+        GuardianGiantBuildGold: 10000
+        GuardianGiantBuildElixir: 0
+        GuardianGiantBuildTime: 4000
+        GuardianGiantHitPoints: 700
+        GuardianGiantRange: 1
+        GuardianGiantDestructionScore: 6
+        GuardianGiantDamage: 60
+        GuardianGiantUpgradeGold: 100
+        GuardianGiantUpgradeElixir: 0
+        GuardianGiantUpgradeDamageAddition: 1
+        GuardianGiantUpgradeHitPointsAddition: 10
+        GuardianGiantSpeed: 3
 
 
 #Troops:
@@ -222,5 +234,21 @@
         ArcherUpgradeHitPointsAddition: 5
 
     #Wall breaker properties:
+        WallBreakerTrainGold: 0
+        WallBreakerTrainElixir: 60
+        WallBreakerTrainTime: 10
+        WallBreakerHitPoints: 100
+        WallBreakerRange: 1
+        WallBreakerDamage: 50
+        WallBreakerSpeed: 6
+        WallBreakerUpgradeDamageAddition: 1
+        WallBreakerUpgradeHitPointsAddition: 5
 
     #Healer properties:
+        HealerBuildGold: 0
+        HealerBuildElixir: 175
+        HealerBuildTime: 30
+        HealerRange: 10
+        HealerDeathTime: 10
+        HealerUpgradeHealingAmountAddition: 1
+        HealerHealingAmount: 50

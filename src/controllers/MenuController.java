@@ -63,6 +63,9 @@ public class MenuController {
             modelBasedMenus.put("ArcherTower", defensiveBuildingsMenu);
             modelBasedMenus.put("Cannon", defensiveBuildingsMenu);
             modelBasedMenus.put("WizardTower", defensiveBuildingsMenu);
+            modelBasedMenus.put("GuardianGiant", defensiveBuildingsMenu);
+            modelBasedMenus.put("Trap", defensiveBuildingsMenu);    // FIXME: 6/27/2018 special menu for wall && trap???
+            modelBasedMenus.put("Wall", defensiveBuildingsMenu);
             modelBasedMenus.put("GameMap", buildMapMenu());
         }
     }
@@ -211,8 +214,8 @@ public class MenuController {
     }
 
     private LinkedHashMap<DynamicMenuItem, String> getTroopsList() {
-        // all troops with labels A and U that show availability
-        // if troop can be built the possible number is also shown
+//         all troops with labels A and U that show availability
+//         if troop can be built the possible number is also shown
         LinkedHashMap<DynamicMenuItem, String> troopsList = new LinkedHashMap<>();
         Resource resourceStock = world.getMyVillage().getTotalResourceStock();
         Barracks barracks = (Barracks) getActiveMenu().getModel();
@@ -342,6 +345,9 @@ public class MenuController {
                 .withItem(new MenuItem(BUILD_BUILDING, "ElixirStorage"))
                 .withItem(new MenuItem(BUILD_BUILDING, "GoldMine"))
                 .withItem(new MenuItem(BUILD_BUILDING, "GoldStorage"))
+                .withItem(new MenuItem(BUILD_BUILDING, "GuardianGiant"))
+                .withItem(new MenuItem(BUILD_BUILDING, "Trap"))
+                .withItem(new MenuItem(BUILD_BUILDING, "Wall"))
                 .withItem(new MenuItem(BUILD_BUILDING, "WizardTower"))
                 .build();
     }
