@@ -31,7 +31,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
         return damage;
     }
 
-    public int getRange() {
+    public int getMapRange() {
         return range;
     }
 
@@ -108,7 +108,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
 
     @Override
     public int getEffectRange() {
-        return getRange();
+        return getMapRange() * Position.CELL_SIZE;
     }
 
     @Override

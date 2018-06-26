@@ -5,6 +5,7 @@ import interfaces.TimedEvent;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
+import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Healer extends Troop implements TimedEvent {
 
     @Override
     public int getEffectRange() {
-        return healingRange;
+        return healingRange * Position.CELL_SIZE;
     }
 
     @Override
@@ -69,7 +70,7 @@ public class Healer extends Troop implements TimedEvent {
 
     public void heal(BattleGround battleGround) {
         for(Troop troop : battleGround.getDeployedTroops()) {
-            if(troop.getPosition().calculateDistance(getPosition()) <= healingRange && troop instanceof AttackerTroop) {
+            if(troop.getPosition().calculateDistance(getPosition()) <= getEffectRange() && troop instanceof AttackerTroop) {
                 if(!troop.isDestroyed()){
                     ((AttackerTroop) troop).heal(healingAmount);
                 }

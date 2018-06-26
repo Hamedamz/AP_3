@@ -69,6 +69,10 @@ public class Position {
         return x >= 0 && y >= 0 && x < gameMap.getWidth() && y < gameMap.getHeight();
     }
 
+    public boolean isInMapBoundary(GameMap gameMap) {
+        return x >= 0 && y >= 0 && x < gameMap.getMapWidth() && y < gameMap.getMapHeight();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Position) {

@@ -38,7 +38,7 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
 
     @Override
     public void move() {
-        this.position = this.movementPath.get(Math.min(speed, getPath().size() - 1));
+        this.position = this.movementPath.get(Math.min(getSpeed(), getPath().size() - 1));
     }
 
     @Override
