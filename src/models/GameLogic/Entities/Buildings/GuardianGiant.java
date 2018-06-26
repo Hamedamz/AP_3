@@ -58,7 +58,7 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
 
     @Override
     public int getSpeed() {
-        return speed;
+        return speed * Position.CELL_SIZE;
     }
 
     public void resetPosition() {

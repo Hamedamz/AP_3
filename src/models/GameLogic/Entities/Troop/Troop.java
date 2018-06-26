@@ -11,6 +11,7 @@ import models.GameLogic.Resource;
 import models.GameLogic.enums.MoveType;
 import models.Setting.GameLogicConfig;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Troop extends Entity implements Movable, Upgradable, Vulnerable {
@@ -61,7 +62,7 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
 
     @Override
     public int getSpeed() {
-        return speed;
+        return speed * Position.CELL_SIZE;
     }
 
     @Override
