@@ -3,6 +3,8 @@ package models.GameLogic;
 //import javafx.geometry.Pos;
 
 public class Position {
+    public static int CELL_SIZE = 4;
+
     private int x;
     private int y;
 

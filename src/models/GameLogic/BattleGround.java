@@ -203,6 +203,9 @@ public class BattleGround {
         for(Defender defender : getEnemyDefenders()) {
             if(defender instanceof Effector) {
                 ((Effector) defender).removeTarget();
+                if(defender instanceof GuardianGiant) {
+                    ((GuardianGiant) defender).resetPosition();
+                }
             }
         }
         myVillage.spreadTroops(unDeployedTroops);

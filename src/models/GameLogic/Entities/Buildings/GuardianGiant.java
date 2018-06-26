@@ -60,4 +60,8 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
     public int getSpeed() {
         return speed;
     }
+
+    public void resetPosition() {
+        position = initialPosition;
+    }
 }
