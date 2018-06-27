@@ -25,7 +25,7 @@ public enum TroopTargetType {
                 }
                 break;
             case RESOURCES:
-                if(defender instanceof Storage) { //fixme i don't know whether mines are counted or not
+                if(defender instanceof Storage) {
                     return true;
                 }
                 break;
