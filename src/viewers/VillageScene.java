@@ -39,6 +39,8 @@ public class VillageScene extends Scene{
 
         mapPane = new DraggablePane(mapBackground);
         mapPane.initialize();
+        mapPane.setMaxWidth(VIllAGE_BACKGROUND_WIDTH);
+        mapPane.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
 
         root.getChildren().add(mapPane);
         return instance;
