@@ -85,17 +85,41 @@ public class JsonInterpreter {
                     addNewWizardTower(jsonBuildings.get(i), buildings);
                     break;
                 case 12:
-                    //addNewWall(jsonBuildings.get(i), buildings);
+                    addNewWall(jsonBuildings.get(i), buildings);
                     break;
                 case 13:
-                    //addNewTrap(jsonBuildings.get(i), buildings);
+                    addNewTrap(jsonBuildings.get(i), buildings);
                     break;
                 case 14:
-                    //addNewGuardianGiant(jsonBuildings.get(i), buildings);
+                    addNewGuardianGiant(jsonBuildings.get(i), buildings);
                     break;
             }
         }
         return buildings;
+    }
+
+    private static void addNewGuardianGiant(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
+        GuardianGiant guardianGiant = new GuardianGiant(extractPosition(jsonBuilding), false);
+        guardianGiant.setLevel(jsonBuilding.level);
+        int hitPoints = (int) GameLogicConfig.getFromDictionary("GuardianGiantHitPoints");
+        guardianGiant.setHitPoints(hitPoints);
+        buildings.add(guardianGiant);
+    }
+
+    private static void addNewTrap(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
+        Trap trap = new Trap(extractPosition(jsonBuilding), false);
+        trap.setLevel(jsonBuilding.level);
+        int hitPoints = (int) GameLogicConfig.getFromDictionary("TrapHitPoints");
+        trap.setHitPoints(hitPoints);
+        buildings.add(trap);
+    }
+
+    private static void addNewWall(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
+        Wall wall = new Wall(extractPosition(jsonBuilding), false);
+        wall.setLevel(jsonBuilding.level);
+        int hitPoints = (int) GameLogicConfig.getFromDictionary("WallHitPoints");
+        wall.setHitPoints(hitPoints);
+        buildings.add(wall);
     }
 
     private static void addNewWizardTower(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
