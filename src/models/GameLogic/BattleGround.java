@@ -139,7 +139,7 @@ public class BattleGround {
     public void putTroop(String troopType, int count, Position position)
             throws CountLimitReachedException, InvalidPositionException, TroopNotFoundException {
         ArrayList<Troop> troops = unDeployedTroops.get(troopType);
-        if(troops.size() < count) {
+        if(troops == null || troops.size() < count) {
             throw new TroopNotFoundException();
         }
         if (!(position.getMapX() == 0 || position.getMapX() == enemyGameMap.getMapWidth() - 1 ||
