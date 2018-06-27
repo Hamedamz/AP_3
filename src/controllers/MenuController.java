@@ -9,7 +9,7 @@ import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
 import models.Menu.*;
 import models.Setting.GameLogicConfig;
-import viewers.MenuViewer;
+import viewers.oldViewers.MenuViewer;
 
 import java.util.ArrayList;
 import java.util.HashMap;

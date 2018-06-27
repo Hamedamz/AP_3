@@ -1,4 +1,4 @@
-package viewers;
+package viewers.oldViewers;
 
 import models.GameLogic.GameMap;
 import models.GameLogic.Entities.Buildings.Building;

@@ -3,6 +3,7 @@ package controllers;
 import controllers.Exceptions.InvalidInputException;
 import controllers.Exceptions.VillageAlreadyExists;
 import controllers.enums.CommandType;
+import javafx.application.Application;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
@@ -10,7 +11,8 @@ import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.*;
 import models.Menu.*;
-import viewers.*;
+import viewers.AppGUI;
+import viewers.oldViewers.*;
 
 import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
@@ -32,6 +34,7 @@ public class Controller {
     private BattleGroundViewer battleGroundViewer = new BattleGroundViewer();
 
     public static void main(String[] args) {
+        Application.launch(AppGUI.class, args);
         controller.menuController.openMenu(controller.menuController.getEntranceMenu());
         while (controller.menuController.isMenuOpen()) {
             try {

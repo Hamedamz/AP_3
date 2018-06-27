@@ -1,4 +1,4 @@
-package viewers;
+package viewers.oldViewers;
 
 import models.Menu.DynamicMenuItem;
 import models.Menu.Menu;
