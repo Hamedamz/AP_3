@@ -2,7 +2,6 @@ package models.GameLogic;
 
 import interfaces.*;
 import models.GameLogic.Entities.Buildings.Building;
-import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Healer;
@@ -10,7 +9,6 @@ import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NoTargetFoundException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BattleGroundGameEngine {
     private BattleGround battleGround;
@@ -26,7 +24,7 @@ public class BattleGroundGameEngine {
 
     public void update() {
         battleGround.setTimeRemaining(battleGround.getTimeRemaining() - 1);
-        updateTroopEffectTarget();
+        updateTroopTarget();
         updateDefendersTarget();
         findMovablesPath();
         moveMovables();
@@ -69,7 +67,7 @@ public class BattleGroundGameEngine {
         battleGround.addBounty(bounty);
     }
 
-    public void updateTroopEffectTarget() {
+    public void updateTroopTarget() {
         ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getEnemyDefenders());
         ArrayList<Thread> threads = new ArrayList<>();
         for (Troop troop : battleGround.getDeployedTroops()) {

@@ -134,7 +134,7 @@ public class Dijkstra {
     public static Graph calculateShortestPathFromSource(Graph graph, Node source) {
         source.setDistance(0);
         Set<Node> settledNodes = new HashSet<>();
-        Set<Node> unsettledNodes = new HashSet<>();
+        PriorityQueue<Node> unsettledNodes = new PriorityQueue<>(Node.nodeComparator());
         unsettledNodes.add(source);
         while (unsettledNodes.size() != 0) {
             Node currentNode = getLowestDistanceNode(unsettledNodes);
@@ -152,17 +152,18 @@ public class Dijkstra {
         return graph;
     }
 
-    private static Node getLowestDistanceNode(Set<Node> unsettledNodes) {
-        Node lowestDistanceNode = null;
-        int lowestDistance = Integer.MAX_VALUE;
-        for (Node node : unsettledNodes) {
-            int nodeDistance = node.getDistance();
-            if (nodeDistance < lowestDistance) {
-                lowestDistance = nodeDistance;
-                lowestDistanceNode = node;
-            }
-        }
-        return lowestDistanceNode;
+    private static Node getLowestDistanceNode(PriorityQueue<Node> unsettledNodes) {
+        return unsettledNodes.peek();
+//        Node lowestDistanceNode = null;
+//        int lowestDistance = Integer.MAX_VALUE;
+//        for (Node node : unsettledNodes) {
+//            int nodeDistance = node.getDistance();
+//            if (nodeDistance < lowestDistance) {
+//                lowestDistance = nodeDistance;
+//                lowestDistanceNode = node;
+//            }
+//        }
+//        return lowestDistanceNode;
     }
 
     private static void calculateMinimumDistance(Node evaluationNode,
@@ -253,6 +254,10 @@ class Node {
 
     public void setAdjacentNodes(Set<Node> adjacentNodes) {
         this.adjacentNodes = adjacentNodes;
+    }
+
+    public static Comparator<Node> nodeComparator(){
+        return Comparator.comparing(Node::getDistance);
     }
 }
 
