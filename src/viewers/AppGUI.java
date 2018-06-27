@@ -23,7 +23,7 @@ public class AppGUI extends Application {
         //getMainStage().setTitle("");
         getMainStage().setResizable(false);
         // FIXME: 6/27/2018 Hamed Alimohammad Zadeh
-        //setStageScene();
+        setStageScene(VillageScene.getInstance().build());
         getMainStage().show();
     }
 
