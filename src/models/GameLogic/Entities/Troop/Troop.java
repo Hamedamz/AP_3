@@ -80,17 +80,12 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
                 return new Dragon();
             case "Guardian" :
                 return new Guardian();
+            case "WallBreaker":
+                return new WallBreaker();
+            case "Healer":
+                return new Healer();
 
         }
         return null;
     }
 }
-
-
-//class WallBreaker extends Troop {
-//
-//}
-
-//class Healer extends Troop {
-//
-//}

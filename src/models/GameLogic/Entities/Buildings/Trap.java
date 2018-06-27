@@ -5,10 +5,12 @@ import models.GameLogic.BattleGround;
 import models.GameLogic.Bounty;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Position;
+import models.GameLogic.Resource;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.ID;
 import models.IDGenerator;
+import models.Setting.GameLogicConfig;
 
 public class Trap extends DefensiveBuilding {
 
@@ -23,9 +25,14 @@ public class Trap extends DefensiveBuilding {
         this.damageType = BuildingDamageType.AREA_SPLASH;
     }
 
+
     @Override
     public Bounty getBounty() {
-        // TODO: 6/24/2018 arshia moghimi
+        int gold = (int) GameLogicConfig.getFromDictionary("TrapBuildGold");
+        int elixir = 0;
+        Resource resource = new Resource(gold, elixir);
+        int score = this.score;
+        return new Bounty(score, resource);
     }
 
 

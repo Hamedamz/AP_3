@@ -6,6 +6,7 @@ import models.GameLogic.BattleGround;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Position;
+import models.GameLogic.Resource;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.enums.MoveType;
@@ -36,7 +37,11 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
 
     @Override
     public Bounty getBounty() {
-        // TODO: 6/24/2018 arshia moghimi
+        int gold = (int) GameLogicConfig.getFromDictionary("GuardianGiantBuildGold");
+        int elixir = 0;
+        Resource resource = new Resource(gold, elixir);
+        int score = this.score;
+        return new Bounty(score, resource);
     }
 
     @Override

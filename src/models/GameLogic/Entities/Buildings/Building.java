@@ -11,12 +11,11 @@ import models.ID;
 import models.Setting.GameLogicConfig;
 
 public abstract class Building extends Defender implements Upgradable, Comparable<Building> {
-    //private int jsonNumber;
     protected int score;
     protected int maxHitPoint;
     protected int hitPoints;
     protected int level;
-    private transient ID id;
+    private  ID id;
     protected boolean isDestroyed;
     private boolean isUnderConstruct;
     public static int maxLevel;
@@ -187,13 +186,4 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
         return compare;
     }
 }
-
-//class Wall extends Building {
-//}
-
-//class Trap extends DefensiveBuilding {
-//}
-
-//class GuardianGiant extends DefensiveBuilding {
-//}
 

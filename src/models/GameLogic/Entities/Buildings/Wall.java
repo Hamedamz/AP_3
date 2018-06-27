@@ -3,7 +3,9 @@ package models.GameLogic.Entities.Buildings;
 import models.GameLogic.Bounty;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Position;
+import models.GameLogic.Resource;
 import models.IDGenerator;
+import models.Setting.GameLogicConfig;
 
 public class Wall extends Building {
 
@@ -15,13 +17,11 @@ public class Wall extends Building {
     }
 
     @Override
-    public void upgrade() throws UpgradeLimitReachedException {
-        super.upgrade();
-        // TODO: 6/24/2018 arshia moghimi 
-    }
-
-    @Override
     public Bounty getBounty() {
-        // TODO: 6/24/2018  arshia moghimi
+        int gold = (int) GameLogicConfig.getFromDictionary("WallBuildGold");
+        int elixir = 0;
+        Resource resource = new Resource(gold, elixir);
+        int score = this.score;
+        return new Bounty(score, resource);
     }
 }

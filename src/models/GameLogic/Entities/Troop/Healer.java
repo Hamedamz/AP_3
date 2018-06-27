@@ -7,6 +7,8 @@ import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
+import models.GameLogic.enums.TroopTargetType;
+import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;
 
@@ -59,11 +61,6 @@ public class Healer extends Troop implements TimedEvent {
     }
 
     @Override
-    public void upgrade() throws UpgradeLimitReachedException {
-        // TODO: 6/24/2018 arshia moghimi
-    }
-
-    @Override
     public boolean isDestroyed() {
         return remainingTime <= 0;
     }
@@ -86,5 +83,11 @@ public class Healer extends Troop implements TimedEvent {
     @Override
     public void reduceTime() {
         remainingTime--;
+    }
+
+    @Override
+    public void upgrade() {
+        setLevel(getLevel() + 1);
+        healingAmount += GameLogicConfig.getFromDictionary("HealerUpgradeHealingAmountAddition");
     }
 }
