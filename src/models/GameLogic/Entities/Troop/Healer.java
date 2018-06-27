@@ -18,7 +18,7 @@ public class Healer extends Troop implements TimedEvent {
     private Destroyable target;
 
     public Healer() {
-        moveType = MoveType.Air;
+        moveType = MoveType.AIR;
         // TODO: 6/24/2018
     }
 

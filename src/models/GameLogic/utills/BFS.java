@@ -10,18 +10,6 @@ import java.util.LinkedList;
 
 public class BFS {
 
-    public static final Double EPSILON;
-    public static Position[] DIRECTIONS;
-
-    static {
-        EPSILON = 1e-6;
-        Position DIR_UP = new Position(0, -1);
-        Position DIR_RIGHT = new Position(1, 0);
-        Position DIR_DOWN = new Position(0, 1);
-        Position DIR_LEFT = new Position(-1, 0);
-        DIRECTIONS = new Position[]{DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_LEFT};
-    }
-
     public static ArrayList<Position> getPath(GameMap gameMap, Position origin, Position destination, int range) {
         boolean[][] isVisited = new boolean[gameMap.getWidth()][gameMap.getHeight()];
         Position[][] lastPositionInPath = new Position[gameMap.getWidth()][gameMap.getHeight()];
@@ -34,10 +22,10 @@ public class BFS {
             int x = position.getX();
             int y = position.getY();
             isVisited[x][y] = true;
-            if (position.calculateDistance(destination) <= range + EPSILON) {
+            if (position.calculateDistance(destination) <= range + PathFinder.EPSILON) {
                 break;
             }
-            for(Position dir : DIRECTIONS) {
+            for(Position dir : PathFinder.DIRECTIONS) {
                 Position neighbour = Position.addPositions(position, dir);
                 if (neighbour.isInBoundary(gameMap) && !isVisited[neighbour.getX()][neighbour.getY()]) {
                     lastPositionInPath[neighbour.getX()][neighbour.getY()] = position;

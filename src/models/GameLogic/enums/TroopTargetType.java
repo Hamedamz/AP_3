@@ -12,8 +12,8 @@ import models.GameLogic.Entities.Troop.Troop;
 public enum TroopTargetType {
     BUILDING, RESOURCES, TOWER, WALL;
 
-    public static boolean isTroopTargetAppropriate(AttackerTroop attackerTroop, Defender defender) {
-        switch (attackerTroop.getTargetType()) {
+    public static boolean isTroopTargetAppropriate(TroopTargetType troopTargetType, Defender defender) {
+        switch (troopTargetType) {
             case WALL:
                 if (defender instanceof Wall) {
                     return true;

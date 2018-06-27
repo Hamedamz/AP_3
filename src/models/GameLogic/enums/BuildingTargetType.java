@@ -13,12 +13,12 @@ public enum BuildingTargetType {
     public static boolean isBuildingTargetAppropriate(DefensiveBuilding defensiveBuilding, AttackerTroop troop) {
         switch (defensiveBuilding.getTargetType()) {
             case GROUND:
-                if (troop.getTroopMoveType().equals(MoveType.GROUND)) {
+                if (troop.getTroopMoveType().equals(MoveType.GROUND) || troop.getTroopMoveType().equals(MoveType.JUMPER)) {
                     return true;
                 }
                 break;
             case AIR:
-                if (troop.getTroopMoveType().equals(MoveType.Air)) {
+                if (troop.getTroopMoveType().equals(MoveType.AIR)) {
                     return true;
                 }
                 break;

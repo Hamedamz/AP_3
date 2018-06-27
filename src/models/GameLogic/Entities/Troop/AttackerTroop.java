@@ -40,7 +40,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
         double minDistance = Double.MAX_VALUE;
         Destroyable minDistantDestroyable = null;
         for (Destroyable destroyable : destroyables) {
-            if (!destroyable.isDestroyed() && TroopTargetType.isTroopTargetAppropriate(this, (Defender) destroyable)) {
+            if (!destroyable.isDestroyed() && TroopTargetType.isTroopTargetAppropriate(getTargetType(), (Defender) destroyable)) {
                 double distance = this.getPosition().calculateDistance(destroyable.getPosition());
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -54,7 +54,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
         }
 
         for (Destroyable destroyable : destroyables) {
-            if (!destroyable.isDestroyed()) {
+            if (!destroyable.isDestroyed() && TroopTargetType.isTroopTargetAppropriate(TroopTargetType.BUILDING, (Defender) destroyable)) {
                 double distance = this.getPosition().calculateDistance(destroyable.getPosition());
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -122,6 +122,16 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     @Override
     public void removeTarget() {
         currentTarget = null;
+    }
+
+    @Override
+    public int getDamage() {
+        return damage;
+    }
+
+    @Override
+    public void setTarget(Destroyable destroyable) {
+        currentTarget = (Defender) destroyable;
     }
 }
 

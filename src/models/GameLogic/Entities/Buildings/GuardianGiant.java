@@ -1,12 +1,15 @@
 package models.GameLogic.Entities.Buildings;
 
+import interfaces.Destroyable;
 import interfaces.MovingAttacker;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Bounty;
+import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Position;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.enums.MoveType;
+import models.GameLogic.utills.PathFinder;
 import models.ID;
 import models.IDGenerator;
 import models.Setting.GameLogicConfig;
@@ -48,7 +51,7 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
 
     @Override
     public void findPath(BattleGround battleGround) {
-
+        PathFinder.getPath(battleGround.getEnemyGameMap(), this, target.getPosition(), getEffectRange());
     }
 
     @Override
@@ -63,5 +66,33 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
 
     public void resetPosition() {
         position = initialPosition;
+    }
+
+    @Override
+    public void setTarget(ArrayList<Destroyable> destroyables) {
+        if (target != null) {
+            if (target.isDestroyed()) {
+                target = null;
+            }
+        }
+        if (target == null) {
+            double minDistance = Double.MAX_VALUE;
+            Destroyable minDistanceDestroyable = null;
+            for (Destroyable destroyable : destroyables) {
+                if (!destroyable.isDestroyed() && BuildingTargetType.isBuildingTargetAppropriate(this, (AttackerTroop) destroyable)) {
+                    double distance = this.getPosition().calculateDistance(destroyable.getPosition());
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        minDistanceDestroyable = destroyable;
+                    }
+                }
+            }
+            this.target = minDistanceDestroyable;
+        }
+    }
+
+    @Override
+    public void setTarget(Destroyable destroyable) {
+        target = destroyable;
     }
 }
