@@ -48,6 +48,10 @@ public class JsonInterpreter {
     private static ArrayList<Building> extractBuildings(JsonVillage jsonVillage) {
         ArrayList<Building> buildings = new ArrayList<>();
         ArrayList<JsonBuilding> jsonBuildings = jsonVillage.buildings;
+        ArrayList<JsonWall> jsonWalls = jsonVillage.jsonWalls;
+        for (JsonWall wall : jsonWalls) {
+            addNewWall(wall, buildings);
+        }
         for (int i = 0; i < jsonBuildings.size(); i++) {
             int buildingType = jsonBuildings.get(i).type;
             switch (buildingType) {// FIXME: 5/6/2018 put this json numbers in config Arshia Moghimi
@@ -84,9 +88,6 @@ public class JsonInterpreter {
                 case 11:
                     addNewWizardTower(jsonBuildings.get(i), buildings);
                     break;
-                case 12:
-                    addNewWall(jsonBuildings.get(i), buildings);
-                    break;
                 case 13:
                     addNewTrap(jsonBuildings.get(i), buildings);
                     break;
@@ -114,8 +115,8 @@ public class JsonInterpreter {
         buildings.add(trap);
     }
 
-    private static void addNewWall(JsonBuilding jsonBuilding, ArrayList<Building> buildings) {
-        Wall wall = new Wall(extractPosition(jsonBuilding), false);
+    private static void addNewWall(JsonWall jsonBuilding, ArrayList<Building> buildings) {
+        Wall wall = new Wall(new Position(jsonBuilding.x, jsonBuilding.y), false);
         wall.setLevel(jsonBuilding.level);
         int hitPoints = (int) GameLogicConfig.getFromDictionary("WallHitPoints");
         wall.setHitPoints(hitPoints);
