@@ -70,4 +70,12 @@ public class VillageGameEngine {
             }
         }
     }
+
+    public void reset() {
+        village = null;
+    }
+
+    public boolean isRunning(){
+        return village != null;
+    }
 }

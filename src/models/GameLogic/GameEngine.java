@@ -31,14 +31,15 @@ public class GameEngine {
     }
 
     public void update() {
-        if (isAttacking) {
-            battleGroundGameEngine.update();
-            if (world.getBattleGround().isGameFinished()) {
-                isAttacking = false;
+        if(villageGameEngine.isRunning()) {
+            if (isAttacking) {
+                battleGroundGameEngine.update();
+                if (world.getBattleGround().isGameFinished()) {
+                    isAttacking = false;
+                }
             }
+            villageGameEngine.update();
         }
-        villageGameEngine.update();
-
     }
 
     public void loadNewVillage() {
@@ -48,5 +49,9 @@ public class GameEngine {
     public void loadBattleGround() {
         battleGroundGameEngine.loadBattleGround(world.getBattleGround());
         isAttacking = true;
+    }
+
+    public void resetVillage(){
+        villageGameEngine.reset();
     }
 }
