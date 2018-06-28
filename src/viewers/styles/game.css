@@ -1,0 +1,7 @@
+#map-tile {
+    -fx-opacity: 0;
+}
+
+#map-tile:hover {
+    -fx-opacity: .2;
+}

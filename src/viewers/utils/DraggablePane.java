@@ -1,7 +1,9 @@
 package viewers.utils;
 
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
+
 
 import static viewers.utils.Const.*;
 
@@ -23,8 +25,9 @@ public class DraggablePane extends StackPane {
             if (isLayoutXValid(event.getSceneX() - startX)) {
                 this.setLayoutX(event.getSceneX() - startX);
             }
-            if (isLayoutYValid(event.getSceneY() - startY))
-            this.setLayoutY(event.getSceneY() - startY);
+            if (isLayoutYValid(event.getSceneY() - startY)) {
+                this.setLayoutY(event.getSceneY() - startY);
+            }
         });
 
         this.setOnScroll(event -> {
