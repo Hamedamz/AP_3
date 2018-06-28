@@ -1,8 +1,6 @@
 package controllers;
 
 import com.gilecode.yagson.YaGson;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
@@ -48,7 +46,7 @@ public class JsonInterpreter {
     private static ArrayList<Building> extractBuildings(JsonVillage jsonVillage) {
         ArrayList<Building> buildings = new ArrayList<>();
         ArrayList<JsonBuilding> jsonBuildings = jsonVillage.buildings;
-        ArrayList<JsonWall> jsonWalls = jsonVillage.jsonWalls;
+        ArrayList<JsonWall> jsonWalls = jsonVillage.walls;
         for (JsonWall wall : jsonWalls) {
             addNewWall(wall, buildings);
         }
