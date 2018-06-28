@@ -33,6 +33,7 @@ public enum TroopTargetType {
                 if (!(defender instanceof Wall)) {
                     return true;
                 }
+                break;
         }
         return false;
     }

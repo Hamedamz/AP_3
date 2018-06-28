@@ -21,7 +21,8 @@ public class Healer extends Troop implements TimedEvent {
 
     public Healer() {
         moveType = MoveType.AIR;
-        // TODO: 6/24/2018
+        healingAmount = GameLogicConfig.getFromDictionary("HealerHealingAmount");
+
     }
 
     @Override

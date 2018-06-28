@@ -245,9 +245,9 @@
         WallBreakerUpgradeHitPointsAddition: 5
 
     #Healer properties:
-        HealerBuildGold: 0
-        HealerBuildElixir: 175
-        HealerBuildTime: 30
+        HealerTrainGold: 0
+        HealerTrainElixir: 175
+        HealerTrainTime: 30
         HealerRange: 10
         HealerDeathTime: 10
         HealerUpgradeHealingAmountAddition: 1

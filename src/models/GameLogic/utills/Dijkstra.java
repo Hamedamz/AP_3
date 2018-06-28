@@ -18,6 +18,7 @@ import static models.GameLogic.Position.*;
 
 public class Dijkstra {
     public static final double WALL_ATTACKER_MULTIPLIER = 2;
+    public static final Integer MAX_NODE_DISTANCE = 1000000;
 
     public static ArrayList<Position> getPath(GameMap gameMap, MovingAttacker attacker, Position destination, int range) {
         if (!attacker.getTroopMoveType().equals(MoveType.GROUND)) {
@@ -74,8 +75,8 @@ public class Dijkstra {
                             if (buildings[i][j] == null) {
                                 mapNodes[x][y] = new Node(new Position(x, y), 1);
                             } else {
-                                if (abs(i - 1.5) < 1 && abs(j - 1.5) < 1) {
-                                    mapNodes[x][y] = new Node(new Position(x, y), Integer.MAX_VALUE);
+                                if (abs(i1 - 1.5) < 1 && abs(j1 - 1.5) < 1) {
+                                    mapNodes[x][y] = new Node(new Position(x, y), MAX_NODE_DISTANCE);
                                 } else {
                                     mapNodes[x][y] = new Node(new Position(x, y), 1);
                                 }
@@ -137,33 +138,21 @@ public class Dijkstra {
         PriorityQueue<Node> unsettledNodes = new PriorityQueue<>(Node.nodeComparator());
         unsettledNodes.add(source);
         while (unsettledNodes.size() != 0) {
-            Node currentNode = getLowestDistanceNode(unsettledNodes);
+            Node currentNode = unsettledNodes.poll();
             unsettledNodes.remove(currentNode);
             for (Node adjacentNode :
                     currentNode.getAdjacentNodes()) {
-                Integer edgeWeight = adjacentNode.getWeight();
+                Integer nodeWeight = adjacentNode.getWeight();
                 if (!settledNodes.contains(adjacentNode)) {
-                    calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
-                    unsettledNodes.add(adjacentNode);
+                    calculateMinimumDistance(adjacentNode, nodeWeight, currentNode);
+                    if(!unsettledNodes.contains(adjacentNode)) {
+                        unsettledNodes.add(adjacentNode);
+                    }
                 }
             }
             settledNodes.add(currentNode);
         }
         return graph;
-    }
-
-    private static Node getLowestDistanceNode(PriorityQueue<Node> unsettledNodes) {
-        return unsettledNodes.peek();
-//        Node lowestDistanceNode = null;
-//        int lowestDistance = Integer.MAX_VALUE;
-//        for (Node node : unsettledNodes) {
-//            int nodeDistance = node.getDistance();
-//            if (nodeDistance < lowestDistance) {
-//                lowestDistance = nodeDistance;
-//                lowestDistanceNode = node;
-//            }
-//        }
-//        return lowestDistanceNode;
     }
 
     private static void calculateMinimumDistance(Node evaluationNode,
@@ -214,6 +203,7 @@ class Node {
 
     public Node(Position position, int weight) {
         this.position = position;
+        this.weight = weight;
     }
 
     public int getWeight() {

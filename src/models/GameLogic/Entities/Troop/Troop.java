@@ -9,6 +9,7 @@ import models.GameLogic.Entities.Entity;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.enums.MoveType;
+import models.GameLogic.utills.PathFinder;
 import models.Setting.GameLogicConfig;
 
 import java.awt.*;
@@ -47,7 +48,7 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
 
     @Override
     public void findPath(BattleGround battleGround) {
-        setMovementPath(BFS.getPath(battleGround.getEnemyGameMap(), this.position, getTarget().getPosition(), this.getEffectRange()));
+        setMovementPath(PathFinder.getPath(battleGround.getEnemyGameMap(), this, getTarget().getPosition(), this.getEffectRange()));
     }
 
     @Override
