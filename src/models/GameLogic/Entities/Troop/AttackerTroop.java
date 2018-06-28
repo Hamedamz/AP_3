@@ -5,6 +5,7 @@ import interfaces.MovingAttacker;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Exceptions.NoTargetFoundException;
+import models.GameLogic.Position;
 import models.GameLogic.enums.TroopTargetType;
 import models.Setting.GameLogicConfig;
 
@@ -72,7 +73,9 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
 
     @Override
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
-        destroyable.takeDamageFromAttack(damage);
+        if(getPosition().calculateDistance(destroyable.getPosition()) <= getEffectRange()) {
+            destroyable.takeDamageFromAttack(damage);
+        }
     }
 
     @Override
@@ -109,7 +112,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
 
     @Override
     public int getEffectRange() {
-        return range;
+        return range * Position.CELL_SIZE;
     }
 
     public void heal(int amount){

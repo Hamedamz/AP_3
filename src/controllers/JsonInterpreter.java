@@ -114,7 +114,7 @@ public class JsonInterpreter {
     }
 
     private static void addNewWall(JsonWall jsonBuilding, ArrayList<Building> buildings) {
-        Wall wall = new Wall(new Position(jsonBuilding.x, jsonBuilding.y), false);
+        Wall wall = new Wall(Position.newMapPosition(jsonBuilding.x, jsonBuilding.y), false);
         wall.setLevel(jsonBuilding.level);
         int hitPoints = (int) GameLogicConfig.getFromDictionary("WallHitPoints");
         wall.setHitPoints(hitPoints);
