@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.TownHall;
 import viewers.utils.DraggablePane;
 import viewers.utils.ImageLibrary;
 import viewers.utils.IsometricPane;
@@ -20,7 +21,6 @@ public class VillageScene extends Scene{
     private DraggablePane draggableView;
     private GridPane tiles;
     private IsometricPane isometricPane;
-    private Pane buildinsPane;
     private ImageView villageBackground = new ImageView();
 
     private VillageScene() {
@@ -47,15 +47,17 @@ public class VillageScene extends Scene{
         }
         isometricPane = new IsometricPane(tiles);
 
-        buildinsPane = new Pane();
-        for (Building building : AppGUI.getController().getWorld().getMyVillage().getBuildings()) {
-            buildinsPane.getChildren().add(building.getImageView());
-        }
-
         draggableView = new DraggablePane(villageBackground, isometricPane);
         draggableView.setMaxWidth(VIllAGE_BACKGROUND_WIDTH);
         draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
         draggableView.initialize();
+
+        for (Building building : AppGUI.getController().getWorld().getMyVillage().getBuildings()) {
+            ImageView imageView = building.getImageView();
+            int size = (building.getClass().equals(TownHall.class)) ? 2 : 1;
+            IsometricPane.mapToIsometricLayout(imageView, building.getPosition(), size);
+            draggableView.getChildren().add(imageView);
+        }
 
         root.getChildren().clear();
         root.getChildren().addAll(draggableView);

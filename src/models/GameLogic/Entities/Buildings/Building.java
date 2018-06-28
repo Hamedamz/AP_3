@@ -1,6 +1,7 @@
 package models.GameLogic.Entities.Buildings;
 
 import interfaces.Upgradable;
+import javafx.geometry.Rectangle2D;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Bounty;
@@ -9,6 +10,7 @@ import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.enums.MoveType;
 import models.ID;
 import models.Setting.GameLogicConfig;
+import viewers.utils.Const;
 
 public abstract class Building extends Defender implements Upgradable, Comparable<Building> {
     protected int score;
@@ -39,6 +41,8 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
         } else {
             this.isUnderConstruct = false;
         }
+        updateViewPort();
+
     }
 
     public int getMaxLevel() {
@@ -111,6 +115,22 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
         if (level >= maxLevel)
             throw new UpgradeLimitReachedException();
         level++;
+        updateViewPort();
+    }
+
+    public void updateViewPort() {
+        double offset = level * Const.BUILDING_TILE_WIDTH;
+        double width = Const.BUILDING_TILE_WIDTH;
+        double height = Const.BUILDING_TILE_HEIGHT;
+        if (this.getClass().equals(TownHall.class)) {
+            offset = level * Const.TOWNHALL_TILE_WIDTH;
+            width = Const.TOWNHALL_TILE_WIDTH;
+            height = Const.TOWNHALL_TILE_HEIGHT;
+        }
+        if (offset >= getImageView().getImage().getWidth()) {
+            return;
+        }
+        getImageView().setViewport(new Rectangle2D(offset, 0, width, height));
     }
 
     @Override

@@ -2,11 +2,12 @@ package viewers.utils;
 
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import static viewers.utils.Const.*;
 
-public class DraggablePane extends StackPane {
+public class DraggablePane extends Pane {
     private double startX;
     private double startY;
 

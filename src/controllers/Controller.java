@@ -35,7 +35,12 @@ public class Controller {
 
     public static void main(String[] args) {
         new Thread(() -> Application.launch(AppGUI.class, args)).start();
-        controller.menuController.openMenu(controller.menuController.getEntranceMenu());
+//        controller.menuController.openMenu(controller.menuController.getEntranceMenu()); //TEMP
+//         TEMP
+        controller.newGame();
+        controller.menuController.openMenu(controller.menuController.getVillageMenu());
+//
+
         while (controller.menuController.isMenuOpen()) {
             try {
                 handleMenuInputs();
@@ -53,7 +58,7 @@ public class Controller {
     }
 
     private static void handleMenuInputs() throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException, NotAvailableAtThisLevelException, FileNotFoundException, TroopNotFoundException {
-        controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
+//        controller.villageViewer = new VillageViewer(controller.world.getMyVillage()); //TEMP
         controller.menuController.printMenu();
         String command = controller.viewer.getInput();
         if (controller.menuController.isMenuItemNumber(command)) {
