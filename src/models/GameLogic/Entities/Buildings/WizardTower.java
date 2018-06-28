@@ -17,6 +17,7 @@ public class WizardTower extends DefensiveBuilding {
         super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
         this.targetType = BuildingTargetType.GROUND_AND_AIR;
         this.damageType = BuildingDamageType.AREA_SPLASH;
+        this.size = 1;
     }
 
     @Override

@@ -1,16 +1,12 @@
 package models.GameLogic.utills;
 
-import interfaces.Movable;
 import interfaces.MovingAttacker;
-import javafx.geometry.Pos;
-import javafx.util.Pair;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Wall;
 import models.GameLogic.GameMap;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
 
-import javax.swing.plaf.ButtonUI;
 import java.util.*;
 
 import static java.lang.Math.*;
@@ -20,76 +16,58 @@ public class Dijkstra {
     public static final double WALL_ATTACKER_MULTIPLIER = 2;
     public static final Integer MAX_NODE_DISTANCE = 1000000;
 
-    public static ArrayList<Position> getPath(GameMap gameMap, MovingAttacker attacker, Position destination, int range) {
+    public static ArrayList<Position> minePath(GameMap gameMap, MovingAttacker attacker, Position destination, int range) {
         if (!attacker.getTroopMoveType().equals(MoveType.GROUND)) {
             throw new RuntimeException("not ground troop");
         }
         Node[][] mapNodes = new Node[gameMap.getWidth()][gameMap.getHeight()];
-        Building[][] buildings = new Building[gameMap.getMapWidth()][gameMap.getMapHeight()];
-        Graph graph = initiateGraph(buildings, mapNodes, gameMap, attacker);
+        Graph graph = initiateGraph(mapNodes, gameMap, attacker);
         calculateShortestPathFromSource(graph, mapNodes[attacker.getPosition().getX()][attacker.getPosition().getY()]);
         Node lastNode = findDestination(mapNodes, gameMap, destination, range);
-        ArrayList<Position> path = new ArrayList<>();
-        lastNode.getShortestPath().add(lastNode);
-        for(int i = 0; i < lastNode.getShortestPath().size(); i++){
-            Node node = lastNode.getShortestPath().get(i);
-            if(!(buildings[node.getPosition().getMapX()][node.getPosition().getMapY()] instanceof Wall)){
-                path.add(node.getPosition());
-            } else {
-                attacker.setTarget(buildings[node.getPosition().getMapX()][node.getPosition().getMapY()]);
-                for (int j = path.size()-1; j > 0 ; j--) {
-                    if(path.get(j-1).calculateDistance(node.getPosition()) <= range) {
-                        path.remove(j);
-                    } else {
-                        break;
-                    }
-                }
-
-                return path;
-            }
-        }
-        return path;
+        return minePath(attacker, range, lastNode);
     }
 
-    private static Graph initiateGraph(Building[][] buildings, Node[][] mapNodes, GameMap gameMap, MovingAttacker attacker) {
+    private static Graph initiateGraph(Node[][] mapNodes, GameMap gameMap, MovingAttacker attacker) {
         Graph graph = new Graph();
-        boolean[][] isThereWall = new boolean[gameMap.getMapWidth()][gameMap.getMapHeight()];
-        for (Building building : gameMap.getBuildings()) {
-            if (!building.isDestroyed()) {
-                buildings[building.getPosition().getMapX()][building.getPosition().getMapY()] = building;
-                if (building instanceof Wall) {
-                    isThereWall[building.getPosition().getMapX()][building.getPosition().getMapY()] = true;
-                }
-            }
-
-        }
 
         //making nodes
         for (int i = 0; i < gameMap.getMapWidth(); i++) {
             for (int j = 0; j < gameMap.getMapHeight(); j++) {
-                Node mainNode = new Node(new Position(CELL_SIZE * i + 1, CELL_SIZE * j + 1), 1);
                 for (int i1 = 0; i1 < CELL_SIZE; i1++) {
                     for (int j1 = 0; j1 < CELL_SIZE; j1++) {
                         int x = CELL_SIZE * i + i1;
                         int y = CELL_SIZE * j + j1;
-                        if (!isThereWall[i][j]) {
-                            if (buildings[i][j] == null) {
-                                mapNodes[x][y] = new Node(new Position(x, y), 1);
-                            } else {
-                                if (abs(i1 - 1.5) < 1 && abs(j1 - 1.5) < 1) {
-                                    mapNodes[x][y] = new Node(new Position(x, y), MAX_NODE_DISTANCE);
-                                } else {
-                                    mapNodes[x][y] = new Node(new Position(x, y), 1);
-                                }
-                            }
-                        } else {
-                            mainNode.setWeight(3 +
-                                    (int) ceil(buildings[i][j].getHitPoints() / (attacker.getDamage() * WALL_ATTACKER_MULTIPLIER)));
-                            mapNodes[x][y] = mainNode;
-                        }
+                        mapNodes[x][y] = new Node(new Position(x, y), 1, false);
                     }
                 }
 
+            }
+        }
+        for(Building building : gameMap.getBuildings()) {
+            if(!building.isDestroyed()) {
+                Node wallNode = new Node(building.getPosition(), 3 +
+                        (int) ceil(building.getHitPoints() / (attacker.getDamage() * WALL_ATTACKER_MULTIPLIER)), true);
+                for (int i1 = 0; i1 < building.getSize() * CELL_SIZE; i1++) {
+                    for (int j1 = 0; j1 < building.getSize() * CELL_SIZE; j1++) {
+                        int x = CELL_SIZE * building.getPosition().getMapX() + i1;
+                        int y = CELL_SIZE * building.getPosition().getMapY() + j1;
+                        if (building instanceof Wall) {
+                            if((i1 == 0 || i1 == building.getSize() * CELL_SIZE - 1) && (j1 == 0 || j1 == building.getSize() * CELL_SIZE - 1)) {
+                                mapNodes[x][y] = new Node(new Position(x, y), 1, false);
+                            } else {
+                                mapNodes[x][y] = wallNode;
+                                wallNode.setWall((Wall) building);
+                            }
+                        } else {
+                            if((i1 == 0) || (i1 == building.getSize() * CELL_SIZE - 1)
+                                    || (j1 == 0) || (j1 == building.getSize() * CELL_SIZE - 1)) {
+                                mapNodes[x][y] = new Node(new Position(x, y), 1, false);
+                            } else {
+                                mapNodes[x][y] = new Node(new Position(x, y), MAX_NODE_DISTANCE, false);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -167,6 +145,28 @@ public class Dijkstra {
         return minNode;
     }
 
+    private static ArrayList<Position> minePath(MovingAttacker attacker, int range, Node lastNode) {
+        ArrayList<Position> path = new ArrayList<>();
+        lastNode.getShortestPath().add(lastNode);
+        for(int i = 0; i < lastNode.getShortestPath().size(); i++){
+            Node node = lastNode.getShortestPath().get(i);
+            if(!node.isWall()){
+                path.add(node.getPosition());
+            } else {
+                attacker.setTarget(lastNode.getWall());
+                for (int j = path.size()-1; j > 0 ; j--) {
+                    if(path.get(j-1).calculateDistance(node.getPosition()) <= range) {
+                        path.remove(j);
+                    } else {
+                        break;
+                    }
+                }
+                return path;
+            }
+        }
+        return path;
+    }
+
 }
 
 class Graph {
@@ -194,17 +194,21 @@ class Node {
 
     private List<Node> shortestPath = new LinkedList<>();
 
-    private Integer distance = Integer.MAX_VALUE;
+    private int distance = Integer.MAX_VALUE;
 
     Set<Node> adjacentNodes = new HashSet<>();
+
+    private boolean isWall;
+    private Wall wall;
 
     public void addDestination(Node destination) {
         adjacentNodes.add(destination);
     }
 
-    public Node(Position position, int weight) {
+    public Node(Position position, int weight, boolean isWall) {
         this.position = position;
         this.weight = weight;
+        this.isWall = isWall;
     }
 
     public int getWeight() {
@@ -213,6 +217,18 @@ class Node {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public boolean isWall() {
+        return isWall;
+    }
+
+    public Wall getWall() {
+        return wall;
+    }
+
+    public void setWall(Wall wall) {
+        this.wall = wall;
     }
 
     public Position getPosition() {
