@@ -1,6 +1,5 @@
-package models.Menu;
+package viewers.menu;
 
-import controllers.enums.CommandType;
 import controllers.enums.DynamicListType;
 
 import java.util.ArrayList;

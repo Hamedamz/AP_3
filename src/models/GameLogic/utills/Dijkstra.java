@@ -30,6 +30,7 @@ public class Dijkstra {
         calculateShortestPathFromSource(graph, mapNodes[attacker.getPosition().getX()][attacker.getPosition().getY()]);
         Node lastNode = findDestination(mapNodes, gameMap, destination, range);
         ArrayList<Position> path = new ArrayList<>();
+        lastNode.getShortestPath().add(lastNode);
         for(int i = 0; i < lastNode.getShortestPath().size(); i++){
             Node node = lastNode.getShortestPath().get(i);
             if(!(buildings[node.getPosition().getMapX()][node.getPosition().getMapY()] instanceof Wall)){
@@ -114,24 +115,6 @@ public class Dijkstra {
         return graph;
     }
 
-    private static Node findDestination(Node[][] mapNodes, GameMap gameMap, Position target, int range){
-        int minDistance = Integer.MAX_VALUE;
-        Node minNode = null;
-        for(int i = -range; i <= range; i++) {
-            for(int j = -range; j <= range; j++){
-                Position dir = new Position(i, j);
-                Position position = Position.addPositions(target, dir);
-                if(position.isInBoundary(gameMap) && target.calculateDistance(position) <= range) {
-                    if(mapNodes[position.getX()][position.getY()].getDistance() < minDistance) {
-                        minDistance = mapNodes[position.getX()][position.getY()].getDistance();
-                        minNode = mapNodes[position.getX()][position.getY()];
-                    }
-                }
-            }
-        }
-        return minNode;
-    }
-
     public static Graph calculateShortestPathFromSource(Graph graph, Node source) {
         source.setDistance(0);
         Set<Node> settledNodes = new HashSet<>();
@@ -164,6 +147,24 @@ public class Dijkstra {
             shortestPath.add(sourceNode);
             evaluationNode.setShortestPath(shortestPath);
         }
+    }
+
+    private static Node findDestination(Node[][] mapNodes, GameMap gameMap, Position target, int range){
+        int minDistance = Integer.MAX_VALUE;
+        Node minNode = null;
+        for(int i = -range; i <= range; i++) {
+            for(int j = -range; j <= range; j++){
+                Position dir = new Position(i, j);
+                Position position = Position.addPositions(target, dir);
+                if(position.isInBoundary(gameMap) && target.calculateDistance(position) <= range) {
+                    if(mapNodes[position.getX()][position.getY()].getDistance() < minDistance) {
+                        minDistance = mapNodes[position.getX()][position.getY()].getDistance();
+                        minNode = mapNodes[position.getX()][position.getY()];
+                    }
+                }
+            }
+        }
+        return minNode;
     }
 
 }

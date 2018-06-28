@@ -10,7 +10,7 @@ import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.*;
-import models.Menu.*;
+import viewers.menu.*;
 import viewers.AppGUI;
 import viewers.oldViewers.*;
 
@@ -34,7 +34,7 @@ public class Controller {
     private BattleGroundViewer battleGroundViewer = new BattleGroundViewer();
 
     public static void main(String[] args) {
-        Application.launch(AppGUI.class, args);
+        new Thread(() -> Application.launch(AppGUI.class, args)).start();
         controller.menuController.openMenu(controller.menuController.getEntranceMenu());
         while (controller.menuController.isMenuOpen()) {
             try {
