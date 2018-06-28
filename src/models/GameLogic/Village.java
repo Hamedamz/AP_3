@@ -210,7 +210,7 @@ public class Village {
 
     public Camp findCampForNewTroops() throws BuildingNotFoundException {
         ArrayList<Camp> camps = findBuildingsWithSameType(Camp.class);
-        if (camps.size() == 0) {
+        if (camps.isEmpty()) {
             throw new BuildingNotFoundException();
         }
         camps.sort(new Camp.CampComparator());
