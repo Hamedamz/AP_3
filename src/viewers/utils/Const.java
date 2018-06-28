@@ -12,5 +12,7 @@ public class Const {
     public static final double GRID_PANE_ROTATE_Y = 49.5;
     public static final double TILE_SIZE = 44;
 
+    public static final double BUILDING_TILE_WIDTH = 36;
+    public static final double BUILDING_TILE_HEIGHT = 65;
 
 }

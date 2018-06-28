@@ -1,11 +1,13 @@
 package models.GameLogic.Entities;
 
 import interfaces.Locatable;
+import javafx.scene.image.ImageView;
 import models.GameLogic.Position;
 
 public class Entity implements Locatable {
     protected Position position;
     private int id;
+    private ImageView imageView;
 
     public Entity(){
     }
@@ -26,4 +28,7 @@ public class Entity implements Locatable {
         this.position = position;
     }
 
+    public ImageView getImageView() {
+        return imageView;
+    }
 }
