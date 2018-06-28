@@ -15,6 +15,7 @@
         GoldMineBuildElixir: 5
         GoldMineBuildTime: 300
         GoldMineBuildLimit: 1000
+        GoldMineSize: 1
         GoldMineHitPoints: 200
         GoldMineDestructionScore: 2
         GoldMineUpgradeGold: 100
@@ -22,11 +23,13 @@
         GoldMineUpgradeProductionRateAddition: 60
         GoldMineProductionRate: 10
 
+
     #Elixir mine properties:
         ElixirMineBuildGold: 150
         ElixirMineBuildElixir: 3
         ElixirMineBuildTime: 100
         ElixirMineBuildLimit: 1000
+        ElixirMineSize: 1
         ElixirMineHitPoints: 200
         ElixirMineDestructionScore: 2
         ElixirMineUpgradeGold: 100
@@ -39,6 +42,7 @@
         GoldStorageBuildElixir: 0
         GoldStorageBuildTime: 200
         GoldStorageBuildLimit: 1000
+        GoldStorageSize: 1
         GoldStorageHitPoints: 300
         GoldStorageDestructionScore: 3
         GoldStorageUpgradeGold: 100
@@ -52,6 +56,7 @@
         ElixirStorageBuildElixir: 0
         ElixirStorageBuildTime: 100
         ElixirStorageBuildLimit: 1000
+        ElixirStorageSize: 1
         ElixirStorageHitPoints: 300
         ElixirStorageDestructionScore: 3
         ElixirStorageUpgradeGold: 100
@@ -63,6 +68,7 @@
     #Town hall properties:
         TownHallBuildTime: 100
         TownHallBuildLimit: 1
+        TownHallSize: 2
         TownHallHitPoints: 1000
         TownHallGoldCapacity: 1000
         TownHallElixirCapacity: 500
@@ -78,6 +84,7 @@
         BarracksBuildElixir: 0
         BarracksBuildTime: 100
         BarracksBuildLimit: 1000
+        TownHallSize: 1
         BarracksHitPoints: 300
         BarracksDestructionScore: 1
         BarracksUpgradeGold: 100
@@ -88,6 +95,7 @@
         CampBuildElixir: 0
         CampBuildTime: 100
         CampBuildLimit: 1000
+        CampSize: 1
         CampHitPoints: 900
         CampDestructionScore: 1
         CampCapacity: 50
@@ -97,6 +105,7 @@
         ArcherTowerBuildElixir: 0
         ArcherTowerBuildTime: 60
         ArcherTowerBuildLimit: 1000
+        ArcherTowerSize: 1
         ArcherTowerHitPoints: 300
         ArcherTowerDamage: 20
         ArcherTowerRange: 10
@@ -111,6 +120,7 @@
         CannonBuildElixir: 400
         CannonBuildTime: 100
         CannonBuildLimit: 1000
+        CannonSize: 1
         CannonHitPoints: 400
         CannonDamage: 20
         CannonRange: 13
@@ -125,6 +135,7 @@
         AirDefenseBuildElixir: 0
         AirDefenseBuildTime: 60
         AirDefenceBuildLimit: 1000
+        AirDefenceSize: 1
         AirDefenseHitPoints: 300
         AirDefenseDamage: 20
         AirDefenseRange: 10
@@ -139,6 +150,7 @@
         WizardTowerBuildElixir: 0
         WizardTowerBuildTime: 120
         WizardTowerHitPoints: 700
+        WizardTowerSize: 1
         WizardTowerBuildLimit: 1000
         WizardTowerDamage: 20
         WizardTowerRange: 13
@@ -153,6 +165,7 @@
         WallBuildElixir: 0
         WallBuildTime: 20
         WallBuildLimit: 1000
+        WallSize: 1
         WallHitPoints: 100
         WallDestructionScore: 1
         WallUpgradeGold: 100
@@ -164,6 +177,7 @@
         TrapBuildElixir: 0
         TrapBuildTime: 40
         TrapBuildLimit: 1000
+        TrapSize: 1
         TrapHitPoints: 100
         TrapDamage: 100
         TrapRange: 1
@@ -177,6 +191,7 @@
         GuardianGiantBuildElixir: 0
         GuardianGiantBuildTime: 4000
         GuardianGiantHitPoints: 700
+        GuardianGiantSize: 1
         GuardianGiantRange: 1
         GuardianGiantDestructionScore: 6
         GuardianGiantDamage: 60
