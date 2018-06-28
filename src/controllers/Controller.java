@@ -350,4 +350,8 @@ public class Controller {
     public static Controller getController() {
         return controller;
     }
+
+    public World getWorld() {
+        return world;
+    }
 }

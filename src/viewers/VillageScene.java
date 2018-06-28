@@ -1,18 +1,15 @@
 package viewers;
 
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import models.GameLogic.Entities.Buildings.Building;
 import viewers.utils.DraggablePane;
+import viewers.utils.ImageLibrary;
 import viewers.utils.IsometricPane;
 import viewers.utils.MapTile;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 import static viewers.utils.Const.*;
 
@@ -23,6 +20,7 @@ public class VillageScene extends Scene{
     private DraggablePane draggableView;
     private GridPane tiles;
     private IsometricPane isometricPane;
+    private Pane buildinsPane;
     private ImageView villageBackground = new ImageView();
 
     private VillageScene() {
@@ -37,7 +35,7 @@ public class VillageScene extends Scene{
     }
 
     public Scene build() {
-        loadImageView(villageBackground, VIllAGE_BACKGROUND_PATH);
+        villageBackground.setImage(ImageLibrary.VillageBackground.getImage());
 
         tiles = new GridPane();
         tiles.setVgap(1);
@@ -49,6 +47,11 @@ public class VillageScene extends Scene{
         }
         isometricPane = new IsometricPane(tiles);
 
+        buildinsPane = new Pane();
+        for (Building building : AppGUI.getController().getWorld().getMyVillage().getBuildings()) {
+            buildinsPane.getChildren().add(building.getImageView());
+        }
+
         draggableView = new DraggablePane(villageBackground, isometricPane);
         draggableView.setMaxWidth(VIllAGE_BACKGROUND_WIDTH);
         draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
@@ -57,15 +60,5 @@ public class VillageScene extends Scene{
         root.getChildren().clear();
         root.getChildren().addAll(draggableView);
         return instance;
-    }
-
-    private void loadImageView(ImageView imageView, String path) {
-        try {
-            FileInputStream fileInputStream = new FileInputStream(new File(path));
-            imageView.setImage(new Image(fileInputStream));
-            fileInputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

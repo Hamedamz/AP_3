@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class AppGUI extends Application {
     private static Stage mainStage;
 
-    private static Controller getController() {
+    public static Controller getController() {
         return Controller.getController();
     }
 
