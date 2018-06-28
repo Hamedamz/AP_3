@@ -1,5 +1,6 @@
 package viewers.utils;
 
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
@@ -17,9 +18,12 @@ public class DraggablePane extends StackPane {
 
     public void initialize() {
         this.setOnMousePressed(event -> {
+            this.setCursor(Cursor.CLOSED_HAND);
             startX = event.getSceneX() - this.getLayoutX();
             startY = event.getSceneY() - this.getLayoutY();
         });
+
+        this.setOnMouseReleased(event -> this.setCursor(Cursor.DEFAULT));
 
         this.setOnMouseDragged(event -> {
             if (isLayoutXValid(event.getSceneX() - startX)) {
