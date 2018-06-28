@@ -346,4 +346,8 @@ public class Controller {
             command = controller.viewer.getInput();
         }
     }
+
+    public static Controller getController() {
+        return controller;
+    }
 }

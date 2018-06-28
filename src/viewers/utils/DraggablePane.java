@@ -1,10 +1,8 @@
 package viewers.utils;
 
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
-
 
 import static viewers.utils.Const.*;
 

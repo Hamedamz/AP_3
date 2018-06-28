@@ -153,7 +153,7 @@
         WallBuildElixir: 0
         WallBuildTime: 20
         WallBuildLimit: 1000
-        WallBuildHitPoints: 100
+        WallHitPoints: 100
         WallDestructionScore: 1
         WallUpgradeGold: 100
         WallUpgradeElixir: 0

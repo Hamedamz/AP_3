@@ -1,11 +1,11 @@
 package viewers;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Circle;
 import viewers.utils.DraggablePane;
 import viewers.utils.IsometricPane;
 import viewers.utils.MapTile;
@@ -29,6 +29,7 @@ public class VillageScene extends Scene{
         super(new Group(), WINDOW_WIDTH, WINDOW_HEIGHT);
         root = (Group) getRoot();
         this.getStylesheets().add("/viewers/styles/game.css");
+        build();
     }
 
     public static VillageScene getInstance() {
@@ -46,14 +47,15 @@ public class VillageScene extends Scene{
                 tiles.add(new MapTile(TILE_SIZE, TILE_SIZE), i, j);
             }
         }
-
         isometricPane = new IsometricPane(tiles);
+
         draggableView = new DraggablePane(villageBackground, isometricPane);
-        draggableView.initialize();
         draggableView.setMaxWidth(VIllAGE_BACKGROUND_WIDTH);
         draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
+        draggableView.initialize();
 
-        root.getChildren().add(draggableView);
+        root.getChildren().clear();
+        root.getChildren().addAll(draggableView);
         return instance;
     }
 
