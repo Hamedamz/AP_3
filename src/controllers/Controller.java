@@ -34,7 +34,7 @@ public class Controller {
     private BattleGroundViewer battleGroundViewer = new BattleGroundViewer();
 
     public static void main(String[] args) {
-        Application.launch(AppGUI.class, args);
+        new Thread(() -> Application.launch(AppGUI.class, args)).start();
         controller.menuController.openMenu(controller.menuController.getEntranceMenu());
         while (controller.menuController.isMenuOpen()) {
             try {
