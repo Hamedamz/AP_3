@@ -6,7 +6,7 @@ import java.util.TimerTask;
 public class GameEngine {
     public static final int DEFAULT_DURATION = 5000;
 
-    private transient World world;
+    private World world;
     private VillageGameEngine villageGameEngine;
     private BattleGroundGameEngine battleGroundGameEngine;
     private boolean isAttacking = false;

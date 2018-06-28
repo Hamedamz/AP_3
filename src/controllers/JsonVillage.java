@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class JsonVillage {
     int[] size = new int[2];
-    ArrayList<JsonWall> jsonWalls = new ArrayList<>();
+    ArrayList<JsonWall> walls = new ArrayList<>();
     JsonResources resources = new JsonResources();
     ArrayList<JsonBuilding> buildings = new ArrayList<>();
 }

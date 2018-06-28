@@ -167,6 +167,7 @@ public class Controller {
 
     private void newGame() {
         try {
+            controller.world.getGameEngine().resetVillage();
             controller.world.makeNewGame();
             controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
         } catch (VillageAlreadyExists villageAlreadyExists) {
@@ -201,6 +202,7 @@ public class Controller {
 
     private void loadGameFromFile(String path) throws FileNotFoundException {
         Village village = JsonInterpreter.loadMyVillage(path);
+        controller.world.getGameEngine().resetVillage();
         controller.world.setMyVillage(village);
         controller.viewer.printInformation("game successfully loaded!");
         controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
