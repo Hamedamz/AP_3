@@ -1,8 +1,8 @@
 package viewers.oldViewers;
 
-import models.Menu.DynamicMenuItem;
-import models.Menu.Menu;
-import models.Menu.MenuItem;
+import viewers.menu.DynamicMenuItem;
+import viewers.menu.Menu;
+import viewers.menu.MenuItem;
 
 import java.util.*;
 

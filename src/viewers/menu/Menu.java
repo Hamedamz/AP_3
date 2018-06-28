@@ -1,4 +1,4 @@
-package models.Menu;
+package viewers.menu;
 
 import controllers.enums.*;
 import models.GameLogic.Entities.Entity;
