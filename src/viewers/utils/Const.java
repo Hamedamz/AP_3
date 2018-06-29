@@ -4,7 +4,6 @@ public class Const {
     public static final double WINDOW_WIDTH = 1280;
     public static final double WINDOW_HEIGHT = 720;
 
-    public static final String VIllAGE_BACKGROUND_PATH = "assets/map/village.jpg";
     public static final double VIllAGE_BACKGROUND_WIDTH = 2478;
     public static final double VIllAGE_BACKGROUND_HEIGHT = 2682;
     public static final double MAP_ORIGIN_X = 1254;
