@@ -6,10 +6,12 @@ import models.Setting.GameLogicConfig;
 
 public class Builder {
     private int constructRemainingTime;
+    private int totalConstructionTime;
     private Building underConstructBuilding;
 
     public void startBuilding(Building building) {
         constructRemainingTime = GameLogicConfig.getFromDictionary(building.getClass().getSimpleName() + "BuildTime");
+        totalConstructionTime = constructRemainingTime;
         underConstructBuilding = building;
     }
 
@@ -21,6 +23,10 @@ public class Builder {
             underConstructBuilding.finishConstruct();
             underConstructBuilding = null;
         }
+    }
+
+    public int getTotalConstructionTime() {
+        return totalConstructionTime;
     }
 
     public Building getUnderConstructBuilding() {

@@ -1,9 +1,9 @@
 package viewers.utils;
 
+import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
 import static viewers.utils.Const.*;
 
@@ -34,7 +34,8 @@ public class DraggablePane extends Pane {
         });
 
         this.setOnScroll(event -> {
-            if (isScaleValid(event.getDeltaY() / 100 + this.getScaleX())) {
+            if (isScaleYValid(event.getDeltaY() / 100 + this.getScaleY()) && isScaleXValid(event.getDeltaY() / 100 + this.getScaleX())) {
+//                new ZoomOperator().zoom(this, event.getDeltaY() / 100 + this.getScaleX(), event.getSceneX(), event.getSceneY());
                 this.setScaleX(event.getDeltaY() / 100 + this.getScaleX());
                 this.setScaleY(event.getDeltaY() / 100 + this.getScaleY());
             }
@@ -42,8 +43,12 @@ public class DraggablePane extends Pane {
 
     }
 
-    private boolean isScaleValid(double scale) {
-        return scale > 0 && this.getMaxHeight() * scale >= WINDOW_HEIGHT && this.getMaxWidth() * scale >= WINDOW_WIDTH;
+    private boolean isScaleXValid(double scale) {
+        return scale > 0 && this.getMaxWidth() * scale >= WINDOW_WIDTH;
+    }
+
+    private boolean isScaleYValid(double scale) {
+        return scale > 0 && this.getMaxHeight() * scale >= WINDOW_HEIGHT;
     }
 
     private boolean isLayoutXValid(double layoutX) {
@@ -53,4 +58,24 @@ public class DraggablePane extends Pane {
     private boolean isLayoutYValid(double layoutY) {
         return layoutY >= WINDOW_HEIGHT - this.getMaxHeight() && layoutY <= 0;
     }
+}
+
+class ZoomOperator {
+
+    public ZoomOperator() {
+
+    }
+
+    public void zoom(Node node, double scale, double x, double y) {
+        // determine scale
+
+        double dx = ((node.getLayoutX() - x) / node.getScaleX()) * scale;
+        double dy = ((node.getLayoutY() - y) / node.getScaleY()) * scale;
+
+        node.setLayoutX(x + dx);
+        node.setLayoutY(y + dy);
+        node.setScaleX(scale);
+        node.setScaleY(scale);
+    }
+
 }

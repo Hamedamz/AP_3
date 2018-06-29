@@ -76,6 +76,10 @@ public class Village {
         return underConstructBuildings;
     }
 
+    public Builder getBuilderByBuilding(int mapX, int mapY){
+
+    }
+
     public ArrayList<Building> getBuildings() {
         return gameMap.getBuildings();
     }

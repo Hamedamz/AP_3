@@ -12,7 +12,7 @@ public class AppGUI extends Application {
         return Controller.getController();
     }
 
-    public static Stage getMainStage() {
+    private static Stage getMainStage() {
         return mainStage;
     }
 
@@ -28,6 +28,5 @@ public class AppGUI extends Application {
     public static void setStageScene(Scene scene) {
         AppGUI.getMainStage().setScene(scene);
         getMainStage().sizeToScene();
-
     }
 }
