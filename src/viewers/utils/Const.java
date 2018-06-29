@@ -21,4 +21,8 @@ public class Const {
     public static final double TOWNHALL_TILE_WIDTH = 72;
     public static final double TOWNHALL_TILE_HEIGHT = 100;
 
+    public static final double ENTITY_PROGGRESS_BAR_WIDTH = 36;
+    public static final double ENTITY_PROGGRESS_BAR_HEIGHT = 3;
+
+
 }

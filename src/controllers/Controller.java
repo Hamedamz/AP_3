@@ -263,6 +263,7 @@ public class Controller {
         int x = Integer.parseInt(getArgument(1, position, POSITION_FORMAT)) - 1;
         int y = Integer.parseInt(getArgument(2, position, POSITION_FORMAT)) - 1;
         controller.world.getMyVillage().build(buildingType, x, y);
+        AppGUI.getVillageScene().addUnderConstructionBuilding(x, y);
         controller.viewer.printInformation("building process started");
     }
 

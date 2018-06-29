@@ -7,6 +7,11 @@ import javafx.stage.Stage;
 
 public class AppGUI extends Application {
     private static Stage mainStage;
+    private static VillageScene villageScene = VillageScene.getInstance();
+
+    public static VillageScene getVillageScene() {
+        return villageScene;
+    }
 
     public static Controller getController() {
         return Controller.getController();
@@ -21,7 +26,7 @@ public class AppGUI extends Application {
         mainStage = new Stage();
         //getMainStage().setTitle("");
         getMainStage().setResizable(false);
-        setStageScene(VillageScene.getInstance());
+        setStageScene(villageScene);
         getMainStage().show();
     }
 

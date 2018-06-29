@@ -5,8 +5,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.TownHall;
+import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
+import models.GameLogic.Position;
+import models.GameLogic.Village;
 import viewers.utils.*;
 
 import static viewers.utils.Const.*;
@@ -58,10 +62,26 @@ public class VillageScene extends Scene{
         return instance;
     }
 
-    public void addBuildingToScene(Building building) {
-        BuildingHolder buildingHolder = new BuildingHolder(building.getImageView());
+    private void addBuildingToScene(Building building) {
+        BuildingHolder buildingHolder = new BuildingHolder(building);
         int size = (building.getClass().equals(TownHall.class)) ? 2 : 1;
         IsometricPane.mapToIsometricLayout(buildingHolder, building.getPosition(), size);
         draggableView.getChildren().add(buildingHolder);
+    }
+    private void addBuildingToScene(Builder builder, int x, int y) {
+        BuildingHolder buildingHolder = new BuildingHolder(builder);
+        IsometricPane.mapToIsometricLayout(buildingHolder, new Position(x, y), 1);
+        draggableView.getChildren().add(buildingHolder);
+    }
+
+    public void addUnderConstructionBuilding(int x, int y) {
+        Builder builder;
+        try {
+            builder = AppGUI.getController().getWorld().getMyVillage().getTownHall().getBuilder(Position.newMapPosition(x, y));
+        } catch (NoSuchAUnderConstructBuildingException e) {
+            return;
+        }
+
+        addBuildingToScene(builder, x, y);
     }
 }
