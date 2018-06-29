@@ -2,6 +2,7 @@ package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Bounty;
 import models.GameLogic.Builder;
+import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
 import models.GameLogic.Exceptions.NoFreeBuilderException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
@@ -69,5 +70,16 @@ public class TownHall extends Storage {
             }
         }
         throw new NoFreeBuilderException();
+    }
+
+    public Builder getBuilder(Position position) throws NoSuchAUnderConstructBuildingException {
+        for(Builder builder : builders) {
+            if (builder.isBuilderBusy()) {
+                if(builder.getUnderConstructBuilding().getPosition().equals(position)) {
+                    return builder;
+                }
+            }
+        }
+        throw new NoSuchAUnderConstructBuildingException();
     }
 }
