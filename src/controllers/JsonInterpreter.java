@@ -232,9 +232,10 @@ public class JsonInterpreter {
     private static String toStringJson(String mapPath) throws FileNotFoundException {
         String jsonString = "";
         FileInputStream input = new FileInputStream(mapPath);
-        Scanner scanner = new Scanner(input);
-        while (scanner.hasNext()) {
-            jsonString = jsonString.concat(scanner.next());
+        try (Scanner scanner = new Scanner(input)) {
+            while (scanner.hasNext()) {
+                jsonString = jsonString.concat(scanner.next());
+            }
         }
         return jsonString;
     }
@@ -248,7 +249,6 @@ public class JsonInterpreter {
     }
 
     private static Position extractPosition(JsonBuilding jsonBuilding) {
-        Position position = Position.newMapPosition(jsonBuilding.x, jsonBuilding.y);
-        return position;
+        return Position.newMapPosition(jsonBuilding.x, jsonBuilding.y);
     }
 }

@@ -17,7 +17,7 @@ public class AppGUI extends Application {
         return Controller.getController();
     }
 
-    private static Stage getMainStage() {
+    public static Stage getMainStage() {
         return mainStage;
     }
 
