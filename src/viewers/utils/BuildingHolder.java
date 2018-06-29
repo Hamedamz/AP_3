@@ -1,5 +1,7 @@
 package viewers.utils;
 
+import javafx.scene.control.ProgressBar;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import models.GameLogic.Builder;
@@ -10,6 +12,7 @@ public class BuildingHolder extends StackPane {
     private Building building;
     private ImageView imageView;
     private ProgressBar progressBar;
+    private Glow glow = new Glow(0);
     private boolean isUnderConstruction;
 
     public BuildingHolder(Building building) {
@@ -18,6 +21,7 @@ public class BuildingHolder extends StackPane {
         this.isUnderConstruction = false;
         this.setMaxSize(imageView.getViewport().getWidth(), imageView.getViewport().getHeight());
         this.getChildren().addAll(imageView);
+        initialize();
     }
 
     public BuildingHolder(Builder builder) {
@@ -25,10 +29,21 @@ public class BuildingHolder extends StackPane {
         this.building = builder.getUnderConstructBuilding();
         this.imageView = building.getImageView();
         this.isUnderConstruction = true;
-        this.progressBar = new ProgressBar(Const.ENTITY_PROGGRESS_BAR_WIDTH, Const.ENTITY_PROGGRESS_BAR_HEIGHT,
-                this.builder.getConstructRemainingTime() / this.builder.getTotalConstructionTime());
+        this.progressBar.setProgress(this.builder.getConstructRemainingTime() / this.builder.getTotalConstructionTime());
         this.setMaxSize(imageView.getViewport().getWidth(), imageView.getViewport().getHeight());
         this.getChildren().addAll(imageView, progressBar);
+        initialize();
+    }
+
+    private void initialize() {
+        this.setId("building-holder");
+        progressBar = new ProgressBar();
+        progressBar.setId("building-progress-bar");
+        progressBar.setPrefWidth(Const.BUILDING_TILE_WIDTH);
+        progressBar.setPrefHeight(6);
+        imageView.setEffect(glow);
+        imageView.setOnMouseEntered(event -> glow.setLevel(0.5));
+        imageView.setOnMouseExited(event -> glow.setLevel(0));
     }
 
     public ImageView getImageView() {

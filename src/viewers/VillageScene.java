@@ -13,6 +13,9 @@ import models.GameLogic.Position;
 import models.GameLogic.Village;
 import viewers.utils.*;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 import static viewers.utils.Const.*;
 
 public class VillageScene extends Scene{
@@ -53,7 +56,9 @@ public class VillageScene extends Scene{
         draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
         draggableView.initialize();
 
-        for (Building building : AppGUI.getController().getWorld().getMyVillage().getBuildings()) {
+        ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getBuildings());
+        buildings.sort((o1, o2) -> o2.getPosition().getMapX() - o1.getPosition().getMapX() + o2.getPosition().getMapY() - o1.getPosition().getMapY());
+        for (Building building : buildings) {
             addBuildingToScene(building);
         }
 
