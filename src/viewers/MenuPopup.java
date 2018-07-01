@@ -6,24 +6,32 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
+import viewers.menu.Menu;
 
 public class MenuPopup {
+    private static Stage mainStage;
     private Popup popup;
+
+    private MenuPopup(){
+    }
 
     /**
      *
      * @param label: name of the class of the building
      * @param info: information that should be shown.
      */
-    public MenuPopup(String label, String info) {
-        popup = new Popup();
-        popup.setX(400); // TODO: 6/29/2018 read numbers from constants
-        popup.setY(200);
+    public static void popupMenu(String label, String info) {
+        MenuPopup menuPopup = new MenuPopup();
+        menuPopup.popup = new Popup();
+        menuPopup.popup.setX(400); // TODO: 6/29/2018 read numbers from constants
+        menuPopup.popup.setY(200);
         VBox vBox = new VBox();
         GridPane upperPane = new GridPane();
         GridPane infoPane = new GridPane();
@@ -36,7 +44,7 @@ public class MenuPopup {
         contentRectangle.setArcWidth(15);
         contentRectangle.setArcHeight(15);
         contentRectangle.setFill(Color.WHITE);
-        exit.setOnAction(event -> popup.hide());
+        exit.setOnAction(event -> menuPopup.popup.hide());
         GridPane.setHalignment(exit, HPos.RIGHT);
         labelRectangle.setFill(Color.LAWNGREEN);
         labelRectangle.setArcHeight(15);
@@ -51,8 +59,11 @@ public class MenuPopup {
         GridPane.setHalignment(imageView, HPos.LEFT);
         exit.getStylesheets().add("/viewers/styles/exitButton.css");
         vBox.getChildren().addAll(upperPane, infoPane);
-        popup.getContent().addAll(vBox);
-        popup.show(AppGUI.getMainStage());
+        menuPopup.popup.getContent().addAll(vBox);
+        menuPopup.popup.show(mainStage);
     }
 
+    public static void setStage(Stage stage) {
+        mainStage = stage;
+    }
 }
