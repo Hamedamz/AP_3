@@ -4,13 +4,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.TownHall;
 import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
 import models.GameLogic.Position;
-import models.GameLogic.Village;
 import viewers.utils.*;
 
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public class VillageScene extends Scene{
     private static VillageScene instance = new VillageScene();
 
     private Group root;
-    private DraggablePane draggableView;
+    private MapBrowserPane draggableView;
     private GridPane tiles;
     private IsometricPane isometricPane;
     private ImageView villageBackground = new ImageView();
@@ -51,7 +49,7 @@ public class VillageScene extends Scene{
         }
         isometricPane = new IsometricPane(tiles);
 
-        draggableView = new DraggablePane(villageBackground, isometricPane);
+        draggableView = new MapBrowserPane(villageBackground, isometricPane);
         draggableView.setMaxWidth(VIllAGE_BACKGROUND_WIDTH);
         draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
         draggableView.initialize();
@@ -61,6 +59,7 @@ public class VillageScene extends Scene{
         for (Building building : buildings) {
             addBuildingToScene(building);
         }
+
 
         root.getChildren().clear();
         root.getChildren().addAll(draggableView);
