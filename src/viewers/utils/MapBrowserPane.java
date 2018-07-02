@@ -12,11 +12,12 @@ import javafx.scene.transform.Translate;
 
 public class MapBrowserPane extends Pane {
     private static final int MIN_PIXELS = 300;
-    private static final double RESET_VIEWPOINT_TO_CAMERA_MULTIPLIER = 0.5;
+    private static final double RESET_VIEWPOINT_TO_CAMERA_MULTIPLIER = 1.3;
     private Rectangle2D imageProperties;
     private Rectangle2D viewPort;
     private Scale scale = new Scale(1, 1);
     private Translate translate = new Translate(0, 0);
+
 
     public MapBrowserPane(Node... children) {
         super(children);
@@ -39,15 +40,15 @@ public class MapBrowserPane extends Pane {
 
         setOnMousePressed(e -> {
 
-            Point2D mousePress = imageViewToImage(new Point2D(e.getX(), e.getY()));
+            Point2D mousePress = new Point2D(e.getX(), e.getY());
             mouseDown.set(mousePress);
         });
 
         setOnMouseDragged(e -> {
             setCursor(Cursor.CLOSED_HAND);
-            Point2D dragPoint = imageViewToImage(new Point2D(e.getX(), e.getY()));
+            Point2D dragPoint = new Point2D(e.getX(), e.getY());
             shift(dragPoint.subtract(mouseDown.get()));
-            mouseDown.set(imageViewToImage(new Point2D(e.getX(), e.getY())));
+//            mouseDown.set(new Point2D(e.getX(), e.getY()));
         });
 
         setOnMouseReleased(e -> {
