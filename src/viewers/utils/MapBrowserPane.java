@@ -12,11 +12,12 @@ import javafx.scene.transform.Translate;
 
 public class MapBrowserPane extends Pane {
     private static final int MIN_PIXELS = 300;
-    private static final double RESET_VIEWPOINT_TO_CAMERA_MULTIPLIER = 0.5;
+    private static final double RESET_VIEWPOINT_TO_CAMERA_MULTIPLIER = 1.3;
     private Rectangle2D imageProperties;
     private Rectangle2D viewPort;
     private Scale scale = new Scale(1, 1);
     private Translate translate = new Translate(0, 0);
+
 
     public MapBrowserPane(Node... children) {
         super(children);
@@ -39,15 +40,15 @@ public class MapBrowserPane extends Pane {
 
         setOnMousePressed(e -> {
 
-            Point2D mousePress = imageViewToImage(new Point2D(e.getX(), e.getY()));
+            Point2D mousePress = imageViewToImage(new Point2D(e.getSceneX(), e.getSceneY()));
             mouseDown.set(mousePress);
         });
 
         setOnMouseDragged(e -> {
             setCursor(Cursor.CLOSED_HAND);
-            Point2D dragPoint = imageViewToImage(new Point2D(e.getX(), e.getY()));
+            Point2D dragPoint = imageViewToImage(new Point2D(e.getSceneX(), e.getSceneY()));
             shift(dragPoint.subtract(mouseDown.get()));
-            mouseDown.set(imageViewToImage(new Point2D(e.getX(), e.getY())));
+//            mouseDown.set(dragPoint);
         });
 
         setOnMouseReleased(e -> {
@@ -68,7 +69,7 @@ public class MapBrowserPane extends Pane {
 
                     );
 
-            Point2D mouse = imageViewToImage(new Point2D(e.getX(), e.getY()));
+            Point2D mouse = imageViewToImage(new Point2D(e.getSceneX(), e.getSceneY()));
 
             double newWidth = viewPort.getWidth() * scale;
             double newHeight = viewPort.getHeight() * scale;
@@ -140,8 +141,8 @@ public class MapBrowserPane extends Pane {
 
     // convert mouse coordinates in the imageView to coordinates in the actual image:
     private Point2D imageViewToImage(Point2D imageViewCoordinates) {
-        double xProportion = imageViewCoordinates.getX() / getBoundsInLocal().getWidth();
-        double yProportion = imageViewCoordinates.getY() / getBoundsInLocal().getHeight();
+        double xProportion = imageViewCoordinates.getX() / Const.WINDOW_WIDTH;
+        double yProportion = imageViewCoordinates.getY() / Const.WINDOW_HEIGHT;
 
         return new Point2D(
                 viewPort.getMinX() + xProportion * viewPort.getWidth(),
