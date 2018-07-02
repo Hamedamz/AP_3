@@ -40,15 +40,15 @@ public class MapBrowserPane extends Pane {
 
         setOnMousePressed(e -> {
 
-            Point2D mousePress = new Point2D(e.getSceneX(), e.getSceneY());
+            Point2D mousePress = imageViewToImage(new Point2D(e.getSceneX(), e.getSceneY()));
             mouseDown.set(mousePress);
         });
 
         setOnMouseDragged(e -> {
             setCursor(Cursor.CLOSED_HAND);
-            Point2D dragPoint = new Point2D(e.getSceneX(), e.getSceneY());
+            Point2D dragPoint = imageViewToImage(new Point2D(e.getSceneX(), e.getSceneY()));
             shift(dragPoint.subtract(mouseDown.get()));
-            mouseDown.set(dragPoint);
+//            mouseDown.set(dragPoint);
         });
 
         setOnMouseReleased(e -> {
