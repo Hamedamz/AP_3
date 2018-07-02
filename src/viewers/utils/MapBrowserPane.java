@@ -40,15 +40,15 @@ public class MapBrowserPane extends Pane {
 
         setOnMousePressed(e -> {
 
-            Point2D mousePress = new Point2D(e.getX(), e.getY());
+            Point2D mousePress = new Point2D(e.getSceneX(), e.getSceneY());
             mouseDown.set(mousePress);
         });
 
         setOnMouseDragged(e -> {
             setCursor(Cursor.CLOSED_HAND);
-            Point2D dragPoint = new Point2D(e.getX(), e.getY());
+            Point2D dragPoint = new Point2D(e.getSceneX(), e.getSceneY());
             shift(dragPoint.subtract(mouseDown.get()));
-//            mouseDown.set(new Point2D(e.getX(), e.getY()));
+            mouseDown.set(dragPoint);
         });
 
         setOnMouseReleased(e -> {
@@ -69,7 +69,7 @@ public class MapBrowserPane extends Pane {
 
                     );
 
-            Point2D mouse = imageViewToImage(new Point2D(e.getX(), e.getY()));
+            Point2D mouse = imageViewToImage(new Point2D(e.getSceneX(), e.getSceneY()));
 
             double newWidth = viewPort.getWidth() * scale;
             double newHeight = viewPort.getHeight() * scale;
@@ -141,8 +141,8 @@ public class MapBrowserPane extends Pane {
 
     // convert mouse coordinates in the imageView to coordinates in the actual image:
     private Point2D imageViewToImage(Point2D imageViewCoordinates) {
-        double xProportion = imageViewCoordinates.getX() / getBoundsInLocal().getWidth();
-        double yProportion = imageViewCoordinates.getY() / getBoundsInLocal().getHeight();
+        double xProportion = imageViewCoordinates.getX() / Const.WINDOW_WIDTH;
+        double yProportion = imageViewCoordinates.getY() / Const.WINDOW_HEIGHT;
 
         return new Point2D(
                 viewPort.getMinX() + xProportion * viewPort.getWidth(),
