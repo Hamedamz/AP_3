@@ -5,7 +5,7 @@ public class Const {
     public static final double WINDOW_HEIGHT = 720;
 
     public static final double VIllAGE_BACKGROUND_WIDTH = 2478;
-    public static final double VIllAGE_BACKGROUND_HEIGHT = 2682;
+    public static final double VIllAGE_BACKGROUND_HEIGHT = 2396;
     public static final double MAP_ORIGIN_X = 1254;
     public static final double MAP_ORIGIN_Y = 557;
     public static final double MAP_SLOPE_ANGEL = 33;
