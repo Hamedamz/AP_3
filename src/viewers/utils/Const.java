@@ -24,5 +24,6 @@ public class Const {
     public static final double ENTITY_PROGGRESS_BAR_WIDTH = 36;
     public static final double ENTITY_PROGGRESS_BAR_HEIGHT = 3;
 
+    public static final double SPACING = 10;
 
 }

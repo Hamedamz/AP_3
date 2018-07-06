@@ -23,9 +23,7 @@ public class AppGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        mainStage = new Stage();
-        MenuPopup.setStage(getMainStage());
-        //getMainStage().setTitle("");
+        mainStage = primaryStage;
         getMainStage().setResizable(false);
         setStageScene(villageScene);
         getMainStage().show();
