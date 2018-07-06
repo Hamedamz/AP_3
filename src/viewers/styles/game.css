@@ -1,3 +1,11 @@
+@font-face {
+    src: url('font.ttf');
+}
+
+.root {
+    -fx-font-family: "Supercell-Magic";
+}
+
 #map-tile {
     -fx-opacity: 0;
 }
