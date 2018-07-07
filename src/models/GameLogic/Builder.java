@@ -44,4 +44,13 @@ public class Builder {
     public boolean isBuildingFinished() {
         return constructRemainingTime <= 0;
     }
+
+    public void finishBuilding() {
+        if (underConstructBuilding == null)
+            return;
+        constructRemainingTime = 0;
+        underConstructBuilding.finishConstruct();
+        underConstructBuilding = null;
+
+    }
 }

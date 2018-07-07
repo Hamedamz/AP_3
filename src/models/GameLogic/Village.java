@@ -31,6 +31,8 @@ public class Village {
                 (int) GameLogicConfig.getFromDictionary("VillageHeight"));
         village.townHall = new TownHall(Position.newMapPosition((village.gameMap.getMapWidth() - 1) / 2, (village.gameMap.getMapHeight() - 1) / 2), true);
         GoldStorage goldStorage = new GoldStorage(Position.newMapPosition((village.gameMap.getMapWidth() - 3) / 2, (village.gameMap.getMapHeight() - 3) / 2), true);
+        village.townHall.finishConstruct();
+        goldStorage.finishConstruct();
         village.gameMap.addNewBuilding(village.townHall);
         village.gameMap.addNewBuilding(goldStorage);
         village.initiateListOfBuildings();

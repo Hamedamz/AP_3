@@ -18,6 +18,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     protected int range;
     protected int damage;
     protected Defender currentTarget;
+    private boolean isInvulnerable = false;
 
     public AttackerTroop() {
         String className = this.getClass().getSimpleName();
@@ -79,9 +80,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     }
 
     @Override
-    public void takeDamageFromAttack(int damage) {
-        hitPoints -= damage;
-    }
+    public void takeDamageFromAttack(int damage) { if (!isInvulnerable) hitPoints -= damage; }
 
     @Override
     public void destroy() {
@@ -135,6 +134,10 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     @Override
     public void setTarget(Destroyable destroyable) {
         currentTarget = (Defender) destroyable;
+    }
+
+    public void setInvulnerable(boolean invulnerable) {
+        isInvulnerable = invulnerable;
     }
 }
 
