@@ -19,8 +19,12 @@ public enum ImageLibrary {
     GoldStorage("assets/buildings/GoldStorage.png"),
     TownHall("assets/buildings/TownHall.png"),
     Wall("assets/buildings/Wall.png"),
-    WizardTower("assets/buildings/WizardTower.png")
-    ;
+    WizardTower("assets/buildings/WizardTower.png"),
+    InfoIcon("assets/icons/SampleIcon.png"),
+    UpgardeIcon("assets/icons/SampleIcon.png"),
+    TrainTroopsIcon("assets/icons/SampleIcon.png"),
+    ShopIcon("assets/icons/SampleIcon.png"),
+    AttackIcon("assets/icons/SampleIcon.png");
 
     private Image image;
 

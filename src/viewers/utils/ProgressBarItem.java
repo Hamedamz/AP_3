@@ -9,30 +9,86 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class ProgressBarItem extends Pane {
-    private Label label;
-    private ImageView icon;
-    private ProgressBar progressBar;
+    private Label label = new Label();
+    private ImageView icon = new ImageView();
+    private ProgressBar progressBar = new ProgressBar();
+    private ProgressBarType type;
     private String title;
     private double value;
     private double max;
 
-    public ProgressBarItem(String title, Image icon, double value, double max) {
-        this.title = title;
-        this.icon = new ImageView(icon);
-        this.value = value;
+    public ProgressBarItem(double value, double max, ProgressBarType type) {
+        this.type = type;
         this.max = max;
-        this.label = new Label(getInfo());
-        this.progressBar = new ProgressBar();
-        setProgressValue(value);
+        setValue(value);
 
-        this.getChildren().add(new VBox(Const.SPACING, this.label, new HBox(Const.SPACING, this.icon, progressBar)));
+        this.getChildren().add(new VBox(this.label, progressBar));
+        setStyle();
     }
 
-    public void setProgressValue(double value) {
+    public ProgressBarItem(String title, Image icon, double value, double max, ProgressBarType type) {
+        this.type = type;
+        this.title = title;
+        this.icon.setImage(icon);
+        this.max = max;
+        setValue(value);
+
+        this.getChildren().add(new VBox(this.label, new HBox(Const.SPACING, this.icon, progressBar)));
+        setStyle();
+    }
+
+    private void setStyle() {
+        progressBar.setId(type.getId());
+        switch (type) {
+            case INFO:
+                break;
+            case ELIXIR_INFO:
+                break;
+            case GOLD_INFO:
+                break;
+            case HIT_POINTS:
+                progressBar.setMaxWidth(Const.SMALL_PROGRESS_BAR_WIDTH);
+                setIconVisibility(false);
+                setLabelVisibility(false);
+                break;
+            case REMAINED_TIME:
+                progressBar.setMaxWidth(Const.SMALL_PROGRESS_BAR_WIDTH);
+                setIconVisibility(false);
+                break;
+        }
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+        updateLabel();
+        updateProgress();
+    }
+
+    public void setMax(double max) {
+        this.max = max;
+    }
+
+    private void updateProgress() {
         progressBar.setProgress(value / max);
     }
 
-    private String getInfo() {
-        return title + ": " + value + "/" + max;
+    private void updateLabel() {
+        if (title != null) {
+            label.setText(title + ": " + value + "/" + max);
+        } else if (type.equals(ProgressBarType.REMAINED_TIME)){
+            label.setText(max - value + "s");
+        } else {
+            label.setText(value + "/" + max);
+        }
     }
+
+    public void setLabelVisibility(boolean visibility) {
+        label.setVisible(visibility);
+    }
+
+    public void setIconVisibility(boolean visibility) {
+        icon.setVisible(visibility);
+    }
+
+
 }

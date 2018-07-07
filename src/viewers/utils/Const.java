@@ -26,4 +26,8 @@ public class Const {
 
     public static final double SPACING = 10;
 
+    public static final double POPUP_WIDTH = 500;
+    public static final double POPUP_HEGHT = 450;
+
+    public static final double SMALL_PROGRESS_BAR_WIDTH = 50;
 }

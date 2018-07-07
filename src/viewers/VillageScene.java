@@ -1,10 +1,15 @@
 package viewers;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.stage.Popup;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.TownHall;
@@ -17,10 +22,11 @@ import java.util.Comparator;
 
 import static viewers.utils.Const.*;
 
-public class VillageScene extends Scene{
+public class VillageScene extends Scene {
     private static VillageScene instance = new VillageScene();
 
     private Group root;
+    private Pane buildingsPane;
     private MapBrowserPane draggableView;
     private GridPane tiles;
     private IsometricPane isometricPane;
@@ -49,11 +55,13 @@ public class VillageScene extends Scene{
             }
         }
         isometricPane = new IsometricPane(tiles);
+        buildingsPane = new Pane();
 
-        draggableView = new MapBrowserPane(villageBackground, isometricPane);
+        draggableView = new MapBrowserPane(villageBackground, isometricPane, buildingsPane);
         draggableView.setMaxWidth(VIllAGE_BACKGROUND_WIDTH);
         draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
         draggableView.initialize();
+
 
         ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getBuildings());
         buildings.sort((o1, o2) -> o2.getPosition().getMapX() - o1.getPosition().getMapX() + o2.getPosition().getMapY() - o1.getPosition().getMapY());
@@ -61,22 +69,41 @@ public class VillageScene extends Scene{
             addBuildingToScene(building);
         }
 
+        Button button = new Button("Hi");
+        Popup popup = new Popup();
+        popup.getContent().add(new Circle(100, 100, 30));
+        button.setOnAction(event -> {
+            if (popup.isShowing()) {
+                popup.hide();
+            } else {
+                popup.show(AppGUI.getMainStage());
+            }
+        });
 
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView);
+        root.getChildren().addAll(draggableView, button);
         return instance;
+    }
+
+    private AnimationTimer animationTimer() {
+        return new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+            }
+        };
     }
 
     private void addBuildingToScene(Building building) {
         BuildingHolder buildingHolder = new BuildingHolder(building);
         int size = (building.getClass().equals(TownHall.class)) ? 2 : 1;
         IsometricPane.mapToIsometricLayout(buildingHolder, building.getPosition(), size);
-        draggableView.getChildren().add(buildingHolder);
+        buildingsPane.getChildren().add(buildingHolder);
     }
+
     private void addBuildingToScene(Builder builder, int x, int y) {
         BuildingHolder buildingHolder = new BuildingHolder(builder);
         IsometricPane.mapToIsometricLayout(buildingHolder, new Position(x, y), 1);
-        draggableView.getChildren().add(buildingHolder);
+        buildingsPane.getChildren().add(buildingHolder);
     }
 
     public void addUnderConstructionBuilding(int x, int y) {

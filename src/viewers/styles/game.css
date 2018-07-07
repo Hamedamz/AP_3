@@ -6,10 +6,48 @@
     -fx-font-family: "Supercell-Magic";
 }
 
+#building-holder .label .text {
+    -fx-font-size: 8;
+    -fx-stroke: black;
+    -fx-stroke-width: 0.5;
+}
+
+#building-holder .label{
+    -fx-text-fill: white;
+}
+
 #map-tile {
     -fx-opacity: 0;
 }
 
 #map-tile:hover {
     -fx-opacity: .2;
+}
+
+.progress-bar .track {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.progress-bar .bar {
+    -fx-padding: 5;
+}
+
+#green-bar {
+    -fx-accent: limegreen;
+}
+
+#red-bar {
+    -fx-accent: red;
+}
+
+#gold-bar {
+    -fx-accent: gold;
+}
+
+#violet-bar {
+    -fx-accent: darkviolet;
+}
+
+#blue-bar {
+    -fx-accent: dodgerblue;
 }
