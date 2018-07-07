@@ -11,6 +11,7 @@ import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 
 public class MapBrowserPane extends Pane {
+
     private static final int MIN_PIXELS = 300;
     private static final double RESET_VIEWPOINT_TO_CAMERA_MULTIPLIER = 1.3;
     private Rectangle2D imageProperties;
@@ -94,14 +95,6 @@ public class MapBrowserPane extends Pane {
             fixTranslation();
         });
 
-
-        setOnMouseClicked(e -> {
-            if (e.getClickCount() == 2) {
-                reset(Const.WINDOW_WIDTH, Const.WINDOW_HEIGHT);
-            }
-
-        });
-
     }
 
     // reset to the top left:
@@ -150,8 +143,6 @@ public class MapBrowserPane extends Pane {
     }
 
     private void fixTranslation() {
-//        scale.setPivotX((viewPort.getMinX() + viewPort.getMaxX()) / 2);
-//        scale.setPivotY((viewPort.getMinY() + viewPort.getMaxY()) / 2);
         translate.setX(-viewPort.getMinX());
         translate.setY(-viewPort.getMinY());
         scale.setPivotX(viewPort.getMinX());

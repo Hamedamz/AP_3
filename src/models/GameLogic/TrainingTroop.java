@@ -46,6 +46,9 @@ public class TrainingTroop {
         timeRemaining--;
     }
 
+    public void finishTraining() {
+        timeRemaining = 0;
+    }
     public boolean hasEndedTraining() {
         return timeRemaining <= 0;
     }
