@@ -21,8 +21,8 @@ import javafx.stage.Stage;
 
 public class PlutoExplorer extends Application {
 
-    private static final String IMAGE_CREDIT_URL = "http://www.nasa.gov/image-feature/global-mosaic-of-pluto-in-true-color";
-    private static final String IMAGE_URL = "http://www.nasa.gov/sites/default/files/thumbnails/image/global-mosaic-of-pluto-in-true-color.jpg";
+    private static final String IMAGE_CREDIT_URL = "http://www.nasa.gov/image-feature/global-mosaic-of-pluto-in-true-id";
+    private static final String IMAGE_URL = "http://www.nasa.gov/sites/default/files/thumbnails/image/global-mosaic-of-pluto-in-true-id.jpg";
     private static final int MIN_PIXELS = 10;
 
     @Override

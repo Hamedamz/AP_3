@@ -5,16 +5,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+import models.GameLogic.Entities.Entity;
 
 public class InfoPopup extends Popup{
 
+    private Entity entity;
     private String title;
     private ImageView imageView;
     private VBox progressBarContainer;
     private VBox propertyInfoItemContainer;
 
-    public InfoPopup(String title) {
+    public InfoPopup(Entity entity) {
         super();
+        this.entity = entity;
+
         progressBarContainer = new VBox(Const.SPACING);
         propertyInfoItemContainer = new VBox(Const.SPACING);
         HBox content = new HBox(Const.SPACING * 2, imageView, new VBox(Const.SPACING * 2, progressBarContainer, propertyInfoItemContainer));
