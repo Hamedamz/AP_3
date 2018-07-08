@@ -2,8 +2,10 @@ package viewers;
 
 import controllers.Controller;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import viewers.utils.VillageConsole;
 
 public class AppGUI extends Application {
     private static Stage mainStage;
@@ -27,6 +29,7 @@ public class AppGUI extends Application {
         getMainStage().setResizable(false);
         setStageScene(villageScene);
         getMainStage().show();
+
     }
 
     public static void setStageScene(Scene scene) {

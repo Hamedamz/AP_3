@@ -1,0 +1,27 @@
+#village-console .content{
+    -fx-background-color: rgba(0, 0, 0, 1);
+}
+
+#history-textarea {
+    -fx-fill: #000000aa;
+    -fx-background-color: rgba(0, 0, 0, 1);
+    -fx-inner-background: #000000aa;
+    -fx-highlight-fill: #00ff00;
+    -fx-highlight-text-fill: #000000;
+    -fx-text-fill: rgba(24, 186, 0, 1.0);
+    -fx-padding: 6, 25, 6, 25;
+    -fx-focus-color: -fx-control-inner-background;
+    -fx-faint-focus-color: -fx-control-inner-background;
+}
+
+#history-textarea .content {
+    -fx-background-color: transparent, black, transparent, black;
+}
+
+
+#history-textfield {
+    -fx-background-color: rgba(0, 0, 0, 0.70);
+    -fx-text-fill: rgba(24, 186, 0, 1.0);
+    -fx-font-family: Consolas;
+    -fx-padding: 6, 25, 6, 25;
+}
