@@ -27,7 +27,8 @@ public enum ImageLibrary {
     AttackIcon("assets/icons/SampleIcon.png"),
     HitPointsIcon("assets/icons/HitPointsIcon.png"),
     GoldIcon("assets/icons/GoldIcon.png"),
-    ElixirIcon("assets/icons/ElixirIcon.png");
+    ElixirIcon("assets/icons/ElixirIcon.png"),
+    TroopsIcon("assets/icons/SampleIcon.png");
 
     private Image image;
 

@@ -19,7 +19,6 @@ public class BuildingMenu extends Popup {
         this.getContent().addAll(content);
         this.setAnchorY(Const.WINDOW_HEIGHT - 100);
         this.setAnchorX(Const.WINDOW_WIDTH / 2);
-        this.setAutoHide(true);
     }
 
     public void toggle() {

@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Storage;
+import viewers.AppGUI;
 
 
 public class ProgressBarItem extends Pane {
@@ -40,14 +41,22 @@ public class ProgressBarItem extends Pane {
     public void setValues() {
         switch (type) {
             case ELIXIR_INFO:
+                setTitle(type.toString());
                 setMax(((Storage) model).getCapacity().getElixir());
                 setValue(((Storage) model).getStock().getElixir());
                 break;
             case GOLD_INFO:
+                setTitle(type.toString());
                 setMax(((Storage) model).getCapacity().getGold());
                 setValue(((Storage) model).getStock().getGold());
                 break;
-            case INFO_HIT_POINTS:
+            case TROOPS_CAPACITY_INFO:
+                setTitle(type.toString());
+                setMax(AppGUI.getController().getWorld().getMyVillage().getTotalCampCapacity());
+                setValue(AppGUI.getController().getWorld().getMyVillage().getTotalCampTroops());
+                break;
+            case HIT_POINTS_INFO:
+                setTitle(type.toString());
                 setMax(((Destroyable) model).getMaxHitPoints());
                 setValue(((Destroyable) model).getHitPoints());
                 break;
@@ -91,6 +100,10 @@ public class ProgressBarItem extends Pane {
         this.max = max;
         updateLabel();
         updateProgress();
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     private void updateProgress() {

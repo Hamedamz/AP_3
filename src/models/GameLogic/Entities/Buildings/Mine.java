@@ -15,4 +15,8 @@ public abstract class Mine extends ResourceBuilding{
     }
 
     public abstract Resource produce();
+
+    public int getProductionRate() {
+        return productionRate;
+    }
 }

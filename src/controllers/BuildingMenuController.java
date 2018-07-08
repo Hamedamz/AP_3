@@ -5,10 +5,7 @@ import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Buildings.TownHall;
 import viewers.AppGUI;
-import viewers.utils.BuildingMenu;
-import viewers.utils.ButtonActionType;
-import viewers.utils.FancyButton;
-import viewers.utils.InfoPopup;
+import viewers.utils.*;
 
 import static viewers.utils.ButtonActionType.*;
 
@@ -66,7 +63,7 @@ public class BuildingMenuController {
     public void handleClickOnButton(ButtonActionType type) {
         switch (type) {
             case OPEN_INFO_POPUP:
-                InfoPopup.openPopup(building);
+                InfoPopup.openPopup(building, InfoPopupItems.valueOf(building.getClass().getSimpleName() + "Info"));
                 break;
             case OPEN_UPGRADE_POPUP:
                 break;

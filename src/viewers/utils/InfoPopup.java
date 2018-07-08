@@ -5,19 +5,17 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.TownHall;
 import models.GameLogic.Entities.Entity;
 import viewers.AppGUI;
 
-public class InfoPopup extends Popup{
+public class InfoPopup extends Popup {
 
-    private Entity entity;
+    private Object model;
     private Label title = new Label();
     private Button closeButton = new Button("X");
     private ImageView imageView = new ImageView();
@@ -27,9 +25,9 @@ public class InfoPopup extends Popup{
     private VBox content = new VBox(Const.SPACING * 2);
     private Pane wrapper = new Pane(content, closeButton);
 
-    public InfoPopup(Entity entity) {
-        this.entity = entity;
-        this.title.setText(entity.getClass().getSimpleName());
+    private InfoPopup(Object model) {
+        this.model = model;
+        this.title.setText(model.getClass().getSimpleName());
         content.getChildren().addAll(title, new HBox(imagePane, new VBox(Const.SPACING * 2, progressBarContainer, propertyInfoItemContainer)));
         this.getContent().add(wrapper);
         setProperties();
@@ -42,7 +40,7 @@ public class InfoPopup extends Popup{
 
         imagePane.setMinWidth(Const.POPUP_WIDTH / 2);
         imagePane.setAlignment(Pos.CENTER);
-        if (entity.getClass().equals(TownHall.class)) {
+        if (model.getClass().equals(TownHall.class)) {
             imageView.setFitWidth(Const.TOWNHALL_TILE_WIDTH / 2);
             imageView.setFitHeight(Const.TOWNHALL_TILE_HEIGHT / 2);
         }
@@ -61,15 +59,20 @@ public class InfoPopup extends Popup{
         this.setOnHiding(event -> BuildingMenuController.getInstance().toggleActiveMenu());
     }
 
-    public static void openPopup(Building building) {
-//        if (building.getClass().equals(TownHall.class)) {
-            new InfoPopup(building)
-                    .withImage(building.getImageView())
-                    .withProgressBarItem(new ProgressBarItem(ProgressBarType.INFO_HIT_POINTS, building))
-                    .withPropertyInfoItem(new PropertyInfoItem("Level", String.valueOf(building.getLevel())))
-                    .show(AppGUI.getMainStage());
+    public static void openPopup(Object model, InfoPopupItems items) {
+
+        InfoPopup infoPopup = new InfoPopup(model).withImage(((Entity) model).getImageView());
+
+        for (ProgressBarType progressBarType : items.getProgressBarTypes()) {
+            infoPopup.withProgressBarItem(new ProgressBarItem(progressBarType, model));
         }
-//    }
+
+        for (PropertyInfoType propertyInfoType : items.getPropertyInfoTypes()) {
+            infoPopup.withPropertyInfoItem(new PropertyInfoItem(propertyInfoType, model));
+        }
+        infoPopup.show(AppGUI.getMainStage());
+    }
+
 
     public InfoPopup withImage(ImageView imageView) {
         this.imageView.setImage(imageView.getImage());
