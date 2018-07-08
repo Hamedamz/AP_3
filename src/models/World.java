@@ -1,7 +1,8 @@
-package models.GameLogic;
+package models;
 
 import controllers.Exceptions.VillageAlreadyExists;
 import controllers.JsonInterpreter;
+import models.GameLogic.*;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Exceptions.TroopNotFoundException;
 import models.Setting.GameLogicConfig;
@@ -10,16 +11,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class World {
+    private Account account;
     private HashMap<String, String> myVillagesNameAndPath;
-    private HashMap<String, GameMap> enemyVillagesPathAndMap;
-    private Village myVillage;
     private BattleGround battleGround;
     private GameEngine gameEngine;
 
     public World() {
         gameEngine = new GameEngine(this);
         myVillagesNameAndPath = new HashMap<>();
-        enemyVillagesPathAndMap = new HashMap<>();
     }
 
 
@@ -28,15 +27,15 @@ public class World {
     }
 
     public HashMap<String, GameMap> getEnemyVillagesPathAndMap() {
-        return enemyVillagesPathAndMap;
+        return account.getEnemyVillagesPathAndMap();
     }
 
     public Village getMyVillage() {
-        return myVillage;
+        return account.getMyVillage();
     }
 
     public void setMyVillage(Village myVillage) { // FIXME: 5/9/2018 soroushVT
-        this.myVillage = myVillage;
+        this.account.setMyVillage(myVillage);
         gameEngine.loadNewVillage();
     }
 
@@ -48,7 +47,7 @@ public class World {
 //        if(myVillage != null) {
 //            throw new VillageAlreadyExists();
 //        }
-        myVillage = Village.startNewVillage();
+        account = new Account();
         gameEngine.loadNewVillage();
     }
 
@@ -62,7 +61,8 @@ public class World {
         ArrayList<Building> buildings = JsonInterpreter.loadEnemyVillageBuildings(path);
         GameMap gameMap = new GameMap(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
         gameMap.setBuildings(buildings);
-        enemyVillagesPathAndMap.put(path, gameMap);
+        getEnemyVillagesPathAndMap().put(path, gameMap);
+        gameEngine.resetVillage();
     }
 
 
@@ -71,11 +71,11 @@ public class World {
     } // FIXME: 5/8/2018 gameEngine must not be passed
 
     public void attackMap(GameMap gameMap) {
-        battleGround = new BattleGround(myVillage, gameMap);
+        battleGround = new BattleGround(getMyVillage(), gameMap);
         gameEngine.loadBattleGround();
     }
 
     public void sendTroopToAttack(String troopType, int count) throws TroopNotFoundException {
-        battleGround.addTroops(troopType, myVillage.sendTroopToBattleGround(troopType, count));
+        battleGround.addTroops(troopType, getMyVillage().sendTroopToBattleGround(troopType, count));
     }
 }
