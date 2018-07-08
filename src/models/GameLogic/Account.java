@@ -8,7 +8,7 @@ public class Account {
 
     public Account() {
         enemyVillagesPathAndMap = new HashMap<>();
-        myVillage = new Village();
+        myVillage = Village.startNewVillage();
     }
 
     public HashMap<String, GameMap> getEnemyVillagesPathAndMap() {

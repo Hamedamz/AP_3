@@ -29,7 +29,7 @@ public class VillageScene extends Scene {
     private IsometricPane isometricPane;
     private ImageView villageBackground = new ImageView();
 
-    private VillageConsole villageConsole = new VillageConsole();
+    private VillageConsole villageConsole;
 
     private VillageScene() {
         super(new Group(), WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -75,6 +75,7 @@ public class VillageScene extends Scene {
         setAnimationTimer().start();
 
         //village console
+        villageConsole = new VillageConsole();
         root.getChildren().addAll(villageConsole);
         villageConsole.setVillage(AppGUI.getController().getWorld().getMyVillage());
 
