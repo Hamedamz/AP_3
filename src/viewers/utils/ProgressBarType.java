@@ -5,6 +5,8 @@ import javafx.scene.image.Image;
 import static viewers.utils.Const.*;
 
 public enum ProgressBarType {
+    TOTAL_ELIXIR_INFO("violet-bar", SMALL_INFO_PROGRESS_BAR_WIDTH, INFO_PROGRESS_BAR_HEIGHT, ImageLibrary.ElixirIcon.getImage()),
+    TOTAL_GOLD_INFO("gold-bar", SMALL_INFO_PROGRESS_BAR_WIDTH, INFO_PROGRESS_BAR_HEIGHT, ImageLibrary.GoldIcon.getImage()),
     ELIXIR_INFO("violet-bar", INFO_PROGRESS_BAR_WIDTH, INFO_PROGRESS_BAR_HEIGHT, ImageLibrary.ElixirIcon.getImage()),
     GOLD_INFO("gold-bar", INFO_PROGRESS_BAR_WIDTH, INFO_PROGRESS_BAR_HEIGHT, ImageLibrary.GoldIcon.getImage()),
     TROOPS_CAPACITY_INFO("blue-bar", INFO_PROGRESS_BAR_WIDTH, INFO_PROGRESS_BAR_HEIGHT, ImageLibrary.TroopsIcon.getImage()),

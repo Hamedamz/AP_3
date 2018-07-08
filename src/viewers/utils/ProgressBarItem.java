@@ -40,6 +40,14 @@ public class ProgressBarItem extends Pane {
 
     public void setValues() {
         switch (type) {
+            case TOTAL_ELIXIR_INFO:
+                setMax(AppGUI.getController().getWorld().getMyVillage().getTotalResourceCapacity().getElixir());
+                setValue(AppGUI.getController().getWorld().getMyVillage().getTotalResourceStock().getElixir());
+                break;
+            case TOTAL_GOLD_INFO:
+                setMax(AppGUI.getController().getWorld().getMyVillage().getTotalResourceCapacity().getGold());
+                setValue(AppGUI.getController().getWorld().getMyVillage().getTotalResourceStock().getGold());
+                break;
             case ELIXIR_INFO:
                 setTitle(type.toString());
                 setMax(((Storage) model).getCapacity().getElixir());

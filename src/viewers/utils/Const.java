@@ -25,6 +25,7 @@ public class Const {
     public static final double ENTITY_PROGRESS_BAR_WIDTH = 50;
     public static final double ENTITY_PROGRESS_BAR_HEIGHT = 3;
     public static final double INFO_PROGRESS_BAR_WIDTH = 200;
+    public static final double SMALL_INFO_PROGRESS_BAR_WIDTH = 120;
     public static final double INFO_PROGRESS_BAR_HEIGHT = 20;
     public static final double BORDER_INFO_PROGGRESS_BAR_WIDTH = 70;
 

@@ -1,6 +1,7 @@
 package viewers;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -8,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.TownHall;
@@ -24,6 +26,9 @@ public class VillageScene extends Scene {
 
     private Group root;
     private Pane buildingsPane;
+    ProgressBarItem totalGoldProgressBar;
+    ProgressBarItem totalElixirProgressBar;
+    private Pane totalStock;
     private MapBrowserPane draggableView;
     private GridPane tiles;
     private IsometricPane isometricPane;
@@ -68,14 +73,18 @@ public class VillageScene extends Scene {
         for (Building building : buildings) {
             addBuildingToScene(building);
         }
+        totalGoldProgressBar = new ProgressBarItem(ProgressBarType.TOTAL_GOLD_INFO, null);
+        totalElixirProgressBar = new ProgressBarItem(ProgressBarType.TOTAL_ELIXIR_INFO, null);
+        totalStock = new VBox(Const.SPACING, totalGoldProgressBar, totalElixirProgressBar);
+        totalStock.setPadding(new Insets(Const.SPACING));
 
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView);
+        root.getChildren().addAll(draggableView, totalStock);
 
         setAnimationTimer().start();
 
         //village console
-        root.getChildren().addAll(villageConsole);
+        root.getChildren().add(villageConsole);
         villageConsole.setVillage(AppGUI.getController().getWorld().getMyVillage());
 
         //handling total village keyEvents
@@ -100,6 +109,9 @@ public class VillageScene extends Scene {
                     BuildingHolder buildingHolder = (BuildingHolder) node;
                     buildingHolder.refresh();
                 }
+
+                totalGoldProgressBar.setValues();
+                totalElixirProgressBar.setValues();
             }
         };
     }
