@@ -10,8 +10,8 @@ public class Const {
     public static final double MAP_ORIGIN_Y = 569;
     public static final double MAP_SLOPE_ANGEL = 33;
     public static final double GRID_PANE_LAYOUT_X = 580;
-    public static final double GRID_PANE_LAYOUT_Y = 530;
-    public static final double GRID_PANE_ROTATE_Y = 49.5;
+    public static final double GRID_PANE_LAYOUT_Y = 765;
+    public static final double GRID_PANE_SCALE_Y = .65;
     public static final double TILE_SIZE = 44;
     public static final double ISOMETRIC_TILE_SIZE = 37.75;
     public static final double ISOMETRIC_TILE_WIDTH = 36;
