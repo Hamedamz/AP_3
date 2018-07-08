@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import models.GameLogic.Builder;
@@ -28,6 +29,8 @@ public class VillageScene extends Scene {
     private IsometricPane isometricPane;
     private ImageView villageBackground = new ImageView();
 
+    private VillageConsole villageConsole = new VillageConsole();
+
     private VillageScene() {
         super(new Group(), WINDOW_WIDTH, WINDOW_HEIGHT);
         root = (Group) getRoot();
@@ -40,6 +43,7 @@ public class VillageScene extends Scene {
     }
 
     public void build() {
+        //graphical structure
         villageBackground.setImage(ImageLibrary.VillageBackground.getImage());
 
         tiles = new GridPane();
@@ -69,6 +73,23 @@ public class VillageScene extends Scene {
         root.getChildren().addAll(draggableView);
 
         setAnimationTimer().start();
+
+        //village console
+        root.getChildren().addAll(villageConsole);
+        villageConsole.setVillage(AppGUI.getController().getWorld().getMyVillage());
+
+        //handling total village keyEvents
+        addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
+            switch (keyEvent.getCode()) {
+                case BACK_QUOTE:
+                    if(villageConsole.isMinimized()) {
+                        villageConsole.maximize();
+                    } else {
+                        villageConsole.minimize();
+                    }
+                    break;
+            }
+        });
     }
 
     private AnimationTimer setAnimationTimer() {
