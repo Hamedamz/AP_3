@@ -42,6 +42,10 @@ public class InfoPopup extends Popup{
 
         imagePane.setMinWidth(Const.POPUP_WIDTH / 2);
         imagePane.setAlignment(Pos.CENTER);
+        if (entity.getClass().equals(TownHall.class)) {
+            imageView.setFitWidth(Const.TOWNHALL_TILE_WIDTH / 2);
+            imageView.setFitHeight(Const.TOWNHALL_TILE_HEIGHT / 2);
+        }
 
         content.setPadding(new Insets(10));
 
@@ -61,11 +65,7 @@ public class InfoPopup extends Popup{
 //        if (building.getClass().equals(TownHall.class)) {
             new InfoPopup(building)
                     .withImage(building.getImageView())
-                    .withProgressBarItem(new ProgressBarItem("HitPoints",
-                            ImageLibrary.HitPointsIcon.getImage(),
-                            building.getHitPoints(),
-                            building.getMaxHitPoints(),
-                            ProgressBarType.INFO_HIT_POINTS))
+                    .withProgressBarItem(new ProgressBarItem(ProgressBarType.INFO_HIT_POINTS, building))
                     .withPropertyInfoItem(new PropertyInfoItem("Level", String.valueOf(building.getLevel())))
                     .show(AppGUI.getMainStage());
         }

@@ -1,42 +1,65 @@
 package viewers.utils;
 
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
+import interfaces.Destroyable;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import models.GameLogic.Builder;
+import models.GameLogic.Entities.Buildings.Storage;
+
 
 public class ProgressBarItem extends Pane {
+    private Object model;
     private Text label = new Text();
     private ImageView icon = new ImageView();
     private ProgressBar progressBar = new ProgressBar();
     private ProgressBarType type;
     private String title;
+    private HBox content;
     private double value;
     private double max;
 
-    public ProgressBarItem(double value, double max, ProgressBarType type) {
+    public ProgressBarItem(ProgressBarType type, Object model) {
         this.type = type;
-        this.max = max;
-        setValue(value);
-
-        this.getChildren().add(new VBox(this.label, progressBar));
+        this.model = model;
+        icon.setImage(type.getImage());
+        this.content = new HBox(Const.SPACING, this.icon, new VBox(this.label, progressBar));
+        this.getChildren().add(content);
+        setValues();
         setStyle();
     }
 
-    public ProgressBarItem(String title, Image icon, double value, double max, ProgressBarType type) {
-        this.type = type;
+    public ProgressBarItem withTitle(String title) {
         this.title = title;
-        this.icon.setImage(icon);
-        this.max = max;
-        setValue(value);
-        this.getChildren().add(new HBox(Const.SPACING, this.icon, new VBox(this.label, progressBar)));
-        setStyle();
+        return this;
+    }
+
+    public void setValues() {
+        switch (type) {
+            case ELIXIR_INFO:
+                setMax(((Storage) model).getCapacity().getElixir());
+                setValue(((Storage) model).getStock().getElixir());
+                break;
+            case GOLD_INFO:
+                setMax(((Storage) model).getCapacity().getGold());
+                setValue(((Storage) model).getStock().getGold());
+                break;
+            case INFO_HIT_POINTS:
+                setMax(((Destroyable) model).getMaxHitPoints());
+                setValue(((Destroyable) model).getHitPoints());
+                break;
+            case HIT_POINTS:
+                setMax(((Destroyable) model).getMaxHitPoints());
+                setValue(((Destroyable) model).getHitPoints());
+                break;
+            case REMAINED_TIME:
+                setMax(((Builder) model).getTotalConstructionTime());
+                setValue(max - ((Builder) model).getConstructRemainingTime());
+                break;
+        }
     }
 
     private void setStyle() {
@@ -49,21 +72,12 @@ public class ProgressBarItem extends Pane {
         icon.setFitHeight(Const.PROGRESS_BAR_ICON_SIZE);
 
         switch (type) {
-            case INFO:
-                break;
-            case ELIXIR_INFO:
-                break;
-            case GOLD_INFO:
-                break;
             case HIT_POINTS:
-                setIconVisibility(false);
+                content.getChildren().remove(icon);
                 setLabelVisibility(false);
                 break;
             case REMAINED_TIME:
-                setIconVisibility(false);
-                break;
-            case INFO_HIT_POINTS:
-                break;
+                content.getChildren().remove(icon);
         }
     }
 
@@ -75,6 +89,8 @@ public class ProgressBarItem extends Pane {
 
     public void setMax(double max) {
         this.max = max;
+        updateLabel();
+        updateProgress();
     }
 
     private void updateProgress() {
@@ -94,10 +110,4 @@ public class ProgressBarItem extends Pane {
     private void setLabelVisibility(boolean visibility) {
         label.setVisible(visibility);
     }
-
-    private void setIconVisibility(boolean visibility) {
-        icon.setVisible(visibility);
-    }
-
-
 }

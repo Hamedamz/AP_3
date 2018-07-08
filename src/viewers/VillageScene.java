@@ -4,13 +4,9 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
-import javafx.stage.Popup;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.TownHall;
@@ -19,7 +15,6 @@ import models.GameLogic.Position;
 import viewers.utils.*;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import static viewers.utils.Const.*;
 
@@ -27,7 +22,6 @@ public class VillageScene extends Scene {
     private static VillageScene instance = new VillageScene();
 
     private Group root;
-    private Pane borderItemsPane;
     private Pane buildingsPane;
     private MapBrowserPane draggableView;
     private GridPane tiles;
@@ -53,13 +47,14 @@ public class VillageScene extends Scene {
         tiles.setHgap(1);
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 30; j++) {
-                tiles.add(new MapTile(TILE_SIZE, TILE_SIZE), i, j);
+                tiles.add(new MapTile(TILE_SIZE, TILE_SIZE,i ,j), i, j);
             }
         }
         isometricPane = new IsometricPane(tiles);
+        isometricPane.setVisible(false);
         buildingsPane = new Pane();
 
-        draggableView = new MapBrowserPane(villageBackground, isometricPane, buildingsPane);
+        draggableView = new MapBrowserPane(villageBackground, buildingsPane, isometricPane);
         draggableView.setMaxWidth(VIllAGE_BACKGROUND_WIDTH);
         draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
         draggableView.initialize();
@@ -70,10 +65,8 @@ public class VillageScene extends Scene {
             addBuildingToScene(building);
         }
 
-        borderItemsPane = new Pane();
-
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, borderItemsPane);
+        root.getChildren().addAll(draggableView);
 
         setAnimationTimer().start();
     }
@@ -112,5 +105,14 @@ public class VillageScene extends Scene {
         }
 
         addBuildingToScene(builder, x, y);
+    }
+
+    public void setTileOccupied(int x, int y) {
+        for (Node node : tiles.getChildren()) {
+            MapTile tile = (MapTile) node;
+            if (tile.getMapX() == x & tile.getMapY() == y) {
+                tile.setVisible(false);
+            }
+        }
     }
 }

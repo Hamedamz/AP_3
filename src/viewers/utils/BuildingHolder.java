@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.TownHall;
 
 public class BuildingHolder extends Pane {
     private Builder builder;
@@ -27,11 +28,20 @@ public class BuildingHolder extends Pane {
     }
 
     private void initialize() {
-        this.imageView = building.getImageView();
+        imageView = building.getImageView();
+        imageView.setFitWidth(Const.BUILDING_TILE_WIDTH * Const.TILE_SCALE);
+        imageView.setFitHeight(Const.BUILDING_TILE_HEIGHT * Const.TILE_SCALE);
+        if (building.getClass().equals(TownHall.class)) {
+            imageView.setFitWidth(Const.TOWNHALL_TILE_WIDTH * Const.TILE_SCALE);
+            imageView.setFitHeight(Const.TOWNHALL_TILE_HEIGHT * Const.TILE_SCALE);
+        }
         this.setMaxSize(imageView.getViewport().getWidth(), imageView.getViewport().getHeight());
-        hitPointsProgressBar = new ProgressBarItem(1,1, ProgressBarType.HIT_POINTS);
-        constructionProgressBar = new ProgressBarItem(1,1, ProgressBarType.REMAINED_TIME);
-        this.getChildren().addAll(imageView, constructionProgressBar, hitPointsProgressBar);
+        hitPointsProgressBar = new ProgressBarItem(ProgressBarType.HIT_POINTS, building);
+        this.getChildren().addAll(imageView, hitPointsProgressBar);
+        if (builder != null) {
+            constructionProgressBar = new ProgressBarItem(ProgressBarType.REMAINED_TIME, builder);
+            this.getChildren().add(constructionProgressBar);
+        }
         this.setId("building-holder");
         imageView.setEffect(glow);
         imageView.setOnMouseEntered(event -> glow.setLevel(0.5));
@@ -43,18 +53,20 @@ public class BuildingHolder extends Pane {
 
     public void refresh() {
         if (building.isUnderConstruct()) {
-            constructionProgressBar.setMax(builder.getTotalConstructionTime());
-            constructionProgressBar.setValue(builder.getTotalConstructionTime() - builder.getConstructRemainingTime());
-            constructionProgressBar.setVisible(true);
-        } else {
+            if (!constructionProgressBar.isVisible()) {
+                constructionProgressBar.setVisible(true);
+            }
+            constructionProgressBar.setValues();
+        } else if (constructionProgressBar != null && constructionProgressBar.isVisible()) {
             constructionProgressBar.setVisible(false);
         }
 
         if (building.getHitPoints() < building.getMaxHitPoints()) {
-            hitPointsProgressBar.setMax(building.getMaxHitPoints());
-            hitPointsProgressBar.setValue(building.getHitPoints());
-            hitPointsProgressBar.setVisible(true);
-        } else {
+            if (!hitPointsProgressBar.isVisible()) {
+                hitPointsProgressBar.setVisible(true);
+            }
+            hitPointsProgressBar.setValues();
+        } else if (hitPointsProgressBar.isVisible()){
             hitPointsProgressBar.setVisible(false);
         }
     }
