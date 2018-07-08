@@ -1,5 +1,7 @@
 package models.GameLogic;
 
+import models.World;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
