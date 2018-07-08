@@ -7,6 +7,7 @@ import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
+import models.World;
 import viewers.menu.*;
 import models.Setting.GameLogicConfig;
 import viewers.oldViewers.MenuViewer;

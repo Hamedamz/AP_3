@@ -10,6 +10,7 @@ import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.*;
+import models.World;
 import viewers.menu.*;
 import viewers.AppGUI;
 import viewers.oldViewers.*;
