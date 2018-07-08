@@ -1,9 +1,9 @@
 package viewers.utils;
 
+import controllers.BuildingMenuController;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Building;
 
@@ -36,6 +36,9 @@ public class BuildingHolder extends Pane {
         imageView.setEffect(glow);
         imageView.setOnMouseEntered(event -> glow.setLevel(0.5));
         imageView.setOnMouseExited(event -> glow.setLevel(0));
+        imageView.setOnMouseClicked(event -> {
+            BuildingMenuController.getInstance().handleClickOnBuilding(building);
+        });
     }
 
     public void refresh() {

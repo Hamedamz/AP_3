@@ -1,5 +1,6 @@
 package viewers.utils;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -7,9 +8,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class ProgressBarItem extends Pane {
-    private Label label = new Label();
+    private Text label = new Text();
     private ImageView icon = new ImageView();
     private ProgressBar progressBar = new ProgressBar();
     private ProgressBarType type;
@@ -32,13 +35,19 @@ public class ProgressBarItem extends Pane {
         this.icon.setImage(icon);
         this.max = max;
         setValue(value);
-
-        this.getChildren().add(new VBox(this.label, new HBox(Const.SPACING, this.icon, progressBar)));
+        this.getChildren().add(new HBox(Const.SPACING, this.icon, new VBox(this.label, progressBar)));
         setStyle();
     }
 
     private void setStyle() {
+        label.setId("progress-bar-label");
         progressBar.setId(type.getId());
+        progressBar.setMinWidth(type.getWidth());
+        progressBar.setMaxWidth(type.getWidth());
+        progressBar.setMinHeight(type.getHeight());
+        icon.setFitWidth(Const.PROGRESS_BAR_ICON_SIZE);
+        icon.setFitHeight(Const.PROGRESS_BAR_ICON_SIZE);
+
         switch (type) {
             case INFO:
                 break;
@@ -47,13 +56,13 @@ public class ProgressBarItem extends Pane {
             case GOLD_INFO:
                 break;
             case HIT_POINTS:
-                progressBar.setMaxWidth(Const.SMALL_PROGRESS_BAR_WIDTH);
                 setIconVisibility(false);
                 setLabelVisibility(false);
                 break;
             case REMAINED_TIME:
-                progressBar.setMaxWidth(Const.SMALL_PROGRESS_BAR_WIDTH);
                 setIconVisibility(false);
+                break;
+            case INFO_HIT_POINTS:
                 break;
         }
     }
@@ -74,19 +83,19 @@ public class ProgressBarItem extends Pane {
 
     private void updateLabel() {
         if (title != null) {
-            label.setText(title + ": " + value + "/" + max);
+            label.setText(title + ": " + String.format("%.0f/%.0f", value, max));
         } else if (type.equals(ProgressBarType.REMAINED_TIME)){
-            label.setText(max - value + "s");
+            label.setText(String.format("%.0f", max - value) + "s");
         } else {
-            label.setText(value + "/" + max);
+            label.setText(String.format("%.0f/%.0f", value, max));
         }
     }
 
-    public void setLabelVisibility(boolean visibility) {
+    private void setLabelVisibility(boolean visibility) {
         label.setVisible(visibility);
     }
 
-    public void setIconVisibility(boolean visibility) {
+    private void setIconVisibility(boolean visibility) {
         icon.setVisible(visibility);
     }
 

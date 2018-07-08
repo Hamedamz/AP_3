@@ -2,6 +2,7 @@ package viewers;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,6 +27,7 @@ public class VillageScene extends Scene {
     private static VillageScene instance = new VillageScene();
 
     private Group root;
+    private Pane borderItemsPane;
     private Pane buildingsPane;
     private MapBrowserPane draggableView;
     private GridPane tiles;
@@ -43,7 +45,7 @@ public class VillageScene extends Scene {
         return instance;
     }
 
-    public Scene build() {
+    public void build() {
         villageBackground.setImage(ImageLibrary.VillageBackground.getImage());
 
         tiles = new GridPane();
@@ -62,33 +64,28 @@ public class VillageScene extends Scene {
         draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
         draggableView.initialize();
 
-
         ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getBuildings());
         buildings.sort((o1, o2) -> o2.getPosition().getMapX() - o1.getPosition().getMapX() + o2.getPosition().getMapY() - o1.getPosition().getMapY());
         for (Building building : buildings) {
             addBuildingToScene(building);
         }
 
-        Button button = new Button("Hi");
-        Popup popup = new Popup();
-        popup.getContent().add(new Circle(100, 100, 30));
-        button.setOnAction(event -> {
-            if (popup.isShowing()) {
-                popup.hide();
-            } else {
-                popup.show(AppGUI.getMainStage());
-            }
-        });
+        borderItemsPane = new Pane();
 
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, button);
-        return instance;
+        root.getChildren().addAll(draggableView, borderItemsPane);
+
+        setAnimationTimer().start();
     }
 
-    private AnimationTimer animationTimer() {
+    private AnimationTimer setAnimationTimer() {
         return new AnimationTimer() {
             @Override
             public void handle(long now) {
+                for (Node node : buildingsPane.getChildren()) {
+                    BuildingHolder buildingHolder = (BuildingHolder) node;
+                    buildingHolder.refresh();
+                }
             }
         };
     }

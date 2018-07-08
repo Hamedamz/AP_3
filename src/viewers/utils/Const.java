@@ -21,13 +21,17 @@ public class Const {
     public static final double TOWNHALL_TILE_WIDTH = 72;
     public static final double TOWNHALL_TILE_HEIGHT = 100;
 
-    public static final double ENTITY_PROGGRESS_BAR_WIDTH = 36;
-    public static final double ENTITY_PROGGRESS_BAR_HEIGHT = 3;
+    public static final double ENTITY_PROGRESS_BAR_WIDTH = 50;
+    public static final double ENTITY_PROGRESS_BAR_HEIGHT = 3;
+    public static final double INFO_PROGRESS_BAR_WIDTH = 200;
+    public static final double INFO_PROGRESS_BAR_HEIGHT = 20;
+    public static final double BORDER_INFO_PROGGRESS_BAR_WIDTH = 70;
 
     public static final double SPACING = 10;
 
-    public static final double POPUP_WIDTH = 500;
-    public static final double POPUP_HEGHT = 450;
+    public static final double POPUP_WIDTH = 550;
+    public static final double POPUP_HEIGHT = 360;
 
-    public static final double SMALL_PROGRESS_BAR_WIDTH = 50;
+    public static final double FANCY_BUTTON_ICON_SIZE = 50;
+    public static final double PROGRESS_BAR_ICON_SIZE = 40;
 }

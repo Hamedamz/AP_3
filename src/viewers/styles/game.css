@@ -6,14 +6,10 @@
     -fx-font-family: "Supercell-Magic";
 }
 
-#building-holder .label .text {
-    -fx-font-size: 8;
-    -fx-stroke: black;
-    -fx-stroke-width: 0.5;
-}
-
-#building-holder .label{
-    -fx-text-fill: white;
+#progress-bar-label {
+    -fx-font-size: 9;
+    -fx-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 1, 10, 0, 0);
 }
 
 #map-tile {
@@ -22,6 +18,48 @@
 
 #map-tile:hover {
     -fx-opacity: .2;
+}
+
+#popup-wrapper {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-background-radius: 30;
+}
+
+#popup-title {
+    -fx-background-color:
+            linear-gradient(#ffd65b, #e68400),
+            linear-gradient(#ffef84, #f2ba44),
+            linear-gradient(#ffea6a, #efaa22),
+            linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+            linear-gradient(from 0% 0% to 15% 50%, rgba(255, 248, 169, 0.9), rgba(255,255,255,0));
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-text-fill: #654b00;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-padding: 10 20 10 20;
+
+}
+
+#fancy-button {
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+            #9d4024,
+            #d86e3a,
+            radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+
+#close-button {
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
 }
 
 .progress-bar .track {

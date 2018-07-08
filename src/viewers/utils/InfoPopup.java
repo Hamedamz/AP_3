@@ -1,46 +1,93 @@
 package viewers.utils;
 
+import controllers.BuildingMenuController;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
+import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.TownHall;
 import models.GameLogic.Entities.Entity;
+import viewers.AppGUI;
 
 public class InfoPopup extends Popup{
 
     private Entity entity;
-    private String title;
-    private ImageView imageView;
-    private VBox progressBarContainer;
-    private VBox propertyInfoItemContainer;
+    private Label title = new Label();
+    private Button closeButton = new Button("X");
+    private ImageView imageView = new ImageView();
+    private VBox imagePane = new VBox(imageView);
+    private VBox progressBarContainer = new VBox(Const.SPACING);
+    private VBox propertyInfoItemContainer = new VBox(Const.SPACING);
+    private VBox content = new VBox(Const.SPACING * 2);
+    private Pane wrapper = new Pane(content, closeButton);
 
     public InfoPopup(Entity entity) {
-        super();
         this.entity = entity;
-
-        progressBarContainer = new VBox(Const.SPACING);
-        propertyInfoItemContainer = new VBox(Const.SPACING);
-        HBox content = new HBox(Const.SPACING * 2, imageView, new VBox(Const.SPACING * 2, progressBarContainer, propertyInfoItemContainer));
-        this.getContent().add(content);
+        this.title.setText(entity.getClass().getSimpleName());
+        content.getChildren().addAll(title, new HBox(imagePane, new VBox(Const.SPACING * 2, progressBarContainer, propertyInfoItemContainer)));
+        this.getContent().add(wrapper);
+        setProperties();
     }
 
-    public InfoPopup withImage(Image image) {
-        this.imageView.setImage(image);
+    private void setProperties() {
+        this.title.setAlignment(Pos.CENTER);
+        this.title.setMinWidth(Const.POPUP_WIDTH);
+        this.title.setId("popup-title");
+
+        imagePane.setMinWidth(Const.POPUP_WIDTH / 2);
+        imagePane.setAlignment(Pos.CENTER);
+
+        content.setPadding(new Insets(10));
+
+        wrapper.setId("popup-wrapper");
+        wrapper.setMinHeight(Const.POPUP_HEIGHT);
+
+        closeButton.setId("close-button");
+        closeButton.setOnAction(event -> this.hide());
+        closeButton.setLayoutY(18);
+        closeButton.setLayoutX(18);
+
+        this.setOnShowing(event -> BuildingMenuController.getInstance().toggleActiveMenu());
+        this.setOnHiding(event -> BuildingMenuController.getInstance().toggleActiveMenu());
+    }
+
+    public static void openPopup(Building building) {
+//        if (building.getClass().equals(TownHall.class)) {
+            new InfoPopup(building)
+                    .withImage(building.getImageView())
+                    .withProgressBarItem(new ProgressBarItem("HitPoints",
+                            ImageLibrary.HitPointsIcon.getImage(),
+                            building.getHitPoints(),
+                            building.getMaxHitPoints(),
+                            ProgressBarType.INFO_HIT_POINTS))
+                    .withPropertyInfoItem(new PropertyInfoItem("Level", String.valueOf(building.getLevel())))
+                    .show(AppGUI.getMainStage());
+        }
+//    }
+
+    public InfoPopup withImage(ImageView imageView) {
+        this.imageView.setImage(imageView.getImage());
+        this.imageView.setViewport(imageView.getViewport());
         return this;
     }
 
-    public InfoPopup withProgressBarItem(ProgressBarItem progressBarItem) {
+    private InfoPopup withProgressBarItem(ProgressBarItem progressBarItem) {
         progressBarContainer.getChildren().add(progressBarItem);
         return this;
     }
 
-    public InfoPopup withPropertyInfoItem(PropertyInfoItem propertyInfoItem) {
+    private InfoPopup withPropertyInfoItem(PropertyInfoItem propertyInfoItem) {
         propertyInfoItemContainer.getChildren().add(propertyInfoItem);
         return this;
     }
 
-//    public static void popupMenu(String label, String info) {
+    //    public static void popupMenu(String label, String info) {
 //        infoPopup menuPopup = new infoPopup();
 //        menuPopup.popup = new Popup();
 //        menuPopup.popup.setX(400); // TODO: 6/29/2018 read numbers from constants

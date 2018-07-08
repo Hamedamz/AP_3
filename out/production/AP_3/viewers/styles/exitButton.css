@@ -1,9 +1,0 @@
-.button {
-    -fx-background-color:
-            linear-gradient(#ff3700, #ff1858),
-            radial-gradient(center 50% -40%, radius 200%, #ee3718 45%, #c80300 50%);
-    -fx-background-radius: 6, 5;
-    -fx-background-insets: 0, 1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-fill: #ffffff;
-}

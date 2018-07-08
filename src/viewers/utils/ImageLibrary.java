@@ -21,10 +21,13 @@ public enum ImageLibrary {
     Wall("assets/buildings/Wall.png"),
     WizardTower("assets/buildings/WizardTower.png"),
     InfoIcon("assets/icons/SampleIcon.png"),
-    UpgardeIcon("assets/icons/SampleIcon.png"),
+    UpgradeIcon("assets/icons/SampleIcon.png"),
     TrainTroopsIcon("assets/icons/SampleIcon.png"),
     ShopIcon("assets/icons/SampleIcon.png"),
-    AttackIcon("assets/icons/SampleIcon.png");
+    AttackIcon("assets/icons/SampleIcon.png"),
+    HitPointsIcon("assets/icons/HitPointsIcon.png"),
+    GoldIcon("assets/icons/GoldIcon.png"),
+    ElixirIcon("assets/icons/ElixirIcon.png");
 
     private Image image;
 
