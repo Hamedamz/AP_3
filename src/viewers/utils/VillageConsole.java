@@ -34,6 +34,8 @@ public class VillageConsole extends BorderPane {
 
         setOnMessageReceivedHandler();
 
+        textField.end();
+
         textField.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
             switch (keyEvent.getCode()) {
                 case ENTER:

@@ -253,10 +253,10 @@ public class Controller {
     }
 
     public void buildBuilding(String buildingType, int x, int y) throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
-        controller.world.getMyVillage().getTownHall().getFreeBuilder();
-//        controller.buildingViewer.requestBuildConfirmation(buildingType);
-//        if (!controller.viewer.getConfirmation()) {
-//            return;
+//        controller.world.getMyVillage().getTownHall().getFreeBuilder();
+////        controller.buildingViewer.requestBuildConfirmation(buildingType);
+////        if (!controller.viewer.getConfirmation()) {
+////            return;
 //        }
 //        controller.villageViewer.printMapCells();
 //        controller.buildingViewer.requestPositionToBuild(buildingType);

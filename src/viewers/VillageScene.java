@@ -140,7 +140,7 @@ public class VillageScene extends Scene {
     private void addBuildingToScene(Builder builder, int x, int y) {
         setTileOccupied(x, y);
         BuildingHolder buildingHolder = new BuildingHolder(builder);
-        IsometricPane.mapToIsometricLayout(buildingHolder, new Position(x, y), 1);
+        IsometricPane.mapToIsometricLayout(buildingHolder, Position.newMapPosition(x, y), 1);
         draggableView.getChildren().add(buildingHolder);
         buildingHolders.add(buildingHolder);
     }

@@ -5,6 +5,7 @@ import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.*;
 import models.IDGenerator;
 import models.Setting.GameLogicConfig;
+import viewers.utils.PopupPane;
 
 import java.util.*;
 
@@ -108,7 +109,7 @@ public class Village {
             throw new CountLimitReachedException();
         }
 
-        if ((new Position(x, y)).isInMapBoundary(gameMap) && gameMap.isOccupied(x, y)) {
+        if (Position.newMapPosition(x, y).isInMapBoundary(gameMap) && gameMap.isOccupied(x, y)) {
             throw new InvalidPositionException();
         }
         Builder builder = townHall.getFreeBuilder();
