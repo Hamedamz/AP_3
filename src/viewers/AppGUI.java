@@ -2,13 +2,9 @@ package viewers;
 
 import controllers.Controller;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.GameLogic.Village;
-import viewers.utils.SoundPlayer;
-import viewers.utils.Sounds;
-import viewers.utils.VillageConsole;
+import viewers.utils.GameScene;
 
 public class AppGUI extends Application {
     private static Stage mainStage;

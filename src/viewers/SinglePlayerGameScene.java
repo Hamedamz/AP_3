@@ -15,11 +15,11 @@ import java.util.concurrent.atomic.AtomicReference;
 import static viewers.utils.Const.WINDOW_HEIGHT;
 import static viewers.utils.Const.WINDOW_WIDTH;
 
-public class GameScene extends Scene {
-    private static GameScene instance = new GameScene();
+public class SinglePlayerGameScene extends Scene {
+    private static SinglePlayerGameScene instance = new SinglePlayerGameScene();
 
-    private GameScene() {
-        super(new Group(), WINDOW_WIDTH, WINDOW_HEIGHT);
+    private SinglePlayerGameScene() {
+        super(new Group(), WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
         Group root = (Group) getRoot();
         Button newGameButton = new Button("New Game");
         Button loadGameButton = new Button("Load Game");
@@ -80,7 +80,7 @@ public class GameScene extends Scene {
 
     }
 
-    public static GameScene getInstance() {
+    public static SinglePlayerGameScene getInstance() {
         return instance;
     }
 }
