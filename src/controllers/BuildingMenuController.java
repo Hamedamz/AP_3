@@ -4,6 +4,8 @@ import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
 import viewers.utils.*;
+import viewers.utils.FancyPopups.InfoPopup;
+import viewers.utils.FancyPopups.UpgradePopup;
 
 import static viewers.utils.ButtonActionType.*;
 
@@ -61,6 +63,7 @@ public class BuildingMenuController {
                 InfoPopup.openPopup(building, InfoPopupItems.valueOf(building.getClass().getSimpleName() + "Info"));
                 break;
             case OPEN_UPGRADE_POPUP:
+                UpgradePopup.openPopup(building);
                 break;
             case OPEN_TRAIN_TROOPS_POPUP:
                 break;

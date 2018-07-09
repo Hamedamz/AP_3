@@ -18,12 +18,6 @@ public class BuildingViewer extends BasicViewer{
         printPropertyValue("Upgrade Cost", GameLogicConfig.getFromDictionary(building.getClass().getSimpleName() + "UpgradeGold"));
     }
 
-    public void requestUpgradeConfirmation(Building building) {
-        System.out.format(UPGRADE_CONFIRMATION_FORMAT,
-                building.getClass().getSimpleName() + " " + building.getID().getCount(),
-                GameLogicConfig.getFromDictionary(building.getClass().getSimpleName() + "UpgradeGold"));
-
-    }
 
     public void requestBuildConfirmation(String buildingType) {
         System.out.format(BUILD_CONFIRMATION_FORMAT, buildingType,

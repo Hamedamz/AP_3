@@ -82,9 +82,9 @@ public class Controller {
                     controller.menuController.openMenu(buildingMenu, buildingModel);
                     break;
                 case UPGRADE_BUILDING:
-                    controller.buildingViewer.requestUpgradeConfirmation((Building) model);
+//                    controller.buildingViewer.requestUpgradeConfirmation((Building) model);
                     if (controller.viewer.getConfirmation()) {
-                        controller.upgradeBuilding((Building) model);
+//                        controller.upgradeBuilding((Building) model); GUI
                     }
                     break;
                 case BUILD_BUILDING:
@@ -232,23 +232,14 @@ public class Controller {
         }
     }
 
-    private void upgradeBuilding(Building building) {
+    public void upgradeBuilding(Building building) throws UpgradeLimitReachedException, NotEnoughResourcesException {
         Resource upgradeResource = null;
-        try {
-            upgradeResource = building.getUpgradeResource();
-        } catch (UpgradeLimitReachedException e) {
-            System.out.format("%s is already at the maximum level", building.getClass().getSimpleName());
-            return;
-        }
+
+        upgradeResource = building.getUpgradeResource();
+
         if (upgradeResource.getGold() <= controller.world.getMyVillage().getTotalResourceStock().getGold() && upgradeResource.getElixir() <= controller.world.getMyVillage().getTotalResourceStock().getElixir()) {
-            try {
-                building.upgrade();
-                controller.world.getMyVillage().spendResources(upgradeResource);
-            } catch (UpgradeLimitReachedException e) {
-                controller.viewer.printErrorMessage(e.getMessage());
-            } catch (NotEnoughResourcesException e) {
-                e.printStackTrace();
-            }
+            building.upgrade();
+            controller.world.getMyVillage().spendResources(upgradeResource);
         }
     }
 

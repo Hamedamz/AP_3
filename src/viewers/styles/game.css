@@ -95,8 +95,15 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 1, 10, 0, 0);
 }
 
-#close-button {
+#red-round-button {
     -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+#green-round-button {
+    -fx-background-color: linear-gradient(#b8ee36, #80c800);
     -fx-background-radius: 30;
     -fx-background-insets: 0;
     -fx-text-fill: white;
