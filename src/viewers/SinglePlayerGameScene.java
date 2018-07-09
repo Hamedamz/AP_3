@@ -31,6 +31,7 @@ public class SinglePlayerGameScene extends Scene {
         newGameButton.setOnAction(event -> {
             AppGUI.setStageScene(VillageScene.getInstance());
             SoundPlayer.play(Sounds.loadSound);
+            SoundPlayer.playBackground(Sounds.mainSound);
         });
 
         loadGameButton.setOnAction(event -> {
