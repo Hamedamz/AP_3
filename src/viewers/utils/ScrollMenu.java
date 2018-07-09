@@ -1,11 +1,12 @@
 package viewers.utils;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 
 public abstract class ScrollMenu extends ScrollPane {
     private String[] entities;
-    private HBox buttons = new HBox(Const.SPACING);
+    private HBox buttons = new HBox(Const.SPACING * 2);
 
     public ScrollMenu(String[] entities) {
         this.entities = entities;

@@ -2,6 +2,8 @@ package viewers.utils.fancyButtons;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.TextAlignment;
+import models.GameLogic.utills.StringUtils;
 import viewers.utils.Const;
 import viewers.utils.ImageLibrary;
 
@@ -14,6 +16,7 @@ public class EntityFancyButton extends FancyButton {
         this.clazz = clazz;
         this.getWrapper().setId("blue-fancy-button");
         this.getLabel().setId("round-fancy-button-label");
+        this.getLabel().setTextAlignment(TextAlignment.CENTER);
         setLabel();
         setImage();
     }
@@ -26,7 +29,7 @@ public class EntityFancyButton extends FancyButton {
     }
 
     private void setLabel() {
-        getLabel().setText(clazz);
+        getLabel().setText(StringUtils.stringSeparator(clazz));
     }
 
     public String getClazz() {

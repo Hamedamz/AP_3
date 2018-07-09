@@ -1,6 +1,7 @@
 package viewers.utils.fancyButtons;
 
 import controllers.BuildingMenuController;
+import javafx.geometry.Pos;
 import viewers.utils.ImageLibrary;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
@@ -10,6 +11,7 @@ public class BuildingMenuFancyButton extends FancyButton {
 
     public BuildingMenuFancyButton(ButtonActionType type) {
         super(type);
+        this.setAlignment(Pos.CENTER);
         this.setId("yellow-fancy-button");
         setImage();
 

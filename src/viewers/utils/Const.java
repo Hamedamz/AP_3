@@ -36,6 +36,6 @@ public class Const {
 
     public static final double FANCY_BUTTON_ICON_SIZE = 60;
     public static final double PROGRESS_BAR_ICON_SIZE = 40;
-    public static final double SCROLL_MENU_WIDTH = 700;
-    public static final double SCROLL_MENU_HEIGHT = 130;
+    public static final double SCROLL_MENU_WIDTH = 640;
+    public static final double SCROLL_MENU_HEIGHT = 120;
 }

@@ -16,7 +16,7 @@ public abstract class FancyButton extends VBox {
 
     public FancyButton(ButtonActionType type) {
         super(Const.SPACING / 2);
-        this.setAlignment(Pos.CENTER);
+        this.setAlignment(Pos.TOP_CENTER);
         this.type = type;
         this.icon.setFitHeight(Const.FANCY_BUTTON_ICON_SIZE);
         this.icon.setFitWidth(Const.FANCY_BUTTON_ICON_SIZE);

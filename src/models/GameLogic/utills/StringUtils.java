@@ -5,7 +5,7 @@ public class StringUtils {
         String[] split = old.split("(?=\\p{Upper})");
         StringBuilder separated = new StringBuilder();
         for (String s : split) {
-            separated.append(s).append(" ");
+            separated.append(s).append("\n");
         }
         return separated.toString().trim();
     }
