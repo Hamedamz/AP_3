@@ -13,7 +13,7 @@ public class BuildingMenu extends Popup {
 
     public BuildingMenu(ButtonActionType... actions) {
         for (ButtonActionType action : actions) {
-            buttonsContainer.getChildren().add(new FancyButton(action));
+            buttonsContainer.getChildren().add(new BuildingMenuFancyButton(action));
         }
         content = new Pane(buttonsContainer);
         this.getContent().addAll(content);

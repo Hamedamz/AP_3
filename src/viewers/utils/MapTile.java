@@ -3,6 +3,7 @@ package viewers.utils;
 import javafx.animation.FadeTransition;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import viewers.AppGUI;
 
 public class MapTile extends Rectangle {
 

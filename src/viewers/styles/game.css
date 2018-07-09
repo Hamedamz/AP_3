@@ -41,10 +41,23 @@
 
 }
 
-#fancy-button {
+#yellow-fancy-button {
     -fx-padding: 8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #fcc309 0%, #fd9808 100%),
+            #f99508,
+            #ffeb17,
+            radial-gradient(center 50% 50%, radius 100%, #ffdd09, #fcc309);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 12;
+}
+
+#red-fancy-button {
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 100;
     -fx-background-color:
             linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
             #9d4024,
@@ -52,7 +65,26 @@
             radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
-    -fx-font-size: 1.1em;
+    -fx-font-size: 12;
+}
+
+#blue-fancy-button {
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 100;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #09e0fc 0%, #08fded 100%),
+            #08f9e8,
+            #17c1ff,
+            radial-gradient(center 50% 50%, radius 100%, #09caff, #09e0fc);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 12;
+}
+
+#round-fancy-button-label {
+    -fx-font-size: 12;
+    -fx-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 1, 10, 0, 0);
 }
 
 #close-button {

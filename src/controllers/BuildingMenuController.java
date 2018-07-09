@@ -3,8 +3,6 @@ package controllers;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
-import models.GameLogic.Entities.Buildings.TownHall;
-import viewers.AppGUI;
 import viewers.utils.*;
 
 import static viewers.utils.ButtonActionType.*;
@@ -19,7 +17,6 @@ public class BuildingMenuController {
     private Building building;
     private BuildingMenu activeMenu;
     private BuildingMenu menu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP);
-    private BuildingMenu townHallMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP, OPEN_SHOP_MENU);
     private BuildingMenu armyMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP, OPEN_TRAIN_TROOPS_POPUP);
 
     private BuildingMenuController() {
@@ -41,8 +38,6 @@ public class BuildingMenuController {
     private BuildingMenu getMenuToOpen(Building building) {
         if (building.getClass().equals(Barracks.class) || building.getClass().equals(Camp.class)) {
             return armyMenu;
-        } else if (building.getClass().equals(TownHall.class)) {
-            return townHallMenu;
         } else {
             return menu;
         }
@@ -69,7 +64,7 @@ public class BuildingMenuController {
                 break;
             case OPEN_TRAIN_TROOPS_POPUP:
                 break;
-            case OPEN_SHOP_MENU:
+            case OPEN_BUILD_MENU:
                 break;
             case OPEN_ATTACK_MENU:
                 break;

@@ -3,7 +3,6 @@ package viewers;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -28,6 +27,7 @@ public class VillageScene extends Scene {
     private ProgressBarItem totalGoldProgressBar;
     private ProgressBarItem totalElixirProgressBar;
     private Pane totalStock;
+    private RoundFancyButton buildButton;
     private ArrayList<BuildingHolder> buildingHolders;
     private GridPane tiles;
     private IsometricPane isometricPane;
@@ -82,8 +82,12 @@ public class VillageScene extends Scene {
         totalStock = new VBox(Const.SPACING, totalGoldProgressBar, totalElixirProgressBar);
         totalStock.setPadding(new Insets(Const.SPACING));
 
+        buildButton = new RoundFancyButton(ButtonActionType.OPEN_BUILD_MENU, "red");
+        buildButton.setLayoutX(Const.WINDOW_WIDTH - 100);
+        buildButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
+
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock);
+        root.getChildren().addAll(draggableView, totalStock, buildButton);
 
         setAnimationTimer().start();
 
@@ -152,5 +156,11 @@ public class VillageScene extends Scene {
     public void setTileOccupied(int x, int y) {
         MapTile tile = (MapTile) tiles.getChildren().get(x + y * 30);
         tile.setVisible(false);
+    }
+
+    public void showBuildButton(double sceneX, double sceneY) {
+        buildButton.setLayoutX(sceneX);
+        buildButton.setLayoutY(sceneY);
+        buildButton.setVisible(true);
     }
 }
