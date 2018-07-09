@@ -62,7 +62,7 @@ public class Village {
         listOfBuildingsByName.put(WizardTower.class.getSimpleName(), new ArrayList<>());
         listOfBuildingsByName.put(ArcherTower.class.getSimpleName(), new ArrayList<>());
         listOfBuildingsByName.put(AirDefense.class.getSimpleName(), new ArrayList<>());
-        listOfBuildingsByName.put(Troop.class.getSimpleName(), new ArrayList<>());
+        listOfBuildingsByName.put(Trap.class.getSimpleName(), new ArrayList<>());
 
         listOfBuildingsByName.put(Wall.class.getSimpleName(), new ArrayList<>());
 
