@@ -77,6 +77,9 @@ public class ProgressBarItem extends Pane {
                 setValue(max - ((Builder) model).getConstructRemainingTime());
                 break;
         }
+
+        updateLabel();
+        updateProgress();
     }
 
     private void setStyle() {
@@ -98,16 +101,12 @@ public class ProgressBarItem extends Pane {
         }
     }
 
-    public void setValue(double value) {
+    private void setValue(double value) {
         this.value = value;
-        updateLabel();
-        updateProgress();
     }
 
-    public void setMax(double max) {
+    private void setMax(double max) {
         this.max = max;
-        updateLabel();
-        updateProgress();
     }
 
     public void setTitle(String title) {

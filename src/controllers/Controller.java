@@ -35,10 +35,10 @@ public class Controller {
     private BattleGroundViewer battleGroundViewer = new BattleGroundViewer();
 
     public static void main(String[] args) {
-        new Thread(() -> Application.launch(AppGUI.class, args)).start();
 //        controller.menuController.openMenu(controller.menuController.getEntranceMenu()); //TEMP
 //         TEMP
         controller.newGame();
+        new Thread(() -> Application.launch(AppGUI.class, args)).start();
         controller.menuController.openMenu(controller.menuController.getVillageMenu());
 //
 

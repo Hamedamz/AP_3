@@ -74,12 +74,16 @@
     -fx-accent: limegreen;
 }
 
-#red-bar {
-    -fx-accent: red;
-}
-
 #gold-bar {
     -fx-accent: gold;
+}
+
+#orange-bar {
+    -fx-accent: orange;
+}
+
+#red-bar {
+    -fx-accent: red;
 }
 
 #violet-bar {

@@ -25,13 +25,13 @@ public class VillageScene extends Scene {
     private static VillageScene instance = new VillageScene();
 
     private Group root;
-    private Pane buildingsPane;
-    ProgressBarItem totalGoldProgressBar;
-    ProgressBarItem totalElixirProgressBar;
+    private ProgressBarItem totalGoldProgressBar;
+    private ProgressBarItem totalElixirProgressBar;
     private Pane totalStock;
-    private MapBrowserPane draggableView;
+    private ArrayList<BuildingHolder> buildingHolders;
     private GridPane tiles;
     private IsometricPane isometricPane;
+    private MapBrowserPane draggableView;
     private ImageView villageBackground = new ImageView();
 
     private VillageConsole villageConsole;
@@ -56,23 +56,27 @@ public class VillageScene extends Scene {
         tiles.setHgap(1);
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 30; j++) {
-                tiles.add(new MapTile(TILE_SIZE, TILE_SIZE,i ,j), i, j);
+                MapTile mapTile = new MapTile(TILE_SIZE, TILE_SIZE, i, j);
+                tiles.add(mapTile, i, j);
+                if (AppGUI.getController().getWorld().getMyVillage().getGameMap().isOccupied(i, j)) {
+                    mapTile.setVisible(false);
+                }
             }
         }
         isometricPane = new IsometricPane(tiles);
-        isometricPane.setVisible(false);
-        buildingsPane = new Pane();
 
-        draggableView = new MapBrowserPane(villageBackground, buildingsPane, isometricPane);
+        draggableView = new MapBrowserPane(villageBackground, isometricPane);
         draggableView.setMaxWidth(VIllAGE_BACKGROUND_WIDTH);
         draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
         draggableView.initialize();
 
+        buildingHolders = new ArrayList<>();
         ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getBuildings());
         buildings.sort((o1, o2) -> o2.getPosition().getMapX() - o1.getPosition().getMapX() + o2.getPosition().getMapY() - o1.getPosition().getMapY());
         for (Building building : buildings) {
             addBuildingToScene(building);
         }
+
         totalGoldProgressBar = new ProgressBarItem(ProgressBarType.TOTAL_GOLD_INFO, null);
         totalElixirProgressBar = new ProgressBarItem(ProgressBarType.TOTAL_ELIXIR_INFO, null);
         totalStock = new VBox(Const.SPACING, totalGoldProgressBar, totalElixirProgressBar);
@@ -106,8 +110,8 @@ public class VillageScene extends Scene {
         return new AnimationTimer() {
             @Override
             public void handle(long now) {
-                for (Node node : buildingsPane.getChildren()) {
-                    BuildingHolder buildingHolder = (BuildingHolder) node;
+
+                for (BuildingHolder buildingHolder : buildingHolders) {
                     buildingHolder.refresh();
                 }
 
@@ -118,16 +122,20 @@ public class VillageScene extends Scene {
     }
 
     private void addBuildingToScene(Building building) {
+        setTileOccupied(building.getPosition().getMapX(), building.getPosition().getMapY());
         BuildingHolder buildingHolder = new BuildingHolder(building);
         int size = (building.getClass().equals(TownHall.class)) ? 2 : 1;
         IsometricPane.mapToIsometricLayout(buildingHolder, building.getPosition(), size);
-        buildingsPane.getChildren().add(buildingHolder);
+        draggableView.getChildren().add(buildingHolder);
+        buildingHolders.add(buildingHolder);
     }
 
     private void addBuildingToScene(Builder builder, int x, int y) {
+        setTileOccupied(x, y);
         BuildingHolder buildingHolder = new BuildingHolder(builder);
         IsometricPane.mapToIsometricLayout(buildingHolder, new Position(x, y), 1);
-        buildingsPane.getChildren().add(buildingHolder);
+        draggableView.getChildren().add(buildingHolder);
+        buildingHolders.add(buildingHolder);
     }
 
     public void addUnderConstructionBuilding(int x, int y) {
@@ -142,11 +150,7 @@ public class VillageScene extends Scene {
     }
 
     public void setTileOccupied(int x, int y) {
-        for (Node node : tiles.getChildren()) {
-            MapTile tile = (MapTile) node;
-            if (tile.getMapX() == x & tile.getMapY() == y) {
-                tile.setVisible(false);
-            }
-        }
+        MapTile tile = (MapTile) tiles.getChildren().get(x + y * 30);
+        tile.setVisible(false);
     }
 }
