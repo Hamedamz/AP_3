@@ -30,8 +30,7 @@ public class SinglePlayerGameScene extends Scene {
 
         newGameButton.setOnAction(event -> {
             AppGUI.setStageScene(VillageScene.getInstance());
-            SoundPlayer.play(Sounds.loadSound);
-            SoundPlayer.playBackground(Sounds.mainSound);
+            loadStage();
         });
 
         loadGameButton.setOnAction(event -> {
@@ -64,6 +63,7 @@ public class SinglePlayerGameScene extends Scene {
                 try {
                     if (loadingVillageName.get() != null) {
                         AppGUI.getController().loadGame(AppGUI.getController().getSinglePlayerWorld().getMyVillagesNameAndPath().get(loadingVillageName.get()));
+                        loadStage();
                     }
                     // FIXME: 7/9/2018
                 } catch (FileNotFoundException e) {
@@ -83,5 +83,12 @@ public class SinglePlayerGameScene extends Scene {
 
     public static SinglePlayerGameScene getInstance() {
         return instance;
+    }
+
+    private void loadStage() {
+        AppGUI.getMainStage().setX(10);
+        AppGUI.getMainStage().setY(10);
+        SoundPlayer.play(Sounds.loadSound);
+        SoundPlayer.playBackground(Sounds.mainSound);
     }
 }
