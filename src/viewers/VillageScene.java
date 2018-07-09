@@ -15,6 +15,7 @@ import models.GameLogic.Entities.Buildings.TownHall;
 import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
 import models.GameLogic.Position;
 import viewers.utils.*;
+import viewers.utils.fancyButtons.RoundFancyButton;
 
 import java.util.ArrayList;
 
@@ -86,8 +87,10 @@ public class VillageScene extends Scene {
         buildButton.setLayoutX(Const.WINDOW_WIDTH - 100);
         buildButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
 
+        ShopScrollMenu shopScrollMenu = new ShopScrollMenu(ButtonActionType.TOWERS);
+
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton);
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu);
 
         setAnimationTimer().start();
 
@@ -149,7 +152,6 @@ public class VillageScene extends Scene {
         } catch (NoSuchAUnderConstructBuildingException e) {
             return;
         }
-
         addBuildingToScene(builder, x, y);
     }
 

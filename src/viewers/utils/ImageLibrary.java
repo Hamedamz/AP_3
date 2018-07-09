@@ -20,6 +20,8 @@ public enum ImageLibrary {
     TownHall("assets/buildings/TownHall.png"),
     Wall("assets/buildings/Wall.png"),
     WizardTower("assets/buildings/WizardTower.png"),
+    GuardianGiant("assets/buildings/GuardianGiant.png"),
+    Trap("assets/buildings/Trap.png"),
     InfoIcon("assets/icons/Info.png"),
     UpgradeIcon("assets/icons/Upgrade.png"),
     TrainTroopsIcon("assets/icons/SampleIcon.png"),

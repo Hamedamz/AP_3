@@ -1,4 +1,4 @@
-package viewers.utils;
+package viewers.utils.fancyButtons;
 
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
@@ -6,6 +6,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import viewers.utils.ButtonActionType;
+import viewers.utils.Const;
 
 public abstract class FancyButton extends VBox {
     private ButtonActionType type;
@@ -20,7 +22,7 @@ public abstract class FancyButton extends VBox {
         this.icon.setFitHeight(Const.FANCY_BUTTON_ICON_SIZE);
         this.icon.setFitWidth(Const.FANCY_BUTTON_ICON_SIZE);
         this.label.setText(type.toString());
-        setImage();
+        this.wrapper.setMaxWidth(Const.FANCY_BUTTON_ICON_SIZE);
 
         this.getChildren().addAll(wrapper, label);
     }

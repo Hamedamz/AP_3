@@ -38,7 +38,8 @@ public class Controller {
 //        controller.menuController.openMenu(controller.menuController.getEntranceMenu()); //TEMP
 //         TEMP
         controller.newGame();
-        new Thread(() -> Application.launch(AppGUI.class, args)).start();
+        Application.launch(AppGUI.class, args);
+//        new Thread(() -> Application.launch(AppGUI.class, args)).start();
         controller.menuController.openMenu(controller.menuController.getVillageMenu());
 //
 
@@ -88,7 +89,7 @@ public class Controller {
                     break;
                 case BUILD_BUILDING:
                     String buildingType = requestedMenuItem.getLabel();
-                    controller.buildBuilding(buildingType);
+//                    controller.buildBuilding(buildingType);//GUI
                     break;
                 case TRAIN_TROOP:
                     String troopType = requestedMenuItem.getLabel();
@@ -252,17 +253,17 @@ public class Controller {
         }
     }
 
-    private void buildBuilding(String buildingType) throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
+    public void buildBuilding(String buildingType, int x, int y) throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
         controller.world.getMyVillage().getTownHall().getFreeBuilder();
-        controller.buildingViewer.requestBuildConfirmation(buildingType);
-        if (!controller.viewer.getConfirmation()) {
-            return;
-        }
-        controller.villageViewer.printMapCells();
-        controller.buildingViewer.requestPositionToBuild(buildingType);
-        String position = controller.buildingViewer.getPositionToBuild();
-        int x = Integer.parseInt(getArgument(1, position, POSITION_FORMAT)) - 1;
-        int y = Integer.parseInt(getArgument(2, position, POSITION_FORMAT)) - 1;
+//        controller.buildingViewer.requestBuildConfirmation(buildingType);
+//        if (!controller.viewer.getConfirmation()) {
+//            return;
+//        }
+//        controller.villageViewer.printMapCells();
+//        controller.buildingViewer.requestPositionToBuild(buildingType);
+//        String position = controller.buildingViewer.getPositionToBuild();
+//        int x = Integer.parseInt(getArgument(1, position, POSITION_FORMAT)) - 1;
+//        int y = Integer.parseInt(getArgument(2, position, POSITION_FORMAT)) - 1;
         controller.world.getMyVillage().build(buildingType, x, y);
         AppGUI.getVillageScene().addUnderConstructionBuilding(x, y);
         controller.viewer.printInformation("building process started");

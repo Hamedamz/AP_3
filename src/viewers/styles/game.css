@@ -25,6 +25,14 @@
     -fx-background-radius: 30;
 }
 
+#scroll-menu {
+    -fx-background-color: transparent;
+}
+
+#scroll-menu .viewport {
+    -fx-background-color: transparent;
+}
+
 #popup-title {
     -fx-background-color:
             linear-gradient(#ffd65b, #e68400),
