@@ -252,17 +252,8 @@ public class Controller {
         }
     }
 
-    public void buildBuilding(String buildingType, int x, int y) throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
-//        controller.world.getMyVillage().getTownHall().getFreeBuilder();
-////        controller.buildingViewer.requestBuildConfirmation(buildingType);
-////        if (!controller.viewer.getConfirmation()) {
-////            return;
-//        }
-//        controller.villageViewer.printMapCells();
-//        controller.buildingViewer.requestPositionToBuild(buildingType);
-//        String position = controller.buildingViewer.getPositionToBuild();
-//        int x = Integer.parseInt(getArgument(1, position, POSITION_FORMAT)) - 1;
-//        int y = Integer.parseInt(getArgument(2, position, POSITION_FORMAT)) - 1;
+    public void buildBuilding(String buildingType, int x, int y) throws NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
+        controller.world.getMyVillage().getTownHall().getFreeBuilder();
         controller.world.getMyVillage().build(buildingType, x, y);
         AppGUI.getVillageScene().addUnderConstructionBuilding(x, y);
         controller.viewer.printInformation("building process started");
