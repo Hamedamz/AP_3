@@ -5,8 +5,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.GameLogic.Builder;
-import models.GameLogic.Entities.Buildings.Building;
-import models.GameLogic.Entities.Buildings.TownHall;
+import models.GameLogic.Entities.Buildings.*;
 
 public class BuildingHolder extends Pane {
     private Builder builder;
@@ -47,6 +46,15 @@ public class BuildingHolder extends Pane {
         imageView.setOnMouseEntered(event -> glow.setLevel(0.5));
         imageView.setOnMouseExited(event -> glow.setLevel(0));
         imageView.setOnMouseClicked(event -> {
+            if (building instanceof GoldStorage || building instanceof GoldMine) {
+                SoundPlayer.play(Sounds.goldSound);
+            }
+            else if (building instanceof ElixirStorage || building instanceof ElixirMine) {
+                SoundPlayer.play(Sounds.elixirSound);
+            }
+            else {
+                SoundPlayer.play(Sounds.buildingClickSound);
+            }
             BuildingMenuController.getInstance().handleClickOnBuilding(building);
         });
     }

@@ -50,7 +50,10 @@ public class InfoPopup extends Popup {
         wrapper.setMinHeight(Const.POPUP_HEIGHT);
 
         closeButton.setId("close-button");
-        closeButton.setOnAction(event -> this.hide());
+        closeButton.setOnAction(event -> {
+            this.hide();
+            SoundPlayer.play(Sounds.buttonSound);
+        });
         closeButton.setLayoutY(18);
         closeButton.setLayoutX(18);
 

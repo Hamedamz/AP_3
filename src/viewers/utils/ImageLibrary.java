@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public enum ImageLibrary {
-    VillageBackground("assets/map/Village.jpg"),
+    VillageBackground("assets/map/village.jpg"),
     AirDefense("assets/buildings/AirDefense.png"),
     ArcherTower("assets/buildings/ArcherTower.png"),
     Barracks("assets/buildings/Barracks.png"),

@@ -14,7 +14,7 @@ import java.util.Set;
 public final class GameLogicConfig {
     private static Map<String, Integer> classProperties;
 
-    private static final String CONSTANTS_SAVE_LOCATION = "src\\class properties.txt";
+    private static final String CONSTANTS_SAVE_LOCATION = "src/class properties.txt";
     private static final String IGNORE_REGEX = "#.*";
     private static final String PROPERTY_FORMAT = "((\\D(_\\d+ )?)|\\s)+:\\s+\\d+(\\.\\d+)?";
 

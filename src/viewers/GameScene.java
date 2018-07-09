@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import viewers.utils.ChoicePane;
 import viewers.utils.PopupPane;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 
 import java.io.FileNotFoundException;
 import java.util.concurrent.atomic.AtomicReference;
@@ -30,6 +32,7 @@ public class GameScene extends Scene {
 
         newGameButton.setOnAction(event -> {
             AppGUI.setStageScene(VillageScene.getInstance());
+            SoundPlayer.play(Sounds.loadSound);
         });
 
         loadGameButton.setOnAction(event -> {

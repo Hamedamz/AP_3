@@ -6,6 +6,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.GameLogic.Village;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 import viewers.utils.VillageConsole;
 
 public class AppGUI extends Application {
@@ -28,6 +30,7 @@ public class AppGUI extends Application {
         mainStage = primaryStage;
         getMainStage().setResizable(false);
         setStageScene(GameScene.getInstance());
+        SoundPlayer.playBackground(Sounds.mainSound);
         getMainStage().show();
 
     }

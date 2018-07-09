@@ -3,6 +3,8 @@ package viewers.utils.fancyButtons;
 import controllers.BuildingMenuController;
 import viewers.utils.ButtonActionType;
 import viewers.utils.ImageLibrary;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 
 
 public class BuildingMenuFancyButton extends FancyButton {
@@ -12,7 +14,9 @@ public class BuildingMenuFancyButton extends FancyButton {
         this.setId("yellow-fancy-button");
         setImage();
 
-        this.setOnMouseClicked(event -> BuildingMenuController.getInstance().handleClickOnButton(type));
+        this.setOnMouseClicked(event -> {BuildingMenuController.getInstance().handleClickOnButton(type);
+            SoundPlayer.play(Sounds.buttonSound);
+        });
     }
 
     @Override
