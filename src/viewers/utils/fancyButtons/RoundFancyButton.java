@@ -1,6 +1,5 @@
 package viewers.utils.fancyButtons;
 
-import viewers.utils.ButtonActionType;
 import viewers.utils.ImageLibrary;
 
 public class RoundFancyButton extends FancyButton {

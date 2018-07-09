@@ -6,7 +6,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import viewers.utils.ButtonActionType;
 import viewers.utils.Const;
 
 public abstract class FancyButton extends VBox {

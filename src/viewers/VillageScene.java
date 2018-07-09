@@ -16,6 +16,8 @@ import models.GameLogic.Entities.Buildings.TownHall;
 import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
 import models.GameLogic.Position;
 import viewers.utils.*;
+import viewers.utils.entityHolders.BuildingHolder;
+import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.RoundFancyButton;
 
 import java.util.ArrayList;

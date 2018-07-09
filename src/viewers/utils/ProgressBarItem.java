@@ -114,7 +114,17 @@ public class ProgressBarItem extends Pane {
     }
 
     private void updateProgress() {
-        progressBar.setProgress(value / max);
+        double progress = value / max;
+        progressBar.setProgress(progress);
+        if (type.equals(ProgressBarType.HIT_POINTS)) {
+            if (progress < 0.25) {
+                progressBar.setId("red-accent");
+            } else if (progress < 0.5) {
+                progressBar.setId("orange-accent");
+            } else if (progress < 0.75) {
+                progressBar.setId("gold-accent");
+            }
+        }
     }
 
     private void updateLabel() {

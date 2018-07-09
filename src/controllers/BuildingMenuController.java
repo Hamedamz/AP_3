@@ -4,10 +4,11 @@ import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
 import viewers.utils.*;
-import viewers.utils.FancyPopups.InfoPopup;
-import viewers.utils.FancyPopups.UpgradePopup;
+import viewers.utils.fancyPopups.InfoPopup;
+import viewers.utils.fancyPopups.UpgradePopup;
+import viewers.utils.fancyButtons.ButtonActionType;
 
-import static viewers.utils.ButtonActionType.*;
+import static viewers.utils.fancyButtons.ButtonActionType.*;
 
 public class BuildingMenuController {
     private static BuildingMenuController buildingMenuController = new BuildingMenuController();

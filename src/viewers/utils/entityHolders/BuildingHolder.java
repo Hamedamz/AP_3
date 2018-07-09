@@ -1,9 +1,10 @@
-package viewers.utils;
+package viewers.utils.entityHolders;
 
 import controllers.BuildingMenuController;
 import javafx.scene.effect.Glow;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.*;
+import viewers.utils.*;
 
 public class BuildingHolder extends EntityHolder {
     private Builder builder;
@@ -21,7 +22,7 @@ public class BuildingHolder extends EntityHolder {
         initialize();
     }
 
-
+    @Override
     public void initialize() {
         super.initialize();
 
@@ -51,6 +52,7 @@ public class BuildingHolder extends EntityHolder {
         });
     }
 
+    @Override
     public void refresh() {
         if (((Building) entity).isUnderConstruct()) {
             if (!constructionProgressBar.isVisible()) {

@@ -1,6 +1,5 @@
-package viewers.utils.FancyPopups;
+package viewers.utils.fancyPopups;
 
-import controllers.BuildingMenuController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;

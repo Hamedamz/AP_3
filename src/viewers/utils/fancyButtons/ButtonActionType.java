@@ -1,4 +1,4 @@
-package viewers.utils;
+package viewers.utils.fancyButtons;
 
 public enum ButtonActionType {
     OPEN_INFO_POPUP("Info"),

@@ -1,8 +1,11 @@
-package viewers.utils;
+package viewers.utils.entityHolders;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.GameLogic.Entities.Entity;
+import viewers.utils.Const;
+import viewers.utils.ProgressBarItem;
+import viewers.utils.ProgressBarType;
 
 public abstract class EntityHolder extends Pane {
     Entity entity;

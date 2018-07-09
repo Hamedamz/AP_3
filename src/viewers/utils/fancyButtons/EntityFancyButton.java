@@ -2,7 +2,6 @@ package viewers.utils.fancyButtons;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Circle;
-import viewers.utils.ButtonActionType;
 import viewers.utils.Const;
 import viewers.utils.ImageLibrary;
 
