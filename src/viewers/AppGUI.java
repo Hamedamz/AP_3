@@ -30,7 +30,6 @@ public class AppGUI extends Application {
         mainStage = primaryStage;
         getMainStage().setResizable(false);
         setStageScene(GameScene.getInstance());
-        SoundPlayer.playBackground(Sounds.mainSound);
         getMainStage().show();
 
     }
