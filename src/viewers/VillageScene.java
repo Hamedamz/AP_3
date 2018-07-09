@@ -181,4 +181,8 @@ public class VillageScene extends Scene {
         buildButton.setLayoutY(sceneY);
         buildButton.setVisible(true);
     }
+
+    public void handleException(Exception e) {
+        ErrorPopup.popError(e);
+    }
 }
