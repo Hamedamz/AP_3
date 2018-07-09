@@ -38,8 +38,8 @@ public class Controller {
 //        controller.menuController.openMenu(controller.menuController.getEntranceMenu()); //TEMP
 //         TEMP
         controller.newGame();
-        Application.launch(AppGUI.class, args);
-//        new Thread(() -> Application.launch(AppGUI.class, args)).start();
+//        Application.launch(AppGUI.class, args);
+        new Thread(() -> Application.launch(AppGUI.class, args)).start();
         controller.menuController.openMenu(controller.menuController.getVillageMenu());
 //
 
