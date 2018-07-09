@@ -1,6 +1,8 @@
 package viewers.utils;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class MapTile extends Rectangle {
 
@@ -11,9 +13,18 @@ public class MapTile extends Rectangle {
         super(width, height);
         this.mapX = x;
         this.mapY = y;
+
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(200), this);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(0.2);
+
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(200), this);
+        fadeOut.setFromValue(0.2);
+        fadeOut.setToValue(0);
+
         this.setOpacity(0);
-        this.setOnMouseEntered(event -> this.setOpacity(0.25));
-        this.setOnMouseExited(event -> this.setOpacity(0));
+        this.setOnMouseEntered(event -> fadeIn.play());
+        this.setOnMouseExited(event -> fadeOut.play());
     }
 
     public int getMapX() {
