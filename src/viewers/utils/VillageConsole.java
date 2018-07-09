@@ -34,7 +34,6 @@ public class VillageConsole extends BorderPane {
 
         setOnMessageReceivedHandler();
 
-        textField.end();
 
         textField.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
             switch (keyEvent.getCode()) {
@@ -73,6 +72,8 @@ public class VillageConsole extends BorderPane {
             }
         });
         setBottom(textField);
+
+        textField.requestFocus();
     }
 
     private void setStyles() {
@@ -132,6 +133,7 @@ public class VillageConsole extends BorderPane {
         setVisible(true);
         setVillage(AppGUI.getController().getWorld().getMyVillage());
         isMinimized = false;
+        textField.requestFocus();
     }
 
     public boolean isMinimized() {
