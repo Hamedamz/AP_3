@@ -14,5 +14,6 @@ public final class Sounds {
     public static final String buildingClickSound = new File("assets/sounds/buildingClick.mp3").toURI().toString();
     public static final String buttonSound = new File("assets/sounds/button.mp3").toURI().toString();
     public static final String buildCompleteSound = new File("assets/sounds/buildComplete.mp3").toURI().toString();
+    public static final String buildStartSound = new File("assets/sounds/buildStart.mp3").toURI().toString();
 
 }

@@ -26,7 +26,6 @@ public class ShopScrollMenu extends ScrollMenu {
                 ClipboardContent content = new ClipboardContent();
                 content.putString(entityFancyButton.getClazz());
                 db.setContent(content);
-
                 event.consume();
             });
         }

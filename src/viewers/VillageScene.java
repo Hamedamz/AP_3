@@ -95,7 +95,10 @@ public class VillageScene extends Scene {
         buildButton = new RoundFancyButton(ButtonActionType.OPEN_BUILD_MENU, "red");
         buildButton.setLayoutX(Const.WINDOW_WIDTH - 100);
         buildButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
-        buildButton.setOnMouseClicked(event -> toggleVisibility(shopScrollMenu));
+        buildButton.setOnMouseClicked(event -> {
+            toggleVisibility(shopScrollMenu);
+            SoundPlayer.play(Sounds.buttonSound);
+        });
 
         root.getChildren().clear();
         root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu);
@@ -111,7 +114,7 @@ public class VillageScene extends Scene {
         addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
             switch (keyEvent.getCode()) {
                 case BACK_QUOTE:
-                    if(villageConsole.isMinimized()) {
+                    if (villageConsole.isMinimized()) {
                         villageConsole.maximize();
                     } else {
                         villageConsole.minimize();

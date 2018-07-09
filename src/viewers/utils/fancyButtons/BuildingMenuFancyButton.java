@@ -14,7 +14,8 @@ public class BuildingMenuFancyButton extends FancyButton {
         this.setId("yellow-fancy-button");
         setImage();
 
-        this.setOnMouseClicked(event -> {BuildingMenuController.getInstance().handleClickOnButton(type);
+        this.setOnMouseClicked(event -> {
+            BuildingMenuController.getInstance().handleClickOnButton(type);
             SoundPlayer.play(Sounds.buttonSound);
         });
     }
