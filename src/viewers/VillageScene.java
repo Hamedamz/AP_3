@@ -2,12 +2,15 @@ package viewers;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Building;
@@ -29,6 +32,7 @@ public class VillageScene extends Scene {
     private ProgressBarItem totalElixirProgressBar;
     private Pane totalStock;
     private RoundFancyButton buildButton;
+    private ShopScrollMenu shopScrollMenu;
     private ArrayList<BuildingHolder> buildingHolders;
     private GridPane tiles;
     private IsometricPane isometricPane;
@@ -55,8 +59,8 @@ public class VillageScene extends Scene {
         tiles = new GridPane();
         tiles.setVgap(1);
         tiles.setHgap(1);
-        for (int i = 0; i < 30; i++) {
-            for (int j = 0; j < 30; j++) {
+        for (int j = 0; j < 30; j++) {
+            for (int i = 0; i < 30; i++) {
                 MapTile mapTile = new MapTile(TILE_SIZE, TILE_SIZE, i, j);
                 tiles.add(mapTile, i, j);
                 if (AppGUI.getController().getWorld().getMyVillage().getGameMap().isOccupied(i, j)) {
@@ -71,6 +75,7 @@ public class VillageScene extends Scene {
         draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
         draggableView.initialize();
 
+        // building holders
         buildingHolders = new ArrayList<>();
         ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getBuildings());
         buildings.sort((o1, o2) -> o2.getPosition().getMapX() - o1.getPosition().getMapX() + o2.getPosition().getMapY() - o1.getPosition().getMapY());
@@ -78,16 +83,19 @@ public class VillageScene extends Scene {
             addBuildingToScene(building);
         }
 
+        // total stack resources
         totalGoldProgressBar = new ProgressBarItem(ProgressBarType.TOTAL_GOLD_INFO, null);
         totalElixirProgressBar = new ProgressBarItem(ProgressBarType.TOTAL_ELIXIR_INFO, null);
         totalStock = new VBox(Const.SPACING, totalGoldProgressBar, totalElixirProgressBar);
         totalStock.setPadding(new Insets(Const.SPACING));
 
+        // building shop
+        shopScrollMenu = new ShopScrollMenu(ButtonActionType.TOWERS);
+        shopScrollMenu.setVisible(false);
         buildButton = new RoundFancyButton(ButtonActionType.OPEN_BUILD_MENU, "red");
         buildButton.setLayoutX(Const.WINDOW_WIDTH - 100);
         buildButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
-
-        ShopScrollMenu shopScrollMenu = new ShopScrollMenu(ButtonActionType.TOWERS);
+        buildButton.setOnMouseClicked(event -> toggleVisibility(shopScrollMenu));
 
         root.getChildren().clear();
         root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu);
@@ -111,6 +119,14 @@ public class VillageScene extends Scene {
                     break;
             }
         });
+    }
+
+    private void toggleVisibility(Node node) {
+        if (node.isVisible()) {
+            node.setVisible(false);
+        } else {
+            node.setVisible(true);
+        }
     }
 
     private AnimationTimer setAnimationTimer() {

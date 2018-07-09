@@ -31,8 +31,8 @@ public class MapTile extends Rectangle {
         fadeOut.setToValue(0);
 
         this.setOpacity(0);
-//        this.setOnMouseEntered(event -> fadeIn.play());
-//        this.setOnMouseExited(event -> fadeOut.play());
+        this.setOnMouseEntered(event -> fadeIn.play());
+        this.setOnMouseExited(event -> fadeOut.play());
 
         this.setOnDragOver(event -> {
             /* data is dragged over the target */
@@ -67,7 +67,6 @@ public class MapTile extends Rectangle {
                 } catch (InvalidInputException | InvalidPositionException | CountLimitReachedException | NotEnoughResourcesException | NoFreeBuilderException e) {
                     e.printStackTrace();
                 }
-//                System.out.println("new building" + db.getString() + "in" + this.mapX + " " + this.mapY);
                 success = true;
             }
             /* let the source know whether the string was successfully
