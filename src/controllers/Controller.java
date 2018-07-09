@@ -192,7 +192,7 @@ public class Controller {
         }
     }
 
-    private void loadGame(String villageName) throws FileNotFoundException {
+    public void loadGame(String villageName) throws FileNotFoundException {
         String path = controller.world.getMyVillagesNameAndPath().get(villageName);
         if (path != null) {
             loadGameFromFile(path);
@@ -213,7 +213,6 @@ public class Controller {
         controller.world.setMyVillage(village);
         controller.viewer.printInformation("game successfully loaded!");
         controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
-        return;
     }
 
     private static void trainTroop(String troopType) throws NotEnoughResourcesException, NotAvailableAtThisLevelException {

@@ -5,14 +5,14 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.GameLogic.Village;
 import viewers.utils.VillageConsole;
 
 public class AppGUI extends Application {
     private static Stage mainStage;
-    private static VillageScene villageScene = VillageScene.getInstance();
 
     public static VillageScene getVillageScene() {
-        return villageScene;
+        return VillageScene.getInstance();
     }
 
     public static Controller getController() {
@@ -27,7 +27,7 @@ public class AppGUI extends Application {
     public void start(Stage primaryStage) throws Exception {
         mainStage = primaryStage;
         getMainStage().setResizable(false);
-        setStageScene(villageScene);
+        setStageScene(GameScene.getInstance());
         getMainStage().show();
 
     }

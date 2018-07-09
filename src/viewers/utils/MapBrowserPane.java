@@ -57,7 +57,7 @@ public class MapBrowserPane extends Pane {
         });
 
         setOnScroll(e -> {
-            double delta = e.getDeltaY();
+            double delta = -e.getDeltaY();
 
             double scale =
                     clamp(Math.pow(1.01, delta),
