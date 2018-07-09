@@ -2,7 +2,6 @@ package viewers.utils;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import models.GameLogic.Village;
@@ -131,7 +130,7 @@ public class VillageConsole extends BorderPane {
     public void maximize(){
         setDisable(false);
         setVisible(true);
-        setVillage(AppGUI.getController().getWorld().getMyVillage());
+        setVillage(AppGUI.getController().getSinglePlayerWorld().getMyVillage());
         isMinimized = false;
         textField.requestFocus();
     }

@@ -2,7 +2,7 @@ package models.GameLogic.Entities.Buildings;
 
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
-import models.ID;
+import models.GameLogic.ID;
 import models.Setting.GameLogicConfig;
 
 public abstract class Mine extends ResourceBuilding{

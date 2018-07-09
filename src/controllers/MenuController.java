@@ -7,7 +7,7 @@ import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
-import models.World;
+import models.SinglePlayer.SinglePlayerWorld;
 import viewers.menu.*;
 import models.Setting.GameLogicConfig;
 import viewers.oldViewers.MenuViewer;
@@ -23,15 +23,15 @@ import static controllers.enums.DynamicListType.*;
 public class MenuController {
     public static final String NUMBER = "\\d+";
 
-    private World world;
+    private SinglePlayerWorld singlePlayerWorld;
     private MenuViewer menuViewer = new MenuViewer();
     private Stack<Menu> menuStack = new Stack<>();
     private Menu entranceMenu;
     private Menu villageMenu;
     private HashMap<String, Menu> modelBasedMenus;
 
-    public MenuController(World world) {
-        this.world = world;
+    public MenuController(SinglePlayerWorld singlePlayerWorld) {
+        this.singlePlayerWorld = singlePlayerWorld;
         loadEntranceMenu();
         loadVillageMenu();
         loadModelBasedMenus();
@@ -170,7 +170,7 @@ public class MenuController {
 
     private LinkedHashMap<DynamicMenuItem, String> getVillageMapList() {
         LinkedHashMap<DynamicMenuItem, String> villageMapList = new LinkedHashMap<>();
-        for (String villageName : world.getMyVillagesNameAndPath().keySet()) {
+        for (String villageName : singlePlayerWorld.getMyVillagesNameAndPath().keySet()) {
             villageMapList.put(new DynamicMenuItem(LOAD_GAME, villageName), "");
         }
         return villageMapList;
@@ -179,7 +179,7 @@ public class MenuController {
     private LinkedHashMap<DynamicMenuItem, String> getAvailableMapsList() {
         // enemy maps that can be attacked
         LinkedHashMap<DynamicMenuItem, String> enemyMapList = new LinkedHashMap<>();
-        for (java.util.Map.Entry<String, GameMap> pathMapEntry : world.getEnemyVillagesPathAndMap().entrySet()) {
+        for (java.util.Map.Entry<String, GameMap> pathMapEntry : singlePlayerWorld.getEnemyVillagesPathAndMap().entrySet()) {
             String mapPath = pathMapEntry.getKey();
             String[] split = mapPath.split("[\\\\]");
             mapPath = split[split.length - 1];
@@ -218,7 +218,7 @@ public class MenuController {
 //         all troops with labels A and U that show availability
 //         if troop can be built the possible number is also shown
         LinkedHashMap<DynamicMenuItem, String> troopsList = new LinkedHashMap<>();
-        Resource resourceStock = world.getMyVillage().getTotalResourceStock();
+        Resource resourceStock = singlePlayerWorld.getMyVillage().getTotalResourceStock();
         Barracks barracks = (Barracks) getActiveMenu().getModel();
         String info;
         for (String troop : TROOPS) {
@@ -237,7 +237,7 @@ public class MenuController {
 
     private LinkedHashMap<DynamicMenuItem, String> getConstructionStatusList() {
         LinkedHashMap<DynamicMenuItem, String> constructionStatusList = new LinkedHashMap<>();
-        ArrayList<Builder> builders = world.getMyVillage().getTownHall().getBuilders();
+        ArrayList<Builder> builders = singlePlayerWorld.getMyVillage().getTownHall().getBuilders();
         for (Builder builder : builders) {
             if (builder.isBuilderBusy())
                 constructionStatusList.put(new DynamicMenuItem(NULL, builder.getUnderConstructBuilding()), String.valueOf(builder.getConstructRemainingTime()));
@@ -246,7 +246,7 @@ public class MenuController {
     }
 
     private LinkedHashMap<DynamicMenuItem, String> getBuildingsList() {
-        ArrayList<Building> buildings = world.getMyVillage().getGameMap().getBuildings();
+        ArrayList<Building> buildings = singlePlayerWorld.getMyVillage().getGameMap().getBuildings();
         buildings.sort(Building::compareTo);
         LinkedHashMap<DynamicMenuItem, String> buildingsList = new LinkedHashMap<>();
         for (Building building : buildings) {

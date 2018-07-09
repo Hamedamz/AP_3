@@ -1,6 +1,6 @@
 package models.GameLogic;
 
-import models.World;
+import models.SinglePlayer.SinglePlayerWorld;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -8,7 +8,7 @@ import java.util.TimerTask;
 public class GameEngine {
     public static final int DEFAULT_DURATION = 5000;
 
-    private World world;
+    private SinglePlayerWorld singlePlayerWorld;
     private VillageGameEngine villageGameEngine;
     private BattleGroundGameEngine battleGroundGameEngine;
     private boolean isAttacking = false;
@@ -18,8 +18,8 @@ public class GameEngine {
 
     // isAttacking First Phase Only
 
-    public GameEngine(World world) {
-        this.world = world;
+    public GameEngine(SinglePlayerWorld singlePlayerWorld) {
+        this.singlePlayerWorld = singlePlayerWorld;
         villageGameEngine = new VillageGameEngine();
         battleGroundGameEngine = new BattleGroundGameEngine();
         timer = new Timer();
@@ -36,7 +36,7 @@ public class GameEngine {
         if(villageGameEngine.isRunning()) {
             if (isAttacking) {
                 battleGroundGameEngine.update();
-                if (world.getBattleGround().isGameFinished()) {
+                if (singlePlayerWorld.getBattleGround().isGameFinished()) {
                     isAttacking = false;
                 }
             }
@@ -45,11 +45,11 @@ public class GameEngine {
     }
 
     public void loadNewVillage() {
-        villageGameEngine.loadVillage(world.getMyVillage());
+        villageGameEngine.loadVillage(singlePlayerWorld.getMyVillage());
     }
 
     public void loadBattleGround() {
-        battleGroundGameEngine.loadBattleGround(world.getBattleGround());
+        battleGroundGameEngine.loadBattleGround(singlePlayerWorld.getBattleGround());
         isAttacking = true;
     }
 

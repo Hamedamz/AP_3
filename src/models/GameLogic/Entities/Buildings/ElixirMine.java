@@ -4,7 +4,7 @@ import models.GameLogic.Bounty;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
-import models.IDGenerator;
+import models.GameLogic.utills.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 public class ElixirMine extends Mine {

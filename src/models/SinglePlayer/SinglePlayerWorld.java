@@ -1,4 +1,4 @@
-package models;
+package models.SinglePlayer;
 
 import controllers.Exceptions.VillageAlreadyExists;
 import controllers.JsonInterpreter;
@@ -10,13 +10,13 @@ import models.Setting.GameLogicConfig;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class World {
+public class SinglePlayerWorld {
     private Account account;
     private HashMap<String, String> myVillagesNameAndPath;
     private BattleGround battleGround;
     private GameEngine gameEngine;
 
-    public World() {
+    public SinglePlayerWorld() {
         gameEngine = new GameEngine(this);
         myVillagesNameAndPath = new HashMap<>();
     }

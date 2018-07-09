@@ -6,7 +6,7 @@ import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
 import models.GameLogic.Exceptions.NoFreeBuilderException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
-import models.IDGenerator;
+import models.GameLogic.utills.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;

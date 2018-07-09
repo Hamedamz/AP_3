@@ -8,7 +8,7 @@ import models.GameLogic.Bounty;
 import models.GameLogic.Exceptions.CountLimitReachedException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.enums.MoveType;
-import models.ID;
+import models.GameLogic.ID;
 import models.Setting.GameLogicConfig;
 import viewers.utils.Const;
 

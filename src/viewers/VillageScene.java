@@ -2,7 +2,6 @@ package viewers;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -10,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Building;
@@ -63,7 +61,7 @@ public class VillageScene extends Scene {
             for (int i = 0; i < 30; i++) {
                 MapTile mapTile = new MapTile(TILE_SIZE, TILE_SIZE, i, j);
                 tiles.add(mapTile, i, j);
-                if (AppGUI.getController().getWorld().getMyVillage().getGameMap().isOccupied(i, j)) {
+                if (AppGUI.getController().getSinglePlayerWorld().getMyVillage().getGameMap().isOccupied(i, j)) {
                     mapTile.setVisible(false);
                 }
             }
@@ -77,7 +75,7 @@ public class VillageScene extends Scene {
 
         // building holders
         buildingHolders = new ArrayList<>();
-        ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getBuildings());
+        ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getSinglePlayerWorld().getMyVillage().getBuildings());
         buildings.sort((o1, o2) -> o2.getPosition().getMapX() - o1.getPosition().getMapX() + o2.getPosition().getMapY() - o1.getPosition().getMapY());
         for (Building building : buildings) {
             addBuildingToScene(building);
@@ -108,7 +106,7 @@ public class VillageScene extends Scene {
         //village console
         villageConsole = new VillageConsole();
         root.getChildren().addAll(villageConsole);
-        villageConsole.setVillage(AppGUI.getController().getWorld().getMyVillage());
+        villageConsole.setVillage(AppGUI.getController().getSinglePlayerWorld().getMyVillage());
 
         //handling total village keyEvents
         addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
@@ -167,7 +165,7 @@ public class VillageScene extends Scene {
     public void addUnderConstructionBuilding(int x, int y) {
         Builder builder;
         try {
-            builder = AppGUI.getController().getWorld().getMyVillage().getTownHall().getBuilder(Position.newMapPosition(x, y));
+            builder = AppGUI.getController().getSinglePlayerWorld().getMyVillage().getTownHall().getBuilder(Position.newMapPosition(x, y));
         } catch (NoSuchAUnderConstructBuildingException e) {
             return;
         }

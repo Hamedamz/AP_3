@@ -11,8 +11,7 @@ import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.enums.MoveType;
 import models.GameLogic.utills.PathFinder;
-import models.ID;
-import models.IDGenerator;
+import models.GameLogic.utills.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;

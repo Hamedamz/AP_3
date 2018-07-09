@@ -5,7 +5,7 @@ import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
-import models.IDGenerator;
+import models.GameLogic.utills.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 public class ArcherTower extends DefensiveBuilding {

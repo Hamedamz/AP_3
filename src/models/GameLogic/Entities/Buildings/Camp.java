@@ -6,9 +6,7 @@ import models.GameLogic.Exceptions.NotEnoughCapacityException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
-import models.GameLogic.TrainingTroop;
-import models.ID;
-import models.IDGenerator;
+import models.GameLogic.utills.IDGenerator;
 import models.Setting.GameLogicConfig;
 
 import java.util.ArrayList;

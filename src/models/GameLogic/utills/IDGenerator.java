@@ -1,7 +1,8 @@
-package models;
+package models.GameLogic.utills;
+
+import models.GameLogic.ID;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 public class IDGenerator { // FIXME: 5/7/2018 reset after new village

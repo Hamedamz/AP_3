@@ -41,12 +41,12 @@ public class ProgressBarItem extends Pane {
     public void setValues() {
         switch (type) {
             case TOTAL_ELIXIR_INFO:
-                setMax(AppGUI.getController().getWorld().getMyVillage().getTotalResourceCapacity().getElixir());
-                setValue(AppGUI.getController().getWorld().getMyVillage().getTotalResourceStock().getElixir());
+                setMax(AppGUI.getController().getSinglePlayerWorld().getMyVillage().getTotalResourceCapacity().getElixir());
+                setValue(AppGUI.getController().getSinglePlayerWorld().getMyVillage().getTotalResourceStock().getElixir());
                 break;
             case TOTAL_GOLD_INFO:
-                setMax(AppGUI.getController().getWorld().getMyVillage().getTotalResourceCapacity().getGold());
-                setValue(AppGUI.getController().getWorld().getMyVillage().getTotalResourceStock().getGold());
+                setMax(AppGUI.getController().getSinglePlayerWorld().getMyVillage().getTotalResourceCapacity().getGold());
+                setValue(AppGUI.getController().getSinglePlayerWorld().getMyVillage().getTotalResourceStock().getGold());
                 break;
             case ELIXIR_INFO:
                 setTitle(type.toString());
@@ -60,8 +60,8 @@ public class ProgressBarItem extends Pane {
                 break;
             case TROOPS_CAPACITY_INFO:
                 setTitle(type.toString());
-                setMax(AppGUI.getController().getWorld().getMyVillage().getTotalCampCapacity());
-                setValue(AppGUI.getController().getWorld().getMyVillage().getTotalCampTroops());
+                setMax(AppGUI.getController().getSinglePlayerWorld().getMyVillage().getTotalCampCapacity());
+                setValue(AppGUI.getController().getSinglePlayerWorld().getMyVillage().getTotalCampTroops());
                 break;
             case HIT_POINTS_INFO:
                 setTitle(type.toString());

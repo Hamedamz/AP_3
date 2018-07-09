@@ -3,9 +3,8 @@ package models.GameLogic;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.*;
-import models.IDGenerator;
+import models.GameLogic.utills.IDGenerator;
 import models.Setting.GameLogicConfig;
-import viewers.utils.PopupPane;
 
 import java.util.*;
 

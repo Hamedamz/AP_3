@@ -1,4 +1,4 @@
-package models;
+package models.GameLogic;
 
 public final class ID {
     private final String firstPartCode;

@@ -10,7 +10,7 @@ import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.*;
-import models.World;
+import models.SinglePlayer.SinglePlayerWorld;
 import viewers.menu.*;
 import viewers.AppGUI;
 import viewers.oldViewers.*;
@@ -27,8 +27,8 @@ public class Controller {
     private static Controller controller = new Controller();
 
     private BasicViewer viewer = new BasicViewer();
-    private World world = new World();
-    private MenuController menuController = new MenuController(world);
+    private SinglePlayerWorld singlePlayerWorld = new SinglePlayerWorld();
+    private MenuController menuController = new MenuController(singlePlayerWorld);
     private VillageViewer villageViewer;
     private BuildingViewer buildingViewer = new BuildingViewer();
     private MapViewer mapViewer = new MapViewer();
@@ -60,7 +60,7 @@ public class Controller {
     }
 
     private static void handleMenuInputs() throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException, NotAvailableAtThisLevelException, FileNotFoundException, TroopNotFoundException {
-//        controller.villageViewer = new VillageViewer(controller.world.getMyVillage()); //TEMP
+//        controller.villageViewer = new VillageViewer(controller.singlePlayerWorld.getMyVillage()); //TEMP
         controller.menuController.printMenu();
         String command = controller.viewer.getInput();
         if (controller.menuController.isMenuItemNumber(command)) {
@@ -162,7 +162,7 @@ public class Controller {
             if (command.matches(SAVE_GAME.toString())) {
                 controller.viewer.requestForInput("enter name for your village:");
                 String name = controller.viewer.getInput(); // TODO: 5/6/2018 Exception Handlings
-                controller.saveGame(controller.world.getMyVillage(), name);
+                controller.saveGame(controller.singlePlayerWorld.getMyVillage(), name);
             } else if (command.matches(TURN_FORMAT)) {
                 int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
                 controller.turn(n);
@@ -174,9 +174,9 @@ public class Controller {
 
     private void newGame() {
         try {
-            controller.world.getGameEngine().resetVillage();
-            controller.world.makeNewGame();
-            controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
+            controller.singlePlayerWorld.getGameEngine().resetVillage();
+            controller.singlePlayerWorld.makeNewGame();
+            controller.villageViewer = new VillageViewer(controller.singlePlayerWorld.getMyVillage());
         } catch (VillageAlreadyExists villageAlreadyExists) {
             villageAlreadyExists.getMessage();
         }
@@ -193,7 +193,7 @@ public class Controller {
     }
 
     public void loadGame(String villageName) throws FileNotFoundException {
-        String path = controller.world.getMyVillagesNameAndPath().get(villageName);
+        String path = controller.singlePlayerWorld.getMyVillagesNameAndPath().get(villageName);
         if (path != null) {
             loadGameFromFile(path);
         } else {
@@ -202,33 +202,33 @@ public class Controller {
     }
 
     private void loadEnemyMap(String path) throws FileNotFoundException {
-        controller.world.loadEnemyMap(path);
+        controller.singlePlayerWorld.loadEnemyMap(path);
         // TODO: 5/8/2018
 
     }
 
     private void loadGameFromFile(String path) throws FileNotFoundException {
         Village village = JsonInterpreter.loadMyVillage(path);
-        controller.world.getGameEngine().resetVillage();
-        controller.world.setMyVillage(village);
+        controller.singlePlayerWorld.getGameEngine().resetVillage();
+        controller.singlePlayerWorld.setMyVillage(village);
         controller.viewer.printInformation("game successfully loaded!");
-        controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
+        controller.villageViewer = new VillageViewer(controller.singlePlayerWorld.getMyVillage());
     }
 
     private static void trainTroop(String troopType) throws NotEnoughResourcesException, NotAvailableAtThisLevelException {
         controller.viewer.requestForInput("How many " + troopType + "s do you want to train?");
         int count = Integer.parseInt(controller.viewer.getInput());
         Barracks barracks = (Barracks) controller.menuController.getActiveMenu().getModel();
-        controller.world.getMyVillage().trainTroop(troopType, count, barracks);
+        controller.singlePlayerWorld.getMyVillage().trainTroop(troopType, count, barracks);
     }
 
     private void saveGame(Village village, String name) {
-        controller.world.saveGame(village, name);
+        controller.singlePlayerWorld.saveGame(village, name);
     }
 
     private void turn(int n) {
         for (int i = 0; i < n; i++) {
-            controller.world.getGameEngine().update();
+            controller.singlePlayerWorld.getGameEngine().update();
         }
     }
 
@@ -240,10 +240,10 @@ public class Controller {
             System.out.format("%s is already at the maximum level", building.getClass().getSimpleName());
             return;
         }
-        if (upgradeResource.getGold() <= controller.world.getMyVillage().getTotalResourceStock().getGold() && upgradeResource.getElixir() <= controller.world.getMyVillage().getTotalResourceStock().getElixir()) {
+        if (upgradeResource.getGold() <= controller.singlePlayerWorld.getMyVillage().getTotalResourceStock().getGold() && upgradeResource.getElixir() <= controller.singlePlayerWorld.getMyVillage().getTotalResourceStock().getElixir()) {
             try {
                 building.upgrade();
-                controller.world.getMyVillage().spendResources(upgradeResource);
+                controller.singlePlayerWorld.getMyVillage().spendResources(upgradeResource);
             } catch (UpgradeLimitReachedException e) {
                 controller.viewer.printErrorMessage(e.getMessage());
             } catch (NotEnoughResourcesException e) {
@@ -253,15 +253,15 @@ public class Controller {
     }
 
     public void buildBuilding(String buildingType, int x, int y) throws NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
-        controller.world.getMyVillage().getTownHall().getFreeBuilder();
-        controller.world.getMyVillage().build(buildingType, x, y);
+        controller.singlePlayerWorld.getMyVillage().getTownHall().getFreeBuilder();
+        controller.singlePlayerWorld.getMyVillage().build(buildingType, x, y);
         AppGUI.getVillageScene().addUnderConstructionBuilding(x, y);
         controller.viewer.printInformation("building process started");
     }
 
     private void initializeAttack(GameMap gameMap) {
-        controller.world.attackMap(gameMap);
-        controller.battleGroundViewer.setBattleGround(controller.world.getBattleGround());
+        controller.singlePlayerWorld.attackMap(gameMap);
+        controller.battleGroundViewer.setBattleGround(controller.singlePlayerWorld.getBattleGround());
         startSelectingTroops();
         controller.startAttack();
     }
@@ -302,7 +302,7 @@ public class Controller {
                     int y = Integer.parseInt(controller.getArgument(4, command, PUT_TROOP_FORMAT)) - 1;
 
                     try {
-                        controller.world.getBattleGround().putTroop(unitType, number, new Position(x, y));
+                        controller.singlePlayerWorld.getBattleGround().putTroop(unitType, number, new Position(x, y));
                     } catch (TroopNotFoundException e) {
                         controller.viewer.printErrorMessage(e.getMessage());
                     }
@@ -315,7 +315,7 @@ public class Controller {
                     controller.turn(n);
 
                 } else if(command.matches(QUIT_ATTACK_FORMAT)) {
-                    controller.world.getBattleGround().endBattle();
+                    controller.singlePlayerWorld.getBattleGround().endBattle();
                     break;
                 } else
                     throw new InvalidInputException("invalid input");
@@ -324,7 +324,7 @@ public class Controller {
                 controller.viewer.printErrorMessage(e.getMessage());
             }
 
-        } while (!controller.world.getBattleGround().isGameFinished());
+        } while (!controller.singlePlayerWorld.getBattleGround().isGameFinished());
         controller.battleGroundViewer.printAttackFinishedInfo();
     }
 
@@ -336,7 +336,7 @@ public class Controller {
             try {
                 troopType = getArgument(1, command, SELECT_TROOP_FORMAT);
                 int number = Integer.parseInt(getArgument(2, command, SELECT_TROOP_FORMAT));
-                    controller.world.sendTroopToAttack(troopType, number);
+                    controller.singlePlayerWorld.sendTroopToAttack(troopType, number);
 
             } catch (InvalidInputException | TroopNotFoundException e) {
                 controller.viewer.printErrorMessage(e.getMessage());
@@ -349,7 +349,7 @@ public class Controller {
         return controller;
     }
 
-    public World getWorld() {
-        return world;
+    public SinglePlayerWorld getSinglePlayerWorld() {
+        return singlePlayerWorld;
     }
 }
