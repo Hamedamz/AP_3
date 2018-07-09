@@ -16,8 +16,8 @@ public class Const {
     public static final double ISOMETRIC_TILE_SIZE = 37.75;
     public static final double ISOMETRIC_TILE_WIDTH = 36;
 
-    public static final double BUILDING_TILE_WIDTH = 144;
-    public static final double BUILDING_TILE_HEIGHT = 212;
+    public static final double ENTITY_TILE_WIDTH = 144;
+    public static final double ENTITY_TILE_HEIGHT = 212;
     public static final double TOWNHALL_TILE_WIDTH = 288;
     public static final double TOWNHALL_TILE_HEIGHT = 350;
     public static final double TILE_SCALE = 0.25;

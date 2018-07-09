@@ -1,0 +1,27 @@
+package viewers.utils;
+
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import models.GameLogic.Entities.Entity;
+
+public abstract class EntityHolder extends Pane {
+    Entity entity;
+    ImageView imageView;
+    ProgressBarItem hitPointsProgressBar;
+
+    public EntityHolder(Entity entity) {
+        this.entity = entity;
+    }
+
+    public void initialize() {
+        imageView = entity.getImageView();
+        imageView.setFitWidth(Const.ENTITY_TILE_WIDTH * Const.TILE_SCALE);
+        imageView.setFitHeight(Const.ENTITY_TILE_HEIGHT * Const.TILE_SCALE);
+        this.setMaxSize(imageView.getViewport().getWidth(), imageView.getViewport().getHeight());
+        hitPointsProgressBar = new ProgressBarItem(ProgressBarType.HIT_POINTS, entity);
+        this.getChildren().addAll(imageView, hitPointsProgressBar);
+
+    }
+
+    abstract void refresh();
+}

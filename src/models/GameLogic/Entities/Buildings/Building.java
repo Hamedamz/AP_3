@@ -126,9 +126,9 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
     }
 
     public void updateViewPort() {
-        double offset = level * Const.BUILDING_TILE_WIDTH;
-        double width = Const.BUILDING_TILE_WIDTH;
-        double height = Const.BUILDING_TILE_HEIGHT;
+        double offset = level * Const.ENTITY_TILE_WIDTH;
+        double width = Const.ENTITY_TILE_WIDTH;
+        double height = Const.ENTITY_TILE_HEIGHT;
         if (this.getClass().equals(TownHall.class)) {
             offset = level * Const.TOWNHALL_TILE_WIDTH;
             width = Const.TOWNHALL_TILE_WIDTH;
