@@ -137,10 +137,10 @@ public class VillageScene extends Scene {
         buildingHolders.add(buildingHolder);
     }
 
-    private void addBuildingToScene(Builder builder, int x, int y) {
-        setTileOccupied(x, y);
+    private void addBuildingToScene(Builder builder, Position position) {
+        setTileOccupied(position.getMapX(), position.getMapY());
         BuildingHolder buildingHolder = new BuildingHolder(builder);
-        IsometricPane.mapToIsometricLayout(buildingHolder, new Position(x, y), 1);
+        IsometricPane.mapToIsometricLayout(buildingHolder, position, 1);
         draggableView.getChildren().add(buildingHolder);
         buildingHolders.add(buildingHolder);
     }
@@ -152,7 +152,7 @@ public class VillageScene extends Scene {
         } catch (NoSuchAUnderConstructBuildingException e) {
             return;
         }
-        addBuildingToScene(builder, x, y);
+        addBuildingToScene(builder, Position.newMapPosition(x, y));
     }
 
     public void setTileOccupied(int x, int y) {
