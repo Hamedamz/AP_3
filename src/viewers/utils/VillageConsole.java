@@ -121,15 +121,13 @@ public class VillageConsole extends BorderPane {
 
     public void minimize(){
         setDisable(true);
-        setScaleX(0);
-        setScaleY(0);
+        setVisible(false);
         isMinimized = true;
     }
 
     public void maximize(){
         setDisable(false);
-        setScaleX(1);
-        setScaleY(1);
+        setVisible(true);
         setVillage(AppGUI.getController().getWorld().getMyVillage());
         isMinimized = false;
     }

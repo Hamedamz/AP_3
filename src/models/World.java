@@ -62,7 +62,6 @@ public class World {
         GameMap gameMap = new GameMap(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
         gameMap.setBuildings(buildings);
         getEnemyVillagesPathAndMap().put(path, gameMap);
-        gameEngine.resetVillage();
     }
 
 
