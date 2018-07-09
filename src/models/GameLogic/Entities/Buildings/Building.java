@@ -20,7 +20,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
     private  ID id;
     protected boolean isDestroyed;
     private boolean isUnderConstruct;
-    private static int maxLevel;
+    private static int maxLevel = 0;
     protected int size;
 
     public Building() {
@@ -32,7 +32,6 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
         this.id = id;
         String className = this.getClass().getSimpleName();
         this.level = 0;
-        maxLevel = level;
         this.size = GameLogicConfig.getFromDictionary(className + "Size");
         this.score = (int) GameLogicConfig.getFromDictionary(className + "DestructionScore");
         this.hitPoints = (int) GameLogicConfig.getFromDictionary(className + "HitPoints");
