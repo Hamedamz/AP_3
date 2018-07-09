@@ -91,8 +91,14 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
                 return new GoldMine(Position.newMapPosition(x, y), true);
             case "GoldStorage":
                 return new GoldStorage(Position.newMapPosition(x, y), true);
+            case "GuardianGiant":
+                return new GuardianGiant(Position.newMapPosition(x, y), true);
             case "TownHall":
                 throw new CountLimitReachedException();
+            case "Trap":
+                return new Trap(Position.newMapPosition(x, y), true);
+            case "Wall":
+                return new Wall(Position.newMapPosition(x, y), true);
             case "WizardTower":
                 return new WizardTower(Position.newMapPosition(x, y), true);
             default:

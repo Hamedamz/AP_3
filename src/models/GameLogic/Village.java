@@ -62,7 +62,11 @@ public class Village {
         listOfBuildingsByName.put(WizardTower.class.getSimpleName(), new ArrayList<>());
         listOfBuildingsByName.put(ArcherTower.class.getSimpleName(), new ArrayList<>());
         listOfBuildingsByName.put(AirDefense.class.getSimpleName(), new ArrayList<>());
+        listOfBuildingsByName.put(Troop.class.getSimpleName(), new ArrayList<>());
 
+        listOfBuildingsByName.put(Wall.class.getSimpleName(), new ArrayList<>());
+
+        listOfBuildingsByName.put(GuardianGiant.class.getSimpleName(), new ArrayList<>());
     }
 
     public TownHall getTownHall() {
@@ -163,6 +167,16 @@ public class Village {
         if (building instanceof WizardTower) {
             listOfBuildingsByName.get(WizardTower.class.getSimpleName()).add(building);
         }
+        if(building instanceof Wall) {
+            listOfBuildingsByName.get(Wall.class.getSimpleName()).add(building);
+        }
+        if(building instanceof Trap) {
+            listOfBuildingsByName.get(Trap.class.getSimpleName()).add(building);
+        }
+        if(building instanceof GuardianGiant) {
+            listOfBuildingsByName.get(GuardianGiant.class.getSimpleName()).add(building);
+        }
+
 
         gameMap.getBuildings().add(building);
     }

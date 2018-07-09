@@ -134,8 +134,8 @@
         AirDefenseBuildGold: 300
         AirDefenseBuildElixir: 0
         AirDefenseBuildTime: 60
-        AirDefenceBuildLimit: 1000
-        AirDefenceSize: 1
+        AirDefenseBuildLimit: 1000
+        AirDefenseSize: 1
         AirDefenseHitPoints: 300
         AirDefenseDamage: 20
         AirDefenseRange: 10
@@ -190,6 +190,7 @@
         GuardianGiantBuildGold: 10000
         GuardianGiantBuildElixir: 0
         GuardianGiantBuildTime: 4000
+        GuardianGiantBuildLimit: 1
         GuardianGiantHitPoints: 700
         GuardianGiantSize: 1
         GuardianGiantRange: 1
