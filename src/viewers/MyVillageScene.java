@@ -51,7 +51,7 @@ public class MyVillageScene extends VillageScene {
             for (int i = 0; i < 30; i++) {
                 MapTile mapTile = new MapTile(TILE_SIZE, TILE_SIZE, i, j);
                 tiles.add(mapTile, i, j);
-                if (AppGUI.getController().getSinglePlayerWorld().getMyVillage().getGameMap().isOccupied(i, j)) {
+                if (AppGUI.getController().getWorld().getMyVillage().getGameMap().isOccupied(i, j)) {
                     mapTile.setVisible(false);
                 }
             }
@@ -61,7 +61,7 @@ public class MyVillageScene extends VillageScene {
         draggableView.getChildren().add(isometricPane);
 
         // building holders
-        ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getSinglePlayerWorld().getMyVillage().getBuildings());
+        ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getBuildings());
         addBuildingsFromList(buildings);
 
         // total stack resources
@@ -138,7 +138,7 @@ public class MyVillageScene extends VillageScene {
     public void addUnderConstructionBuilding(int x, int y) {
         Builder builder;
         try {
-            builder = AppGUI.getController().getSinglePlayerWorld().getMyVillage().getTownHall().getBuilder(Position.newMapPosition(x, y));
+            builder = AppGUI.getController().getWorld().getMyVillage().getTownHall().getBuilder(Position.newMapPosition(x, y));
         } catch (NoSuchAUnderConstructBuildingException e) {
             return;
         }

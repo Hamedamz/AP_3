@@ -130,7 +130,7 @@ public class VillageConsole extends BorderPane {
     public void maximize(){
         setDisable(false);
         setVisible(true);
-        setVillage(AppGUI.getController().getSinglePlayerWorld().getMyVillage());
+        setVillage(AppGUI.getController().getWorld().getMyVillage());
         isMinimized = false;
         textField.requestFocus();
         historyPointer = history.size();

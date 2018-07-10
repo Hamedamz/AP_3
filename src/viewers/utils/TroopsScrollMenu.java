@@ -43,7 +43,7 @@ public class TroopsScrollMenu extends ScrollMenu {
     }
 
     public void refreshForTraining() {
-        Resource resourceStock = AppGUI.getController().getSinglePlayerWorld().getMyVillage().getTotalResourceStock();
+        Resource resourceStock = AppGUI.getController().getWorld().getMyVillage().getTotalResourceStock();
         Barracks barracks = (Barracks) model;
 
         for (int i = 0; i < getEntities().length; i++) {
