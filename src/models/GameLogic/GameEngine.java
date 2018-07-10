@@ -1,5 +1,9 @@
 package models.GameLogic;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import models.SinglePlayer.SinglePlayerWorld;
 
 import java.util.Timer;
@@ -12,7 +16,7 @@ public class GameEngine {
     private VillageGameEngine villageGameEngine;
     private BattleGroundGameEngine battleGroundGameEngine;
     private boolean isAttacking = false;
-    private int duration = DEFAULT_DURATION;
+    private ObjectProperty<Integer> duration = new SimpleObjectProperty<>(DEFAULT_DURATION);
     private Timer timer;
     private TimerTask updateTask;
 
@@ -22,6 +26,13 @@ public class GameEngine {
         this.singlePlayerWorld = singlePlayerWorld;
         villageGameEngine = new VillageGameEngine();
         battleGroundGameEngine = new BattleGroundGameEngine();
+        setupTimerTask();
+        duration.addListener((observable, oldValue, newValue) -> {
+            setupTimerTask();
+        });
+    }
+
+    private void setupTimerTask() {
         timer = new Timer();
         updateTask = new TimerTask() {
             @Override
@@ -29,7 +40,7 @@ public class GameEngine {
                 update();
             }
         };
-        timer.schedule(updateTask, 0, duration);
+        timer.schedule(updateTask, 0, duration.get());
     }
 
     public void update() {
@@ -55,5 +66,9 @@ public class GameEngine {
 
     public void resetVillage(){
         villageGameEngine.reset();
+    }
+
+    public void changeDuration(Integer duration) {
+        this.duration.setValue(duration);
     }
 }
