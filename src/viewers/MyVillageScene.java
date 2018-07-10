@@ -2,17 +2,11 @@ package viewers;
 
 import controllers.BuildingMenuController;
 import javafx.animation.AnimationTimer;
-import javafx.animation.RotateTransition;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Entity;
@@ -27,29 +21,19 @@ import java.util.ArrayList;
 
 import static viewers.utils.Const.*;
 
-public class MyVillageScene extends Scene {
+public class MyVillageScene extends VillageScene {
     private static MyVillageScene instance = new MyVillageScene();
 
-    private Group root;
     private ProgressBarItem totalGoldProgressBar;
     private ProgressBarItem totalElixirProgressBar;
     private Pane totalStock;
     private RoundFancyButton buildButton;
-    private RoundFancyButton settingsButton;
     private ShopScrollMenu shopScrollMenu;
-    private ArrayList<BuildingHolder> buildingHolders;
     private GridPane tiles;
     private IsometricPane isometricPane;
-    private MapBrowserPane draggableView;
-    private ImageView villageBackground = new ImageView();
-
-    private VillageConsole villageConsole;
 
     private MyVillageScene() {
-        super(new Group(), WINDOW_WIDTH, WINDOW_HEIGHT);
-        root = (Group) getRoot();
-        this.getStylesheets().add("/viewers/styles/game.css");
-        build();
+        super();
     }
 
     public static MyVillageScene getInstance() {
@@ -57,8 +41,7 @@ public class MyVillageScene extends Scene {
     }
 
     public void build() {
-        //graphical structure
-        villageBackground.setImage(ImageLibrary.VillageBackground.getImage());
+        super.build();
 
         tiles = new GridPane();
         tiles.setVgap(1);
@@ -74,18 +57,11 @@ public class MyVillageScene extends Scene {
         }
         isometricPane = new IsometricPane(tiles);
 
-        draggableView = new MapBrowserPane(villageBackground, isometricPane);
-        draggableView.setMaxWidth(VIllAGE_BACKGROUND_WIDTH);
-        draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
-        draggableView.initialize();
+        draggableView.getChildren().add(isometricPane);
 
         // building holders
-        buildingHolders = new ArrayList<>();
         ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getSinglePlayerWorld().getMyVillage().getBuildings());
-        buildings.sort((o1, o2) -> o2.getPosition().getMapX() - o1.getPosition().getMapX() + o2.getPosition().getMapY() - o1.getPosition().getMapY());
-        for (Building building : buildings) {
-            addBuildingToScene(building);
-        }
+        addBuildingsFromList(buildings);
 
         // total stack resources
         totalGoldProgressBar = new ProgressBarItem(ProgressBarType.TOTAL_GOLD_INFO, null);
@@ -104,52 +80,14 @@ public class MyVillageScene extends Scene {
             SoundPlayer.play(Sounds.buttonSound);
         });
 
-        settingsButton = new RoundFancyButton(ButtonActionType.SETTINGS, "none");
-        settingsButton.setLayoutX(Const.WINDOW_WIDTH - 100);
-        settingsButton.setLayoutY(Const.WINDOW_HEIGHT - 200);
-        settingsButton.setOnMouseClicked(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
-            RotateTransition rotateTransition = new RotateTransition();
-            rotateTransition.setNode(settingsButton.getIcon());
-            rotateTransition.setDuration(Duration.millis(1000));
-            rotateTransition.setFromAngle(0);
-            rotateTransition.setToAngle(360);
-            rotateTransition.play();
-        });
-
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton);
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, villageConsole);
 
         setAnimationTimer().start();
-
-        //village console
-        villageConsole = new VillageConsole();
-        root.getChildren().addAll(villageConsole);
-        villageConsole.setVillage(AppGUI.getController().getSinglePlayerWorld().getMyVillage());
-
-        //handling total village keyEvents
-        addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
-            switch (keyEvent.getCode()) {
-                case BACK_QUOTE:
-                    if (villageConsole.isMinimized()) {
-                        villageConsole.maximize();
-                    } else {
-                        villageConsole.minimize();
-                    }
-                    break;
-            }
-        });
     }
 
-    private void toggleVisibility(Node node) {
-        if (node.isVisible()) {
-            node.setVisible(false);
-        } else {
-            node.setVisible(true);
-        }
-    }
-
-    private AnimationTimer setAnimationTimer() {
+    @Override
+    public AnimationTimer setAnimationTimer() {
         return new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -164,14 +102,22 @@ public class MyVillageScene extends Scene {
         };
     }
 
+    private void addBuildingsFromList(ArrayList<Building> buildings) {
+        buildingHolders = new ArrayList<>();
+        buildings.sort((o1, o2) -> o2.getPosition().getMapX() - o1.getPosition().getMapX() + o2.getPosition().getMapY() - o1.getPosition().getMapY());
+        for (Building building : buildings) {
+            addBuildingToScene(building);
+        }
+    }
+
     private void addBuildingToScene(Building building) {
-        setTileOccupied(building.getPosition().getMapX(), building.getPosition().getMapY());
         BuildingHolder buildingHolder = new BuildingHolder(building);
         int size = (building.getClass().equals(TownHall.class)) ? 2 : 1;
         IsometricPane.mapToIsometricLayout(buildingHolder, building.getPosition(), size);
         draggableView.getChildren().add(buildingHolder);
         buildingHolders.add(buildingHolder);
-        setBuildingHoderEvents(buildingHolder);
+        setTileOccupied(building.getPosition().getMapX(), building.getPosition().getMapY());
+        setBuildingHolderEvents(buildingHolder);
     }
 
     private void addBuildingToScene(Builder builder, Position position) {
@@ -180,7 +126,7 @@ public class MyVillageScene extends Scene {
         IsometricPane.mapToIsometricLayout(buildingHolder, position, 1);
         draggableView.getChildren().add(buildingHolder);
         buildingHolders.add(buildingHolder);
-        setBuildingHoderEvents(buildingHolder);
+        setBuildingHolderEvents(buildingHolder);
     }
 
     public void addUnderConstructionBuilding(int x, int y) {
@@ -193,7 +139,7 @@ public class MyVillageScene extends Scene {
         addBuildingToScene(builder, Position.newMapPosition(x, y));
     }
 
-    private void setBuildingHoderEvents(BuildingHolder buildingHolder) {
+    private void setBuildingHolderEvents(BuildingHolder buildingHolder) {
         Entity entity = buildingHolder.getEntity();
         ImageView imageView = buildingHolder.getImageView();
         imageView.setOnMouseEntered(event -> buildingHolder.getGlow().setLevel(0.5));
