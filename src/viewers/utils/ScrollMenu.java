@@ -1,5 +1,6 @@
 package viewers.utils;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -18,6 +19,7 @@ public abstract class ScrollMenu extends ScrollPane {
         this.setMaxWidth(Const.SCROLL_MENU_WIDTH);
         this.setLayoutX(Const.WINDOW_WIDTH / 2 - Const.SCROLL_MENU_WIDTH / 2);
         this.setLayoutY(Const.WINDOW_HEIGHT - Const.SCROLL_MENU_HEIGHT);
+        this.setPadding(new Insets(10));
         this.setId("scroll-menu");
 
         this.setContent(buttons);
