@@ -11,6 +11,8 @@ import models.GameLogic.enums.MoveType;
 import models.GameLogic.ID;
 import models.Setting.GameLogicConfig;
 import viewers.utils.Const;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 
 public abstract class Building extends Defender implements Upgradable, Comparable<Building> {
     protected int score;
@@ -64,6 +66,9 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
 
     public void finishConstruct() {
         isUnderConstruct = false;
+        if (!(this instanceof TownHall) && !(this instanceof GoldStorage && this.getID().getCount() == 1)) {
+            SoundPlayer.play(Sounds.buildCompleteSound);
+        }
     }
 
     public static MoveType getMoveType() {
@@ -126,6 +131,12 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
             throw new UpgradeLimitReachedException();
         }
         level++;
+        try {
+            SoundPlayer.play(Sounds.buildCompleteSound);
+        }
+        catch (Exception e) {
+            e.getCause();
+        }
         updateViewPort();
     }
 

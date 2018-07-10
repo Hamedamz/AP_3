@@ -8,6 +8,8 @@ import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.utills.IDGenerator;
 import models.Setting.GameLogicConfig;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 
 import java.util.ArrayList;
 
@@ -47,6 +49,12 @@ public class TownHall extends Storage {
         int hitPointsAddition = (int) GameLogicConfig.getFromDictionary("TownHallUpgradeHitPointsAddition");
         this.setHitPoints(this.hitPoints + hitPointsAddition);
         updateViewPort();
+        try {
+            SoundPlayer.play(Sounds.buildCompleteSound);
+        }
+        catch (Exception e) {
+            e.getCause();
+        }
     }
 
     @Override
