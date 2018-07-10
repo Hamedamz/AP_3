@@ -1,6 +1,8 @@
 package viewers.utils.fancyButtons;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 
 public class TroopsFancyButton extends EntityFancyButton {
 
@@ -9,7 +11,7 @@ public class TroopsFancyButton extends EntityFancyButton {
     public TroopsFancyButton(ButtonActionType type, String clazz) {
         super(type, clazz);
         this.numberBadge.setId("number-badge");
-        this.getWrapper().getChildren().add(numberBadge);
+        this.getWrapper().getChildren().add(new Pane(numberBadge));
     }
 
     public void hideLabel() {
