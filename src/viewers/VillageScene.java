@@ -1,5 +1,6 @@
 package viewers;
 
+import controllers.BuildingMenuController;
 import javafx.animation.AnimationTimer;
 import javafx.animation.RotateTransition;
 import javafx.geometry.Insets;
@@ -13,8 +14,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import models.GameLogic.Builder;
-import models.GameLogic.Entities.Buildings.Building;
-import models.GameLogic.Entities.Buildings.TownHall;
+import models.GameLogic.Entities.Buildings.*;
+import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
 import models.GameLogic.Position;
 import viewers.utils.*;
@@ -170,6 +171,7 @@ public class VillageScene extends Scene {
         IsometricPane.mapToIsometricLayout(buildingHolder, building.getPosition(), size);
         draggableView.getChildren().add(buildingHolder);
         buildingHolders.add(buildingHolder);
+        setBuildingHoderEvents(buildingHolder);
     }
 
     private void addBuildingToScene(Builder builder, Position position) {
@@ -178,6 +180,7 @@ public class VillageScene extends Scene {
         IsometricPane.mapToIsometricLayout(buildingHolder, position, 1);
         draggableView.getChildren().add(buildingHolder);
         buildingHolders.add(buildingHolder);
+        setBuildingHoderEvents(buildingHolder);
     }
 
     public void addUnderConstructionBuilding(int x, int y) {
@@ -188,6 +191,25 @@ public class VillageScene extends Scene {
             return;
         }
         addBuildingToScene(builder, Position.newMapPosition(x, y));
+    }
+
+    private void setBuildingHoderEvents(BuildingHolder buildingHolder) {
+        Entity entity = buildingHolder.getEntity();
+        ImageView imageView = buildingHolder.getImageView();
+        imageView.setOnMouseEntered(event -> buildingHolder.getGlow().setLevel(0.5));
+        imageView.setOnMouseExited(event -> buildingHolder.getGlow().setLevel(0));
+        imageView.setOnMouseClicked(event -> {
+            if (entity instanceof GoldStorage || entity instanceof GoldMine) {
+                SoundPlayer.play(Sounds.goldSound);
+            }
+            else if (entity instanceof ElixirStorage || entity instanceof ElixirMine) {
+                SoundPlayer.play(Sounds.elixirSound);
+            }
+            else {
+                SoundPlayer.play(Sounds.buildingClickSound);
+            }
+            BuildingMenuController.getInstance().handleClickOnBuilding((Building) entity);
+        });
     }
 
     public void setTileOccupied(int x, int y) {

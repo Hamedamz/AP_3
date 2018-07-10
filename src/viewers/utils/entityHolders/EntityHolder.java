@@ -27,4 +27,12 @@ public abstract class EntityHolder extends Pane {
     }
 
     abstract void refresh();
+
+    public Entity getEntity() {
+        return entity;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
+    }
 }
