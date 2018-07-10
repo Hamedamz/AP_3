@@ -1,6 +1,7 @@
 package viewers;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.RotateTransition;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -10,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.TownHall;
@@ -32,6 +34,7 @@ public class VillageScene extends Scene {
     private ProgressBarItem totalElixirProgressBar;
     private Pane totalStock;
     private RoundFancyButton buildButton;
+    private RoundFancyButton settingsButton;
     private ShopScrollMenu shopScrollMenu;
     private ArrayList<BuildingHolder> buildingHolders;
     private GridPane tiles;
@@ -100,8 +103,21 @@ public class VillageScene extends Scene {
             SoundPlayer.play(Sounds.buttonSound);
         });
 
+        settingsButton = new RoundFancyButton(ButtonActionType.SETTINGS, "none");
+        settingsButton.setLayoutX(Const.WINDOW_WIDTH - 100);
+        settingsButton.setLayoutY(Const.WINDOW_HEIGHT - 200);
+        settingsButton.setOnMouseClicked(event -> {
+            SoundPlayer.play(Sounds.buttonSound);
+            RotateTransition rotateTransition = new RotateTransition();
+            rotateTransition.setNode(settingsButton.getIcon());
+            rotateTransition.setDuration(Duration.millis(1000));
+            rotateTransition.setFromAngle(0);
+            rotateTransition.setToAngle(360);
+            rotateTransition.play();
+        });
+
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu);
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton);
 
         setAnimationTimer().start();
 

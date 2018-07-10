@@ -33,6 +33,7 @@ public enum ImageLibrary {
     TrainIcon("assets/icons/SampleIcon.png"),
     ArmyIcon("assets/icons/SampleIcon.png"),
     BuildIcon("assets/icons/Build.png"),
+    SettingsIcon("assets/icons/Settings.png"),
     AttackIcon("assets/icons/SampleIcon.png"),
     HitPointsIcon("assets/icons/HitPointsIcon.png"),
     GoldIcon("assets/icons/GoldIcon.png"),

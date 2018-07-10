@@ -109,6 +109,10 @@
     -fx-text-fill: white;
 }
 
+#toggle-button {
+    -fx-background-color: silver;
+}
+
 #number-badge {
     -fx-background-color: linear-gradient(#ff5400, #be1d00);
     -fx-background-radius: 50;
