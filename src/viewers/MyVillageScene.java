@@ -27,8 +27,8 @@ import java.util.ArrayList;
 
 import static viewers.utils.Const.*;
 
-public class VillageScene extends Scene {
-    private static VillageScene instance = new VillageScene();
+public class MyVillageScene extends Scene {
+    private static MyVillageScene instance = new MyVillageScene();
 
     private Group root;
     private ProgressBarItem totalGoldProgressBar;
@@ -45,14 +45,14 @@ public class VillageScene extends Scene {
 
     private VillageConsole villageConsole;
 
-    private VillageScene() {
+    private MyVillageScene() {
         super(new Group(), WINDOW_WIDTH, WINDOW_HEIGHT);
         root = (Group) getRoot();
         this.getStylesheets().add("/viewers/styles/game.css");
         build();
     }
 
-    public static VillageScene getInstance() {
+    public static MyVillageScene getInstance() {
         return instance;
     }
 
