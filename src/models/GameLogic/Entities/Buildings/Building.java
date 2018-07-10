@@ -119,8 +119,12 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
 
     @Override
     public void upgrade() throws UpgradeLimitReachedException {
-        if (level >= maxLevel)
+        if (level >= maxLevel) {
             throw new UpgradeLimitReachedException();
+        }
+        if (isUnderConstruct) {
+            throw new UpgradeLimitReachedException();
+        }
         level++;
         updateViewPort();
     }

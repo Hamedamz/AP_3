@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameEngine {
-    public static final int DEFAULT_DURATION = 5000;
+    public static final int DEFAULT_DURATION = 1000;
 
     private SinglePlayerWorld singlePlayerWorld;
     private VillageGameEngine villageGameEngine;
@@ -29,7 +29,7 @@ public class GameEngine {
                 update();
             }
         };
-        //timer.schedule(updateTask, 0, duration);
+        timer.schedule(updateTask, 0, duration);
     }
 
     public void update() {
