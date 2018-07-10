@@ -4,7 +4,7 @@ import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.*;
 import models.GameLogic.utills.IDGenerator;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 import java.util.*;
 

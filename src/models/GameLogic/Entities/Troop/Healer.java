@@ -4,11 +4,9 @@ import interfaces.Destroyable;
 import interfaces.TimedEvent;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Exceptions.NoTargetFoundException;
-import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
-import models.GameLogic.enums.TroopTargetType;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 import java.util.ArrayList;
 

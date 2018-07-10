@@ -9,7 +9,7 @@ import models.GameLogic.Exceptions.CountLimitReachedException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.enums.MoveType;
 import models.GameLogic.ID;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 import viewers.utils.Const;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;

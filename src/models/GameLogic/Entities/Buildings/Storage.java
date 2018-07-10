@@ -3,7 +3,7 @@ package models.GameLogic.Entities.Buildings;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.ID;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 import java.util.Comparator;
 

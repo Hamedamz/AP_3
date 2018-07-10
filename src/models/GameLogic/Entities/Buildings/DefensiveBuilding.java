@@ -9,7 +9,7 @@ import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.ID;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 import java.util.ArrayList;
 

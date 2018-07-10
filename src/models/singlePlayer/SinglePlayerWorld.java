@@ -1,11 +1,11 @@
-package models.SinglePlayer;
+package models.singlePlayer;
 
 import controllers.Exceptions.VillageAlreadyExists;
 import controllers.JsonInterpreter;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Exceptions.TroopNotFoundException;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 import java.io.File;
 import java.util.ArrayList;

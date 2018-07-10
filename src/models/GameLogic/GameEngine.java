@@ -2,9 +2,7 @@ package models.GameLogic;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import models.SinglePlayer.SinglePlayerWorld;
+import models.singlePlayer.SinglePlayerWorld;
 
 import java.util.Timer;
 import java.util.TimerTask;

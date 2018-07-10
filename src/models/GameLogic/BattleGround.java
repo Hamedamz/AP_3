@@ -8,7 +8,7 @@ import models.GameLogic.Entities.Troop.*;
 import models.GameLogic.Exceptions.CountLimitReachedException;
 import models.GameLogic.Exceptions.InvalidPositionException;
 import models.GameLogic.Exceptions.TroopNotFoundException;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 import java.util.ArrayList;
 import java.util.HashMap;
 

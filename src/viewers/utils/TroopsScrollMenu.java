@@ -1,13 +1,11 @@
 package viewers.utils;
 
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Exceptions.NotAvailableAtThisLevelException;
 import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import models.GameLogic.Resource;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 import viewers.AppGUI;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.TroopsFancyButton;
