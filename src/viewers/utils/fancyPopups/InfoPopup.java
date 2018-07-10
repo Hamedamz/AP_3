@@ -1,6 +1,5 @@
 package viewers.utils.fancyPopups;
 
-import controllers.BuildingMenuController;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

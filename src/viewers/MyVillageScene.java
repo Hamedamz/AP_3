@@ -16,6 +16,7 @@ import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.RoundFancyButton;
+import viewers.utils.fancyPopups.AttackMenu;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class MyVillageScene extends VillageScene {
     private RoundFancyButton buildButton;
     private RoundFancyButton attackButton;
     private ShopScrollMenu shopScrollMenu;
+    private AttackMenu attackMenu;
     private GridPane tiles;
     private IsometricPane isometricPane;
 
@@ -82,12 +84,15 @@ public class MyVillageScene extends VillageScene {
         });
 
         // attack button
+        attackMenu = new AttackMenu();
+        attackMenu.setVisible(false);
         attackButton = new RoundFancyButton(ButtonActionType.OPEN_ATTACK_MENU, "red");
         attackButton.setLayoutX(Const.SPACING * 3);
         attackButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
+        attackButton.setOnMouseClicked(event -> attackMenu.toggleVisibility());
 
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, attackButton, buildButton, shopScrollMenu, settingsButton, villageConsole);
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenu, attackButton, villageConsole);
 
         setAnimationTimer().start();
     }

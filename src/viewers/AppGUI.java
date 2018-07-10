@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class AppGUI extends Application {
     private static Stage mainStage;
 
-    public static MyVillageScene getVillageScene() {
+    public static MyVillageScene getMyVillageScene() {
         return MyVillageScene.getInstance();
     }
 

@@ -24,6 +24,15 @@ public abstract class ModelPopup extends Popup {
     public ModelPopup(Object model) {
         this.model = model;
         this.title.setText(model.getClass().getSimpleName());
+        setProperties();
+    }
+
+    public ModelPopup(String title) {
+        this.title.setText(title);
+        setProperties();
+    }
+
+    private void setProperties() {
         content.getChildren().addAll(title);
         this.getContent().add(wrapper);
         this.setAutoHide(true);

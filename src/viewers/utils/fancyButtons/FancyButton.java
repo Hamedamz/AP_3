@@ -1,6 +1,7 @@
 package viewers.utils.fancyButtons;
 
 import javafx.geometry.Pos;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -13,6 +14,7 @@ public abstract class FancyButton extends VBox {
     private Text label = new Text();
     private ImageView icon = new ImageView();
     private StackPane wrapper = new StackPane(icon);
+    private ColorAdjust grayScale;
 
     public FancyButton(ButtonActionType type) {
         super(Const.SPACING / 2);
@@ -23,7 +25,11 @@ public abstract class FancyButton extends VBox {
         this.label.setText(type.toString());
         this.wrapper.setMaxWidth(Const.FANCY_BUTTON_ICON_SIZE);
 
-        this.getChildren().addAll(wrapper, label);
+        grayScale = new ColorAdjust();
+        grayScale.setSaturation(0);
+        StackPane pane = new StackPane(wrapper);
+        pane.setEffect(grayScale);
+        this.getChildren().addAll(pane, label);
 
         // TODO: 7/10/2018 Arshia move all button sound to here
 //        this.setOnMousePressed(event -> play sound );
@@ -45,5 +51,17 @@ public abstract class FancyButton extends VBox {
 
     public Pane getWrapper() {
         return wrapper;
+    }
+
+    public ColorAdjust getGrayScale() {
+        return grayScale;
+    }
+
+    public void setActive(boolean active) {
+        if (active) {
+            grayScale.setSaturation(0);
+        } else {
+            grayScale.setSaturation(-1);
+        }
     }
 }

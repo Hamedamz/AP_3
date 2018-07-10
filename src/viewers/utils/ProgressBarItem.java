@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Storage;
+import models.GameLogic.Resource;
 import viewers.AppGUI;
 
 
@@ -41,12 +42,22 @@ public class ProgressBarItem extends Pane {
     public void setValues() {
         switch (type) {
             case TOTAL_ELIXIR_INFO:
-                setMax(AppGUI.getController().getWorld().getMyVillage().getTotalResourceCapacity().getElixir());
-                setValue(AppGUI.getController().getWorld().getMyVillage().getTotalResourceStock().getElixir());
+                if (model != null) {
+                    setMax(((Resource) model).getElixir());
+                    setValue(((Resource) model).getElixir());
+                } else {
+                    setMax(AppGUI.getController().getWorld().getMyVillage().getTotalResourceCapacity().getElixir());
+                    setValue(AppGUI.getController().getWorld().getMyVillage().getTotalResourceStock().getElixir());
+                }
                 break;
             case TOTAL_GOLD_INFO:
-                setMax(AppGUI.getController().getWorld().getMyVillage().getTotalResourceCapacity().getGold());
-                setValue(AppGUI.getController().getWorld().getMyVillage().getTotalResourceStock().getGold());
+                if (model != null) {
+                    setMax(((Resource) model).getGold());
+                    setValue(((Resource) model).getGold());
+                } else {
+                    setMax(AppGUI.getController().getWorld().getMyVillage().getTotalResourceCapacity().getGold());
+                    setValue(AppGUI.getController().getWorld().getMyVillage().getTotalResourceStock().getGold());
+                }
                 break;
             case ELIXIR_INFO:
                 setTitle(type.toString());

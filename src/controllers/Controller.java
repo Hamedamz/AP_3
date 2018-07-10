@@ -204,7 +204,7 @@ public class Controller {
         }
     }
 
-    private void loadEnemyMap(File file) throws FileNotFoundException {
+    public void loadEnemyMap(File file) throws FileNotFoundException {
         controller.world.loadEnemyMap(file);
         // TODO: 5/8/2018
 
@@ -247,7 +247,7 @@ public class Controller {
     public void buildBuilding(String buildingType, int x, int y) throws NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException {
         controller.world.getMyVillage().getTownHall().getFreeBuilder();
         controller.world.getMyVillage().build(buildingType, x, y);
-        AppGUI.getVillageScene().addUnderConstructionBuilding(x, y);
+        AppGUI.getMyVillageScene().addUnderConstructionBuilding(x, y);
         controller.viewer.printInformation("building process started");
     }
 

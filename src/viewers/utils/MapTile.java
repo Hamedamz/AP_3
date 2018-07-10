@@ -1,6 +1,5 @@
 package viewers.utils;
 
-import controllers.Exceptions.InvalidInputException;
 import javafx.animation.FadeTransition;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -64,7 +63,7 @@ public class MapTile extends Rectangle {
                     AppGUI.getController().buildBuilding(db.getString(), this.mapX, this.mapY);
                     SoundPlayer.play(Sounds.buildStartSound);
                 } catch (InvalidPositionException | CountLimitReachedException | NotEnoughResourcesException | NoFreeBuilderException e) {
-                    AppGUI.getVillageScene().handleException(e);
+                    AppGUI.getMyVillageScene().handleException(e);
                 }
                 success = true;
             }

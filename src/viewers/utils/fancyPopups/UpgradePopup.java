@@ -27,7 +27,7 @@ public class UpgradePopup extends ModelPopup{
             try {
                 AppGUI.getController().upgradeBuilding((Building) model);
             } catch (UpgradeLimitReachedException | NotEnoughResourcesException e) {
-                AppGUI.getVillageScene().handleException(e);
+                AppGUI.getMyVillageScene().handleException(e);
             }
             SoundPlayer.play(Sounds.buttonSound);
             this.hide();

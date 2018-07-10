@@ -10,6 +10,8 @@ import viewers.AppGUI;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.TroopsFancyButton;
 
+import java.util.HashMap;
+
 public class TroopsScrollMenu extends ScrollMenu {
 
     Object model;
@@ -36,9 +38,17 @@ public class TroopsScrollMenu extends ScrollMenu {
                 try {
                     AppGUI.getController().trainTroop(troop, 1, (Barracks) model);
                 } catch (NotEnoughResourcesException | NotAvailableAtThisLevelException e) {
-                    AppGUI.getVillageScene().handleException(e);
+                    AppGUI.getMyVillageScene().handleException(e);
                 }
             });
+        }
+    }
+
+    public void buildForAttackMenu() {
+        for (int i = 0; i < getEntities().length; i++) {
+            TroopsFancyButton troopsFancyButton = (TroopsFancyButton) getButtons().getChildren().get(i);
+            troopsFancyButton.hideLabel();
+            troopsFancyButton.showButtons();
         }
     }
 
@@ -68,5 +78,20 @@ public class TroopsScrollMenu extends ScrollMenu {
             int numberOfTroop = camp.getNumberOfTroop(troop);
             troopsFancyButton.setNumberBadge(numberOfTroop);
         }
+    }
+
+    public HashMap<String, Integer> refreshForAttackMenu() {
+        HashMap<String, Integer> troopNumberHashMap = new HashMap<>();
+        for (int i = 0; i < getEntities().length; i++) {
+            String troop = getEntities()[i];
+            TroopsFancyButton troopsFancyButton = (TroopsFancyButton) getButtons().getChildren().get(i);
+            int numberOfTroop = 0;
+            for (Camp camp : AppGUI.getController().getWorld().getMyVillage().findBuildingsWithSameType(Camp.class)) {
+                numberOfTroop += camp.getNumberOfTroop(troop);
+            }
+            troopsFancyButton.setNumberBadge(numberOfTroop);
+            troopNumberHashMap.put(troop, numberOfTroop);
+        }
+        return troopNumberHashMap;
     }
 }

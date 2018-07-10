@@ -1,11 +1,17 @@
 package viewers.utils.fancyButtons;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import viewers.utils.Const;
 
 public class TroopsFancyButton extends EntityFancyButton {
 
     private Label numberBadge = new Label();
+    private Button incrementButton;
+    private Button decrementButton;
+    private boolean isButtonsShow = false;
 
     public TroopsFancyButton(ButtonActionType type, String clazz) {
         super(type, clazz);
@@ -38,5 +44,30 @@ public class TroopsFancyButton extends EntityFancyButton {
             hideNumberBadge();
             setActive(false);
         }
+    }
+
+    public Button getIncrementButton() {
+        return incrementButton;
+    }
+
+    public Button getDecrementButton() {
+        return decrementButton;
+    }
+
+    public void showButtons() {
+        if (!isButtonsShow) {
+            incrementButton = new Button("+");
+            decrementButton = new Button("-");
+            incrementButton.setMinWidth(28);
+            decrementButton.setMinWidth(28);
+            incrementButton.setId("green-round-button");
+            decrementButton.setId("red-round-button");
+            this.getChildren().add(new HBox(8, decrementButton, incrementButton));
+            isButtonsShow = true;
+        }
+    }
+
+    public int getNumber() {
+        return Integer.parseInt(numberBadge.getText());
     }
 }
