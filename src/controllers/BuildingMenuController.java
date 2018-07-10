@@ -5,6 +5,7 @@ import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
 import viewers.utils.*;
 import viewers.utils.fancyPopups.InfoPopup;
+import viewers.utils.fancyPopups.TrainTroopsPopup;
 import viewers.utils.fancyPopups.UpgradePopup;
 import viewers.utils.fancyButtons.ButtonActionType;
 
@@ -39,7 +40,7 @@ public class BuildingMenuController {
     }
 
     private BuildingMenu getMenuToOpen(Building building) {
-        if (building.getClass().equals(Barracks.class) || building.getClass().equals(Camp.class)) {
+        if (building.getClass().equals(Barracks.class)) {
             return armyMenu;
         } else {
             return menu;
@@ -67,6 +68,7 @@ public class BuildingMenuController {
                 UpgradePopup.openPopup(building);
                 break;
             case OPEN_TRAIN_TROOPS_POPUP:
+                TrainTroopsPopup.openPopup(building);
                 break;
             case OPEN_BUILD_MENU:
                 break;

@@ -15,7 +15,7 @@ public class ShopScrollMenu extends ScrollMenu {
     @Override
     void build() {
         for (String clazz : getEntities()) {
-            EntityFancyButton entityFancyButton = new EntityFancyButton(ButtonActionType.BUILD_BUILDING, clazz);
+            EntityFancyButton entityFancyButton = new EntityFancyButton(ButtonActionType.NONE, clazz);
             getButtons().getChildren().add(entityFancyButton);
 
             entityFancyButton.setOnDragDetected(event -> {

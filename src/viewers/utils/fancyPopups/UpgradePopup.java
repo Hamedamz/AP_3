@@ -19,7 +19,7 @@ import static controllers.OutputFormats.UPGRADE_CONFIRMATION_FORMAT;
 public class UpgradePopup extends ModelPopup{
     private Button confirm;
 
-    public UpgradePopup(Object model) {
+    private UpgradePopup(Object model) {
         super(model);
 
         confirm = new RoundButton("Upgrade", "green");

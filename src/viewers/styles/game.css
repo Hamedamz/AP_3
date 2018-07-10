@@ -109,6 +109,13 @@
     -fx-text-fill: white;
 }
 
+#number-badge {
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 20;
+    -fx-font-size: 9;
+    -fx-text-fill: white;
+}
+
 .progress-bar .track {
     -fx-background-color: rgba(0, 0, 0, 0.5);
 }
@@ -139,4 +146,28 @@
 
 #blue-bar {
     -fx-accent: dodgerblue;
+}
+
+
+.scroll-bar {
+    -fx-pref-width: 17;
+    -fx-padding: 3;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.scroll-bar .increment-button:pressed, .increment-button:hover {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .decrement-button:pressed, .decrement-button:hover {
+    -fx-background-color: transparent;
+
+}
+
+.scroll-bar, .scroll-bar:pressed, .scroll-bar:focused {
+    -fx-font-size: 15;
 }

@@ -93,7 +93,7 @@ public class Controller {
                     break;
                 case TRAIN_TROOP:
                     String troopType = requestedMenuItem.getLabel();
-                    trainTroop(troopType);
+//                    trainTroop(troopType);
                     break;
                 case LOAD_ENEMY_MAP:
                     controller.viewer.requestForInput("enter path:");
@@ -215,10 +215,7 @@ public class Controller {
         controller.villageViewer = new VillageViewer(controller.singlePlayerWorld.getMyVillage());
     }
 
-    private static void trainTroop(String troopType) throws NotEnoughResourcesException, NotAvailableAtThisLevelException {
-        controller.viewer.requestForInput("How many " + troopType + "s do you want to train?");
-        int count = Integer.parseInt(controller.viewer.getInput());
-        Barracks barracks = (Barracks) controller.menuController.getActiveMenu().getModel();
+    public void trainTroop(String troopType, int count, Barracks barracks) throws NotEnoughResourcesException, NotAvailableAtThisLevelException {
         controller.singlePlayerWorld.getMyVillage().trainTroop(troopType, count, barracks);
     }
 

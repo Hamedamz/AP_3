@@ -143,19 +143,19 @@ public class MenuController {
             case EMPTY:
                 return;
             case BUILDINGS_LIST:
-                list = getBuildingsList();
+                list = getBuildingsList(); //GUI done
                 break;
             case CONSTRUCTION_STATUS_LIST:
-                list = getConstructionStatusList();
+                list = getConstructionStatusList(); //GUI done
                 break;
             case TROOPS_LIST:
-                list = getTroopsList();
+                list = getTroopsList(); // for barracks GUI done
                 break;
             case TRAINING_STATUS_LIST:
-                list = getTrainingStatusList();
+                list = getTrainingStatusList(); // for barracks
                 break;
             case AVAILABLE_TROOPS_LIST:
-                list = getAvailableTroopsList();
+                list = getAvailableTroopsList(); // for camp
                 break;
             case VILLAGE_MAPS_LIST:
                 list = getVillageMapList();

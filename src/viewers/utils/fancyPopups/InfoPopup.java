@@ -31,9 +31,6 @@ public class InfoPopup extends ModelPopup {
         }
 
         wrapper.setMinHeight(Const.POPUP_HEIGHT);
-
-        this.setOnShowing(event -> BuildingMenuController.getInstance().toggleActiveMenu());
-        this.setOnHiding(event -> BuildingMenuController.getInstance().toggleActiveMenu());
     }
 
     public static void openPopup(Object model, InfoPopupItems items) {

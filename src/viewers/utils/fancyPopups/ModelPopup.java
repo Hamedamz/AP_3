@@ -1,5 +1,6 @@
 package viewers.utils.fancyPopups;
 
+import controllers.BuildingMenuController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -40,6 +41,9 @@ public abstract class ModelPopup extends Popup {
             this.hide();
             SoundPlayer.play(Sounds.buttonSound);
         });
+
+        this.setOnShowing(event -> BuildingMenuController.getInstance().toggleActiveMenu());
+        this.setOnHiding(event -> BuildingMenuController.getInstance().toggleActiveMenu());
     }
 
     public void setBody(Pane body) {
