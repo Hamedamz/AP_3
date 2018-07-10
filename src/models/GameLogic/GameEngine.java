@@ -68,6 +68,10 @@ public class GameEngine {
         villageGameEngine.reset();
     }
 
+    /**
+     * change duration between calling of update function
+     * @param duration new duration
+     */
     public void changeDuration(Integer duration) {
         this.duration.setValue(duration);
     }

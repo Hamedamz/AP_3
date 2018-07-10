@@ -45,7 +45,7 @@ public class TrainingTroop {
     }
 
     public void update() {
-        timeRemaining--;
+        if(timeRemaining > 0) timeRemaining--;
     }
 
     public void finishTraining() {
