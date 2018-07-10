@@ -90,22 +90,44 @@
 }
 
 #round-fancy-button-label {
-    -fx-font-size: 12;
+    -fx-font-size: 10;
+    -fx-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 1, 10, 0, 0);
+}
+
+#red-round-button, #green-round-button, #yellow-round-button{
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);
+}
+
+#green-round-button .text, #red-round-button .text, #yellow-round-button .text{
     -fx-fill: white;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 1, 10, 0, 0);
 }
 
 #red-round-button {
     -fx-background-color: linear-gradient(#ff5400, #be1d00);
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
-    -fx-text-fill: white;
 }
 
 #green-round-button {
     -fx-background-color: linear-gradient(#b8ee36, #80c800);
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
+}
+
+#yellow-round-button {
+    -fx-background-color: linear-gradient(#ffdd09, #fcc309);
+}
+
+#toggle-button {
+    -fx-background-color: silver;
+}
+
+#number-badge {
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 50;
+    -fx-font-size: 10;
+    -fx-padding: 0 5 0 5;
     -fx-text-fill: white;
 }
 
@@ -139,4 +161,28 @@
 
 #blue-bar {
     -fx-accent: dodgerblue;
+}
+
+
+.scroll-bar {
+    -fx-pref-width: 17;
+    -fx-padding: 3;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.scroll-bar .increment-button:pressed, .increment-button:hover {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .decrement-button:pressed, .decrement-button:hover {
+    -fx-background-color: transparent;
+
+}
+
+.scroll-bar, .scroll-bar:pressed, .scroll-bar:focused {
+    -fx-font-size: 15;
 }

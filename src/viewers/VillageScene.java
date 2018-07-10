@@ -1,23 +1,13 @@
 package viewers;
 
-import controllers.BuildingMenuController;
 import javafx.animation.AnimationTimer;
 import javafx.animation.RotateTransition;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import models.GameLogic.Builder;
-import models.GameLogic.Entities.Buildings.*;
-import models.GameLogic.Entities.Entity;
-import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
-import models.GameLogic.GameEngine;
-import models.GameLogic.Position;
 import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
@@ -71,19 +61,19 @@ public abstract class VillageScene extends Scene {
 //        fastForwardButton.setLayoutX(Const.WINDOW_WIDTH - 100);
 //        fastForwardButton.setLayoutY(Const.SPACING);
 //        fastForwardButton.setOnMousePressed(event -> {
-//            GameEngine gameEngine = AppGUI.getController().getSinglePlayerWorld().getGameEngine();
+//            GameEngine gameEngine = AppGUI.getController().getWorld().getGameEngine();
 //            if (gameEngine.getDuration() - 10 > 0)
 //            gameEngine.changeDuration(gameEngine.getDuration() - 10);
 //        });
 //        fastForwardButton.setOnMouseReleased(event -> {
-//            GameEngine gameEngine = AppGUI.getController().getSinglePlayerWorld().getGameEngine();
+//            GameEngine gameEngine = AppGUI.getController().getWorld().getGameEngine();
 //            gameEngine.changeDuration(GameEngine.DEFAULT_DURATION);
 //            System.out.println("released");
 //        });
 
         //village console
         villageConsole = new VillageConsole();
-        villageConsole.setVillage(AppGUI.getController().getSinglePlayerWorld().getMyVillage());
+        villageConsole.setVillage(AppGUI.getController().getWorld().getMyVillage());
 
         //handling total village keyEvents
         addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {

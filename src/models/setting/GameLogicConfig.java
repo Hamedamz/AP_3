@@ -1,11 +1,8 @@
-package models.Setting;
+package models.setting;
 
 //import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException; fixme what is this?
-import models.GameLogic.Exceptions.ValueNotFoundException;
 
-import javax.imageio.IIOException;
 import java.io.*;
-import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;

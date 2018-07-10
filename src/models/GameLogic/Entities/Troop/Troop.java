@@ -3,16 +3,14 @@ package models.GameLogic.Entities.Troop;
 import interfaces.Movable;
 import interfaces.Upgradable;
 import interfaces.Vulnerable;
-import models.GameLogic.utills.BFS;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.enums.MoveType;
 import models.GameLogic.utills.PathFinder;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Troop extends Entity implements Movable, Upgradable, Vulnerable {

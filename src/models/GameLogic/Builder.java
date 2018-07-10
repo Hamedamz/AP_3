@@ -1,8 +1,7 @@
 package models.GameLogic;
 
 import models.GameLogic.Entities.Buildings.Building;
-import models.GameLogic.Exceptions.NoFreeBuilderException;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 public class Builder {
     private int constructRemainingTime;

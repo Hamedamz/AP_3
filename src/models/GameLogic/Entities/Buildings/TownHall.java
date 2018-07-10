@@ -7,7 +7,7 @@ import models.GameLogic.Exceptions.NoFreeBuilderException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.utills.IDGenerator;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 

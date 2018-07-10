@@ -6,7 +6,7 @@ import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.Village;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 import java.io.*;
 import java.util.ArrayList;

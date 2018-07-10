@@ -1,23 +1,23 @@
-package models.SinglePlayer;
+package models;
 
 import controllers.Exceptions.VillageAlreadyExists;
 import controllers.JsonInterpreter;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Exceptions.TroopNotFoundException;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SinglePlayerWorld {
+public class World {
     private Account account;
     private HashMap<String, File> myVillagesNameAndFile;
     private BattleGround battleGround;
     private GameEngine gameEngine;
 
-    public SinglePlayerWorld() {
+    public World() {
         gameEngine = new GameEngine(this);
         myVillagesNameAndFile = new HashMap<>();
     }

@@ -3,7 +3,7 @@ package viewers.oldViewers;
 import controllers.Exceptions.InvalidInputException;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 import static controllers.InputFormats.POSITION_FORMAT;
 import static controllers.OutputFormats.*;

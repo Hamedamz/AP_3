@@ -7,7 +7,7 @@ import javafx.scene.text.Text;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 import viewers.AppGUI;
 import viewers.utils.Const;
 import viewers.utils.SoundPlayer;

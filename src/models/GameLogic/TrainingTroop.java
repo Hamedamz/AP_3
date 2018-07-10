@@ -4,7 +4,7 @@ import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NotEnoughCapacityException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 
@@ -45,7 +45,7 @@ public class TrainingTroop {
     }
 
     public void update() {
-        timeRemaining--;
+        if(timeRemaining > 0) timeRemaining--;
     }
 
     public void finishTraining() {

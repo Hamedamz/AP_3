@@ -7,7 +7,7 @@ import models.GameLogic.Entities.Defender;
 import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Position;
 import models.GameLogic.enums.TroopTargetType;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 import java.util.ArrayList;
 

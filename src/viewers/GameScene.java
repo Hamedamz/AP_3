@@ -1,16 +1,10 @@
-package viewers.utils;
+package viewers;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import viewers.AppGUI;
-import viewers.SinglePlayerGameScene;
-
-import java.awt.*;
+import viewers.utils.Const;
 
 public class GameScene extends Scene {
     private static GameScene instance = new GameScene();
@@ -34,8 +28,8 @@ public class GameScene extends Scene {
         vBox.getChildren().addAll(singlePlayerButton, multiPlayerButton, options, quit);
 
         singlePlayerButton.setOnAction(event -> AppGUI.setStageScene(SinglePlayerGameScene.getInstance()));
-        multiPlayerButton.setOnAction(event -> {}); // TODO: 7/9/2018
-        options.setOnAction(event -> {});
+        multiPlayerButton.setOnAction(event -> {AppGUI.setStageScene(MultiPlayerGameScene.getInstance());}); // TODO: 7/9/2018
+        options.setOnAction(event -> {}); // TODO: 7/10/2018
         quit.setOnAction(event -> {
             AppGUI.getMainStage().close();
         });

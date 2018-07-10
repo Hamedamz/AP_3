@@ -7,9 +7,9 @@ import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Entities.Entity;
-import models.SinglePlayer.SinglePlayerWorld;
+import models.World;
 import viewers.menu.*;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 import viewers.oldViewers.MenuViewer;
 
 import java.io.File;
@@ -24,15 +24,15 @@ import static controllers.enums.DynamicListType.*;
 public class MenuController {
     public static final String NUMBER = "\\d+";
 
-    private SinglePlayerWorld singlePlayerWorld;
+    private World world;
     private MenuViewer menuViewer = new MenuViewer();
     private Stack<Menu> menuStack = new Stack<>();
     private Menu entranceMenu;
     private Menu villageMenu;
     private HashMap<String, Menu> modelBasedMenus;
 
-    public MenuController(SinglePlayerWorld singlePlayerWorld) {
-        this.singlePlayerWorld = singlePlayerWorld;
+    public MenuController(World world) {
+        this.world = world;
         loadEntranceMenu();
         loadVillageMenu();
         loadModelBasedMenus();
@@ -171,7 +171,7 @@ public class MenuController {
 
     private LinkedHashMap<DynamicMenuItem, String> getVillageMapList() {
         LinkedHashMap<DynamicMenuItem, String> villageMapList = new LinkedHashMap<>();
-        for (String villageName : singlePlayerWorld.getMyVillagesNameAndFile().keySet()) {
+        for (String villageName : world.getMyVillagesNameAndFile().keySet()) {
             villageMapList.put(new DynamicMenuItem(LOAD_GAME, villageName), "");
         }
         return villageMapList;
@@ -180,7 +180,7 @@ public class MenuController {
     private LinkedHashMap<DynamicMenuItem, String> getAvailableMapsList() {
         // enemy maps that can be attacked
         LinkedHashMap<DynamicMenuItem, String> enemyMapList = new LinkedHashMap<>();
-        for (java.util.Map.Entry<File, GameMap> pathMapEntry : singlePlayerWorld.getEnemyVillagesFileAndMap().entrySet()) {
+        for (java.util.Map.Entry<File, GameMap> pathMapEntry : world.getEnemyVillagesFileAndMap().entrySet()) {
             File mapFile = pathMapEntry.getKey();
             String mapPath = mapFile.getAbsolutePath(); // TODO: 7/10/18 Check method correction
             String[] split = mapPath.split("[\\\\]");
@@ -220,7 +220,7 @@ public class MenuController {
 //         all troops with labels A and U that show availability
 //         if troop can be built the possible number is also shown
         LinkedHashMap<DynamicMenuItem, String> troopsList = new LinkedHashMap<>();
-        Resource resourceStock = singlePlayerWorld.getMyVillage().getTotalResourceStock();
+        Resource resourceStock = world.getMyVillage().getTotalResourceStock();
         Barracks barracks = (Barracks) getActiveMenu().getModel();
         String info;
         for (String troop : TROOPS) {
@@ -239,7 +239,7 @@ public class MenuController {
 
     private LinkedHashMap<DynamicMenuItem, String> getConstructionStatusList() {
         LinkedHashMap<DynamicMenuItem, String> constructionStatusList = new LinkedHashMap<>();
-        ArrayList<Builder> builders = singlePlayerWorld.getMyVillage().getTownHall().getBuilders();
+        ArrayList<Builder> builders = world.getMyVillage().getTownHall().getBuilders();
         for (Builder builder : builders) {
             if (builder.isBuilderBusy())
                 constructionStatusList.put(new DynamicMenuItem(NULL, builder.getUnderConstructBuilding()), String.valueOf(builder.getConstructRemainingTime()));
@@ -248,7 +248,7 @@ public class MenuController {
     }
 
     private LinkedHashMap<DynamicMenuItem, String> getBuildingsList() {
-        ArrayList<Building> buildings = singlePlayerWorld.getMyVillage().getGameMap().getBuildings();
+        ArrayList<Building> buildings = world.getMyVillage().getGameMap().getBuildings();
         buildings.sort(Building::compareTo);
         LinkedHashMap<DynamicMenuItem, String> buildingsList = new LinkedHashMap<>();
         for (Building building : buildings) {

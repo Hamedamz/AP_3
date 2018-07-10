@@ -6,7 +6,7 @@ import models.GameLogic.Resource;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.utills.IDGenerator;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 public class WizardTower extends DefensiveBuilding {
 

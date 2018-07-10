@@ -2,9 +2,7 @@ package models.GameLogic;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import models.SinglePlayer.SinglePlayerWorld;
+import models.World;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,7 +10,7 @@ import java.util.TimerTask;
 public class GameEngine {
     public static final int DEFAULT_DURATION = 1000;
 
-    private SinglePlayerWorld singlePlayerWorld;
+    private World world;
     private VillageGameEngine villageGameEngine;
     private BattleGroundGameEngine battleGroundGameEngine;
     private boolean isAttacking = false;
@@ -22,8 +20,8 @@ public class GameEngine {
 
     // isAttacking First Phase Only
 
-    public GameEngine(SinglePlayerWorld singlePlayerWorld) {
-        this.singlePlayerWorld = singlePlayerWorld;
+    public GameEngine(World world) {
+        this.world = world;
         villageGameEngine = new VillageGameEngine();
         battleGroundGameEngine = new BattleGroundGameEngine();
         setupTimerTask();
@@ -47,7 +45,7 @@ public class GameEngine {
         if(villageGameEngine.isRunning()) {
             if (isAttacking) {
                 battleGroundGameEngine.update();
-                if (singlePlayerWorld.getBattleGround().isGameFinished()) {
+                if (world.getBattleGround().isGameFinished()) {
                     isAttacking = false;
                 }
             }
@@ -56,11 +54,11 @@ public class GameEngine {
     }
 
     public void loadNewVillage() {
-        villageGameEngine.loadVillage(singlePlayerWorld.getMyVillage());
+        villageGameEngine.loadVillage(world.getMyVillage());
     }
 
     public void loadBattleGround() {
-        battleGroundGameEngine.loadBattleGround(singlePlayerWorld.getBattleGround());
+        battleGroundGameEngine.loadBattleGround(world.getBattleGround());
         isAttacking = true;
     }
 
@@ -68,6 +66,10 @@ public class GameEngine {
         villageGameEngine.reset();
     }
 
+    /**
+     * change duration between calling of update function
+     * @param duration new duration
+     */
     public void changeDuration(Integer duration) {
         this.duration.setValue(duration);
     }

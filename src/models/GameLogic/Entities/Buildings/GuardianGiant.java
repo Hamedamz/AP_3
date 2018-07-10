@@ -12,7 +12,7 @@ import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.enums.MoveType;
 import models.GameLogic.utills.PathFinder;
 import models.GameLogic.utills.IDGenerator;
-import models.Setting.GameLogicConfig;
+import models.setting.GameLogicConfig;
 
 import java.util.ArrayList;
 
