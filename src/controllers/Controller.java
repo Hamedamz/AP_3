@@ -165,7 +165,7 @@ public class Controller {
             if (command.matches(SAVE_GAME.toString())) {
                 controller.viewer.requestForInput("enter name for your village:");
                 String name = controller.viewer.getInput(); // TODO: 5/6/2018 Exception Handlings
-                controller.saveGame(controller.singlePlayerWorld.getMyVillage(), name);
+                controller.saveGame(controller.singlePlayerWorld.getAccount(), name);
             } else if (command.matches(TURN_FORMAT)) {
                 int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
                 controller.turn(n);
@@ -211,9 +211,10 @@ public class Controller {
     }
 
     private void loadGameFromFile(File file) throws FileNotFoundException {
-        Village village = JsonInterpreter.loadMyVillage(file);
+        Account account = JsonInterpreter.loadMyAccount(file);
         controller.singlePlayerWorld.getGameEngine().resetVillage();
-        controller.singlePlayerWorld.setMyVillage(village);
+        controller.singlePlayerWorld.setMyVillage(account.getMyVillage());
+        controller.singlePlayerWorld.setEnemies(account.getEnemyVillagesFileAndMap());
         controller.viewer.printInformation("game successfully loaded!");
         controller.villageViewer = new VillageViewer(controller.singlePlayerWorld.getMyVillage());
     }
@@ -222,8 +223,8 @@ public class Controller {
         controller.singlePlayerWorld.getMyVillage().trainTroop(troopType, count, barracks);
     }
 
-    private void saveGame(Village village, String name) {
-        controller.singlePlayerWorld.saveGame(village, name);
+    private void saveGame(Account account, String name) {
+        controller.singlePlayerWorld.saveGame(account, name);
     }
 
     private void turn(int n) {
@@ -335,6 +336,8 @@ public class Controller {
             command = controller.viewer.getInput();
         }
     }
+
+
 
     public static Controller getController() {
         return controller;

@@ -40,6 +40,10 @@ public class SinglePlayerWorld {
         gameEngine.loadNewVillage();
     }
 
+    public void setEnemies(HashMap<File, GameMap> enemies){
+        this.account.setEnemyVillagesFileAndMap(enemies);
+    }
+
     public BattleGround getBattleGround() {
         return battleGround;
     }
@@ -52,8 +56,8 @@ public class SinglePlayerWorld {
         gameEngine.loadNewVillage();
     }
 
-    public void saveGame(Village village, String  name) {
-        JsonInterpreter.saveVillage(village, name);
+    public void saveGame(Account account, String  name) {
+        JsonInterpreter.saveVillage(account, name);
        // myVillagesNameAndFile.put(name, "savedMaps\\" + name + ".json");
         // TODO: 7/10/18 correct the above statement @HAMEDAMZ
     }
@@ -79,4 +83,10 @@ public class SinglePlayerWorld {
     public void sendTroopToAttack(String troopType, int count) throws TroopNotFoundException {
         battleGround.addTroops(troopType, getMyVillage().sendTroopToBattleGround(troopType, count));
     }
+
+    public Account getAccount() {
+        return account;
+    }
+
+
 }

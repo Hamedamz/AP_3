@@ -1,6 +1,7 @@
 package controllers;
 
 import com.gilecode.yagson.YaGson;
+import models.GameLogic.Account;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
@@ -16,7 +17,7 @@ public class JsonInterpreter {
     private static final String SAVED_MAPS_FOLDER_NAME = "savedMaps";
     private static YaGson gson = new YaGson();
 
-    public static void saveVillage(Village village, String villageName) {
+    public static void saveVillage(Account account, String villageName) {
         try {
             createFolder(SAVED_MAPS_FOLDER_NAME);
         }
@@ -25,16 +26,16 @@ public class JsonInterpreter {
         }
         String filePath = SAVED_MAPS_FOLDER_NAME + "/" + villageName + ".json";
         try (Writer writer = new FileWriter(filePath)){
-            gson.toJson(village, writer);
+            gson.toJson(account, writer);
         }
         catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    public static Village loadMyVillage(File mapFile) throws FileNotFoundException {
+    public static Account loadMyAccount(File mapFile) throws FileNotFoundException {
         String json = toStringJson(mapFile);
-        return gson.fromJson(json, Village.class);
+        return gson.fromJson(json, Account.class);
     }
 
     public static ArrayList<Building> loadEnemyVillageBuildings(File mapFile) throws FileNotFoundException{
