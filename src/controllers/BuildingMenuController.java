@@ -4,6 +4,7 @@ import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
 import viewers.utils.*;
+import viewers.utils.fancyPopups.ArmyStatusPopup;
 import viewers.utils.fancyPopups.InfoPopup;
 import viewers.utils.fancyPopups.TrainTroopsPopup;
 import viewers.utils.fancyPopups.UpgradePopup;
@@ -21,7 +22,8 @@ public class BuildingMenuController {
     private Building building;
     private BuildingMenu activeMenu;
     private BuildingMenu menu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP);
-    private BuildingMenu armyMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP, OPEN_TRAIN_TROOPS_POPUP);
+    private BuildingMenu barracksMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP, OPEN_TRAIN_TROOPS_POPUP);
+    private BuildingMenu campMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP, OPEN_ARMY_STATUS_POPUP);
 
     private BuildingMenuController() {
     }
@@ -41,7 +43,9 @@ public class BuildingMenuController {
 
     private BuildingMenu getMenuToOpen(Building building) {
         if (building.getClass().equals(Barracks.class)) {
-            return armyMenu;
+            return barracksMenu;
+        } else if(building.getClass().equals(Camp.class)) {
+            return campMenu;
         } else {
             return menu;
         }
@@ -70,9 +74,14 @@ public class BuildingMenuController {
             case OPEN_TRAIN_TROOPS_POPUP:
                 TrainTroopsPopup.openPopup(building);
                 break;
+            case OPEN_ARMY_STATUS_POPUP:
+                ArmyStatusPopup.openPopup(building);
+                break;
             case OPEN_BUILD_MENU:
                 break;
             case OPEN_ATTACK_MENU:
+                break;
+            case NONE:
                 break;
         }
     }

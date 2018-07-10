@@ -68,9 +68,7 @@ public class TroopsScrollMenu extends ScrollMenu {
             String troop = getEntities()[i];
             TroopsFancyButton troopsFancyButton = (TroopsFancyButton) getButtons().getChildren().get(i);
             int numberOfTroop = camp.getNumberOfTroop(troop);
-            if (numberOfTroop > 0) {
-                troopsFancyButton.setNumberBadge(numberOfTroop);
-            }
+            troopsFancyButton.setNumberBadge(numberOfTroop);
         }
     }
 }

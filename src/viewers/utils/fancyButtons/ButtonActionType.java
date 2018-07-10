@@ -3,7 +3,8 @@ package viewers.utils.fancyButtons;
 public enum ButtonActionType {
     OPEN_INFO_POPUP("Info"),
     OPEN_UPGRADE_POPUP("Upgrade"),
-    OPEN_TRAIN_TROOPS_POPUP("Train Troops"),
+    OPEN_TRAIN_TROOPS_POPUP("Train"),
+    OPEN_ARMY_STATUS_POPUP("Army"),
     OPEN_BUILD_MENU("Build"),
     OPEN_ATTACK_MENU("Attack"),
     NONE("");
