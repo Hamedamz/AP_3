@@ -7,27 +7,28 @@ import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Exceptions.TroopNotFoundException;
 import models.Setting.GameLogicConfig;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SinglePlayerWorld {
     private Account account;
-    private HashMap<String, String> myVillagesNameAndPath;
+    private HashMap<String, File> myVillagesNameAndFile;
     private BattleGround battleGround;
     private GameEngine gameEngine;
 
     public SinglePlayerWorld() {
         gameEngine = new GameEngine(this);
-        myVillagesNameAndPath = new HashMap<>();
+        myVillagesNameAndFile = new HashMap<>();
     }
 
 
-    public HashMap<String, String> getMyVillagesNameAndPath() {
-        return myVillagesNameAndPath;
+    public HashMap<String, File> getMyVillagesNameAndFile() {
+        return myVillagesNameAndFile;
     }
 
-    public HashMap<String, GameMap> getEnemyVillagesPathAndMap() {
-        return account.getEnemyVillagesPathAndMap();
+    public HashMap<File, GameMap> getEnemyVillagesFileAndMap() {
+        return account.getEnemyVillagesFileAndMap();
     }
 
     public Village getMyVillage() {
@@ -53,15 +54,16 @@ public class SinglePlayerWorld {
 
     public void saveGame(Village village, String  name) {
         JsonInterpreter.saveVillage(village, name);
-        myVillagesNameAndPath.put(name, "savedMaps\\" + name + ".json");
+       // myVillagesNameAndFile.put(name, "savedMaps\\" + name + ".json");
+        // TODO: 7/10/18 correct the above statement @HAMEDAMZ
     }
 
 
-    public void loadEnemyMap(String path) throws java.io.FileNotFoundException {
-        ArrayList<Building> buildings = JsonInterpreter.loadEnemyVillageBuildings(path);
+    public void loadEnemyMap(File file) throws java.io.FileNotFoundException {
+        ArrayList<Building> buildings = JsonInterpreter.loadEnemyVillageBuildings(file);
         GameMap gameMap = new GameMap(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
         gameMap.setBuildings(buildings);
-        getEnemyVillagesPathAndMap().put(path, gameMap);
+        getEnemyVillagesFileAndMap().put(file, gameMap);
     }
 
 

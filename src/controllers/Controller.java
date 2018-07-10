@@ -15,6 +15,7 @@ import viewers.menu.*;
 import viewers.AppGUI;
 import viewers.oldViewers.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -98,15 +99,17 @@ public class Controller {
                 case LOAD_ENEMY_MAP:
                     controller.viewer.requestForInput("enter path:");
                     command = controller.viewer.getInput();
-                    controller.loadEnemyMap(command);
+              //      controller.loadEnemyMap(command);
+                    // FIXME: 7/10/18 correct the above statement
                     break;
                 case LOAD_GAME_FROM_FILE:
                     controller.viewer.requestForInput("enter path:");
                     command = controller.viewer.getInput();
                     try {
-                        controller.loadGameFromFile(command);
+                       // controller.loadGameFromFile(command);
+                        // FIXME: 7/10/18 correct above
                         controller.menuController.openMenu(controller.menuController.getVillageMenu());
-                    } catch (FileNotFoundException e) {
+                    } catch (Exception e) {
                         System.err.println(e.getMessage());
                     }
                     break;
@@ -193,22 +196,22 @@ public class Controller {
     }
 
     public void loadGame(String villageName) throws FileNotFoundException {
-        String path = controller.singlePlayerWorld.getMyVillagesNameAndPath().get(villageName);
-        if (path != null) {
-            loadGameFromFile(path);
+        File file = controller.singlePlayerWorld.getMyVillagesNameAndFile().get(villageName);
+        if (file != null) {
+            loadGameFromFile(file);
         } else {
             controller.viewer.printErrorMessage("no village with this name!");
         }
     }
 
-    private void loadEnemyMap(String path) throws FileNotFoundException {
-        controller.singlePlayerWorld.loadEnemyMap(path);
+    private void loadEnemyMap(File file) throws FileNotFoundException {
+        controller.singlePlayerWorld.loadEnemyMap(file);
         // TODO: 5/8/2018
 
     }
 
-    private void loadGameFromFile(String path) throws FileNotFoundException {
-        Village village = JsonInterpreter.loadMyVillage(path);
+    private void loadGameFromFile(File file) throws FileNotFoundException {
+        Village village = JsonInterpreter.loadMyVillage(file);
         controller.singlePlayerWorld.getGameEngine().resetVillage();
         controller.singlePlayerWorld.setMyVillage(village);
         controller.viewer.printInformation("game successfully loaded!");

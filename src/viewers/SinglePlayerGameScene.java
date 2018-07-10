@@ -46,7 +46,7 @@ public class SinglePlayerGameScene extends Scene {
 
             //choicePane choice components
             AtomicReference<String> loadingVillageName = new AtomicReference<>();
-            for (String villageName : AppGUI.getController().getSinglePlayerWorld().getMyVillagesNameAndPath().keySet()) {
+            for (String villageName : AppGUI.getController().getSinglePlayerWorld().getMyVillagesNameAndFile().keySet()) {
                 Button button = new Button(villageName);
                 button.setOnAction(event2 -> {
                     loadingVillageName.set(villageName);
@@ -62,11 +62,12 @@ public class SinglePlayerGameScene extends Scene {
             loadButton.setOnAction(event1 -> {
                 try {
                     if (loadingVillageName.get() != null) {
-                        AppGUI.getController().loadGame(AppGUI.getController().getSinglePlayerWorld().getMyVillagesNameAndPath().get(loadingVillageName.get()));
+                     //   AppGUI.getController().loadGame(AppGUI.getController().getSinglePlayerWorld().getMyVillagesNameAndFile().get(loadingVillageName.get()));
+                        // FIXME: 7/10/18 correct above
                         loadStage();
                     }
                     // FIXME: 7/9/2018
-                } catch (FileNotFoundException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             });

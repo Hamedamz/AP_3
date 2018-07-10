@@ -23,7 +23,7 @@ public class JsonInterpreter {
         catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        String filePath = SAVED_MAPS_FOLDER_NAME + "\\" + villageName + ".json";
+        String filePath = SAVED_MAPS_FOLDER_NAME + "/" + villageName + ".json";
         try (Writer writer = new FileWriter(filePath)){
             gson.toJson(village, writer);
         }
@@ -32,13 +32,13 @@ public class JsonInterpreter {
         }
     }
 
-    public static Village loadMyVillage(String mapPath) throws FileNotFoundException {
-        String json = toStringJson(mapPath);
+    public static Village loadMyVillage(File mapFile) throws FileNotFoundException {
+        String json = toStringJson(mapFile);
         return gson.fromJson(json, Village.class);
     }
 
-    public static ArrayList<Building> loadEnemyVillageBuildings(String mapPath) throws FileNotFoundException{
-        String jsonString = toStringJson(mapPath);
+    public static ArrayList<Building> loadEnemyVillageBuildings(File mapFile) throws FileNotFoundException{
+        String jsonString = toStringJson(mapFile);
         JsonVillage jsonVillage = gson.fromJson(jsonString, JsonVillage.class);
         return extractBuildings(jsonVillage);
     }
@@ -229,9 +229,9 @@ public class JsonInterpreter {
         buildings.add(goldMine);
     }
 
-    private static String toStringJson(String mapPath) throws FileNotFoundException {
+    private static String toStringJson(File mapFile) throws FileNotFoundException {
         String jsonString = "";
-        FileInputStream input = new FileInputStream(mapPath);
+        FileInputStream input = new FileInputStream(mapFile);
         try (Scanner scanner = new Scanner(input)) {
             while (scanner.hasNext()) {
                 jsonString = jsonString.concat(scanner.next());
