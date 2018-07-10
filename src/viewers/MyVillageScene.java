@@ -28,6 +28,7 @@ public class MyVillageScene extends VillageScene {
     private ProgressBarItem totalElixirProgressBar;
     private Pane totalStock;
     private RoundFancyButton buildButton;
+    private RoundFancyButton attackButton;
     private ShopScrollMenu shopScrollMenu;
     private GridPane tiles;
     private IsometricPane isometricPane;
@@ -80,8 +81,13 @@ public class MyVillageScene extends VillageScene {
             SoundPlayer.play(Sounds.buttonSound);
         });
 
+        // attack button
+        attackButton = new RoundFancyButton(ButtonActionType.OPEN_ATTACK_MENU, "red");
+        attackButton.setLayoutX(Const.SPACING * 3);
+        attackButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
+
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, villageConsole);
+        root.getChildren().addAll(draggableView, totalStock, attackButton, buildButton, shopScrollMenu, settingsButton, villageConsole);
 
         setAnimationTimer().start();
     }

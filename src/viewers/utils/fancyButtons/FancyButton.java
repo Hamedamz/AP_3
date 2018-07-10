@@ -24,6 +24,9 @@ public abstract class FancyButton extends VBox {
         this.wrapper.setMaxWidth(Const.FANCY_BUTTON_ICON_SIZE);
 
         this.getChildren().addAll(wrapper, label);
+
+        // TODO: 7/10/2018 Arshia move all button sound to here
+//        this.setOnMousePressed(event -> play sound );
     }
 
     abstract void setImage();

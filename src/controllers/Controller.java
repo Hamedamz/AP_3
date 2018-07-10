@@ -15,6 +15,7 @@ import viewers.menu.*;
 import viewers.AppGUI;
 import viewers.oldViewers.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -98,15 +99,17 @@ public class Controller {
                 case LOAD_ENEMY_MAP:
                     controller.viewer.requestForInput("enter path:");
                     command = controller.viewer.getInput();
-                    controller.loadEnemyMap(command);
+              //      controller.loadEnemyMap(command);
+                    // FIXME: 7/10/18 correct the above statement
                     break;
                 case LOAD_GAME_FROM_FILE:
                     controller.viewer.requestForInput("enter path:");
                     command = controller.viewer.getInput();
                     try {
-                        controller.loadGameFromFile(command);
+                       // controller.loadGameFromFile(command);
+                        // FIXME: 7/10/18 correct above
                         controller.menuController.openMenu(controller.menuController.getVillageMenu());
-                    } catch (FileNotFoundException e) {
+                    } catch (Exception e) {
                         System.err.println(e.getMessage());
                     }
                     break;
@@ -162,7 +165,7 @@ public class Controller {
             if (command.matches(SAVE_GAME.toString())) {
                 controller.viewer.requestForInput("enter name for your village:");
                 String name = controller.viewer.getInput(); // TODO: 5/6/2018 Exception Handlings
-                controller.saveGame(controller.singlePlayerWorld.getMyVillage(), name);
+                controller.saveGame(controller.singlePlayerWorld.getAccount(), name);
             } else if (command.matches(TURN_FORMAT)) {
                 int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
                 controller.turn(n);
@@ -193,24 +196,25 @@ public class Controller {
     }
 
     public void loadGame(String villageName) throws FileNotFoundException {
-        String path = controller.singlePlayerWorld.getMyVillagesNameAndPath().get(villageName);
-        if (path != null) {
-            loadGameFromFile(path);
+        File file = controller.singlePlayerWorld.getMyVillagesNameAndFile().get(villageName);
+        if (file != null) {
+            loadGameFromFile(file);
         } else {
             controller.viewer.printErrorMessage("no village with this name!");
         }
     }
 
-    private void loadEnemyMap(String path) throws FileNotFoundException {
-        controller.singlePlayerWorld.loadEnemyMap(path);
+    private void loadEnemyMap(File file) throws FileNotFoundException {
+        controller.singlePlayerWorld.loadEnemyMap(file);
         // TODO: 5/8/2018
 
     }
 
-    private void loadGameFromFile(String path) throws FileNotFoundException {
-        Village village = JsonInterpreter.loadMyVillage(path);
+    private void loadGameFromFile(File file) throws FileNotFoundException {
+        Account account = JsonInterpreter.loadMyAccount(file);
         controller.singlePlayerWorld.getGameEngine().resetVillage();
-        controller.singlePlayerWorld.setMyVillage(village);
+        controller.singlePlayerWorld.setMyVillage(account.getMyVillage());
+        controller.singlePlayerWorld.setEnemies(account.getEnemyVillagesFileAndMap());
         controller.viewer.printInformation("game successfully loaded!");
         controller.villageViewer = new VillageViewer(controller.singlePlayerWorld.getMyVillage());
     }
@@ -219,8 +223,8 @@ public class Controller {
         controller.singlePlayerWorld.getMyVillage().trainTroop(troopType, count, barracks);
     }
 
-    private void saveGame(Village village, String name) {
-        controller.singlePlayerWorld.saveGame(village, name);
+    private void saveGame(Account account, String name) {
+        controller.singlePlayerWorld.saveGame(account, name);
     }
 
     private void turn(int n) {
@@ -332,6 +336,8 @@ public class Controller {
             command = controller.viewer.getInput();
         }
     }
+
+
 
     public static Controller getController() {
         return controller;

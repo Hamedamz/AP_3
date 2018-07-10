@@ -95,18 +95,28 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 1, 10, 0, 0);
 }
 
-#red-round-button {
-    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+#red-round-button, #green-round-button, #yellow-round-button{
     -fx-background-radius: 30;
     -fx-background-insets: 0;
     -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);
+}
+
+#green-round-button .text, #red-round-button .text, #yellow-round-button .text{
+    -fx-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 1, 10, 0, 0);
+}
+
+#red-round-button {
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
 }
 
 #green-round-button {
     -fx-background-color: linear-gradient(#b8ee36, #80c800);
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
-    -fx-text-fill: white;
+}
+
+#yellow-round-button {
+    -fx-background-color: linear-gradient(#ffdd09, #fcc309);
 }
 
 #toggle-button {

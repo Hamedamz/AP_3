@@ -12,6 +12,7 @@ import viewers.menu.*;
 import models.Setting.GameLogicConfig;
 import viewers.oldViewers.MenuViewer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -170,7 +171,7 @@ public class MenuController {
 
     private LinkedHashMap<DynamicMenuItem, String> getVillageMapList() {
         LinkedHashMap<DynamicMenuItem, String> villageMapList = new LinkedHashMap<>();
-        for (String villageName : singlePlayerWorld.getMyVillagesNameAndPath().keySet()) {
+        for (String villageName : singlePlayerWorld.getMyVillagesNameAndFile().keySet()) {
             villageMapList.put(new DynamicMenuItem(LOAD_GAME, villageName), "");
         }
         return villageMapList;
@@ -179,8 +180,9 @@ public class MenuController {
     private LinkedHashMap<DynamicMenuItem, String> getAvailableMapsList() {
         // enemy maps that can be attacked
         LinkedHashMap<DynamicMenuItem, String> enemyMapList = new LinkedHashMap<>();
-        for (java.util.Map.Entry<String, GameMap> pathMapEntry : singlePlayerWorld.getEnemyVillagesPathAndMap().entrySet()) {
-            String mapPath = pathMapEntry.getKey();
+        for (java.util.Map.Entry<File, GameMap> pathMapEntry : singlePlayerWorld.getEnemyVillagesFileAndMap().entrySet()) {
+            File mapFile = pathMapEntry.getKey();
+            String mapPath = mapFile.getAbsolutePath(); // TODO: 7/10/18 Check method correction
             String[] split = mapPath.split("[\\\\]");
             mapPath = split[split.length - 1];
             mapPath = mapPath.substring(0, mapPath.lastIndexOf("."));

@@ -1,22 +1,23 @@
 package models.GameLogic;
 
+import java.io.File;
 import java.util.HashMap;
 
 public class Account {
-    private HashMap<String, GameMap> enemyVillagesPathAndMap;
+    private HashMap<File, GameMap> enemyVillagesFileAndMap;
     private Village myVillage;
 
     public Account() {
-        enemyVillagesPathAndMap = new HashMap<>();
+        enemyVillagesFileAndMap = new HashMap<>();
         myVillage = Village.startNewVillage();
     }
 
-    public HashMap<String, GameMap> getEnemyVillagesPathAndMap() {
-        return enemyVillagesPathAndMap;
+    public HashMap<File, GameMap> getEnemyVillagesFileAndMap() {
+        return enemyVillagesFileAndMap;
     }
 
-    public void setEnemyVillagesPathAndMap(HashMap<String, GameMap> enemyVillagesPathAndMap) {
-        this.enemyVillagesPathAndMap = enemyVillagesPathAndMap;
+    public void setEnemyVillagesFileAndMap(HashMap<File, GameMap> enemyVillagesFileAndMap) {
+        this.enemyVillagesFileAndMap = enemyVillagesFileAndMap;
     }
 
     public Village getMyVillage() {

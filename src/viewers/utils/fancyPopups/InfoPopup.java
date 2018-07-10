@@ -1,7 +1,9 @@
 package viewers.utils.fancyPopups;
 
 import controllers.BuildingMenuController;
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import models.GameLogic.Entities.Buildings.TownHall;
@@ -15,11 +17,17 @@ public class InfoPopup extends ModelPopup {
     private VBox imagePane = new VBox(imageView);
     private VBox progressBarContainer = new VBox(Const.SPACING);
     private VBox propertyInfoItemContainer = new VBox(Const.SPACING);
+    private AnimationTimer animationTimer;
 
     private InfoPopup(Object model) {
         super(model);
         setBody(new HBox(imagePane, new VBox(Const.SPACING * 2, progressBarContainer, propertyInfoItemContainer)));
         setProperties();
+        setAnimationTimer(this);
+
+        this.setOnShown(event -> animationTimer.start());
+
+        this.setOnHidden(event -> animationTimer.stop());
     }
 
     private void setProperties() {
@@ -47,6 +55,21 @@ public class InfoPopup extends ModelPopup {
         infoPopup.show(AppGUI.getMainStage());
     }
 
+    private void setAnimationTimer(InfoPopup popup) {
+        this.animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                popup.refresh();
+            }
+        };
+    }
+
+    private void refresh() {
+        for (Node  node: progressBarContainer.getChildren()) {
+            ProgressBarItem progressBarItem = (ProgressBarItem) node;
+            progressBarItem.setValues();
+        }
+    }
 
     public InfoPopup withImage(ImageView imageView) {
         this.imageView.setImage(imageView.getImage());
