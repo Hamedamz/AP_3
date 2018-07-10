@@ -29,7 +29,7 @@ public class SinglePlayerGameScene extends Scene {
         root.getChildren().addAll(hBox);
 
         newGameButton.setOnAction(event -> {
-            AppGUI.setStageScene(VillageScene.getInstance());
+            AppGUI.setStageScene(MyVillageScene.getInstance());
             loadStage();
         });
 

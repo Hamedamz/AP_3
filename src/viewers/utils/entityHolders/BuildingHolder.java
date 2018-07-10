@@ -36,20 +36,6 @@ public class BuildingHolder extends EntityHolder {
         }
 
         imageView.setEffect(glow);
-        imageView.setOnMouseEntered(event -> glow.setLevel(0.5));
-        imageView.setOnMouseExited(event -> glow.setLevel(0));
-        imageView.setOnMouseClicked(event -> {
-            if (entity instanceof GoldStorage || entity instanceof GoldMine) {
-                SoundPlayer.play(Sounds.goldSound);
-            }
-            else if (entity instanceof ElixirStorage || entity instanceof ElixirMine) {
-                SoundPlayer.play(Sounds.elixirSound);
-            }
-            else {
-                SoundPlayer.play(Sounds.buildingClickSound);
-            }
-            BuildingMenuController.getInstance().handleClickOnBuilding((Building) entity);
-        });
     }
 
     @Override
@@ -71,5 +57,9 @@ public class BuildingHolder extends EntityHolder {
         } else if (hitPointsProgressBar.isVisible()){
             hitPointsProgressBar.setVisible(false);
         }
+    }
+
+    public Glow getGlow() {
+        return glow;
     }
 }

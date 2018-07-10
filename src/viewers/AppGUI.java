@@ -9,8 +9,8 @@ import viewers.utils.GameScene;
 public class AppGUI extends Application {
     private static Stage mainStage;
 
-    public static VillageScene getVillageScene() {
-        return VillageScene.getInstance();
+    public static MyVillageScene getVillageScene() {
+        return MyVillageScene.getInstance();
     }
 
     public static Controller getController() {
