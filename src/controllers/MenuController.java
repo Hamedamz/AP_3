@@ -152,7 +152,7 @@ public class MenuController {
                 list = getTroopsList(); // for barracks GUI done
                 break;
             case TRAINING_STATUS_LIST:
-                list = getTrainingStatusList(); // for barracks
+                list = getTrainingStatusList(); // for barracks GUI done
                 break;
             case AVAILABLE_TROOPS_LIST:
                 list = getAvailableTroopsList(); // for camp

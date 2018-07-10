@@ -22,8 +22,6 @@ public abstract class ScrollMenu extends ScrollPane {
         this.setContent(buttons);
     }
 
-    abstract void build();
-
     public String[] getEntities() {
         return entities;
     }

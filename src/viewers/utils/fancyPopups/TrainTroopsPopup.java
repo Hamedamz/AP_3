@@ -1,7 +1,6 @@
 package viewers.utils.fancyPopups;
 
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -10,8 +9,7 @@ import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.TrainingTroop;
 import viewers.AppGUI;
 import viewers.utils.Const;
-import viewers.utils.PropertyInfoItem;
-import viewers.utils.TrainTroopsScrollMenu;
+import viewers.utils.TroopsScrollMenu;
 import viewers.utils.fancyButtons.ButtonActionType;
 
 import java.util.ArrayList;
@@ -20,13 +18,13 @@ public class TrainTroopsPopup extends ModelPopup {
 
     private ScrollPane status;
     private VBox trainingTroopsList;
-    private TrainTroopsScrollMenu trainTroopsScrollMenu;
+    private TroopsScrollMenu troopsScrollMenu;
     private AnimationTimer animationTimer;
 
     private TrainTroopsPopup(Object model) {
         super(model);
         setProperties();
-        VBox body = new VBox(Const.SPACING * 2, status, trainTroopsScrollMenu);
+        VBox body = new VBox(Const.SPACING * 2, status, troopsScrollMenu);
         body.setAlignment(Pos.CENTER);
         setBody(body);
         setAnimationTimer(this);
@@ -48,12 +46,13 @@ public class TrainTroopsPopup extends ModelPopup {
         status.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         trainingTroopsList = new VBox(Const.SPACING);
         status.setContent(trainingTroopsList);
-        trainTroopsScrollMenu = new TrainTroopsScrollMenu(ButtonActionType.TROOPS, model);
-        trainTroopsScrollMenu.setMaxWidth(Const.POPUP_WIDTH - 6 * Const.SPACING);
+        troopsScrollMenu = new TroopsScrollMenu(ButtonActionType.TROOPS, model);
+        troopsScrollMenu.buildForTraining();
+        troopsScrollMenu.setMaxWidth(Const.POPUP_WIDTH - 6 * Const.SPACING);
     }
 
     private void refresh() {
-        trainTroopsScrollMenu.refresh();
+        troopsScrollMenu.refreshForTraining();
 
         Barracks barracks = (Barracks) model;
         ArrayList<TrainingTroop> trainingTroops = barracks.getTrainingTroops();
