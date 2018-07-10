@@ -35,7 +35,7 @@ public enum ImageLibrary {
     BuildIcon("assets/icons/Build.png"),
     SettingsIcon("assets/icons/Settings.png"),
     HurryIcon("assets/icons/Hurry.png"),
-    AttackIcon("assets/icons/SampleIcon.png"),
+    AttackIcon("assets/icons/Attack.png"),
     HitPointsIcon("assets/icons/HitPointsIcon.png"),
     GoldIcon("assets/icons/GoldIcon.png"),
     ElixirIcon("assets/icons/ElixirIcon.png"),
