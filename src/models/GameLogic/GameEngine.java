@@ -71,4 +71,8 @@ public class GameEngine {
     public void changeDuration(Integer duration) {
         this.duration.setValue(duration);
     }
+
+    public Integer getDuration() {
+        return this.duration.get();
+    }
 }

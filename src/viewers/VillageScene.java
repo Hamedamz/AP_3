@@ -16,6 +16,7 @@ import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
+import models.GameLogic.GameEngine;
 import models.GameLogic.Position;
 import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
@@ -30,6 +31,7 @@ public abstract class VillageScene extends Scene {
 
     Group root;
     RoundFancyButton settingsButton;
+    RoundFancyButton fastForwardButton;
     ArrayList<BuildingHolder> buildingHolders;
     MapBrowserPane draggableView;
     ImageView villageBackground = new ImageView();
@@ -52,8 +54,7 @@ public abstract class VillageScene extends Scene {
         draggableView.setMaxHeight(VIllAGE_BACKGROUND_HEIGHT);
         draggableView.initialize();
 
-
-        settingsButton = new RoundFancyButton(ButtonActionType.SETTINGS, "none");
+        settingsButton = new RoundFancyButton(ButtonActionType.SETTINGS, "red");
         settingsButton.setLayoutX(Const.WINDOW_WIDTH - 100);
         settingsButton.setLayoutY(Const.WINDOW_HEIGHT - 200);
         settingsButton.setOnMouseClicked(event -> {
@@ -65,6 +66,20 @@ public abstract class VillageScene extends Scene {
             rotateTransition.setToAngle(360);
             rotateTransition.play();
         });
+
+//        fastForwardButton = new RoundFancyButton(ButtonActionType.FAST_FORWARD, "red");
+//        fastForwardButton.setLayoutX(Const.WINDOW_WIDTH - 100);
+//        fastForwardButton.setLayoutY(Const.SPACING);
+//        fastForwardButton.setOnMousePressed(event -> {
+//            GameEngine gameEngine = AppGUI.getController().getSinglePlayerWorld().getGameEngine();
+//            if (gameEngine.getDuration() - 10 > 0)
+//            gameEngine.changeDuration(gameEngine.getDuration() - 10);
+//        });
+//        fastForwardButton.setOnMouseReleased(event -> {
+//            GameEngine gameEngine = AppGUI.getController().getSinglePlayerWorld().getGameEngine();
+//            gameEngine.changeDuration(GameEngine.DEFAULT_DURATION);
+//            System.out.println("released");
+//        });
 
         //village console
         villageConsole = new VillageConsole();

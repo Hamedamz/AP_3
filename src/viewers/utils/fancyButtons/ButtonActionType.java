@@ -8,6 +8,7 @@ public enum ButtonActionType {
     OPEN_BUILD_MENU("Build"),
     OPEN_ATTACK_MENU("Attack"),
     NONE(""),
+    FAST_FORWARD("Hurry"),
     SETTINGS("Settings");
 
     public static final String[] TROOPS = new String[]{"Archer", "Dragon", "Giant", "Guardian", "Healer", "WallBreaker"};
