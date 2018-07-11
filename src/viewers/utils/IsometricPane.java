@@ -3,7 +3,6 @@ package viewers.utils;
 import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import models.GameLogic.Position;
 
@@ -23,7 +22,7 @@ public class IsometricPane extends Pane {
     }
 
     public static void mapToIsometricLayout(Node node, Position position, int size) {
-        node.setLayoutX(MAP_ORIGIN_X - ISOMETRIC_TILE_WIDTH / 2 * size + (position.getMapX() - position.getMapY()) * ISOMETRIC_TILE_SIZE * Math.cos(Math.toRadians(MAP_SLOPE_ANGEL)));
-        node.setLayoutY(MAP_ORIGIN_Y + (position.getMapX() + position.getMapY()) * ISOMETRIC_TILE_SIZE * Math.sin(Math.toRadians(MAP_SLOPE_ANGEL)));
+        node.setLayoutX(MAP_ORIGIN_X - ISOMETRIC_TILE_WIDTH / 2 * size + (position.getX() - position.getY()) * ISOMETRIC_TILE_SIZE / 4 * MAP_SLOPE_TRANSFORM_X);
+        node.setLayoutY(MAP_ORIGIN_Y + (position.getX() + position.getY()) * ISOMETRIC_TILE_SIZE / 4 * MAP_SLOPE_TRANSFORM_Y);
     }
 }
