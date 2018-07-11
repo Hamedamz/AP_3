@@ -1,7 +1,7 @@
 package models;
 
 import controllers.Exceptions.VillageAlreadyExists;
-import controllers.JsonInterpreter;
+import controllers.JsonHandler;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Exceptions.TroopNotFoundException;
@@ -58,14 +58,14 @@ public class World {
     }
 
     public void saveGame(Account account, String  name) {
-        JsonInterpreter.saveVillage(account, name);
+        JsonHandler.saveAccount(account, name);
        // myVillagesNameAndFile.put(name, "savedMaps\\" + name + ".json");
         // TODO: 7/10/18 correct the above statement @HAMEDAMZ
     }
 
 
     public void loadEnemyMap(File file) throws java.io.FileNotFoundException {
-        ArrayList<Building> buildings = JsonInterpreter.loadEnemyVillageBuildings(file);
+        ArrayList<Building> buildings = JsonHandler.loadEnemyVillageBuildingsFromFile(file);
         GameMap gameMap = new GameMap(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
         gameMap.setBuildings(buildings);
         getEnemyVillagesFileAndMap().put(file, gameMap);

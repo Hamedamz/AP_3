@@ -12,7 +12,6 @@ import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.*;
 import models.World;
-import viewers.BattleGroundScene;
 import viewers.menu.*;
 import viewers.AppGUI;
 import viewers.oldViewers.*;
@@ -210,9 +209,10 @@ public class Controller {
 
 
     private void loadGameFromFile(File file) throws FileNotFoundException {
-        Account account = JsonInterpreter.loadMyAccount(file);
+        Account account = JsonHandler.loadAccountFromFile(file);
         controller.world.getGameEngine().resetVillage();
         controller.world.setMyVillage(account.getMyVillage());
+        controller.world.getMyVillage().resetVillage();
 //        controller.world.setEnemies(getEnemyVillagesFileAndMap());
         controller.viewer.printInformation("game successfully loaded!");
         controller.villageViewer = new VillageViewer(controller.world.getMyVillage());

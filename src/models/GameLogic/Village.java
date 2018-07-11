@@ -5,6 +5,7 @@ import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.*;
 import models.GameLogic.utills.IDGenerator;
 import models.setting.GameLogicConfig;
+import org.w3c.dom.Entity;
 
 import java.util.*;
 
@@ -382,5 +383,7 @@ public class Village {
 
 
     }
+
+
 }
 
