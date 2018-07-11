@@ -1,9 +1,11 @@
 package viewers;
 
 import controllers.Controller;
+import controllers.JsonInterpreter;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.GameLogic.Account;
 
 public class AppGUI extends Application {
     private static Stage mainStage;
@@ -29,6 +31,7 @@ public class AppGUI extends Application {
         mainStage = primaryStage;
         getMainStage().setResizable(false);
         setStageScene(GameScene.getInstance());
+        getMainStage().setOnHidden(event -> JsonInterpreter.saveVillage(Controller.getController().getWorld().getAccount(), "UIVillage"));
         getMainStage().show();
 
     }

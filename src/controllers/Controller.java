@@ -4,6 +4,7 @@ import controllers.Exceptions.InvalidInputException;
 import controllers.Exceptions.VillageAlreadyExists;
 import controllers.enums.CommandType;
 import javafx.application.Application;
+import models.Account;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
@@ -41,7 +42,7 @@ public class Controller {
     public static void main(String[] args) {
 //        controller.menuController.openMenu(controller.menuController.getEntranceMenu()); //TEMP
 //         TEMP
-        controller.newGame();
+        controller.newGame("Guest", "");
 //        Application.launch(AppGUI.class, args);
         new Thread(() -> Application.launch(AppGUI.class, args)).start();
         controller.menuController.openMenu(controller.menuController.getVillageMenu());
@@ -76,7 +77,7 @@ public class Controller {
                 case NULL:
                     break;
                 case NEW_GAME:
-                    controller.newGame();
+                    controller.newGame("Guest", "input");
                     controller.menuController.openMenu(controller.menuController.getVillageMenu());
                     break;
                 case OPEN_BUILDING_MENU:
@@ -178,10 +179,10 @@ public class Controller {
         }
     }
 
-    private void newGame() {
+    private void newGame(String name, String password) {
         try {
             controller.world.getGameEngine().resetVillage();
-            controller.world.makeNewGame();
+            controller.world.makeNewGame(name, password);
             controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
         } catch (VillageAlreadyExists villageAlreadyExists) {
             villageAlreadyExists.getMessage();
@@ -212,7 +213,7 @@ public class Controller {
         Account account = JsonInterpreter.loadMyAccount(file);
         controller.world.getGameEngine().resetVillage();
         controller.world.setMyVillage(account.getMyVillage());
-        controller.world.setEnemies(account.getEnemyVillagesFileAndMap());
+        controller.world.setEnemies(getEnemyVillagesFileAndMap());
         controller.viewer.printInformation("game successfully loaded!");
         controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
     }
