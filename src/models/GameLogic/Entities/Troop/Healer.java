@@ -7,6 +7,7 @@ import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
 import models.setting.GameLogicConfig;
+import viewers.GameScene;
 
 import java.util.ArrayList;
 
@@ -14,13 +15,16 @@ public class Healer extends Troop implements TimedEvent {
     private int healingRange;
     private int healingAmount;
     private int remainingTime;
+    private int maxTime;
 
     private Destroyable target;
 
     public Healer() {
         moveType = MoveType.AIR;
         healingAmount = GameLogicConfig.getFromDictionary("HealerHealingAmount");
-
+        remainingTime = GameLogicConfig.getFromDictionary("HealerDeathTime");
+        maxTime = remainingTime;
+        healingRange = GameLogicConfig.getFromDictionary("HealerRange");
     }
 
     @Override
@@ -88,5 +92,21 @@ public class Healer extends Troop implements TimedEvent {
     public void upgrade() {
         setLevel(getLevel() + 1);
         healingAmount += GameLogicConfig.getFromDictionary("HealerUpgradeHealingAmountAddition");
+    }
+
+    public int getHealingRange() {
+        return healingRange;
+    }
+
+    public int getHealingAmount() {
+        return healingAmount;
+    }
+
+    public int getRemainingTime() {
+        return remainingTime;
+    }
+
+    public int getMaxTime() {
+        return maxTime;
     }
 }

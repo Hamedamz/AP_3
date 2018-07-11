@@ -59,12 +59,12 @@ public class Dijkstra {
                                 wallNode.setWall((Wall) building);
                             }
                         } else {
-                            if((i1 == 0) || (i1 == building.getSize() * CELL_SIZE - 1)
-                                    || (j1 == 0) || (j1 == building.getSize() * CELL_SIZE - 1)) {
+//                            if((i1 == 0) || (i1 == building.getSize() * CELL_SIZE - 1)
+//                                    || (j1 == 0) || (j1 == building.getSize() * CELL_SIZE - 1)) {
                                 mapNodes[x][y] = new Node(new Position(x, y), 1, false);
-                            } else {
-                                mapNodes[x][y] = new Node(new Position(x, y), MAX_NODE_DISTANCE, false);
-                            }
+//                            } else {
+//                                mapNodes[x][y] = new Node(new Position(x, y), MAX_NODE_DISTANCE, false);
+//                            }
                         }
                     }
                 }
