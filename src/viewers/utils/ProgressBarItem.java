@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.Storage;
+import models.GameLogic.Entities.Troop.Healer;
 import models.GameLogic.Resource;
 import viewers.AppGUI;
 
@@ -80,8 +81,10 @@ public class ProgressBarItem extends Pane {
                 setValue(((Destroyable) model).getHitPoints());
                 break;
             case HIT_POINTS:
-                setMax(((Destroyable) model).getMaxHitPoints());
-                setValue(((Destroyable) model).getHitPoints());
+                if (!model.getClass().equals(Healer.class)) {
+                    setMax(((Destroyable) model).getMaxHitPoints());
+                    setValue(((Destroyable) model).getHitPoints());
+                }
                 break;
             case REMAINED_TIME:
                 setMax(((Builder) model).getTotalConstructionTime());
