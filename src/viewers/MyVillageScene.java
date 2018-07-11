@@ -97,10 +97,8 @@ public class MyVillageScene extends VillageScene {
             SoundPlayer.play(Sounds.buttonSound);
         });
 
-        Button button = new Button("test bg");
-        button.setOnAction(event -> AppGUI.setStageScene(BattleGroundScene.getInstance()));
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenu, attackButton, villageConsole, button);
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenu, attackButton, villageConsole);
 
         setAnimationTimer().start();
     }

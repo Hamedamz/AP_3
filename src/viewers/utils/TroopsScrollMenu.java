@@ -95,12 +95,11 @@ public class TroopsScrollMenu extends ScrollMenu {
         return troopNumberHashMap;
     }
 
-    public void refreshForBattelGround() {
+    public void refreshForBattleGround() {
         for (int i = 0; i < getEntities().length; i++) {
             String troop = getEntities()[i];
             TroopsFancyButton troopsFancyButton = (TroopsFancyButton) getButtons().getChildren().get(i);
-            int numberOfTroop = 0;
-            // TODO: 7/11/2018  
+            int numberOfTroop = AppGUI.getController().getWorld().getBattleGround().getUnDeployedTroopsNumberByType(troop);
             troopsFancyButton.setNumberBadge(numberOfTroop);
         }
     }

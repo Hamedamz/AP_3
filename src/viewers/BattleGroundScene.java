@@ -1,6 +1,7 @@
 package viewers;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -9,6 +10,7 @@ import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import viewers.utils.*;
+import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.entityHolders.TroopsHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
 
@@ -62,11 +64,13 @@ public class BattleGroundScene extends VillageScene {
 
         // troops
         troopsScrollMenu = new TroopsScrollMenu(ButtonActionType.TROOPS, null);
+        troopsScrollMenu.setMaxWidth(Const.POPUP_WIDTH - 6 * Const.SPACING);
+        troopsScrollMenu.setLayoutX(Const.WINDOW_WIDTH / 2 - Const.POPUP_WIDTH / 2 + 3 * Const.SPACING);
 
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, availableLoots, settingsButton, villageConsole);
+        root.getChildren().addAll(draggableView, availableLoots, settingsButton, troopsScrollMenu, villageConsole);
 
-
+        setAnimationTimer().start();
     }
 
     @Override
@@ -75,7 +79,13 @@ public class BattleGroundScene extends VillageScene {
             @Override
             public void handle(long now) {
                 refreshAvailableLoots();
-                troopsScrollMenu.refreshForBattelGround();
+                troopsScrollMenu.refreshForBattleGround();
+
+                for (BuildingHolder buildingHolder : buildingHolders) {
+                    buildingHolder.refresh();
+                }
+
+
             }
         };
     }
@@ -95,6 +105,9 @@ public class BattleGroundScene extends VillageScene {
         acheivedGoldLoot = new Text();
         acheivedElixirLoot = new Text();
         availableLoots = new GridPane();
+        availableLoots.setAlignment(Pos.CENTER);
+        availableLoots.setHgap(Const.SPACING);
+        availableLoots.setVgap(Const.SPACING / 2);
         ImageView goldIcon = new ImageView(ImageLibrary.GoldIcon.getImage());
         ImageView elixirIcon = new ImageView(ImageLibrary.ElixirIcon.getImage());
         goldIcon.setFitWidth(Const.PROGRESS_BAR_ICON_SIZE);

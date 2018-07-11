@@ -159,8 +159,8 @@ public class BattleGround {
 
     }
 
-    public <T extends Troop> ArrayList<T> getUndeployedTroopByType(Class<T> type) {
-        return (ArrayList<T>) getUnDeployedTroops().get(type.getSimpleName());
+    public int getUnDeployedTroopsNumberByType(String type) {
+        return getUnDeployedTroops().get(type).size();
     }
 
     public boolean isGameFinished() {
