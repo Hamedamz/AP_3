@@ -11,12 +11,15 @@ import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.*;
 import models.World;
+import viewers.BattleGroundScene;
 import viewers.menu.*;
 import viewers.AppGUI;
 import viewers.oldViewers.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -150,7 +153,7 @@ public class Controller {
                     controller.buildingViewer.printTargetInfo((DefensiveBuilding) model);
                     break;
                 case ATTACK_MAP:
-                    controller.initializeAttack((GameMap) model);
+                    controller.setEnemyMap((GameMap) model);
                     break;
                 case BACK:
                     controller.menuController.back();
@@ -204,11 +207,6 @@ public class Controller {
         }
     }
 
-    public void loadEnemyMap(File file) throws FileNotFoundException {
-        controller.world.loadEnemyMap(file);
-        // TODO: 5/8/2018
-
-    }
 
     private void loadGameFromFile(File file) throws FileNotFoundException {
         Account account = JsonInterpreter.loadMyAccount(file);
@@ -251,14 +249,20 @@ public class Controller {
         controller.viewer.printInformation("building process started");
     }
 
-    private void initializeAttack(GameMap gameMap) {
-        controller.world.attackMap(gameMap);
-        controller.battleGroundViewer.setBattleGround(controller.world.getBattleGround());
-        startSelectingTroops();
-        controller.startAttack();
+    public void loadEnemyMap(File file) throws FileNotFoundException {
+        controller.world.loadEnemyMap(file);
+        // TODO: 5/8/2018
+
     }
 
-    private void startAttack() {
+    public void setEnemyMap(GameMap enemyMap) {
+        controller.world.attackMap(enemyMap);
+
+        // for console
+        battleGroundViewer.setBattleGround(controller.world.getBattleGround());
+    }
+
+    public void startAttack() {
         String command;
         do {
             command = controller.viewer.getInput();
@@ -320,20 +324,13 @@ public class Controller {
         controller.battleGroundViewer.printAttackFinishedInfo();
     }
 
-    private void startSelectingTroops() {
-        controller.viewer.requestForInput(START_SELECT_FORMAT);
-        String command = controller.viewer.getInput();
-        while (!command.matches(END_SELECT_FORMAT)) {
-            String troopType = null;
-            try {
-                troopType = getArgument(1, command, SELECT_TROOP_FORMAT);
-                int number = Integer.parseInt(getArgument(2, command, SELECT_TROOP_FORMAT));
-                    controller.world.sendTroopToAttack(troopType, number);
-
-            } catch (InvalidInputException | TroopNotFoundException e) {
-                controller.viewer.printErrorMessage(e.getMessage());
+    public void setSelectedTroops(HashMap<String, Integer> selectedTroops) throws TroopNotFoundException {
+        for (Map.Entry<String, Integer> troop : selectedTroops.entrySet()) {
+            String troopType = troop.getKey();
+            int troopNumber = troop.getValue();
+            if (troopNumber != 0) {
+                controller.world.sendTroopToAttack(troopType, troopNumber);
             }
-            command = controller.viewer.getInput();
         }
     }
 

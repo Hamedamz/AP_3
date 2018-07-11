@@ -11,13 +11,15 @@ import models.GameLogic.Exceptions.NoFreeBuilderException;
 import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import viewers.AppGUI;
 
+import static viewers.utils.Const.TILE_SIZE;
+
 public class MapTile extends Rectangle {
 
     private int mapX;
     private int mapY;
 
-    public MapTile(double width, double height, int x, int y) {
-        super(width, height);
+    public MapTile(int x, int y) {
+        super(TILE_SIZE, TILE_SIZE);
         this.mapX = x;
         this.mapY = y;
 

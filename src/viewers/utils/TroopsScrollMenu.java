@@ -94,4 +94,14 @@ public class TroopsScrollMenu extends ScrollMenu {
         }
         return troopNumberHashMap;
     }
+
+    public void refreshForBattelGround() {
+        for (int i = 0; i < getEntities().length; i++) {
+            String troop = getEntities()[i];
+            TroopsFancyButton troopsFancyButton = (TroopsFancyButton) getButtons().getChildren().get(i);
+            int numberOfTroop = 0;
+            // TODO: 7/11/2018  
+            troopsFancyButton.setNumberBadge(numberOfTroop);
+        }
+    }
 }

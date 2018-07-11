@@ -3,10 +3,12 @@ package viewers;
 import controllers.BuildingMenuController;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import models.GameLogic.BattleGround;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Entity;
@@ -52,7 +54,7 @@ public class MyVillageScene extends VillageScene {
         tiles.setHgap(1);
         for (int j = 0; j < 30; j++) {
             for (int i = 0; i < 30; i++) {
-                MapTile mapTile = new MapTile(TILE_SIZE, TILE_SIZE, i, j);
+                MapTile mapTile = new MapTile(i, j);
                 tiles.add(mapTile, i, j);
                 if (AppGUI.getController().getWorld().getMyVillage().getGameMap().isOccupied(i, j)) {
                     mapTile.setVisible(false);
@@ -95,8 +97,10 @@ public class MyVillageScene extends VillageScene {
             SoundPlayer.play(Sounds.buttonSound);
         });
 
+        Button button = new Button("test bg");
+        button.setOnAction(event -> AppGUI.setStageScene(BattleGroundScene.getInstance()));
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenu, attackButton, villageConsole);
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenu, attackButton, villageConsole, button);
 
         setAnimationTimer().start();
     }

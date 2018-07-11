@@ -12,6 +12,10 @@ public class AppGUI extends Application {
         return MyVillageScene.getInstance();
     }
 
+    public static BattleGroundScene getBattelGroundSccene() {
+        return BattleGroundScene.getInstance();
+    }
+
     public static Controller getController() {
         return Controller.getController();
     }

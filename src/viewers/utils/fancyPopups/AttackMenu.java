@@ -2,6 +2,7 @@ package viewers.utils.fancyPopups;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -9,9 +10,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Storage;
+import models.GameLogic.Exceptions.TroopNotFoundException;
 import models.GameLogic.GameMap;
 import models.GameLogic.Resource;
 import viewers.AppGUI;
+import viewers.BattleGroundScene;
 import viewers.utils.*;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.RoundButton;
@@ -26,7 +29,7 @@ import java.util.Set;
 
 public class AttackMenu extends StackPane {
 
-    private GameMap gameMap;
+    private GameMap enemyMap;
 
     private FileChooser fileChooser;
     private ComboBox mapsComboBox;
@@ -103,12 +106,22 @@ public class AttackMenu extends StackPane {
         mapsComboBox.setOnHidden(event ->{
             if (mapsComboBox.getSelectionModel() != null) {
                 File mapFile = (File) mapsComboBox.getSelectionModel().getSelectedItem();
-                gameMap = getGameMap(mapFile);
-                if (gameMap != null) {
-                    showResources(gameMap);
+                enemyMap = getGameMap(mapFile);
+                if (enemyMap != null && getSelectedTroopsNumper() != 0) {
+                    showResources(enemyMap);
                     attackButton.setDisable(false);
                 }
             }
+        });
+
+        attackButton.setOnAction(event -> {
+            AppGUI.getController().setEnemyMap(enemyMap);
+            try {
+                AppGUI.getController().setSelectedTroops(selectedTroopsHashMap);
+            } catch (TroopNotFoundException e) {
+                AppGUI.getMyVillageScene().handleException(e);
+            }
+            AppGUI.setStageScene(BattleGroundScene.getInstance());
         });
 
         body = new VBox(Const.SPACING * 3, chooserBox, totalStock, troopsScrollMenu, attackButton);
@@ -214,5 +227,13 @@ public class AttackMenu extends StackPane {
         troopsMaxNumberHashMap = troopsScrollMenu.refreshForAttackMenu();
         selectedTroopsHashMap = new HashMap<>(troopsMaxNumberHashMap);
         refreshIncrementButtons();
+    }
+
+    private int getSelectedTroopsNumper() {
+        int number = 0;
+        for (Map.Entry<String, Integer> troop : selectedTroopsHashMap.entrySet()) {
+            number += troop.getValue();
+        }
+        return number;
     }
 }
