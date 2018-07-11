@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Buildings.Building;
@@ -18,19 +19,21 @@ import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.TroopsFancyButton;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class BattleGroundScene extends VillageScene {
     private static BattleGroundScene instance = new BattleGroundScene();
 
     private Text availableGoldLoot;
     private Text availableElixirLoot;
-    private Text acheivedGoldLoot;
-    private Text acheivedElixirLoot;
+    private Text achievedGoldLoot;
+    private Text achievedElixirLoot;
     private GridPane availableLoots;
 
     private ArrayList<TroopsHolder> troopsHolders = new ArrayList<>();
     private TroopsScrollMenu troopsScrollMenu;
     private GridPane tiles;
+    private Pane troopsPane;
     private IsometricPane isometricPane;
 
     private BattleGroundScene() {
@@ -55,8 +58,9 @@ public class BattleGroundScene extends VillageScene {
             tiles.add(new HexaTile(i, 29), i, 29);
         }
         isometricPane = new IsometricPane(tiles);
+        troopsPane = new Pane();
 
-        draggableView.getChildren().add(isometricPane);
+        draggableView.getChildren().addAll(troopsPane, isometricPane);
 
         // building holders
         ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getBattleGround().getEnemyBuildings());
@@ -89,8 +93,14 @@ public class BattleGroundScene extends VillageScene {
                     buildingHolder.refresh();
                 }
 
-                for (TroopsHolder troopsHolder : troopsHolders) {
+                Iterator<TroopsHolder> iterator = troopsHolders.iterator();
+                while (iterator.hasNext()) {
+                    TroopsHolder troopsHolder = iterator.next();
                     troopsHolder.refresh();
+                    if (troopsHolder.isKilled()) {
+                        iterator.remove();
+                        troopsPane.getChildren().remove(troopsHolder);
+                    }
                     IsometricPane.mapToIsometricLayout(troopsHolder, troopsHolder.getEntity().getPosition(), 1);
                 }
 
@@ -103,15 +113,15 @@ public class BattleGroundScene extends VillageScene {
         Bounty lootedBounty = AppGUI.getController().getWorld().getBattleGround().getLootedBounty();
         availableGoldLoot.setText(String.valueOf(remainingResources.getGold()));
         availableElixirLoot.setText(String.valueOf(remainingResources.getElixir()));
-        acheivedGoldLoot.setText(String.valueOf(lootedBounty.getGold()));
-        acheivedElixirLoot.setText(String.valueOf(lootedBounty.getElixir()));
+        achievedGoldLoot.setText(String.valueOf(lootedBounty.getGold()));
+        achievedElixirLoot.setText(String.valueOf(lootedBounty.getElixir()));
     }
 
     private void buildAvailableLootsBox() {
         availableGoldLoot = new Text();
         availableElixirLoot = new Text();
-        acheivedGoldLoot = new Text();
-        acheivedElixirLoot = new Text();
+        achievedGoldLoot = new Text();
+        achievedElixirLoot = new Text();
         availableLoots = new GridPane();
         availableLoots.setAlignment(Pos.CENTER);
         availableLoots.setHgap(Const.SPACING);
@@ -126,10 +136,10 @@ public class BattleGroundScene extends VillageScene {
         availableLoots.add(new Text("achieved"), 1, 0);
         availableLoots.add(goldIcon, 0, 1);
         availableLoots.add(availableGoldLoot, 1, 1);
-        availableLoots.add(acheivedGoldLoot, 2, 1);
+        availableLoots.add(achievedGoldLoot, 2, 1);
         availableLoots.add(elixirIcon, 0, 2);
         availableLoots.add(availableElixirLoot, 1, 2);
-        availableLoots.add(acheivedElixirLoot, 2, 2);
+        availableLoots.add(achievedElixirLoot, 2, 2);
     }
 
     public void attackListener(Position attacker, Position target) {
@@ -148,7 +158,7 @@ public class BattleGroundScene extends VillageScene {
     public void putTroop(Troop troop) {
         TroopsHolder troopsHolder = new TroopsHolder(troop);
         IsometricPane.mapToIsometricLayout(troopsHolder, troop.getPosition(), 1);
-        draggableView.getChildren().add(troopsHolder);
+        troopsPane.getChildren().add(troopsHolder);
         troopsHolders.add(troopsHolder);
     }
 }

@@ -129,7 +129,9 @@ public class ProgressBarItem extends Pane {
 
     private void updateProgress() {
         double progress = value / max;
-        progressBar.setProgress(progress);
+        if (progress >= 0) {
+            progressBar.setProgress(progress);
+        }
         if (type.equals(ProgressBarType.HIT_POINTS)) {
             if (progress < 0.25) {
                 progressBar.setId("red-bar");
