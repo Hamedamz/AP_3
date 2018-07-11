@@ -37,9 +37,6 @@ public class TroopsHolder extends EntityHolder{
     }
 
     public boolean isKilled() {
-        if (entity.getClass().equals(Healer.class)) {
-            return ((Healer) entity).getRemainingTime() == 0;
-        }
-        return ((AttackerTroop) entity).getHitPoints() == 0;
+        return ((AttackerTroop) entity).isDestroyed();
     }
 }
