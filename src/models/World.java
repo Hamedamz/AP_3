@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 public class World {
     private Account account;
+    private HashMap<File, GameMap> enemyVillagesFileAndMap = new HashMap<>();
     private HashMap<String, File> myVillagesNameAndFile;
     private BattleGround battleGround;
     private GameEngine gameEngine;
@@ -28,7 +29,7 @@ public class World {
     }
 
     public HashMap<File, GameMap> getEnemyVillagesFileAndMap() {
-        return account.getEnemyVillagesFileAndMap();
+        return enemyVillagesFileAndMap;
     }
 
     public Village getMyVillage() {
@@ -41,18 +42,18 @@ public class World {
     }
 
     public void setEnemies(HashMap<File, GameMap> enemies){
-        this.account.setEnemyVillagesFileAndMap(enemies);
+        enemyVillagesFileAndMap = enemies;
     }
 
     public BattleGround getBattleGround() {
         return battleGround;
     }
 
-    public void makeNewGame() throws VillageAlreadyExists{
+    public void makeNewGame(String name, String password) throws VillageAlreadyExists{
 //        if(myVillage != null) {
 //            throw new VillageAlreadyExists();
 //        }
-        account = new Account();
+        account = new Account(name, password);
         gameEngine.loadNewVillage();
     }
 

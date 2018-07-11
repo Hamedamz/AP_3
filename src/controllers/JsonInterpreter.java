@@ -1,12 +1,9 @@
 package controllers;
 
 import com.gilecode.yagson.YaGson;
-import models.GameLogic.Account;
+import models.Account;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Position;
-import models.GameLogic.Resource;
-import models.GameLogic.Village;
-import models.setting.GameLogicConfig;
 
 import java.io.*;
 import java.util.ArrayList;
