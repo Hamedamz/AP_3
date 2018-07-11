@@ -160,7 +160,10 @@ public class BattleGround {
     }
 
     public int getUnDeployedTroopsNumberByType(String type) {
-        return getUnDeployedTroops().get(type).size();
+        if (getUnDeployedTroops().get(type) != null) {
+            return getUnDeployedTroops().get(type).size();
+        }
+        return 0;
     }
 
     public boolean isGameFinished() {

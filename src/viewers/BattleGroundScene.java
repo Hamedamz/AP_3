@@ -78,7 +78,7 @@ public class BattleGroundScene extends VillageScene {
         return new AnimationTimer() {
             @Override
             public void handle(long now) {
-                refreshAvailableLoots();
+//                refreshAvailableLoots();
                 troopsScrollMenu.refreshForBattleGround();
 
                 for (BuildingHolder buildingHolder : buildingHolders) {
