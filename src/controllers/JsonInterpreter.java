@@ -1,6 +1,9 @@
 package controllers;
 
 import com.gilecode.yagson.YaGson;
+import com.gilecode.yagson.YaGsonBuilder;
+import com.gilecode.yagson.com.google.gson.ExclusionStrategy;
+import com.gilecode.yagson.com.google.gson.FieldAttributes;
 import models.GameLogic.Account;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Position;
@@ -15,7 +18,33 @@ import java.util.Scanner;
 public class JsonInterpreter {
     private static int currentBuildingNumber = 0;
     private static final String SAVED_MAPS_FOLDER_NAME = "savedMaps";
-    private static YaGson gson = new YaGson();
+    private static YaGsonBuilder builder = new YaGsonBuilder();
+    private static YaGson gson;
+    static {
+        builder.addSerializationExclusionStrategy(new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes fieldAttributes) {
+                return fieldAttributes.getName().contains("imageView");
+            }
+
+            @Override
+            public boolean shouldSkipClass(Class<?> aClass) {
+                return false;
+            }
+        });
+        builder.addDeserializationExclusionStrategy(new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes fieldAttributes) {
+                return fieldAttributes.getName().contains("imageView");
+            }
+
+            @Override
+            public boolean shouldSkipClass(Class<?> aClass) {
+                return false;
+            }
+        });
+        gson = builder.create();
+    }
 
     public static void saveVillage(Account account, String villageName) {
         try {
