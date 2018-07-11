@@ -295,7 +295,7 @@ public class Village {
     public int getTotalCampCapacity() {
         int result = 0;
         for (Camp camp : findBuildingsWithSameType(Camp.class)) {
-            result += camp.getSize();
+            result += camp.getCapacity();
         }
         return result;
     }

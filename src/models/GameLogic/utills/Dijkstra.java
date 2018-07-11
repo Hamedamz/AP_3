@@ -16,15 +16,16 @@ public class Dijkstra {
     public static final double WALL_ATTACKER_MULTIPLIER = 2;
     public static final Integer MAX_NODE_DISTANCE = 1000000;
 
-    public static ArrayList<Position> minePath(GameMap gameMap, MovingAttacker attacker, Position destination, int range) {
+    public static ArrayList<Position> minPath(GameMap gameMap, MovingAttacker attacker, Position destination, int range) {
         if (!attacker.getTroopMoveType().equals(MoveType.GROUND)) {
             throw new RuntimeException("not ground troop");
         }
         Node[][] mapNodes = new Node[gameMap.getWidth()][gameMap.getHeight()];
+        System.out.println("hello: " + gameMap.getMapWidth() + " " + gameMap.getHeight());
         Graph graph = initiateGraph(mapNodes, gameMap, attacker);
         calculateShortestPathFromSource(graph, mapNodes[attacker.getPosition().getX()][attacker.getPosition().getY()]);
         Node lastNode = findDestination(mapNodes, gameMap, destination, range);
-        return minePath(attacker, range, lastNode);
+        return minPath(attacker, range, lastNode);
     }
 
     private static Graph initiateGraph(Node[][] mapNodes, GameMap gameMap, MovingAttacker attacker) {
@@ -51,6 +52,7 @@ public class Dijkstra {
                     for (int j1 = 0; j1 < building.getSize() * CELL_SIZE; j1++) {
                         int x = CELL_SIZE * building.getPosition().getMapX() + i1;
                         int y = CELL_SIZE * building.getPosition().getMapY() + j1;
+                        System.out.println(building.getSize());
                         if (building instanceof Wall) {
                             if((i1 == 0 || i1 == building.getSize() * CELL_SIZE - 1) && (j1 == 0 || j1 == building.getSize() * CELL_SIZE - 1)) {
                                 mapNodes[x][y] = new Node(new Position(x, y), 1, false);
@@ -145,7 +147,7 @@ public class Dijkstra {
         return minNode;
     }
 
-    private static ArrayList<Position> minePath(MovingAttacker attacker, int range, Node lastNode) {
+    private static ArrayList<Position> minPath(MovingAttacker attacker, int range, Node lastNode) {
         ArrayList<Position> path = new ArrayList<>();
         lastNode.getShortestPath().add(lastNode);
         for(int i = 0; i < lastNode.getShortestPath().size(); i++){

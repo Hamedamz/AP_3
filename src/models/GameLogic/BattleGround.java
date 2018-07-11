@@ -81,7 +81,7 @@ public class BattleGround {
         return availableResources;
     }
 
-    public void reset() {
+    public synchronized void reset() {
         thisLootedBounty = new Bounty(0, new Resource(0, 0));
         setNumberOfTroopsDeployed(new int[enemyGameMap.getMapWidth()][enemyGameMap.getMapHeight()]);
 
@@ -136,7 +136,7 @@ public class BattleGround {
 
     //TODO check position correctness -> not occupied
 
-    public Troop putTroop(String troopType, Position position)
+    public synchronized Troop putTroop(String troopType, Position position)
             throws CountLimitReachedException, InvalidPositionException, TroopNotFoundException {
         ArrayList<Troop> troops = unDeployedTroops.get(troopType);
         if(troops == null || troops.size() < 1) {
@@ -167,7 +167,7 @@ public class BattleGround {
         return 0;
     }
 
-    public boolean isGameFinished() {
+    public synchronized boolean isGameFinished() {
         if (timeRemaining <= 0) {
             return true;
         }
@@ -192,7 +192,7 @@ public class BattleGround {
         return true;
     }
 
-    public void endBattle() {
+    public synchronized void endBattle() {
         for (Troop troop : deployedTroops) {
             if (unDeployedTroops.containsKey(troop.getClass().getSimpleName())) {
                 unDeployedTroops.get(troop.getClass().getSimpleName()).add(troop);

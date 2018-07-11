@@ -21,7 +21,6 @@ public class Trap extends DefensiveBuilding {
         super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
         this.targetType = BuildingTargetType.GROUND;
         this.damageType = BuildingDamageType.AREA_SPLASH;
-        this.size = 1;
     }
 
 

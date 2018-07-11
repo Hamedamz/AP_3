@@ -18,19 +18,19 @@ public class Camp extends Building {
     private static final IDGenerator hostileIDGenerator = new IDGenerator("02", 7);
 
     private ArrayList<Troop> troops = new ArrayList<>();
-    private int size;
+    private int capacity;
 
     public Camp(Position position, boolean isFriendly) {
         super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
         String className = this.getClass().getSimpleName();
-        this.size = (int) GameLogicConfig.getFromDictionary(className + "Capacity");
+        this.capacity = (int) GameLogicConfig.getFromDictionary(className + "Capacity");
     }
 
     public Camp(ArrayList<Troop> troops, Position position, boolean isFriendly) {
         super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
         this.troops.addAll(troops);
         String className = this.getClass().getSimpleName();
-        this.size = (int) GameLogicConfig.getFromDictionary(className + "Capacity");
+        this.capacity = (int) GameLogicConfig.getFromDictionary(className + "Capacity");
     }
 
     public ArrayList<Troop> getTroops() {
@@ -62,9 +62,10 @@ public class Camp extends Building {
         return number;
     }
 
-    public int getSize() {
-        return size;
+    public int getCapacity() {
+        return capacity;
     }
+
     public static class CampComparator implements Comparator<Camp> {
         @Override
         public int compare(Camp o1, Camp o2) {
