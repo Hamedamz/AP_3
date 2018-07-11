@@ -3,6 +3,7 @@ package viewers.utils.entityHolders;
 import javafx.animation.ScaleTransition;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.AttackerTroop;
+import models.GameLogic.Entities.Troop.Healer;
 
 public class TroopsHolder extends EntityHolder{
     private ScaleTransition scaleTransition = new ScaleTransition();
@@ -20,6 +21,9 @@ public class TroopsHolder extends EntityHolder{
 
     @Override
     public void refresh() {
+        if (entity.getClass().equals(Healer.class)) {
+            return;
+        }
         if (((AttackerTroop) entity).getHitPoints() < ((AttackerTroop) entity).getMaxHitPoints()) {
             if (!hitPointsProgressBar.isVisible()) {
                 hitPointsProgressBar.setVisible(true);
