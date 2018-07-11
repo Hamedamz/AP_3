@@ -123,6 +123,7 @@ public class AttackMenu extends StackPane {
                 AppGUI.getMyVillageScene().handleException(e);
             }
             AppGUI.setStageScene(BattleGroundScene.getInstance());
+            SoundPlayer.play(Sounds.warSound);
         });
 
         body = new VBox(Const.SPACING * 3, chooserBox, totalStock, troopsScrollMenu, attackButton);
