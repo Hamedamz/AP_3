@@ -212,7 +212,6 @@ public class Controller {
         Account account = JsonHandler.loadAccountFromFile(file);
         controller.world.getGameEngine().resetVillage();
         controller.world.setMyVillage(account.getMyVillage());
-        controller.world.getMyVillage().resetVillage();
 //        controller.world.setEnemies(getEnemyVillagesFileAndMap());
         controller.viewer.printInformation("game successfully loaded!");
         controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
