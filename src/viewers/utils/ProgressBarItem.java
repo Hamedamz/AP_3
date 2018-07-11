@@ -132,11 +132,11 @@ public class ProgressBarItem extends Pane {
         progressBar.setProgress(progress);
         if (type.equals(ProgressBarType.HIT_POINTS)) {
             if (progress < 0.25) {
-                progressBar.setId("red-accent");
+                progressBar.setId("red-bar");
             } else if (progress < 0.5) {
-                progressBar.setId("orange-accent");
+                progressBar.setId("orange-bar");
             } else if (progress < 0.75) {
-                progressBar.setId("gold-accent");
+                progressBar.setId("gold-bar");
             }
         }
     }
