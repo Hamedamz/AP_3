@@ -4,7 +4,7 @@ import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 import com.gilecode.yagson.com.google.gson.ExclusionStrategy;
 import com.gilecode.yagson.com.google.gson.FieldAttributes;
-import models.GameLogic.Account;
+import models.Account;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;

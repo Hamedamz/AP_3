@@ -5,7 +5,7 @@ import controllers.JsonInterpreter;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.GameLogic.Account;
+import models.Account;
 
 public class AppGUI extends Application {
     private static Stage mainStage;
