@@ -2,7 +2,6 @@ package viewers.utils.fancyPopups;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -107,9 +106,11 @@ public class AttackMenu extends StackPane {
             if (mapsComboBox.getSelectionModel() != null) {
                 File mapFile = (File) mapsComboBox.getSelectionModel().getSelectedItem();
                 enemyMap = getGameMap(mapFile);
-                if (enemyMap != null && getSelectedTroopsNumper() != 0) {
+                if (enemyMap != null) {
                     showResources(enemyMap);
-                    attackButton.setDisable(false);
+                    if (getSelectedTroopsNumber() != 0){
+                        attackButton.setDisable(false);
+                    }
                 }
             }
         });
@@ -229,7 +230,7 @@ public class AttackMenu extends StackPane {
         refreshIncrementButtons();
     }
 
-    private int getSelectedTroopsNumper() {
+    private int getSelectedTroopsNumber() {
         int number = 0;
         for (Map.Entry<String, Integer> troop : selectedTroopsHashMap.entrySet()) {
             number += troop.getValue();

@@ -36,7 +36,7 @@ public class Entity implements Locatable {
         return imageView;
     }
 
-    private void setImage() {
+    public void setImage() {
         try {
             imageView = new ImageView(ImageLibrary.valueOf(this.getClass().getSimpleName()).getImage());
         } catch (IllegalArgumentException e) {
