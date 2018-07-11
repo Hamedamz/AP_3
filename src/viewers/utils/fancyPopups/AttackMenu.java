@@ -122,8 +122,10 @@ public class AttackMenu extends StackPane {
             } catch (TroopNotFoundException e) {
                 AppGUI.getMyVillageScene().handleException(e);
             }
+            BattleGroundScene.getInstance().build();
             AppGUI.setStageScene(BattleGroundScene.getInstance());
             SoundPlayer.play(Sounds.warSound);
+            this.toggleVisibility();
         });
 
         body = new VBox(Const.SPACING * 3, chooserBox, totalStock, troopsScrollMenu, attackButton);

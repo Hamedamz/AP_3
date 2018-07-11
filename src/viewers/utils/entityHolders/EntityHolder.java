@@ -11,6 +11,7 @@ public abstract class EntityHolder extends Pane {
     Entity entity;
     ImageView imageView;
     ProgressBarItem hitPointsProgressBar;
+    private boolean isDestroyed;
 
     public EntityHolder(Entity entity) {
         this.entity = entity;
@@ -34,5 +35,13 @@ public abstract class EntityHolder extends Pane {
 
     public ImageView getImageView() {
         return imageView;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        this.isDestroyed = destroyed;
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 }

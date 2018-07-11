@@ -1,11 +1,13 @@
 package viewers;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Buildings.Building;
@@ -17,6 +19,7 @@ import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.entityHolders.TroopsHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.TroopsFancyButton;
+import viewers.utils.fancyPopups.AttackEndPopup;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,17 +27,18 @@ import java.util.Iterator;
 public class BattleGroundScene extends VillageScene {
     private static BattleGroundScene instance = new BattleGroundScene();
 
-    private Text availableGoldLoot;
-    private Text availableElixirLoot;
+    private Text leftGoldLoot;
+    private Text leftElixirLoot;
     private Text achievedGoldLoot;
     private Text achievedElixirLoot;
-    private GridPane availableLoots;
+    private GridPane lootedBountyInfo;
 
     private ArrayList<TroopsHolder> troopsHolders = new ArrayList<>();
     private TroopsScrollMenu troopsScrollMenu;
     private GridPane tiles;
     private Pane troopsPane;
     private IsometricPane isometricPane;
+    private AttackEndPopup attackEndPopup;
 
     private BattleGroundScene() {
         super();
@@ -46,6 +50,10 @@ public class BattleGroundScene extends VillageScene {
 
     public void build() {
         super.build();
+
+        // building holders
+        ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getBattleGround().getEnemyBuildings());
+        addBuildingsFromList(buildings);
 
         // tiles
         tiles = new GridPane();
@@ -62,12 +70,11 @@ public class BattleGroundScene extends VillageScene {
 
         draggableView.getChildren().addAll(troopsPane, isometricPane);
 
-        // building holders
-        ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getBattleGround().getEnemyBuildings());
-        addBuildingsFromList(buildings);
 
         // available loots
-        buildAvailableLootsBox();
+        lootedBountyInfo = buildLootedBountyInfo();
+        lootedBountyInfo.setPadding(new Insets(Const.SPACING));
+
 
         // troops
         troopsScrollMenu = new TroopsScrollMenu(ButtonActionType.TROOPS, null);
@@ -75,8 +82,11 @@ public class BattleGroundScene extends VillageScene {
         troopsScrollMenu.setLayoutX(Const.WINDOW_WIDTH / 2 - Const.POPUP_WIDTH / 2 + 3 * Const.SPACING);
         troopsScrollMenu.setSelectable(true);
 
+        attackEndPopup = new AttackEndPopup();
+        attackEndPopup.setVisible(false);
+
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, availableLoots, settingsButton, troopsScrollMenu, villageConsole);
+        root.getChildren().addAll(draggableView, lootedBountyInfo, settingsButton, troopsScrollMenu, attackEndPopup, villageConsole);
 
         setAnimationTimer().start();
     }
@@ -86,7 +96,7 @@ public class BattleGroundScene extends VillageScene {
         return new AnimationTimer() {
             @Override
             public void handle(long now) {
-//                refreshAvailableLoots();
+                refreshAvailableLoots();
                 troopsScrollMenu.refreshForBattleGround();
 
                 for (BuildingHolder buildingHolder : buildingHolders) {
@@ -97,11 +107,17 @@ public class BattleGroundScene extends VillageScene {
                 while (iterator.hasNext()) {
                     TroopsHolder troopsHolder = iterator.next();
                     troopsHolder.refresh();
-                    if (troopsHolder.isKilled()) {
+                    if (troopsHolder.isDestroyed()) {
                         iterator.remove();
                         troopsPane.getChildren().remove(troopsHolder);
                     }
                     IsometricPane.mapToIsometricLayout(troopsHolder, troopsHolder.getEntity().getPosition(), 1);
+                }
+
+                if (AppGUI.getController().getWorld().getBattleGround().isGameFinished()) {
+                    this.stop();
+                    attackEndPopup.setProperties();
+                    attackEndPopup.setVisible(true);
                 }
 
             }
@@ -111,35 +127,36 @@ public class BattleGroundScene extends VillageScene {
     private void refreshAvailableLoots() {
         Resource remainingResources = AppGUI.getController().getWorld().getBattleGround().getRemainingResources();
         Bounty lootedBounty = AppGUI.getController().getWorld().getBattleGround().getLootedBounty();
-        availableGoldLoot.setText(String.valueOf(remainingResources.getGold()));
-        availableElixirLoot.setText(String.valueOf(remainingResources.getElixir()));
+        leftGoldLoot.setText(String.valueOf(remainingResources.getGold()));
+        leftElixirLoot.setText(String.valueOf(remainingResources.getElixir()));
         achievedGoldLoot.setText(String.valueOf(lootedBounty.getGold()));
         achievedElixirLoot.setText(String.valueOf(lootedBounty.getElixir()));
     }
 
-    private void buildAvailableLootsBox() {
-        availableGoldLoot = new Text();
-        availableElixirLoot = new Text();
-        achievedGoldLoot = new Text();
-        achievedElixirLoot = new Text();
-        availableLoots = new GridPane();
-        availableLoots.setAlignment(Pos.CENTER);
-        availableLoots.setHgap(Const.SPACING);
-        availableLoots.setVgap(Const.SPACING / 2);
+    private GridPane buildLootedBountyInfo() {
+        GridPane gridPane = new GridPane();
+        leftGoldLoot = new StrokeText();
+        leftElixirLoot = new StrokeText();
+        achievedGoldLoot = new StrokeText();
+        achievedElixirLoot = new StrokeText();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setHgap(Const.SPACING);
+        gridPane.setVgap(Const.SPACING / 2);
         ImageView goldIcon = new ImageView(ImageLibrary.GoldIcon.getImage());
         ImageView elixirIcon = new ImageView(ImageLibrary.ElixirIcon.getImage());
         goldIcon.setFitWidth(Const.PROGRESS_BAR_ICON_SIZE);
         goldIcon.setFitHeight(Const.PROGRESS_BAR_ICON_SIZE);
         elixirIcon.setFitWidth(Const.PROGRESS_BAR_ICON_SIZE);
         elixirIcon.setFitHeight(Const.PROGRESS_BAR_ICON_SIZE);
-        availableLoots.add(new Text("available"), 1, 0);
-        availableLoots.add(new Text("achieved"), 1, 0);
-        availableLoots.add(goldIcon, 0, 1);
-        availableLoots.add(availableGoldLoot, 1, 1);
-        availableLoots.add(achievedGoldLoot, 2, 1);
-        availableLoots.add(elixirIcon, 0, 2);
-        availableLoots.add(availableElixirLoot, 1, 2);
-        availableLoots.add(achievedElixirLoot, 2, 2);
+        gridPane.add(new StrokeText("achieved"), 1, 0);
+        gridPane.add(new StrokeText("left"), 2, 0);
+        gridPane.add(goldIcon, 0, 1);
+        gridPane.add(achievedGoldLoot, 1, 1);
+        gridPane.add(leftGoldLoot, 2, 1);
+        gridPane.add(elixirIcon, 0, 2);
+        gridPane.add(achievedElixirLoot, 1, 2);
+        gridPane.add(leftElixirLoot, 2, 2);
+        return gridPane;
     }
 
     public void attackListener(Position attacker, Position target) {
