@@ -12,10 +12,7 @@ import models.GameLogic.Entities.Buildings.Storage;
 import models.GameLogic.GameMap;
 import models.GameLogic.Resource;
 import viewers.AppGUI;
-import viewers.utils.Const;
-import viewers.utils.ProgressBarItem;
-import viewers.utils.ProgressBarType;
-import viewers.utils.TroopsScrollMenu;
+import viewers.utils.*;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.RoundButton;
 import viewers.utils.fancyButtons.TroopsFancyButton;
@@ -89,6 +86,7 @@ public class AttackMenu extends StackPane {
 
 
         browseButton.setOnAction(event -> {
+            SoundPlayer.play(Sounds.buttonSound);
             List<File> selectedFiles = fileChooser.showOpenMultipleDialog(AppGUI.getMainStage());
             if (selectedFiles != null) {
                 for (File selectedFile : selectedFiles) {
@@ -127,6 +125,9 @@ public class AttackMenu extends StackPane {
             TroopsFancyButton fancyButton = (TroopsFancyButton) node;
 
             fancyButton.getIncrementButton().setOnAction(event -> {
+                if (!fancyButton.getIncrementButton().isDisable()) {
+                    SoundPlayer.play(Sounds.buttonSound);
+                }
                 int newValue = selectedTroopsHashMap.get(fancyButton.getClazz()) + 1;
                 if (newValue <= troopsMaxNumberHashMap.get(fancyButton.getClazz())) {
                     selectedTroopsHashMap.put(fancyButton.getClazz(), newValue);
@@ -139,6 +140,9 @@ public class AttackMenu extends StackPane {
             });
 
             fancyButton.getDecrementButton().setOnAction(event -> {
+                if (!fancyButton.getDecrementButton().isDisable()) {
+                    SoundPlayer.play(Sounds.buttonSound);
+                }
                 int newValue = selectedTroopsHashMap.get(fancyButton.getClazz()) - 1;
                 if (newValue >= 0) {
                     selectedTroopsHashMap.put(fancyButton.getClazz(), newValue);

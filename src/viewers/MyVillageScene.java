@@ -90,7 +90,10 @@ public class MyVillageScene extends VillageScene {
         attackButton = new RoundFancyButton(ButtonActionType.OPEN_ATTACK_MENU, "red");
         attackButton.setLayoutX(Const.SPACING * 3);
         attackButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
-        attackButton.setOnMouseClicked(event -> attackMenu.toggleVisibility());
+        attackButton.setOnMouseClicked(event -> {
+            attackMenu.toggleVisibility();
+            SoundPlayer.play(Sounds.buttonSound);
+        });
 
         root.getChildren().clear();
         root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenu, attackButton, villageConsole);
