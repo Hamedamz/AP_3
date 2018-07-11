@@ -84,7 +84,7 @@
         BarracksBuildElixir: 0
         BarracksBuildTime: 100
         BarracksBuildLimit: 1000
-        TownHallSize: 1
+        BarracksSize: 1
         BarracksHitPoints: 300
         BarracksDestructionScore: 1
         BarracksUpgradeGold: 100
