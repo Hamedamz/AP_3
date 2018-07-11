@@ -209,7 +209,9 @@ public class Controller {
     }
 
 
-    private void loadGameFromFile(File file) throws FileNotFoundException {
+
+
+    public void loadGameFromFile(File file) throws FileNotFoundException {
         Account account = JsonHandler.loadAccountFromFile(file);
         controller.world.getGameEngine().resetVillage();
         controller.world.setMyVillage(account.getMyVillage());
