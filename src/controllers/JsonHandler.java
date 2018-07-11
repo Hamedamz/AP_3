@@ -89,6 +89,7 @@ public class JsonHandler {
 
     public static void resetBuildingsView(Account account) {
         for (Building building : account.getMyVillage().getBuildings()) {
+            building.setImage();
             building.updateViewPort();
         }
     }

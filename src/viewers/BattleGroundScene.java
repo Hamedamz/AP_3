@@ -92,6 +92,8 @@ public class BattleGroundScene extends VillageScene {
     private void buildAvailableLootsBox() {
         availableGoldLoot = new Text();
         availableElixirLoot = new Text();
+        acheivedGoldLoot = new Text();
+        acheivedElixirLoot = new Text();
         availableLoots = new GridPane();
         ImageView goldIcon = new ImageView(ImageLibrary.GoldIcon.getImage());
         ImageView elixirIcon = new ImageView(ImageLibrary.ElixirIcon.getImage());
