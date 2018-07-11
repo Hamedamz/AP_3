@@ -43,6 +43,7 @@ public class MyVillageScene extends VillageScene {
         return instance;
     }
 
+    @Override
     public void build() {
         super.build();
 
@@ -113,25 +114,14 @@ public class MyVillageScene extends VillageScene {
         };
     }
 
-    private void addBuildingsFromList(ArrayList<Building> buildings) {
-        buildingHolders = new ArrayList<>();
-        buildings.sort((o1, o2) -> o2.getPosition().getMapX() - o1.getPosition().getMapX() + o2.getPosition().getMapY() - o1.getPosition().getMapY());
-        for (Building building : buildings) {
-            addBuildingToScene(building);
-        }
-    }
-
-    private void addBuildingToScene(Building building) {
-        BuildingHolder buildingHolder = new BuildingHolder(building);
-        int size = (building.getClass().equals(TownHall.class)) ? 2 : 1;
-        IsometricPane.mapToIsometricLayout(buildingHolder, building.getPosition(), size);
-        draggableView.getChildren().add(buildingHolder);
-        buildingHolders.add(buildingHolder);
-        setTileOccupied(building.getPosition().getMapX(), building.getPosition().getMapY());
+    @Override
+    public void addBuildingToScene(BuildingHolder buildingHolder) {
+        super.addBuildingToScene(buildingHolder);
+        setTileOccupied(buildingHolder.getEntity().getPosition().getMapX(), buildingHolder.getEntity().getPosition().getMapY());
         setBuildingHolderEvents(buildingHolder);
     }
 
-    private void addBuildingToScene(Builder builder, Position position) {
+    private void addBuildingToSceneByBuilder(Builder builder, Position position) {
         setTileOccupied(position.getMapX(), position.getMapY());
         BuildingHolder buildingHolder = new BuildingHolder(builder);
         IsometricPane.mapToIsometricLayout(buildingHolder, position, 1);
@@ -147,7 +137,7 @@ public class MyVillageScene extends VillageScene {
         } catch (NoSuchAUnderConstructBuildingException e) {
             return;
         }
-        addBuildingToScene(builder, Position.newMapPosition(x, y));
+        addBuildingToSceneByBuilder(builder, Position.newMapPosition(x, y));
     }
 
     private void setBuildingHolderEvents(BuildingHolder buildingHolder) {
@@ -178,9 +168,5 @@ public class MyVillageScene extends VillageScene {
         buildButton.setLayoutX(sceneX);
         buildButton.setLayoutY(sceneY);
         buildButton.setVisible(true);
-    }
-
-    public void handleException(Exception e) {
-        ErrorPopup.popError(e);
     }
 }

@@ -4,10 +4,10 @@ import javafx.animation.ScaleTransition;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 
-public class TroopHolder extends EntityHolder{
+public class TroopsHolder extends EntityHolder{
     private ScaleTransition scaleTransition = new ScaleTransition();
 
-    public TroopHolder(Entity entity) {
+    public TroopsHolder(Entity entity) {
         super(entity);
         initialize();
     }

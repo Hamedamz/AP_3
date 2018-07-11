@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
+import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.TownHall;
 import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
@@ -89,7 +91,22 @@ public abstract class VillageScene extends Scene {
         });
     }
 
-    abstract AnimationTimer setAnimationTimer();
+    protected abstract AnimationTimer setAnimationTimer();
+
+    public void addBuildingsFromList(ArrayList<Building> buildings) {
+        buildingHolders = new ArrayList<>();
+        buildings.sort((o1, o2) -> o2.getPosition().getMapX() - o1.getPosition().getMapX() + o2.getPosition().getMapY() - o1.getPosition().getMapY());
+        for (Building building : buildings) {
+            addBuildingToScene(new BuildingHolder(building));
+        }
+    }
+
+    public void addBuildingToScene(BuildingHolder buildingHolder) {
+        int size = (buildingHolder.getEntity().getClass().equals(TownHall.class)) ? 2 : 1;
+        IsometricPane.mapToIsometricLayout(buildingHolder, buildingHolder.getEntity().getPosition(), size);
+        draggableView.getChildren().add(buildingHolder);
+        buildingHolders.add(buildingHolder);
+    }
 
     public void toggleVisibility(Node node) {
         if (node.isVisible()) {
