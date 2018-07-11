@@ -159,6 +159,10 @@ public class BattleGround {
 
     }
 
+    public <T extends Troop> ArrayList<T> getUndeployedTroopByType(Class<T> type) {
+        return (ArrayList<T>) getUnDeployedTroops().get(type.getSimpleName());
+    }
+
     public boolean isGameFinished() {
         if (timeRemaining <= 0) {
             return true;

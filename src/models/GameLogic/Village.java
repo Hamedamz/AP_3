@@ -12,6 +12,7 @@ public class Village {
     private TownHall townHall;
     private GameMap gameMap;
     private ArrayList<Building> underConstructBuildings;
+
     /**
      * listOfBuildingsByName must contain following Classes other than Basic Classes
      * Storage, DefenciveBuildings
