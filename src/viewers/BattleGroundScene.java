@@ -2,17 +2,20 @@ package viewers;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.entityHolders.TroopsHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
+import viewers.utils.fancyButtons.TroopsFancyButton;
 
 import java.util.ArrayList;
 
@@ -25,7 +28,7 @@ public class BattleGroundScene extends VillageScene {
     private Text acheivedElixirLoot;
     private GridPane availableLoots;
 
-    private ArrayList<TroopsHolder> troopsHolders;
+    private ArrayList<TroopsHolder> troopsHolders = new ArrayList<>();
     private TroopsScrollMenu troopsScrollMenu;
     private GridPane tiles;
     private IsometricPane isometricPane;
@@ -66,6 +69,7 @@ public class BattleGroundScene extends VillageScene {
         troopsScrollMenu = new TroopsScrollMenu(ButtonActionType.TROOPS, null);
         troopsScrollMenu.setMaxWidth(Const.POPUP_WIDTH - 6 * Const.SPACING);
         troopsScrollMenu.setLayoutX(Const.WINDOW_WIDTH / 2 - Const.POPUP_WIDTH / 2 + 3 * Const.SPACING);
+        troopsScrollMenu.setSelectable(true);
 
         root.getChildren().clear();
         root.getChildren().addAll(draggableView, availableLoots, settingsButton, troopsScrollMenu, villageConsole);
@@ -85,6 +89,10 @@ public class BattleGroundScene extends VillageScene {
                     buildingHolder.refresh();
                 }
 
+                for (TroopsHolder troopsHolder : troopsHolders) {
+                    troopsHolder.refresh();
+                    IsometricPane.mapToIsometricLayout(troopsHolder, troopsHolder.getEntity().getPosition(), 1);
+                }
 
             }
         };
@@ -126,5 +134,21 @@ public class BattleGroundScene extends VillageScene {
 
     public void attackListener(Position attacker, Position target) {
 
+    }
+
+    public String getSelectedTroop() {
+        Node selectedItem = troopsScrollMenu.getSelectedItem();
+        String type = null;
+        if (selectedItem != null) {
+            type = ((TroopsFancyButton) selectedItem).getClazz();
+        }
+        return type;
+    }
+
+    public void putTroop(Troop troop) {
+        TroopsHolder troopsHolder = new TroopsHolder(troop);
+        IsometricPane.mapToIsometricLayout(troopsHolder, troop.getPosition(), 1);
+        draggableView.getChildren().add(troopsHolder);
+        troopsHolders.add(troopsHolder);
     }
 }

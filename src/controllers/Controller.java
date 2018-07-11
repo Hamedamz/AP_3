@@ -10,6 +10,7 @@ import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Entity;
+import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.*;
 import models.World;
 import viewers.menu.*;
@@ -297,11 +298,11 @@ public class Controller {
                     int x = Integer.parseInt(controller.getArgument(3, command, PUT_TROOP_FORMAT)) - 1;
                     int y = Integer.parseInt(controller.getArgument(4, command, PUT_TROOP_FORMAT)) - 1;
 
-                    try {
-                        controller.world.getBattleGround().putTroop(unitType, number, new Position(x, y));
-                    } catch (TroopNotFoundException e) {
-                        controller.viewer.printErrorMessage(e.getMessage());
-                    }
+//                    try {
+//                        controller.world.getBattleGround().putTroop(unitType, number, new Position(x, y));
+//                    } catch (TroopNotFoundException e) {
+//                        controller.viewer.printErrorMessage(e.getMessage());
+//                    }
 
                 } else if (command.matches(GO_NEXT_TURN_FORMAT)) {
                     controller.turn(1);
@@ -316,7 +317,7 @@ public class Controller {
                 } else
                     throw new InvalidInputException("invalid input");
 
-            } catch (CountLimitReachedException | InvalidInputException | InvalidPositionException e) {
+            } catch ( InvalidInputException  e) {
                 controller.viewer.printErrorMessage(e.getMessage());
             }
 
@@ -332,6 +333,11 @@ public class Controller {
                 controller.world.sendTroopToAttack(troopType, troopNumber);
             }
         }
+    }
+
+    public void putTroop(String type, int i, Position position) throws TroopNotFoundException, InvalidPositionException, CountLimitReachedException {
+        Troop troop = controller.getWorld().getBattleGround().putTroop(type, position);
+        AppGUI.getBattelGroundSccene().putTroop(troop);
     }
 
 

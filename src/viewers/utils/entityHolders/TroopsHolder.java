@@ -19,7 +19,7 @@ public class TroopsHolder extends EntityHolder{
     }
 
     @Override
-    void refresh() {
+    public void refresh() {
         if (((AttackerTroop) entity).getHitPoints() < ((AttackerTroop) entity).getMaxHitPoints()) {
             if (!hitPointsProgressBar.isVisible()) {
                 hitPointsProgressBar.setVisible(true);

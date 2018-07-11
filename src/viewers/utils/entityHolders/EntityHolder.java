@@ -20,13 +20,13 @@ public abstract class EntityHolder extends Pane {
         imageView = entity.getImageView();
         imageView.setFitWidth(Const.ENTITY_TILE_WIDTH * Const.TILE_SCALE);
         imageView.setFitHeight(Const.ENTITY_TILE_HEIGHT * Const.TILE_SCALE);
-        this.setMaxSize(imageView.getViewport().getWidth(), imageView.getViewport().getHeight());
+//        this.setMaxSize(imageView.getViewport().getWidth(), imageView.getViewport().getHeight());
         hitPointsProgressBar = new ProgressBarItem(ProgressBarType.HIT_POINTS, entity);
         this.getChildren().addAll(imageView, hitPointsProgressBar);
 
     }
 
-    abstract void refresh();
+    public abstract void refresh();
 
     public Entity getEntity() {
         return entity;

@@ -15,6 +15,7 @@ public abstract class FancyButton extends VBox {
     private ImageView icon = new ImageView();
     private StackPane wrapper = new StackPane(icon);
     private ColorAdjust grayScale;
+    private boolean isActive;
 
     public FancyButton(ButtonActionType type) {
         super(Const.SPACING / 2);
@@ -58,10 +59,15 @@ public abstract class FancyButton extends VBox {
     }
 
     public void setActive(boolean active) {
+        this.isActive = active;
         if (active) {
             grayScale.setSaturation(0);
         } else {
             grayScale.setSaturation(-1);
         }
+    }
+
+    public boolean isActive() {
+        return isActive;
     }
 }

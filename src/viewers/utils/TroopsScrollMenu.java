@@ -1,5 +1,7 @@
 package viewers.utils;
 
+import javafx.scene.Node;
+import javafx.scene.effect.Glow;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Camp;
 import models.GameLogic.Exceptions.NotAvailableAtThisLevelException;
@@ -15,6 +17,8 @@ import java.util.HashMap;
 public class TroopsScrollMenu extends ScrollMenu {
 
     Object model;
+    private Node selectedItem;
+    private boolean isSelectable;
 
     public TroopsScrollMenu(String[] entities, Object model) {
         super(entities);
@@ -26,6 +30,17 @@ public class TroopsScrollMenu extends ScrollMenu {
         for (String clazz : getEntities()) {
             TroopsFancyButton troopsFancyButton = new TroopsFancyButton(ButtonActionType.NONE, clazz);
             getButtons().getChildren().add(troopsFancyButton);
+            troopsFancyButton.setEffect(new Glow(0));
+            troopsFancyButton.setOnMouseReleased(event -> {
+                if (isSelectable && troopsFancyButton.isActive()) {
+                    if (selectedItem != null) {
+                        ((Glow) selectedItem.getEffect()).setLevel(0);
+                    }
+                    selectedItem = troopsFancyButton;
+                    ((Glow) selectedItem.getEffect()).setLevel(0.5);
+
+                }
+            });
         }
     }
 
@@ -102,5 +117,17 @@ public class TroopsScrollMenu extends ScrollMenu {
             int numberOfTroop = AppGUI.getController().getWorld().getBattleGround().getUnDeployedTroopsNumberByType(troop);
             troopsFancyButton.setNumberBadge(numberOfTroop);
         }
+    }
+
+    public Node getSelectedItem() {
+        return selectedItem;
+    }
+
+    public boolean isSelectable() {
+        return isSelectable;
+    }
+
+    public void setSelectable(boolean selectable) {
+        isSelectable = selectable;
     }
 }

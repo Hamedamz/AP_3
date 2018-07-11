@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
 import models.GameLogic.Position;
+import viewers.utils.entityHolders.TroopsHolder;
 
 import static viewers.utils.Const.*;
 

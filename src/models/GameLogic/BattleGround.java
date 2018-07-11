@@ -136,27 +136,28 @@ public class BattleGround {
 
     //TODO check position correctness -> not occupied
 
-    public void putTroop(String troopType, int count, Position position)
+    public Troop putTroop(String troopType, Position position)
             throws CountLimitReachedException, InvalidPositionException, TroopNotFoundException {
         ArrayList<Troop> troops = unDeployedTroops.get(troopType);
-        if(troops == null || troops.size() < count) {
+        if(troops == null || troops.size() < 1) {
             throw new TroopNotFoundException();
         }
         if (!(position.getMapX() == 0 || position.getMapX() == enemyGameMap.getMapWidth() - 1 ||
                 position.getMapY() == 0 || position.getMapY() == enemyGameMap.getMapHeight() - 1)) {
             throw new InvalidPositionException();
         }
-        if (numberOfTroopsDeployed[position.getMapX()][position.getMapY()] + count > MAX_UNITS_IN_POSITION) {
+        if (numberOfTroopsDeployed[position.getMapX()][position.getMapY()] + 1 > MAX_UNITS_IN_POSITION) {
             throw new CountLimitReachedException();
         }
-        for (int i = 0; i < count; i++) {
-            Troop deployedTroop = troops.get(troops.size() - 1);
-            deployedTroops.add(deployedTroop);
-            troops.remove(troops.size()-1);
-            deployedTroop.setPosition(position);
-        }
-        numberOfTroopsDeployed[position.getMapX()][position.getMapY()] += count;
 
+        Troop deployedTroop = troops.get(troops.size() - 1);
+        deployedTroops.add(deployedTroop);
+        troops.remove(troops.size()-1);
+        deployedTroop.setPosition(position);
+
+        numberOfTroopsDeployed[position.getMapX()][position.getMapY()] += 1;
+
+        return deployedTroop;
     }
 
     public int getUnDeployedTroopsNumberByType(String type) {

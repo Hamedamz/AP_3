@@ -3,6 +3,11 @@ package viewers.utils;
 import javafx.animation.FadeTransition;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import models.GameLogic.Exceptions.CountLimitReachedException;
+import models.GameLogic.Exceptions.InvalidPositionException;
+import models.GameLogic.Exceptions.TroopNotFoundException;
+import models.GameLogic.Position;
+import viewers.AppGUI;
 
 import static viewers.utils.Const.TILE_SIZE;
 
@@ -25,5 +30,16 @@ public class PutTroopsTile extends Rectangle {
 
         this.setOnMouseEntered(event -> fadeIn.play());
         this.setOnMouseExited(event -> fadeOut.play());
+
+        this.setOnMouseClicked(event -> {
+            String type = AppGUI.getBattelGroundSccene().getSelectedTroop();
+            if (type != null) {
+                try {
+                    AppGUI.getController().putTroop(type, 1, new Position(x, y));
+                } catch (CountLimitReachedException | InvalidPositionException | TroopNotFoundException e) {
+                    AppGUI.getBattelGroundSccene().handleException(e);
+                }
+            }
+        });
     }
 }
