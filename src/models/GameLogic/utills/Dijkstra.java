@@ -21,7 +21,6 @@ public class Dijkstra {
             throw new RuntimeException("not ground troop");
         }
         Node[][] mapNodes = new Node[gameMap.getWidth()][gameMap.getHeight()];
-        System.out.println("hello: " + gameMap.getMapWidth() + " " + gameMap.getHeight());
         Graph graph = initiateGraph(mapNodes, gameMap, attacker);
         calculateShortestPathFromSource(graph, mapNodes[attacker.getPosition().getX()][attacker.getPosition().getY()]);
         Node lastNode = findDestination(mapNodes, gameMap, destination, range);
@@ -52,7 +51,6 @@ public class Dijkstra {
                     for (int j1 = 0; j1 < building.getSize() * CELL_SIZE; j1++) {
                         int x = CELL_SIZE * building.getPosition().getMapX() + i1;
                         int y = CELL_SIZE * building.getPosition().getMapY() + j1;
-                        System.out.println(building.getSize());
                         if (building instanceof Wall) {
                             if((i1 == 0 || i1 == building.getSize() * CELL_SIZE - 1) && (j1 == 0 || j1 == building.getSize() * CELL_SIZE - 1)) {
                                 mapNodes[x][y] = new Node(new Position(x, y), 1, false);
