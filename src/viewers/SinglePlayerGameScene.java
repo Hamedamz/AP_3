@@ -4,8 +4,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import viewers.utils.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static viewers.utils.Const.WINDOW_HEIGHT;
@@ -57,16 +61,31 @@ public class SinglePlayerGameScene extends Scene {
             Button cancelButton = new Button("Cancel");
 
             loadButton.setOnAction(event1 -> {
-                try {
-                    if (loadingVillageName.get() != null) {
-                     //   AppGUI.getController().loadGame(AppGUI.getController().getWorld().getMyVillagesNameAndFile().get(loadingVillageName.get()));
-                        // FIXME: 7/10/18 correct above
-                        loadStage();
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setInitialDirectory(new File("savedMaps"));
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("jSon files", "*.json"));
+                List<File> selectedFiles = fileChooser.showOpenMultipleDialog(AppGUI.getMainStage());
+                if (selectedFiles != null) {
+                    for (File selectedFile : selectedFiles) {
+                        try {
+                            AppGUI.getController().loadGameFromFile(selectedFile);
+                            AppGUI.setStageScene(MyVillageScene.getInstance());
+                            loadStage();
+                        } catch (FileNotFoundException e) {
+                            AppGUI.getMyVillageScene().handleException(e);
+                        }
                     }
-                    // FIXME: 7/9/2018
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+//                try {
+//                    if (loadingVillageName.get() != null) {
+//                     //   AppGUI.getController().loadGame(AppGUI.getController().getWorld().getMyVillagesNameAndFile().get(loadingVillageName.get()));
+//                        // FIXME: 7/10/18 correct above
+//                        //loadStage();
+//                    }
+//                    // FIXME: 7/9/2018
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
             });
 
             cancelButton.setOnAction(event2 -> menuPane.hide());
