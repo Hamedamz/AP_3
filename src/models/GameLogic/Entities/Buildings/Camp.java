@@ -85,7 +85,11 @@ public class Camp extends Building {
 
     @Override
     public Bounty getBounty() {
-        return null;
+        int gold = GameLogicConfig.getFromDictionary("CampBuildGold");
+        int elixir = 0;
+        Resource resource = new Resource(gold, elixir);
+        int score = this.score;
+        return new Bounty(score, resource);
     }
 
     @Override
