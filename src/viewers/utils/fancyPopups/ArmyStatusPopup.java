@@ -3,13 +3,12 @@ package viewers.utils.fancyPopups;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import viewers.AppGUI;
 import viewers.utils.Const;
 import viewers.utils.TroopsScrollMenu;
 import viewers.utils.fancyButtons.ButtonActionType;
 
-public class ArmyStatusPopup extends ModelPopup {
+public class ArmyStatusPopup extends FancyPopup {
 
     private TroopsScrollMenu troopsScrollMenu;
     private AnimationTimer animationTimer;

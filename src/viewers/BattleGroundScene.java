@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Buildings.Building;
@@ -19,7 +18,7 @@ import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.entityHolders.TroopsHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.TroopsFancyButton;
-import viewers.utils.fancyPopups.AttackEndPopup;
+import viewers.utils.fancyPopups.AttackEndGlassPane;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,7 +37,7 @@ public class BattleGroundScene extends VillageScene {
     private GridPane tiles;
     private Pane troopsPane;
     private IsometricPane isometricPane;
-    private AttackEndPopup attackEndPopup;
+    private AttackEndGlassPane attackEndGlassPane;
 
     private BattleGroundScene() {
         super();
@@ -82,11 +81,11 @@ public class BattleGroundScene extends VillageScene {
         troopsScrollMenu.setLayoutX(Const.WINDOW_WIDTH / 2 - Const.POPUP_WIDTH / 2 + 3 * Const.SPACING);
         troopsScrollMenu.setSelectable(true);
 
-        attackEndPopup = new AttackEndPopup();
-        attackEndPopup.setVisible(false);
+        attackEndGlassPane = new AttackEndGlassPane();
+        attackEndGlassPane.setVisible(false);
 
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, lootedBountyInfo, settingsButton, troopsScrollMenu, attackEndPopup, villageConsole);
+        root.getChildren().addAll(draggableView, lootedBountyInfo, settingsButton, troopsScrollMenu, attackEndGlassPane, villageConsole);
 
         setAnimationTimer().start();
     }
@@ -116,8 +115,8 @@ public class BattleGroundScene extends VillageScene {
 
                 if (AppGUI.getController().getWorld().getBattleGround().isGameFinished()) {
                     this.stop();
-                    attackEndPopup.setProperties();
-                    attackEndPopup.setVisible(true);
+                    attackEndGlassPane.setProperties();
+                    attackEndGlassPane.setVisible(true);
                 }
 
             }

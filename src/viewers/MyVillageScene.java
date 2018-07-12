@@ -3,12 +3,10 @@ package viewers;
 import controllers.BuildingMenuController;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import models.GameLogic.BattleGround;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Entity;
@@ -18,11 +16,9 @@ import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.RoundFancyButton;
-import viewers.utils.fancyPopups.AttackMenu;
+import viewers.utils.fancyPopups.AttackMenuGlassPane;
 
 import java.util.ArrayList;
-
-import static viewers.utils.Const.*;
 
 public class MyVillageScene extends VillageScene {
     private static MyVillageScene instance = new MyVillageScene();
@@ -33,7 +29,7 @@ public class MyVillageScene extends VillageScene {
     private RoundFancyButton buildButton;
     private RoundFancyButton attackButton;
     private ShopScrollMenu shopScrollMenu;
-    private AttackMenu attackMenu;
+    private AttackMenuGlassPane attackMenuGlassPane;
     private GridPane tiles;
     private IsometricPane isometricPane;
 
@@ -87,18 +83,19 @@ public class MyVillageScene extends VillageScene {
         });
 
         // attack button
-        attackMenu = new AttackMenu();
-        attackMenu.setVisible(false);
+        attackMenuGlassPane = new AttackMenuGlassPane();
+        attackMenuGlassPane.setProperties();
+        attackMenuGlassPane.setVisible(false);
         attackButton = new RoundFancyButton(ButtonActionType.OPEN_ATTACK_MENU, "red");
         attackButton.setLayoutX(Const.SPACING * 3);
         attackButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
         attackButton.setOnMouseClicked(event -> {
-            attackMenu.toggleVisibility();
+            attackMenuGlassPane.toggleVisibility();
             SoundPlayer.play(Sounds.buttonSound);
         });
 
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenu, attackButton, villageConsole);
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton, villageConsole);
 
         setAnimationTimer().start();
     }

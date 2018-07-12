@@ -10,7 +10,7 @@ import models.GameLogic.Entities.Entity;
 import viewers.AppGUI;
 import viewers.utils.*;
 
-public class InfoPopup extends ModelPopup {
+public class InfoPopup extends FancyPopup {
 
     private ImageView imageView = new ImageView();
     private VBox imagePane = new VBox(imageView);

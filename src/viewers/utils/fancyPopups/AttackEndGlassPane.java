@@ -1,6 +1,8 @@
 package viewers.utils.fancyPopups;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -15,24 +17,20 @@ import viewers.MyVillageScene;
 import viewers.utils.*;
 import viewers.utils.fancyButtons.RoundButton;
 
-public class AttackEndPopup extends StackPane {
+public class AttackEndGlassPane extends GlassPane {
 
-    private Text title;
     private RoundButton returnButton;
     private GridPane lootedBountyInfo;
-    private VBox body;
-    private Rectangle background;
 
-    public AttackEndPopup() {
-        background = new Rectangle(Const.WINDOW_WIDTH, Const.WINDOW_HEIGHT, Color.BLACK);
-        background.setOpacity(0.75);
+    public AttackEndGlassPane() {
+        super("Attack Finished!");
     }
 
+    @Override
     public void setProperties() {
         this.setHeight(Const.WINDOW_HEIGHT);
         this.setWidth(Const.WINDOW_WIDTH);
 
-        title = new StrokeText("Attack Finished!");
         lootedBountyInfo = buildLootedBountyInfo();
         returnButton = new RoundButton("Return", "green");
 
@@ -41,13 +39,8 @@ public class AttackEndPopup extends StackPane {
             AppGUI.setStageScene(MyVillageScene.getInstance());
         });
 
-        body = new VBox(Const.SPACING * 3, title, lootedBountyInfo, returnButton);
-        body.setAlignment(Pos.CENTER);
-        body.setMinWidth(Const.POPUP_WIDTH);
-        body.setMinHeight(Const.WINDOW_HEIGHT);
-        body.setLayoutX(Const.WINDOW_WIDTH / 2 - Const.POPUP_WIDTH / 2);
-        this.getChildren().clear();
-        this.getChildren().addAll(background, body);
+        body.getChildren().clear();
+        body.getChildren().addAll(lootedBountyInfo, returnButton);
     }
 
     private GridPane buildLootedBountyInfo() {
