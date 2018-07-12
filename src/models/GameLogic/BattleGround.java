@@ -10,6 +10,7 @@ import models.GameLogic.Exceptions.InvalidPositionException;
 import models.GameLogic.Exceptions.TroopNotFoundException;
 import models.setting.GameLogicConfig;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class BattleGround {
@@ -155,7 +156,9 @@ public class BattleGround {
         troops.remove(troops.size()-1);
         deployedTroop.setPosition(position);
 
-        numberOfTroopsDeployed[position.getMapX()][position.getMapY()] += 1;
+        numberOfTroopsDeployed[position.getMapX()][position.getMapY()] ++;
+
+        deployedTroop.setMovementPath(new ArrayList<>(Arrays.asList(deployedTroop.getPosition())));
 
         return deployedTroop;
     }

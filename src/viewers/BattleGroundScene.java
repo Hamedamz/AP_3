@@ -3,9 +3,6 @@ package viewers;
 import interfaces.Attacker;
 import interfaces.Destroyable;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -13,11 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Troop.Troop;
-import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
@@ -125,8 +120,8 @@ public class BattleGroundScene extends VillageScene {
                         troopsPane.getChildren().remove(troopHolder);
                     }
 
-//                    animateTroopsMovement(troopsHolder);
-                    IsometricPane.mapToIsometricLayout(troopsHolder, troopsHolder.getEntity().getPosition(), 1);
+//                    animateTroopsMovement(troopHolder);
+                    IsometricPane.mapToIsometricLayout(troopHolder, troopHolder.getEntity().getPosition(), 1);
                 }
 
                 if (AppGUI.getController().getWorld().getBattleGround().isGameFinished()) {
@@ -140,9 +135,9 @@ public class BattleGroundScene extends VillageScene {
         };
     }
 
-    private void animateTroopsMovement(TroopsHolder troopsHolder) {
-        Troop troop = (Troop) troopsHolder.getEntity();
-
+    private void animateTroopsMovement(TroopHolder troopHolder) {
+        Troop troop = (Troop) troopHolder.getEntity();
+    }
 
     private int getGameEngineDuration() {
         return AppGUI.getController().getWorld().getGameEngine().getDuration();

@@ -1,6 +1,7 @@
 package models.multiPlayer;
 
 import models.multiPlayer.packet.Packet;
+import models.multiPlayer.utils.FullAddress;
 import models.multiPlayer.utils.ServerConstants;
 
 import java.io.*;
@@ -13,9 +14,8 @@ public class PacketHandler {
         socket = new DatagramSocket(port);
     }
 
-    public void sendObject(Packet o, String hostName, int desPort) {
+    public void sendObject(Packet o, InetAddress address, int desPort) {
         try {
-            InetAddress address = InetAddress.getByName(hostName);
             ByteArrayOutputStream byteStream = new
                     ByteArrayOutputStream(ServerConstants.SERVER_BUFFER_SIZE);
             ObjectOutputStream os = new ObjectOutputStream(new
@@ -51,7 +51,7 @@ public class PacketHandler {
                     ObjectInputStream(new BufferedInputStream(byteStream));
             Object o = is.readObject();
             is.close();
-            return ((Packet) o);
+            return ((Packet) o).withFullAddress(new FullAddress(packet.getAddress(), packet.getPort()));
         } catch (IOException e) {
             System.err.println("Exception:  " + e);
             e.printStackTrace();

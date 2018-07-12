@@ -1,5 +1,5 @@
 package models.multiPlayer.packet.serverPacket;
 
-public enum ChatServerPacketType {
+public enum ServerChatPacketType {
     SEND, RECEIVE_ALL
 }

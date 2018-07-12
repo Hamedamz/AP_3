@@ -1,8 +1,9 @@
 package models.multiPlayer.utils;
 
+import java.io.Serializable;
 import java.net.InetAddress;
 
-public class FullAddress {
+public class FullAddress implements Serializable {
     private InetAddress inetAddress;
     private int port;
 
