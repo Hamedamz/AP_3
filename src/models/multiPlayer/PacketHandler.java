@@ -9,7 +9,7 @@ import java.net.*;
 public class PacketHandler {
     private DatagramSocket socket;
 
-    protected void initiateSocket(int port) throws SocketException {
+    protected void initSocket(int port) throws SocketException {
         socket = new DatagramSocket(port);
     }
 

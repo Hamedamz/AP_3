@@ -23,8 +23,8 @@ public class BattleGroundGameEngine {
     }
 
     public void update() {
-        battleGround.setTimeRemaining(battleGround.getTimeRemaining() - 1);
         synchronized (battleGround) {
+            battleGround.setTimeRemaining(battleGround.getTimeRemaining() - 1);
             updateTroopTarget();
             updateDefendersTarget();
             findMovablesPath();
@@ -32,29 +32,33 @@ public class BattleGroundGameEngine {
             healTroops();
             performDefendersAttack();
             performTroopsAttack();
+            collectBounties();
+            handleTimedEvents();
+            removeDestroyedDestroyables();
+            battleGround.reset();
+            isGameFinished = battleGround.isGameFinished();
+            if (isGameFinished) {
+                battleGround.endBattle();
+            }
         }
-        collectBounties();
-        handleTimedEvents();
-        removeDestroyedDestroyables();
-        battleGround.reset();
-        isGameFinished = battleGround.isGameFinished();
-        if (isGameFinished) {
-            battleGround.endBattle();
-        }
-
     }
 
     private void moveMovables() {
-        synchronized (battleGround) {
-            for (Troop troop : battleGround.getDeployedTroops()) {
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            try {
                 troop.move();
-            }
-            for (Defender defender : battleGround.getEnemyDefenders()) {
-                if (defender instanceof Movable) {
-                    ((Movable) defender).move();
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
+        for (Defender defender : battleGround.getEnemyDefenders()) {
+
+
+            if (defender instanceof Movable) {
+                ((Movable) defender).move();
+            }
+        }
+
     }
 
     private void collectBounties() {
@@ -76,56 +80,46 @@ public class BattleGroundGameEngine {
     }
 
     public void updateTroopTarget() {
-        synchronized (battleGround) {
-            ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getEnemyDefenders());
-            ArrayList<Thread> threads = new ArrayList<>();
-            for (Troop troop : battleGround.getDeployedTroops()) {
-                if (troop.getTarget() == null || troop.getTarget().isDestroyed()) {
+        ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getEnemyDefenders());
 
-                    Thread thread = new Thread(() -> {
-                        try {
-                            troop.setTarget(listOfDefensiveUnits);
-                        } catch (NoTargetFoundException e) {
-                            if (troop instanceof AttackerTroop) {
-                                isGameFinished = true;
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            if (troop.getTarget() == null || troop.getTarget().isDestroyed()) {
 
-                            }
-                        }
-                    });
-                    thread.start();
-                    threads.add(thread);
-                }
-            }
-            for(Thread thread : threads) {
                 try {
-                    thread.join();
-                } catch (InterruptedException e) {
+                    troop.setTarget(listOfDefensiveUnits);
+                } catch (NoTargetFoundException e) {
+                    if (troop instanceof AttackerTroop) {
+                        isGameFinished = true;
+                    }
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
+
             }
+
         }
+
     }
 
     public void updateDefendersTarget() {
-        synchronized (battleGround) {
-            ArrayList<Destroyable> destroyables = new ArrayList<>();
-            for (Troop entry : battleGround.getDeployedTroops()) {
-                if (entry instanceof Destroyable) {
-                    destroyables.add((Destroyable) entry);
-                }
+        ArrayList<Destroyable> destroyables = new ArrayList<>();
+        for (Troop entry : battleGround.getDeployedTroops()) {
+            if (entry instanceof Destroyable) {
+                destroyables.add((Destroyable) entry);
             }
-            for (Defender defender : battleGround.getEnemyDefenders()) {
-                if (defender instanceof Attacker) {
-                    if (((Attacker) defender).getTarget() == null || ((Attacker) defender).getTarget().isDestroyed()) {
-                        try {
-                            ((Attacker) defender).setTarget(destroyables);
-                        } catch (NoTargetFoundException e) {
-                            e.getMessage();
-                        }
+        }
+        for (Defender defender : battleGround.getEnemyDefenders()) {
+            if (defender instanceof Attacker) {
+                if (((Attacker) defender).getTarget() == null || ((Attacker) defender).getTarget().isDestroyed()) {
+                    try {
+                        ((Attacker) defender).setTarget(destroyables);
+                    } catch (NoTargetFoundException e) {
+                        e.getMessage();
                     }
                 }
             }
         }
+
     }
 
     public void removeDestroyedDestroyables() {
@@ -145,49 +139,54 @@ public class BattleGroundGameEngine {
     }
 
     public void performTroopsAttack() {
-        synchronized (battleGround) {
-            for (Troop troop : battleGround.getDeployedTroops()) {
-                if (troop instanceof Attacker) {
+
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            if (troop instanceof Attacker) {
+                try {
                     ((Attacker) troop).giveDamageTo(troop.getTarget(), battleGround);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
+
     }
 
     public void performDefendersAttack() {
-        synchronized (battleGround) {
-            for (Defender defender : battleGround.getEnemyDefenders()) {
-                if (!defender.isDestroyed()) {
-                    if (defender instanceof Attacker) {
-                        ((Attacker) defender).giveDamageTo(((Attacker) defender).getTarget(), battleGround);
+        for (Defender defender : battleGround.getEnemyDefenders()) {
+            if (!defender.isDestroyed()) {
+                if (defender instanceof Attacker) {
+                    ((Attacker) defender).giveDamageTo(((Attacker) defender).getTarget(), battleGround);
 
-                    }
                 }
             }
         }
+
     }
 
     public void findMovablesPath() {
-        synchronized (battleGround) {
-            for (Troop troop : battleGround.getDeployedTroops()) {
-                troop.findPath(battleGround);
-            }
-            for (Defender defender : battleGround.getEnemyDefenders()) {
-                if (defender instanceof Movable) {
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            troop.findPath(battleGround);
+        }
+        for (Defender defender : battleGround.getEnemyDefenders()) {
+            if (defender instanceof Movable) {
+                try {
                     ((Movable) defender).findPath(battleGround);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
+
     }
 
     public void healTroops() {
-        synchronized (battleGround) {
-            for (Troop troop : battleGround.getDeployedTroops()) {
-                if (troop instanceof Healer) {
-                    ((Healer) troop).heal(battleGround);
-                }
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            if (troop instanceof Healer) {
+                ((Healer) troop).heal(battleGround);
             }
         }
+
     }
 
     public void handleTimedEvents() {
