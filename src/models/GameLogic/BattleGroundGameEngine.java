@@ -24,13 +24,15 @@ public class BattleGroundGameEngine {
 
     public void update() {
         battleGround.setTimeRemaining(battleGround.getTimeRemaining() - 1);
-        updateTroopTarget();
-        updateDefendersTarget();
-        findMovablesPath();
-        moveMovables();
-        healTroops();
-        performDefendersAttack();
-        performTroopsAttack();
+        synchronized (battleGround) {
+            updateTroopTarget();
+            updateDefendersTarget();
+            findMovablesPath();
+            moveMovables();
+            healTroops();
+            performDefendersAttack();
+            performTroopsAttack();
+        }
         collectBounties();
         handleTimedEvents();
         removeDestroyedDestroyables();

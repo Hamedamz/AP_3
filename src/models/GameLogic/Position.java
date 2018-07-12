@@ -14,7 +14,7 @@ public class Position {
     }
 
     public static Position newMapPosition(int x, int y) {
-        return new Position(x * CELL_SIZE + 1, y * CELL_SIZE + 1);
+        return new Position(x * CELL_SIZE + 2, y * CELL_SIZE + 2);
     }
 
     /**

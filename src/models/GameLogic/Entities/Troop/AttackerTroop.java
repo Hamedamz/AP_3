@@ -22,8 +22,8 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
 
     public AttackerTroop() {
         String className = this.getClass().getSimpleName();
-        this.damage =  GameLogicConfig.getFromDictionary(className + "Damage");
-        this.range =  GameLogicConfig.getFromDictionary(className + "Range");
+        this.damage = GameLogicConfig.getFromDictionary(className + "Damage");
+        this.range = GameLogicConfig.getFromDictionary(className + "Range");
         this.hitPoints = GameLogicConfig.getFromDictionary(className + "HitPoints");
         this.maxHitPoints = this.hitPoints;
     }
@@ -65,7 +65,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
             }
         }
 
-        if(minDistance < Double.MAX_VALUE) {
+        if (minDistance < Double.MAX_VALUE) {
             currentTarget = (Defender) minDistantDestroyable;
             return;
         }
@@ -74,13 +74,16 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
 
     @Override
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
-         if(getPosition().calculateDistance(destroyable.getPosition()) <= getEffectRange()) {
+        System.out.println(getPosition() + " " + getEffectRange());
+        if (getPosition().calculateDistance(destroyable.getPosition()) <= getEffectRange()) {
             destroyable.takeDamageFromAttack(damage);
         }
     }
 
     @Override
-    public void takeDamageFromAttack(int damage) { if (!isInvulnerable) hitPoints -= damage; }
+    public void takeDamageFromAttack(int damage) {
+        if (!isInvulnerable) hitPoints -= damage;
+    }
 
     @Override
     public void destroy() {
@@ -114,9 +117,9 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
         return range * Position.CELL_SIZE;
     }
 
-    public void heal(int amount){
+    public void heal(int amount) {
         hitPoints += amount;
-        if(hitPoints > maxHitPoints){
+        if (hitPoints > maxHitPoints) {
             hitPoints = maxHitPoints;
         }
     }

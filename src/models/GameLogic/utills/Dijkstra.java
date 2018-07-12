@@ -14,9 +14,9 @@ import static models.GameLogic.Position.*;
 
 public class Dijkstra {
     public static final double WALL_ATTACKER_MULTIPLIER = 2;
-    public static final Integer MAX_NODE_DISTANCE = 1000000;
+    public static final Integer MAX_NODE_DISTANCE = 10000;
 
-    public static ArrayList<Position> minPath(GameMap gameMap, MovingAttacker attacker, Position destination, int range) {
+    public static ArrayList<Position> findMinPath(GameMap gameMap, MovingAttacker attacker, Position destination, int range) {
         if (!attacker.getTroopMoveType().equals(MoveType.GROUND)) {
             throw new RuntimeException("not ground troop");
         }
@@ -24,7 +24,7 @@ public class Dijkstra {
         Graph graph = initiateGraph(mapNodes, gameMap, attacker);
         calculateShortestPathFromSource(graph, mapNodes[attacker.getPosition().getX()][attacker.getPosition().getY()]);
         Node lastNode = findDestination(mapNodes, gameMap, destination, range);
-        return minPath(attacker, range, lastNode);
+        return findMinPath(attacker, range, lastNode);
     }
 
     private static Graph initiateGraph(Node[][] mapNodes, GameMap gameMap, MovingAttacker attacker) {
@@ -59,12 +59,12 @@ public class Dijkstra {
                                 wallNode.setWall((Wall) building);
                             }
                         } else {
-//                            if((i1 == 0) || (i1 == building.getSize() * CELL_SIZE - 1)
-//                                    || (j1 == 0) || (j1 == building.getSize() * CELL_SIZE - 1)) {
+                            if((i1 == 0) || (i1 == building.getSize() * CELL_SIZE - 1)
+                                    || (j1 == 0) || (j1 == building.getSize() * CELL_SIZE - 1)) {
                                 mapNodes[x][y] = new Node(new Position(x, y), 1, false);
-//                            } else {
-//                                mapNodes[x][y] = new Node(new Position(x, y), MAX_NODE_DISTANCE, false);
-//                            }
+                            } else {
+                                mapNodes[x][y] = new Node(new Position(x, y), MAX_NODE_DISTANCE, false);
+                            }
                         }
                     }
                 }
@@ -145,7 +145,7 @@ public class Dijkstra {
         return minNode;
     }
 
-    private static ArrayList<Position> minPath(MovingAttacker attacker, int range, Node lastNode) {
+    private static ArrayList<Position> findMinPath(MovingAttacker attacker, int range, Node lastNode) {
         ArrayList<Position> path = new ArrayList<>();
         lastNode.getShortestPath().add(lastNode);
         for(int i = 0; i < lastNode.getShortestPath().size(); i++){
