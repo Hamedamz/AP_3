@@ -123,7 +123,7 @@ public class AttackMenuGlassPane extends GlassPane {
         });
 
         body.getChildren().clear();
-        body.getChildren().addAll(chooserBox, totalStock, troopsScrollMenu, attackButton);
+        body.getChildren().addAll(title, chooserBox, totalStock, troopsScrollMenu, attackButton);
     }
 
     private void setIncrementButtonsEvents() {

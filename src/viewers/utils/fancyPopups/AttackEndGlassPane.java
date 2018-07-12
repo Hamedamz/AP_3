@@ -1,15 +1,8 @@
 package viewers.utils.fancyPopups;
 
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import models.GameLogic.Bounty;
 import models.GameLogic.Resource;
 import viewers.AppGUI;
@@ -40,7 +33,7 @@ public class AttackEndGlassPane extends GlassPane {
         });
 
         body.getChildren().clear();
-        body.getChildren().addAll(lootedBountyInfo, returnButton);
+        body.getChildren().addAll(title, lootedBountyInfo, returnButton);
     }
 
     private GridPane buildLootedBountyInfo() {

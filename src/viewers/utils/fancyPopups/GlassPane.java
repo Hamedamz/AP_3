@@ -9,7 +9,7 @@ import viewers.utils.Const;
 import viewers.utils.StrokeText;
 
 public abstract class GlassPane extends StackPane {
-    private StrokeText title;
+    StrokeText title;
     VBox body;
     private Rectangle background;
 
@@ -20,7 +20,7 @@ public abstract class GlassPane extends StackPane {
         background = new Rectangle(Const.WINDOW_WIDTH, Const.WINDOW_HEIGHT, Color.BLACK);
         background.setOpacity(0.75);
 
-        body = new VBox(Const.SPACING * 3, this.title);
+        body = new VBox(Const.SPACING * 3);
         body.setAlignment(Pos.CENTER);
         body.setMinHeight(Const.WINDOW_HEIGHT);
         body.setMinWidth(Const.WINDOW_WIDTH);
