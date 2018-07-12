@@ -150,7 +150,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
             height = Const.TOWNHALL_TILE_HEIGHT;
         }
         if (offset >= getImageView().getImage().getWidth()) {
-            return;
+            offset = getImageView().getImage().getWidth() - width;
         }
         getImageView().setViewport(new Rectangle2D(offset, 0, width, height));
     }
