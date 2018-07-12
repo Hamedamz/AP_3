@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
 import models.GameLogic.Position;
-import viewers.utils.entityHolders.TroopsHolder;
 
 import static viewers.utils.Const.*;
 
@@ -23,7 +22,15 @@ public class IsometricPane extends Pane {
     }
 
     public static void mapToIsometricLayout(Node node, Position position, int size) {
-        node.setLayoutX(MAP_ORIGIN_X - ISOMETRIC_TILE_WIDTH / 2 * size + (position.getX() - position.getY()) * ISOMETRIC_TILE_SIZE / 4 * MAP_SLOPE_TRANSFORM_X);
-        node.setLayoutY(MAP_ORIGIN_Y + (position.getX() + position.getY()) * ISOMETRIC_TILE_SIZE / 4 * MAP_SLOPE_TRANSFORM_Y);
+        node.setLayoutX(getIsometricX(position) - ISOMETRIC_TILE_WIDTH / 2 * (size - 1));
+        node.setLayoutY(getIsometricY(position));
+    }
+
+    public static double getIsometricX(Position position) {
+        return MAP_ORIGIN_X - ISOMETRIC_TILE_WIDTH / 2 + (position.getX() - position.getY()) * ISOMETRIC_TILE_SIZE / 4 * MAP_SLOPE_TRANSFORM_X;
+    }
+
+    public static double getIsometricY(Position position) {
+        return MAP_ORIGIN_Y + (position.getX() + position.getY()) * ISOMETRIC_TILE_SIZE / 4 * MAP_SLOPE_TRANSFORM_Y;
     }
 }

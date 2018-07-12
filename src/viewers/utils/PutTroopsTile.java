@@ -32,12 +32,12 @@ public class PutTroopsTile extends Rectangle {
         this.setOnMouseExited(event -> fadeOut.play());
 
         this.setOnMouseClicked(event -> {
-            String type = AppGUI.getBattelGroundSccene().getSelectedTroop();
+            String type = AppGUI.getBattleGroundScene().getSelectedTroop();
             if (type != null) {
                 try {
                     AppGUI.getController().putTroop(type, 1, new Position(x, y));
                 } catch (CountLimitReachedException | InvalidPositionException | TroopNotFoundException e) {
-                    AppGUI.getBattelGroundSccene().handleException(e);
+                    AppGUI.getBattleGroundScene().handleException(e);
                 }
             }
         });

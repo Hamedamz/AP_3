@@ -55,7 +55,7 @@ public class Trap extends DefensiveBuilding {
         if (damageType == BuildingDamageType.SINGLE_TARGET) {
             destroyable.takeDamageFromAttack(damage);
             hitPoints = -10;
-            BattleGroundScene.getInstance().attackListener(this, destroyable);
+            BattleGroundScene.getInstance().attackHappened(this, destroyable);
             if (destroyable.isDestroyed()) {
                 destroyable.destroy();
             }
@@ -65,7 +65,7 @@ public class Trap extends DefensiveBuilding {
                 if(entity instanceof Destroyable) {
                     ((Destroyable) entity).takeDamageFromAttack(damage);
                     hitPoints = -10;
-                    BattleGroundScene.getInstance().attackListener(this, destroyable);
+                    BattleGroundScene.getInstance().attackHappened(this, destroyable);
                     if (destroyable.isDestroyed()) {
                         destroyable.destroy();
                     }

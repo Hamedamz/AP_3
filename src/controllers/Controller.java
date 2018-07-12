@@ -339,7 +339,7 @@ public class Controller {
 
     public void putTroop(String type, int i, Position position) throws TroopNotFoundException, InvalidPositionException, CountLimitReachedException {
         Troop troop = controller.getWorld().getBattleGround().putTroop(type, position);
-        AppGUI.getBattelGroundSccene().putTroop(troop);
+        AppGUI.getBattleGroundScene().putTroop(troop);
     }
 
 

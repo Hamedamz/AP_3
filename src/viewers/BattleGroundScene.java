@@ -3,6 +3,9 @@ package viewers;
 import interfaces.Attacker;
 import interfaces.Destroyable;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -10,13 +13,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Troop.Troop;
+import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
-import viewers.utils.entityHolders.TroopsHolder;
+import viewers.utils.entityHolders.TroopHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.TroopsFancyButton;
 import viewers.utils.fancyPopups.AttackEndGlassPane;
@@ -27,13 +32,15 @@ import java.util.Iterator;
 public class BattleGroundScene extends VillageScene {
     private static BattleGroundScene instance = new BattleGroundScene();
 
+    private boolean isTurned = false;
+
     private Text leftGoldLoot;
     private Text leftElixirLoot;
     private Text achievedGoldLoot;
     private Text achievedElixirLoot;
     private GridPane lootedBountyInfo;
 
-    private ArrayList<TroopsHolder> troopsHolders = new ArrayList<>();
+    private ArrayList<TroopHolder> troopHolders = new ArrayList<>();
     private TroopsScrollMenu troopsScrollMenu;
     private GridPane tiles;
     private Pane troopsPane;
@@ -52,6 +59,7 @@ public class BattleGroundScene extends VillageScene {
         super.build();
 
         // building holders
+        buildingsPane = new Pane();
         ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getBattleGround().getEnemyBuildings());
         addBuildingsFromList(buildings);
 
@@ -68,7 +76,7 @@ public class BattleGroundScene extends VillageScene {
         isometricPane = new IsometricPane(tiles);
         troopsPane = new Pane();
 
-        draggableView.getChildren().addAll(troopsPane, isometricPane);
+        draggableView.getChildren().addAll(buildingsPane, troopsPane, isometricPane);
 
 
         // available loots
@@ -94,8 +102,13 @@ public class BattleGroundScene extends VillageScene {
     @Override
     protected AnimationTimer setAnimationTimer() {
         return new AnimationTimer() {
+            long last = 0;
             @Override
             public void handle(long now) {
+                if (last == 0) {
+                    last = now;
+                }
+
                 refreshAvailableLoots();
                 troopsScrollMenu.refreshForBattleGround();
 
@@ -103,13 +116,13 @@ public class BattleGroundScene extends VillageScene {
                     buildingHolder.refresh();
                 }
 
-                Iterator<TroopsHolder> iterator = troopsHolders.iterator();
+                Iterator<TroopHolder> iterator = troopHolders.iterator();
                 while (iterator.hasNext()) {
-                    TroopsHolder troopsHolder = iterator.next();
-                    troopsHolder.refresh();
-                    if (troopsHolder.isDestroyed()) {
+                    TroopHolder troopHolder = iterator.next();
+                    troopHolder.refresh();
+                    if (troopHolder.isDestroyed()) {
                         iterator.remove();
-                        troopsPane.getChildren().remove(troopsHolder);
+                        troopsPane.getChildren().remove(troopHolder);
                     }
 
 //                    animateTroopsMovement(troopsHolder);
@@ -122,6 +135,7 @@ public class BattleGroundScene extends VillageScene {
                     attackEndGlassPane.setVisible(true);
                 }
 
+                last = now;
             }
         };
     }
@@ -130,6 +144,8 @@ public class BattleGroundScene extends VillageScene {
         Troop troop = (Troop) troopsHolder.getEntity();
 
 
+    private int getGameEngineDuration() {
+        return AppGUI.getController().getWorld().getGameEngine().getDuration();
     }
 
     private void refreshAvailableLoots() {
@@ -177,10 +193,10 @@ public class BattleGroundScene extends VillageScene {
     }
 
     public void putTroop(Troop troop) {
-        TroopsHolder troopsHolder = new TroopsHolder(troop);
-        IsometricPane.mapToIsometricLayout(troopsHolder, troop.getPosition(), 1);
-        troopsPane.getChildren().add(troopsHolder);
-        troopsHolders.add(troopsHolder);
+        TroopHolder troopHolder = new TroopHolder(troop);
+        IsometricPane.mapToIsometricLayout(troopHolder, troop.getPosition(), 1);
+        troopsPane.getChildren().add(troopHolder);
+        troopHolders.add(troopHolder);
     }
 
     public void attackHappened(Attacker attacker, Destroyable destroyable) {
@@ -188,6 +204,6 @@ public class BattleGroundScene extends VillageScene {
     }
 
     public void movementHappened() {
-
+        this.isTurned = true;
     }
 }

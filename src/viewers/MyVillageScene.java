@@ -45,6 +45,7 @@ public class MyVillageScene extends VillageScene {
     public void build() {
         super.build();
 
+
         tiles = new GridPane();
         tiles.setVgap(1);
         tiles.setHgap(1);
@@ -58,12 +59,15 @@ public class MyVillageScene extends VillageScene {
             }
         }
         isometricPane = new IsometricPane(tiles);
-
-        draggableView.getChildren().add(isometricPane);
+        isometricPane.setVisible(false);
 
         // building holders
+        buildingsPane = new Pane();
         ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getBuildings());
         addBuildingsFromList(buildings);
+
+        draggableView.getChildren().addAll(buildingsPane, isometricPane);
+
 
         // total stack resources
         totalGoldProgressBar = new ProgressBarItem(ProgressBarType.TOTAL_GOLD_INFO, null);
@@ -127,7 +131,7 @@ public class MyVillageScene extends VillageScene {
         setTileOccupied(position.getMapX(), position.getMapY());
         BuildingHolder buildingHolder = new BuildingHolder(builder);
         IsometricPane.mapToIsometricLayout(buildingHolder, position, 1);
-        draggableView.getChildren().add(buildingHolder);
+        buildingsPane.getChildren().add(buildingHolder);
         buildingHolders.add(buildingHolder);
         setBuildingHolderEvents(buildingHolder);
     }
@@ -170,5 +174,9 @@ public class MyVillageScene extends VillageScene {
         buildButton.setLayoutX(sceneX);
         buildButton.setLayoutY(sceneY);
         buildButton.setVisible(true);
+    }
+
+    public void showTiles(boolean visibility) {
+        isometricPane.setVisible(visibility);
     }
 }

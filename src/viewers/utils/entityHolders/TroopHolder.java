@@ -7,10 +7,10 @@ import models.GameLogic.Entities.Troop.Healer;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.TrainingTroop;
 
-public class TroopsHolder extends EntityHolder{
+public class TroopHolder extends EntityHolder{
     private ScaleTransition scaleTransition = new ScaleTransition();
 
-    public TroopsHolder(Entity entity) {
+    public TroopHolder(Entity entity) {
         super(entity);
         initialize();
     }

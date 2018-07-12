@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.TownHall;
@@ -24,6 +25,7 @@ public abstract class VillageScene extends Scene {
     Group root;
     RoundFancyButton settingsButton;
     RoundFancyButton fastForwardButton;
+    Pane buildingsPane;
     ArrayList<BuildingHolder> buildingHolders;
     MapBrowserPane draggableView;
     ImageView villageBackground = new ImageView();
@@ -104,7 +106,7 @@ public abstract class VillageScene extends Scene {
     public void addBuildingToScene(BuildingHolder buildingHolder) {
         int size = (buildingHolder.getEntity().getClass().equals(TownHall.class)) ? 2 : 1;
         IsometricPane.mapToIsometricLayout(buildingHolder, buildingHolder.getEntity().getPosition(), size);
-        draggableView.getChildren().add(buildingHolder);
+        buildingsPane.getChildren().add(buildingHolder);
         buildingHolders.add(buildingHolder);
     }
 
