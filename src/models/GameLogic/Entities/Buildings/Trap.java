@@ -3,12 +3,14 @@ package models.GameLogic.Entities.Buildings;
 import interfaces.Destroyable;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Bounty;
+import models.GameLogic.Entities.Entity;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.utills.IDGenerator;
 import models.setting.GameLogicConfig;
+import viewers.BattleGroundScene;
 
 public class Trap extends DefensiveBuilding {
 
@@ -47,7 +49,28 @@ public class Trap extends DefensiveBuilding {
 
     @Override
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
-        super.giveDamageTo(destroyable, battleGround);
-        hitPoints = -10000;
+        if (destroyable == null) {
+            return;
+        }
+        if (damageType == BuildingDamageType.SINGLE_TARGET) {
+            destroyable.takeDamageFromAttack(damage);
+            hitPoints = -10;
+            BattleGroundScene.getInstance().attackListener(this, destroyable);
+            if (destroyable.isDestroyed()) {
+                destroyable.destroy();
+            }
+        }
+        else {
+            for (Entity entity : battleGround.getAttackerInPosition(destroyable.getPosition())) {
+                if(entity instanceof Destroyable) {
+                    ((Destroyable) entity).takeDamageFromAttack(damage);
+                    hitPoints = -10;
+                    BattleGroundScene.getInstance().attackListener(this, destroyable);
+                    if (destroyable.isDestroyed()) {
+                        destroyable.destroy();
+                    }
+                }
+            }
+        }
     }
 }

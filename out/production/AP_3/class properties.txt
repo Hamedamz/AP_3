@@ -156,7 +156,7 @@
         WizardTowerRange: 13
         WizardTowerDestructionScore: 5
         WizardTowerUpgradeGold: 100
-        WizardTowerUpgradeElixir: 100
+        WizardTowerUpgradeElixir: 0
         WizardTowerUpgradeDamageAddition: 1
         WizardTowerUpgradeHitPointsAddition: 10
 
@@ -183,6 +183,7 @@
         TrapRange: 1
         TrapDestructionScore: 1
         TrapUpgradeGold: 100
+        TrapUpgradeElixir: 0
         TrapUpgradeDamageAddition: 1
         TrapUpgradeHitPointsAddition: 10
 
