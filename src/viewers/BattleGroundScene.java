@@ -116,6 +116,11 @@ public class BattleGroundScene extends VillageScene {
                     buildingHolder.refresh();
                 }
 
+                if (isTurned) {
+                    isTurned = false;
+                    animateTroopsMovement();
+                }
+
                 Iterator<TroopHolder> iterator = troopHolders.iterator();
                 while (iterator.hasNext()) {
                     TroopHolder troopHolder = iterator.next();
@@ -124,9 +129,6 @@ public class BattleGroundScene extends VillageScene {
                         iterator.remove();
                         troopsPane.getChildren().remove(troopHolder);
                     }
-
-//                    animateTroopsMovement(troopsHolder);
-                    IsometricPane.mapToIsometricLayout(troopsHolder, troopsHolder.getEntity().getPosition(), 1);
                 }
 
                 if (AppGUI.getController().getWorld().getBattleGround().isGameFinished()) {
@@ -140,9 +142,31 @@ public class BattleGroundScene extends VillageScene {
         };
     }
 
-    private void animateTroopsMovement(TroopsHolder troopsHolder) {
-        Troop troop = (Troop) troopsHolder.getEntity();
+    private void animateTroopsMovement() {
+        ArrayList<TroopHolder> currentTroopsHolders = new ArrayList<>(this.troopHolders);
+        for (TroopHolder troopsHolder : currentTroopsHolders) {
+            Position nextPosition = ((Troop) troopsHolder.getEntity()).getNextPosition();
+            double x = IsometricPane.getIsometricX(nextPosition);
+            double y = IsometricPane.getIsometricY(nextPosition);
 
+            if (troopsHolder.getLayoutX() != x && troopsHolder.getLayoutY() != y) {
+
+                Timeline timelineX = new Timeline();
+                KeyValue keyValueX = new KeyValue(troopsHolder.layoutXProperty(), x);
+                KeyFrame keyFrameX = new KeyFrame(Duration.millis(getGameEngineDuration()), keyValueX);
+                timelineX.getKeyFrames().add(keyFrameX);
+
+                Timeline timelineY = new Timeline();
+                KeyValue keyValueY = new KeyValue(troopsHolder.layoutYProperty(), y);
+                KeyFrame keyFrameY = new KeyFrame(Duration.millis(getGameEngineDuration()), keyValueY);
+                timelineY.getKeyFrames().add(keyFrameY);
+
+                timelineX.play();
+                timelineY.play();
+            }
+        }
+
+    }
 
     private int getGameEngineDuration() {
         return AppGUI.getController().getWorld().getGameEngine().getDuration();

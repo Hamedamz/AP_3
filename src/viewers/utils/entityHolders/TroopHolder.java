@@ -4,8 +4,6 @@ import javafx.animation.ScaleTransition;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Healer;
-import models.GameLogic.Entities.Troop.Troop;
-import models.GameLogic.TrainingTroop;
 
 public class TroopHolder extends EntityHolder{
     private ScaleTransition scaleTransition = new ScaleTransition();

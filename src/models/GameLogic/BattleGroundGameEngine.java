@@ -34,6 +34,7 @@ public class BattleGroundGameEngine {
             isWallDestroyed = false;
             findMovablesPath();
             moveMovables();
+            findMovablesPath();
             healTroops();
             performDefendersAttack();
             performTroopsAttack();
@@ -47,7 +48,7 @@ public class BattleGroundGameEngine {
             }
         }
 
-        AppGUI.getBattelGroundSccene().movementHappened();
+        AppGUI.getBattleGroundScene().movementHappened();
     }
 
     private void moveMovables() {
