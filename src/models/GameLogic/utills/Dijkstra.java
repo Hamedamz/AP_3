@@ -1,5 +1,6 @@
 package models.GameLogic.utills;
 
+import interfaces.Destroyable;
 import interfaces.MovingAttacker;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Wall;
@@ -16,15 +17,15 @@ public class Dijkstra {
     public static final double WALL_ATTACKER_MULTIPLIER = 2;
     public static final Integer MAX_NODE_DISTANCE = 10000;
 
-    public static ArrayList<Position> findMinPath(GameMap gameMap, MovingAttacker attacker, Position destination, int range) {
+    public static ArrayList<Position> findMinPath(GameMap gameMap, MovingAttacker attacker) {
         if (!attacker.getTroopMoveType().equals(MoveType.GROUND)) {
             throw new RuntimeException("not ground troop");
         }
         Node[][] mapNodes = new Node[gameMap.getWidth()][gameMap.getHeight()];
         Graph graph = initiateGraph(mapNodes, gameMap, attacker);
         calculateShortestPathFromSource(graph, mapNodes[attacker.getPosition().getX()][attacker.getPosition().getY()]);
-        Node lastNode = findDestination(mapNodes, gameMap, destination, range);
-        return findMinPath(attacker, range, lastNode);
+        Node lastNode = findDestination(mapNodes, gameMap, attacker.getTarget(), attacker.getEffectRange());
+        return findMinPath(attacker, attacker.getEffectRange(), lastNode);
     }
 
     private static Graph initiateGraph(Node[][] mapNodes, GameMap gameMap, MovingAttacker attacker) {
@@ -127,14 +128,15 @@ public class Dijkstra {
         }
     }
 
-    private static Node findDestination(Node[][] mapNodes, GameMap gameMap, Position target, int range){
+    private static Node findDestination(Node[][] mapNodes, GameMap gameMap, Destroyable target, int range){
         int minDistance = Integer.MAX_VALUE;
         Node minNode = null;
-        for(int i = -range; i <= range; i++) {
-            for(int j = -range; j <= range; j++){
+        int size = (target instanceof Building) ? ((Building) target).getSize() : 1;
+        for(int i = -range * size; i <= range * size; i++) {
+            for(int j = -range * size; j <= range; j++){
                 Position dir = new Position(i, j);
-                Position position = Position.addPositions(target, dir);
-                if(position.isInBoundary(gameMap) && target.calculateDistance(position) <= range) {
+                Position position = Position.addPositions(target.getPosition(), dir);
+                if(position.isInBoundary(gameMap) && position.calculateDistanceFromBuilding(target.getPosition(), size) <= range) {
                     if(mapNodes[position.getX()][position.getY()].getDistance() < minDistance) {
                         minDistance = mapNodes[position.getX()][position.getY()].getDistance();
                         minNode = mapNodes[position.getX()][position.getY()];

@@ -61,6 +61,23 @@ public class Position {
         );
     }
 
+    public double calculateDistanceFromBuilding(Position buildingPosition, int size) {
+        if(size == 1) {
+            return calculateDistance(buildingPosition);
+        }
+        double ans = Double.MAX_VALUE;
+        for(int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Position pos = Position.newMapPosition(buildingPosition.getMapX() + i, buildingPosition.getMapY() + j);
+                ans = Math.min(ans, Math.sqrt(
+                        Math.pow(this.x - pos.x, 2) +
+                                Math.pow(this.y - pos.y, 2)
+                ));
+            }
+        }
+        return  ans;
+    }
+
     public static Position addPositions(Position position1, Position position2) {
         return new Position(position1.x + position2.x, position1.y + position2.y);
     }

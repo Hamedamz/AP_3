@@ -102,7 +102,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);
 }
 
-#green-round-button .text, #red-round-button .text, #yellow-round-button .text{
+#green-round-button .text, #red-round-button .text, #yellow-round-button .text, #stroke-text {
     -fx-fill: white;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 1, 10, 0, 0);
 }

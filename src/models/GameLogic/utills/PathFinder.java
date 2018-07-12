@@ -27,7 +27,7 @@ public class PathFinder {
         } else {
             //we assume that every Ground Movable Effector is an attacker
             if(movable instanceof MovingAttacker) {
-                return Dijkstra.findMinPath(gameMap, ((MovingAttacker) movable), destination, range);
+                return Dijkstra.findMinPath(gameMap, ((MovingAttacker) movable));
             }
             throw new RuntimeException("a Ground Movable effector which is not MovingAttacker");
         }

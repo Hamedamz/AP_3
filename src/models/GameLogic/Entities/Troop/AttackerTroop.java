@@ -3,11 +3,13 @@ package models.GameLogic.Entities.Troop;
 import interfaces.Destroyable;
 import interfaces.MovingAttacker;
 import models.GameLogic.BattleGround;
+import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Position;
 import models.GameLogic.enums.TroopTargetType;
 import models.setting.GameLogicConfig;
+import viewers.BattleGroundScene;
 
 import java.util.ArrayList;
 
@@ -43,7 +45,12 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
         Destroyable minDistantDestroyable = null;
         for (Destroyable destroyable : destroyables) {
             if (!destroyable.isDestroyed() && TroopTargetType.isTroopTargetAppropriate(getTargetType(), (Defender) destroyable)) {
-                double distance = this.getPosition().calculateDistance(destroyable.getPosition());
+                double distance;
+                if(destroyable instanceof Building) {
+                    distance = this.getPosition().calculateDistanceFromBuilding(destroyable.getPosition(), ((Building) destroyable).getSize());
+                } else {
+                    distance = this.getPosition().calculateDistance(destroyable.getPosition());
+                }
                 if (distance < minDistance) {
                     minDistance = distance;
                     minDistantDestroyable = destroyable;
@@ -57,7 +64,12 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
 
         for (Destroyable destroyable : destroyables) {
             if (!destroyable.isDestroyed() && TroopTargetType.isTroopTargetAppropriate(TroopTargetType.BUILDING, (Defender) destroyable)) {
-                double distance = this.getPosition().calculateDistance(destroyable.getPosition());
+                double distance;
+                if(destroyable instanceof Building) {
+                    distance = this.getPosition().calculateDistanceFromBuilding(destroyable.getPosition(), ((Building) destroyable).getSize());
+                } else {
+                    distance = this.getPosition().calculateDistance(destroyable.getPosition());
+                }
                 if (distance < minDistance) {
                     minDistance = distance;
                     minDistantDestroyable = destroyable;
@@ -74,9 +86,9 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
 
     @Override
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
-        System.out.println(getPosition() + " " + getEffectRange());
         if (getPosition().calculateDistance(destroyable.getPosition()) <= getEffectRange()) {
             destroyable.takeDamageFromAttack(damage);
+            BattleGroundScene.getInstance().attackListener(this, destroyable);
         }
     }
 

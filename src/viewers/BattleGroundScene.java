@@ -1,5 +1,7 @@
 package viewers;
 
+import interfaces.Attacker;
+import interfaces.Destroyable;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
@@ -158,9 +161,9 @@ public class BattleGroundScene extends VillageScene {
         return gridPane;
     }
 
-    public void attackListener(Position attacker, Position target) {
 
-    }
+
+
 
     public String getSelectedTroop() {
         Node selectedItem = troopsScrollMenu.getSelectedItem();
@@ -176,5 +179,9 @@ public class BattleGroundScene extends VillageScene {
         IsometricPane.mapToIsometricLayout(troopsHolder, troop.getPosition(), 1);
         troopsPane.getChildren().add(troopsHolder);
         troopsHolders.add(troopsHolder);
+    }
+
+    public void attackListener(Attacker attacker, Destroyable destroyable) {
+
     }
 }
