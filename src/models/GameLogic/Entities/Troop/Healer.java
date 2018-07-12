@@ -10,6 +10,7 @@ import models.setting.GameLogicConfig;
 import viewers.GameScene;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Healer extends Troop implements TimedEvent {
     private int healingRange;
@@ -33,28 +34,37 @@ public class Healer extends Troop implements TimedEvent {
     }
 
     @Override
-    public void setTarget(ArrayList<Destroyable> tList) throws NoTargetFoundException {
+    public void findTarget(ArrayList<Destroyable> tList) throws NoTargetFoundException {
         if (target != null) {
-            if(target.getHitPoints() >= target.getHitPoints() || target.isDestroyed()) {
+            if (target.getHitPoints() >= target.getMaxHitPoints() || target.isDestroyed()) {
                 target = null;
             }
         }
-        if (target == null){
+        if (target == null) {
             double minDistance = Double.MAX_VALUE;
             Destroyable nearestAlly = null;
-            for(Destroyable destroyable : tList) {
-                if(!destroyable.isDestroyed() && destroyable.getHitPoints() < destroyable.getMaxHitPoints()) {
+            for (Destroyable destroyable : tList) {
+                if (!destroyable.isDestroyed() && destroyable.getHitPoints() < destroyable.getMaxHitPoints()) {
                     double dis = destroyable.getPosition().calculateDistance(getPosition());
-                    if(dis < minDistance) {
+                    if (dis < minDistance) {
                         minDistance = dis;
                         nearestAlly = destroyable;
                     }
                 }
             }
-            if(nearestAlly == null) {
+            if (nearestAlly == null) {
                 throw new NoTargetFoundException();
             }
             target = nearestAlly;
+        }
+    }
+
+    @Override
+    public void findPath(BattleGround battleGround) {
+        if (target != null) {
+            super.findPath(battleGround);
+        } else {
+            setMovementPath(new ArrayList<>(Arrays.asList(getPosition())));
         }
     }
 
@@ -69,9 +79,9 @@ public class Healer extends Troop implements TimedEvent {
     }
 
     public void heal(BattleGround battleGround) {
-        for(Troop troop : battleGround.getDeployedTroops()) {
-            if(troop.getPosition().calculateDistance(getPosition()) <= getEffectRange() && troop instanceof AttackerTroop) {
-                if(!troop.isDestroyed()){
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            if (troop.getPosition().calculateDistance(getPosition()) <= getEffectRange() && troop instanceof AttackerTroop) {
+                if (!troop.isDestroyed()) {
                     ((AttackerTroop) troop).heal(healingAmount);
                 }
             }

@@ -40,7 +40,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     }
 
     @Override
-    public void setTarget(ArrayList<Destroyable> destroyables) throws NoTargetFoundException {
+    public void findTarget(ArrayList<Destroyable> destroyables) throws NoTargetFoundException {
         double minDistance = Double.MAX_VALUE;
         Destroyable minDistantDestroyable = null;
         for (Destroyable destroyable : destroyables) {
@@ -86,7 +86,8 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
 
     @Override
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
-        if (getPosition().calculateDistance(destroyable.getPosition()) <= getEffectRange()) {
+        int size = (destroyable instanceof Building) ? ((Building) destroyable).getSize() : 1;
+        if (getPosition().calculateDistanceFromBuilding(destroyable.getPosition(), size) <= getEffectRange()) {
             destroyable.takeDamageFromAttack(damage);
             BattleGroundScene.getInstance().attackHappened(this, destroyable);
         }

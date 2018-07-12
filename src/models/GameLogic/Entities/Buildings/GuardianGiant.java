@@ -73,7 +73,7 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
     }
 
     @Override
-    public void setTarget(ArrayList<Destroyable> destroyables) {
+    public void findTarget(ArrayList<Destroyable> destroyables) {
         if (target != null) {
             if (target.isDestroyed()) {
                 target = null;

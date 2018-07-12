@@ -71,6 +71,7 @@ public class JsonHandler {
     public static Account loadAccountFromJson(String json) {
         Account account = gson.fromJson(json, Account.class);
         resetBuildingsView(account);
+        resetBuildingsMaxLevel(account);
         return account;
     }
 
@@ -92,6 +93,10 @@ public class JsonHandler {
             building.setImage();
             building.updateViewPort();
         }
+    }
+
+    public static void resetBuildingsMaxLevel(Account account) {
+        Building.setMaxLevel(account.getMyVillage().getTownHall().getLevel());
     }
 
     public static void resetTroopsView(Account account) {

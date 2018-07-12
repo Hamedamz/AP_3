@@ -53,7 +53,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
 
     @Override
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
-        if (destroyable == null ) {
+        if (destroyable == null) {
             return;
         }
         if (damageType == BuildingDamageType.SINGLE_TARGET) {
@@ -84,9 +84,9 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     }
 
     @Override
-    public void setTarget(ArrayList<Destroyable> destroyables) {
+    public void findTarget(ArrayList<Destroyable> destroyables) {
         if(target != null) {
-            if(target.isDestroyed() || target.getPosition().calculateDistance(getPosition()) < getEffectRange()) {
+            if(target.isDestroyed() || target.getPosition().calculateDistanceFromBuilding(getPosition(), getSize()) < getEffectRange()) {
                 target = null;
             }
         }
@@ -95,7 +95,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
             Destroyable minDistanceDestroyable = null;
             for (Destroyable destroyable : destroyables) {
                 if (!destroyable.isDestroyed() && BuildingTargetType.isBuildingTargetAppropriate(this, (AttackerTroop) destroyable)) {
-                    double distance = this.getPosition().calculateDistance(destroyable.getPosition());
+                    double distance = this.getPosition().calculateDistanceFromBuilding(destroyable.getPosition(), getSize());
                     if (distance < minDistance) {
                         minDistance = distance;
                         minDistanceDestroyable = destroyable;

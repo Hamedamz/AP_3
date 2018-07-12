@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public interface Effector<T> {
     int getEffectRange();
-    void setTarget(ArrayList<T> tList) throws NoTargetFoundException;
+    void findTarget(ArrayList<T> tList) throws NoTargetFoundException;
     T getTarget();
     void removeTarget();
 }

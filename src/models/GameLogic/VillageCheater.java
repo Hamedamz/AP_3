@@ -16,6 +16,7 @@ public class VillageCheater {
     public static final String RESET_CHEATS = "-reset";
 
     private static Thread resourceSpreader;
+    private static Thread constructionEnder;
 
     /**
      * performs cheats on village
@@ -44,9 +45,7 @@ public class VillageCheater {
                 }
             }
         } else if(cheatCode.contains(END_BUILDING)) {
-            for (Builder builder : village.getTownHall().getBuilders()) {
-                builder.finishBuilding();
-            }
+            makeconstructionEnder(village);
         } else if(cheatCode.contains(STRONG_SOLDIERS)) {
             for(Building building : village.findBuildingsWithSameType(Camp.class)) {
                 for(Troop troop : ((Camp) building).getTroops()) {
@@ -64,6 +63,10 @@ public class VillageCheater {
                             resourceSpreader.interrupt();
                             resourceSpreader = null;
                         }
+                        if(constructionEnder != null) {
+                            constructionEnder.interrupt();
+                            constructionEnder = null;
+                        }
                     }
                 }
             }
@@ -75,7 +78,7 @@ public class VillageCheater {
             while (true) {
                 village.spreadResources(new Resource(Integer.MAX_VALUE / 2, Integer.MAX_VALUE / 2));
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     break;
                 }
@@ -83,5 +86,22 @@ public class VillageCheater {
         });
         resourceSpreader.setDaemon(true);
         resourceSpreader.start();
+    }
+
+    private static void makeconstructionEnder(Village village) {
+        constructionEnder = new Thread(() -> {
+            while (true) {
+                for (Builder builder : village.getTownHall().getBuilders()) {
+                    builder.finishBuilding();
+                }
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+        });
+        constructionEnder.setDaemon(true);
+        constructionEnder.start();
     }
 }
