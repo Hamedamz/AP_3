@@ -155,7 +155,7 @@ public class Dijkstra {
             if(!node.isWall()){
                 path.add(node.getPosition());
             } else {
-                attacker.setTarget(lastNode.getWall());
+                attacker.setTarget(node.getWall());
                 for (int j = path.size()-1; j > 0 ; j--) {
                     if(path.get(j-1).calculateDistance(node.getPosition()) <= range) {
                         path.remove(j);

@@ -33,7 +33,7 @@ public class Healer extends Troop implements TimedEvent {
     }
 
     @Override
-    public void setTarget(ArrayList<Destroyable> tList) throws NoTargetFoundException {
+    public void findTarget(ArrayList<Destroyable> tList) throws NoTargetFoundException {
         if (target != null) {
             if(target.getHitPoints() >= target.getHitPoints() || target.isDestroyed()) {
                 target = null;

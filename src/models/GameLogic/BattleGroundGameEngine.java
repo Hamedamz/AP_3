@@ -45,56 +45,41 @@ public class BattleGroundGameEngine {
 
     private void moveMovables() {
         for (Troop troop : battleGround.getDeployedTroops()) {
-            try {
-                troop.move();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            troop.move();
         }
         for (Defender defender : battleGround.getEnemyDefenders()) {
-
-
             if (defender instanceof Movable) {
                 ((Movable) defender).move();
             }
         }
-
     }
 
     private void collectBounties() {
-        synchronized (battleGround) {
             ArrayList<Building> buildings = battleGround.getEnemyBuildings();
             for (int i = 0; i < buildings.size(); i++) {
                 if (buildings.get(i).isDestroyed()) {
                     addBounty(buildings.get(i));
                 }
             }
-        }
+
     }
 
     private void addBounty(Building building) {
-        synchronized (battleGround) {
             Bounty bounty = building.getBounty();
             battleGround.addBounty(bounty);
-        }
     }
 
     public void updateTroopTarget() {
         ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getEnemyDefenders());
-
         for (Troop troop : battleGround.getDeployedTroops()) {
             if (troop.getTarget() == null || troop.getTarget().isDestroyed()) {
-
                 try {
-                    troop.setTarget(listOfDefensiveUnits);
+                    troop.findTarget(listOfDefensiveUnits);
                 } catch (NoTargetFoundException e) {
                     if (troop instanceof AttackerTroop) {
                         isGameFinished = true;
                     }
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
                 }
-
             }
 
         }
@@ -112,44 +97,35 @@ public class BattleGroundGameEngine {
             if (defender instanceof Attacker) {
                 if (((Attacker) defender).getTarget() == null || ((Attacker) defender).getTarget().isDestroyed()) {
                     try {
-                        ((Attacker) defender).setTarget(destroyables);
+                        ((Attacker) defender).findTarget(destroyables);
                     } catch (NoTargetFoundException e) {
                         e.getMessage();
                     }
                 }
             }
         }
-
     }
 
     public void removeDestroyedDestroyables() {
-        synchronized (battleGround) {
-            for (Defender defender : battleGround.getEnemyDefenders()) {
-                if (defender.isDestroyed()) {
-                    battleGround.getEnemyBuildings().remove(defender); // FIXME: 5/9/2018
-                    defender.destroy();
-                }
+        for (Defender defender : battleGround.getEnemyDefenders()) {
+            if (defender.isDestroyed()) {
+                battleGround.getEnemyBuildings().remove(defender); // FIXME: 5/9/2018
+                defender.destroy();
             }
-            for (Troop troop : new ArrayList<>(battleGround.getDeployedTroops())) {
-                if (troop.isDestroyed()) {
-                    battleGround.getDeployedTroops().remove(troop);
-                }
+        }
+        for (Troop troop : new ArrayList<>(battleGround.getDeployedTroops())) {
+            if (troop.isDestroyed()) {
+                battleGround.getDeployedTroops().remove(troop);
             }
         }
     }
 
     public void performTroopsAttack() {
-
         for (Troop troop : battleGround.getDeployedTroops()) {
             if (troop instanceof Attacker) {
-                try {
-                    ((Attacker) troop).giveDamageTo(troop.getTarget(), battleGround);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                ((Attacker) troop).giveDamageTo(troop.getTarget(), battleGround);
             }
         }
-
     }
 
     public void performDefendersAttack() {
@@ -157,11 +133,9 @@ public class BattleGroundGameEngine {
             if (!defender.isDestroyed()) {
                 if (defender instanceof Attacker) {
                     ((Attacker) defender).giveDamageTo(((Attacker) defender).getTarget(), battleGround);
-
                 }
             }
         }
-
     }
 
     public void findMovablesPath() {
@@ -170,11 +144,7 @@ public class BattleGroundGameEngine {
         }
         for (Defender defender : battleGround.getEnemyDefenders()) {
             if (defender instanceof Movable) {
-                try {
-                    ((Movable) defender).findPath(battleGround);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                ((Movable) defender).findPath(battleGround);
             }
         }
 
@@ -190,12 +160,11 @@ public class BattleGroundGameEngine {
     }
 
     public void handleTimedEvents() {
-        synchronized (battleGround) {
-            for (Troop troop : battleGround.getDeployedTroops()) {
-                if (troop instanceof TimedEvent) {
-                    ((TimedEvent) troop).reduceTime();
-                }
+        for (Troop troop : battleGround.getDeployedTroops()) {
+            if (troop instanceof TimedEvent) {
+                ((TimedEvent) troop).reduceTime();
             }
         }
+
     }
 }

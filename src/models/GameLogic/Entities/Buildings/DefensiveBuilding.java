@@ -84,7 +84,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     }
 
     @Override
-    public void setTarget(ArrayList<Destroyable> destroyables) {
+    public void findTarget(ArrayList<Destroyable> destroyables) {
         if(target != null) {
             if(target.isDestroyed() || target.getPosition().calculateDistance(getPosition()) < getEffectRange()) {
                 target = null;
