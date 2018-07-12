@@ -7,6 +7,7 @@ import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Healer;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NoTargetFoundException;
+import viewers.AppGUI;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,7 @@ public class BattleGroundGameEngine {
             battleGround.endBattle();
         }
 
+        AppGUI.getBattelGroundSccene().movementHappened();
     }
 
     private void moveMovables() {

@@ -12,9 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Buildings.Building;
-import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Troop;
-import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
@@ -113,6 +111,8 @@ public class BattleGroundScene extends VillageScene {
                         iterator.remove();
                         troopsPane.getChildren().remove(troopsHolder);
                     }
+
+//                    animateTroopsMovement(troopsHolder);
                     IsometricPane.mapToIsometricLayout(troopsHolder, troopsHolder.getEntity().getPosition(), 1);
                 }
 
@@ -124,6 +124,12 @@ public class BattleGroundScene extends VillageScene {
 
             }
         };
+    }
+
+    private void animateTroopsMovement(TroopsHolder troopsHolder) {
+        Troop troop = (Troop) troopsHolder.getEntity();
+
+
     }
 
     private void refreshAvailableLoots() {
@@ -161,10 +167,6 @@ public class BattleGroundScene extends VillageScene {
         return gridPane;
     }
 
-
-
-
-
     public String getSelectedTroop() {
         Node selectedItem = troopsScrollMenu.getSelectedItem();
         String type = null;
@@ -181,7 +183,11 @@ public class BattleGroundScene extends VillageScene {
         troopsHolders.add(troopsHolder);
     }
 
-    public void attackListener(Attacker attacker, Destroyable destroyable) {
+    public void attackHappened(Attacker attacker, Destroyable destroyable) {
+
+    }
+
+    public void movementHappened() {
 
     }
 }

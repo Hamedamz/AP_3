@@ -88,7 +88,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
         if (getPosition().calculateDistance(destroyable.getPosition()) <= getEffectRange()) {
             destroyable.takeDamageFromAttack(damage);
-            BattleGroundScene.getInstance().attackListener(this, destroyable);
+            BattleGroundScene.getInstance().attackHappened(this, destroyable);
         }
     }
 

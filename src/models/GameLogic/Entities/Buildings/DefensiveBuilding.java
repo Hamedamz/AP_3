@@ -58,7 +58,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
         }
         if (damageType == BuildingDamageType.SINGLE_TARGET) {
             destroyable.takeDamageFromAttack(damage);
-            BattleGroundScene.getInstance().attackListener(this, destroyable);
+            BattleGroundScene.getInstance().attackHappened(this, destroyable);
             if (destroyable.isDestroyed()) {
                 destroyable.destroy();
             }
@@ -67,7 +67,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
             for (Entity entity : battleGround.getAttackerInPosition(destroyable.getPosition())) {
                 if(entity instanceof Destroyable) {
                     ((Destroyable) entity).takeDamageFromAttack(damage);
-                    BattleGroundScene.getInstance().attackListener(this, destroyable);
+                    BattleGroundScene.getInstance().attackHappened(this, destroyable);
                     if (destroyable.isDestroyed()) {
                         destroyable.destroy();
                     }
