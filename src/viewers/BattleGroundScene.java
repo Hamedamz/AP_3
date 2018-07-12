@@ -3,6 +3,9 @@ package viewers;
 import interfaces.Attacker;
 import interfaces.Destroyable;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -10,9 +13,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Troop.Troop;
+import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
@@ -111,6 +116,11 @@ public class BattleGroundScene extends VillageScene {
                     buildingHolder.refresh();
                 }
 
+                if (isTurned) {
+                    isTurned = false;
+                    animateTroopsMovement();
+                }
+
                 Iterator<TroopHolder> iterator = troopHolders.iterator();
                 while (iterator.hasNext()) {
                     TroopHolder troopHolder = iterator.next();
@@ -119,9 +129,6 @@ public class BattleGroundScene extends VillageScene {
                         iterator.remove();
                         troopsPane.getChildren().remove(troopHolder);
                     }
-
-//                    animateTroopsMovement(troopHolder);
-                    IsometricPane.mapToIsometricLayout(troopHolder, troopHolder.getEntity().getPosition(), 1);
                 }
 
                 if (AppGUI.getController().getWorld().getBattleGround().isGameFinished()) {
@@ -135,8 +142,30 @@ public class BattleGroundScene extends VillageScene {
         };
     }
 
-    private void animateTroopsMovement(TroopHolder troopHolder) {
-        Troop troop = (Troop) troopHolder.getEntity();
+    private void animateTroopsMovement() {
+        ArrayList<TroopHolder> currentTroopsHolders = new ArrayList<>(this.troopHolders);
+        for (TroopHolder troopsHolder : currentTroopsHolders) {
+            Position nextPosition = ((Troop) troopsHolder.getEntity()).getNextPosition();
+            double x = IsometricPane.getIsometricX(nextPosition);
+            double y = IsometricPane.getIsometricY(nextPosition);
+
+            if (troopsHolder.getLayoutX() != x && troopsHolder.getLayoutY() != y) {
+
+                Timeline timelineX = new Timeline();
+                KeyValue keyValueX = new KeyValue(troopsHolder.layoutXProperty(), x);
+                KeyFrame keyFrameX = new KeyFrame(Duration.millis(getGameEngineDuration()), keyValueX);
+                timelineX.getKeyFrames().add(keyFrameX);
+
+                Timeline timelineY = new Timeline();
+                KeyValue keyValueY = new KeyValue(troopsHolder.layoutYProperty(), y);
+                KeyFrame keyFrameY = new KeyFrame(Duration.millis(getGameEngineDuration()), keyValueY);
+                timelineY.getKeyFrames().add(keyFrameY);
+
+                timelineX.play();
+                timelineY.play();
+            }
+        }
+
     }
 
     private int getGameEngineDuration() {
