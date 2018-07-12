@@ -29,7 +29,11 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
 
     @Override
     public void move() {
-        this.position = this.movementPath.get(Math.min(getSpeed(), getPath().size() - 1));
+        this.position = getNextPosition();
+    }
+
+    public Position getNextPosition() {
+        return this.movementPath.get(Math.min(getSpeed(), getPath().size() - 1));
     }
 
     public void setMovementPath(ArrayList<Position> movementPath) {
