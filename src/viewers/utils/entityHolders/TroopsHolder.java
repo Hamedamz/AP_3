@@ -36,7 +36,11 @@ public class TroopsHolder extends EntityHolder{
         }
     }
 
-    public boolean isKilled() {
+    @Override
+    public boolean isDestroyed() {
+        if (entity instanceof Healer) {
+            return ((Healer) entity).isDestroyed();
+        }
         return ((AttackerTroop) entity).isDestroyed();
     }
 }

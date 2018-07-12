@@ -13,7 +13,7 @@ import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 import viewers.utils.fancyButtons.RoundButton;
 
-public abstract class ModelPopup extends Popup {
+public abstract class FancyPopup extends Popup {
 
     Object model;
     Label title = new Label();
@@ -21,13 +21,13 @@ public abstract class ModelPopup extends Popup {
     VBox content = new VBox(Const.SPACING * 2);
     Pane wrapper = new Pane(content, closeButton);
 
-    public ModelPopup(Object model) {
+    public FancyPopup(Object model) {
         this.model = model;
         this.title.setText(model.getClass().getSimpleName());
         setProperties();
     }
 
-    public ModelPopup(String title) {
+    public FancyPopup(String title) {
         this.title.setText(title);
         setProperties();
     }

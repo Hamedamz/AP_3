@@ -16,7 +16,7 @@ import viewers.utils.fancyButtons.RoundButton;
 
 import static controllers.OutputFormats.UPGRADE_CONFIRMATION_FORMAT;
 
-public class UpgradePopup extends ModelPopup{
+public class UpgradePopup extends FancyPopup {
     private Button confirm;
 
     private UpgradePopup(Object model) {

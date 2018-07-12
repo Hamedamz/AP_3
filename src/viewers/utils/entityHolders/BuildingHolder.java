@@ -1,6 +1,7 @@
 package viewers.utils.entityHolders;
 
 import controllers.BuildingMenuController;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.*;
@@ -10,6 +11,7 @@ public class BuildingHolder extends EntityHolder {
     private Builder builder;
     private ProgressBarItem constructionProgressBar;
     private Glow glow = new Glow(0);
+    private ColorAdjust grayScale = new ColorAdjust();
 
     public BuildingHolder(Building building) {
         super(building);
@@ -35,6 +37,9 @@ public class BuildingHolder extends EntityHolder {
             this.getChildren().add(constructionProgressBar);
         }
 
+        grayScale.setSaturation(0);
+        this.setEffect(grayScale);
+
         imageView.setEffect(glow);
     }
 
@@ -52,6 +57,13 @@ public class BuildingHolder extends EntityHolder {
         if (((Building) entity).getHitPoints() < ((Building) entity).getMaxHitPoints()) {
             if (!hitPointsProgressBar.isVisible()) {
                 hitPointsProgressBar.setVisible(true);
+            }
+            if (((Building) entity).isDestroyed()){
+                if (!isDestroyed()) {
+                    this.setDestroyed(true);
+                    grayScale.setSaturation(-1);
+                }
+                return;
             }
             hitPointsProgressBar.setValues();
         } else if (hitPointsProgressBar.isVisible()){

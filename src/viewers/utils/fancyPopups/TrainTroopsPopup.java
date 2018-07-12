@@ -14,7 +14,7 @@ import viewers.utils.fancyButtons.ButtonActionType;
 
 import java.util.ArrayList;
 
-public class TrainTroopsPopup extends ModelPopup {
+public class TrainTroopsPopup extends FancyPopup {
 
     private ScrollPane status;
     private VBox trainingTroopsList;

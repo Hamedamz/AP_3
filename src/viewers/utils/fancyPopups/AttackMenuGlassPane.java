@@ -4,8 +4,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Storage;
@@ -26,37 +24,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class AttackMenu extends StackPane {
+public class AttackMenuGlassPane extends GlassPane {
 
     private GameMap enemyMap;
 
     private FileChooser fileChooser;
     private ComboBox mapsComboBox;
     private RoundButton browseButton;
-    private HBox chooserBox;
+    private GridPane chooserBox;
 
     private ProgressBarItem totalGoldProgressBar;
     private ProgressBarItem totalElixirProgressBar;
-    private VBox totalStock;
+    private GridPane totalStock;
 
     private TroopsScrollMenu troopsScrollMenu;
     private HashMap<String, Integer> troopsMaxNumberHashMap;
     private HashMap<String, Integer> selectedTroopsHashMap;
     private RoundButton attackButton;
 
-    private VBox body;
-    private Rectangle background;
-
-    public AttackMenu() {
-        setProperties();
+    public AttackMenuGlassPane() {
+        super("Select an Enemy to attack!");
     }
 
-    private void setProperties() {
-        this.setHeight(Const.WINDOW_HEIGHT);
-        this.setWidth(Const.WINDOW_WIDTH);
-        background = new Rectangle(Const.WINDOW_WIDTH, Const.WINDOW_HEIGHT, Color.BLACK);
-        background.setOpacity(0.75);
-
+    @Override
+    public void setProperties() {
         // buttons
         browseButton = new RoundButton("Browse", "yellow");
         attackButton = new RoundButton("attack", "red");
@@ -69,9 +60,10 @@ public class AttackMenu extends StackPane {
         addLoadedEnemyMaps();
 
         // total stock
-        totalStock = new VBox(Const.SPACING);
+        totalStock = new GridPane();
+        totalStock.setAlignment(Pos.CENTER);
+        totalStock.setVgap(Const.SPACING);
         totalStock.setMinHeight(150);
-        totalStock.setTranslateX(Const.WINDOW_WIDTH / 2 - 8 * Const.SPACING);
 
         // troops
         troopsScrollMenu = new TroopsScrollMenu(ButtonActionType.TROOPS, null);
@@ -83,9 +75,11 @@ public class AttackMenu extends StackPane {
         fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("savedMaps"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("jSon files", "*.json"));
-        chooserBox = new HBox(Const.SPACING, mapsComboBox, browseButton);
-        chooserBox.setTranslateX(Const.WINDOW_WIDTH / 2 - Const.POPUP_WIDTH / 2);
-
+        chooserBox = new GridPane();
+        chooserBox.setHgap(Const.SPACING);
+        chooserBox.setAlignment(Pos.CENTER);
+        chooserBox.add(mapsComboBox, 0,0);
+        chooserBox.add(browseButton, 1,0);
 
         browseButton.setOnAction(event -> {
             SoundPlayer.play(Sounds.buttonSound);
@@ -122,16 +116,14 @@ public class AttackMenu extends StackPane {
             } catch (TroopNotFoundException e) {
                 AppGUI.getMyVillageScene().handleException(e);
             }
+            BattleGroundScene.getInstance().build();
             AppGUI.setStageScene(BattleGroundScene.getInstance());
             SoundPlayer.play(Sounds.warSound);
+            this.toggleVisibility();
         });
 
-        body = new VBox(Const.SPACING * 3, chooserBox, totalStock, troopsScrollMenu, attackButton);
-        body.setAlignment(Pos.CENTER);
-        body.setMinWidth(Const.POPUP_WIDTH);
-        body.setMinHeight(Const.WINDOW_HEIGHT);
-        body.setLayoutX(Const.WINDOW_WIDTH / 2 - Const.POPUP_WIDTH / 2);
-        this.getChildren().addAll(background, body);
+        body.getChildren().clear();
+        body.getChildren().addAll(title, chooserBox, totalStock, troopsScrollMenu, attackButton);
     }
 
     private void setIncrementButtonsEvents() {
@@ -189,7 +181,8 @@ public class AttackMenu extends StackPane {
         totalGoldProgressBar = new ProgressBarItem(ProgressBarType.TOTAL_GOLD_INFO, enemyMapResourceStock);
         totalElixirProgressBar = new ProgressBarItem(ProgressBarType.TOTAL_ELIXIR_INFO, enemyMapResourceStock);
         totalStock.getChildren().clear();
-        totalStock.getChildren().addAll(totalGoldProgressBar, totalElixirProgressBar);
+        totalStock.add(totalGoldProgressBar, 0,0);
+        totalStock.add(totalElixirProgressBar, 0,1);
     }
 
     private void addLoadedEnemyMaps() {
