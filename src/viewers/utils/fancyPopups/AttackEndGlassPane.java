@@ -57,6 +57,8 @@ public class AttackEndGlassPane extends GlassPane {
         gridPane.add(elixirIcon, 0, 2);
         gridPane.add(new StrokeText(String.valueOf(lootedBounty.getElixir())), 1, 2);
         gridPane.add(new StrokeText(String.valueOf(remainingResources.getElixir())), 2, 2);
+        gridPane.add(new StrokeText("score: "), 1, 3);
+        gridPane.add(new StrokeText(String.valueOf(lootedBounty.getScore())), 2, 3);
         return gridPane;
     }
 }
