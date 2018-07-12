@@ -265,6 +265,7 @@
         HealerTrainElixir: 175
         HealerTrainTime: 30
         HealerRange: 10
+        HealerSpeed: 3
         HealerDeathTime: 10
         HealerUpgradeHealingAmountAddition: 1
         HealerHealingAmount: 50

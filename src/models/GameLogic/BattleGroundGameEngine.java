@@ -2,6 +2,7 @@ package models.GameLogic;
 
 import interfaces.*;
 import models.GameLogic.Entities.Buildings.Building;
+import models.GameLogic.Entities.Buildings.Wall;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Entities.Troop.Healer;
@@ -13,8 +14,10 @@ import java.util.ArrayList;
 public class BattleGroundGameEngine {
     private BattleGround battleGround;
     private boolean isGameFinished;
+    private boolean isWallDestroyed;
 
     public BattleGroundGameEngine() {
+        isWallDestroyed = false;
         isGameFinished = false;
     }
 
@@ -27,6 +30,7 @@ public class BattleGroundGameEngine {
             battleGround.setTimeRemaining(battleGround.getTimeRemaining() - 1);
             updateTroopTarget();
             updateDefendersTarget();
+            isWallDestroyed = false;
             findMovablesPath();
             moveMovables();
             healTroops();
@@ -71,10 +75,19 @@ public class BattleGroundGameEngine {
 
     public void updateTroopTarget() {
         ArrayList<Destroyable> listOfDefensiveUnits = new ArrayList<>(battleGround.getEnemyDefenders());
+        ArrayList<Destroyable> listOfDeployedDestroyables = new ArrayList<>();
+        for(Troop troop : battleGround.getDeployedTroops()) {
+            if(troop instanceof Destroyable)
+            listOfDeployedDestroyables.add((Destroyable) troop);
+        }
         for (Troop troop : battleGround.getDeployedTroops()) {
-            if (troop.getTarget() == null || troop.getTarget().isDestroyed()) {
+            if (troop.getTarget() == null || troop.getTarget().isDestroyed() || isWallDestroyed) {
                 try {
-                    troop.findTarget(listOfDefensiveUnits);
+                    if(troop instanceof AttackerTroop) {
+                        troop.findTarget(listOfDefensiveUnits);
+                    } else if (troop instanceof Healer) {
+                        troop.findTarget(listOfDeployedDestroyables);
+                    }
                 } catch (NoTargetFoundException e) {
                     if (troop instanceof AttackerTroop) {
                         isGameFinished = true;
@@ -109,6 +122,7 @@ public class BattleGroundGameEngine {
     public void removeDestroyedDestroyables() {
         for (Defender defender : battleGround.getEnemyDefenders()) {
             if (defender.isDestroyed()) {
+                if(defender instanceof Wall) isWallDestroyed = true;
                 battleGround.getEnemyBuildings().remove(defender); // FIXME: 5/9/2018
                 defender.destroy();
             }
