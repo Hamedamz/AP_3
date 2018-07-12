@@ -41,7 +41,7 @@ public class TownHall extends Storage {
 
     @Override
     public void upgrade() {
-        if (level % 5 == 0) {
+        if (level % 5 == 4) {
             builders.add(new Builder());
         }
         this.setLevel(this.getLevel() + 1);
