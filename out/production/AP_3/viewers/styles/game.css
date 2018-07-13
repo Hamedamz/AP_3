@@ -9,7 +9,7 @@
 #progress-bar-label {
     -fx-font-size: 9;
     -fx-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 1, 10, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1), 1, 10, 0, 0);
 }
 
 #map-tile {
@@ -33,15 +33,18 @@
     -fx-background-color: transparent;
 }
 
+#glass-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+}
+
 #popup-title {
-    -fx-background-color:
-            linear-gradient(#ffd65b, #e68400),
-            linear-gradient(#ffef84, #f2ba44),
-            linear-gradient(#ffea6a, #efaa22),
-            linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
-            linear-gradient(from 0% 0% to 15% 50%, rgba(255, 248, 169, 0.9), rgba(255,255,255,0));
+    -fx-background-color: linear-gradient(#ffd65b, #e68400),
+    linear-gradient(#ffef84, #f2ba44),
+    linear-gradient(#ffea6a, #efaa22),
+    linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+    linear-gradient(from 0% 0% to 15% 50%, rgba(255, 248, 169, 0.9), rgba(255, 255, 255, 0));
     -fx-background-radius: 30;
-    -fx-background-insets: 0,1,2,3,0;
+    -fx-background-insets: 0, 1, 2, 3, 0;
     -fx-text-fill: #654b00;
     -fx-font-weight: bold;
     -fx-font-size: 14;
@@ -51,40 +54,37 @@
 
 #yellow-fancy-button {
     -fx-padding: 8 15 15 15;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-insets: 0, 0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #fcc309 0%, #fd9808 100%),
-            #f99508,
-            #ffeb17,
-            radial-gradient(center 50% 50%, radius 100%, #ffdd09, #fcc309);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #fcc309 0%, #fd9808 100%),
+    #f99508,
+    #ffeb17,
+    radial-gradient(center 50% 50%, radius 100%, #ffdd09, #fcc309);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0, 0, 1);
     -fx-font-weight: bold;
     -fx-font-size: 12;
 }
 
 #red-fancy-button {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-insets: 0, 0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 100;
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-            #9d4024,
-            #d86e3a,
-            radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+    #9d4024,
+    #d86e3a,
+    radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0, 0, 1);
     -fx-font-weight: bold;
     -fx-font-size: 12;
 }
 
 #blue-fancy-button {
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-insets: 0, 0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 100;
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #09e0fc 0%, #08fded 100%),
-            #08f9e8,
-            #17c1ff,
-            radial-gradient(center 50% 50%, radius 100%, #09caff, #09e0fc);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #09e0fc 0%, #08fded 100%),
+    #08f9e8,
+    #17c1ff,
+    radial-gradient(center 50% 50%, radius 100%, #09caff, #09e0fc);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0, 0, 1);
     -fx-font-weight: bold;
     -fx-font-size: 12;
 }
@@ -92,19 +92,19 @@
 #round-fancy-button-label {
     -fx-font-size: 10;
     -fx-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 1, 10, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1), 1, 10, 0, 0);
 }
 
-#red-round-button, #green-round-button, #yellow-round-button{
+#red-round-button, #green-round-button, #yellow-round-button {
     -fx-background-radius: 30;
     -fx-background-insets: 0;
     -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 2, 0, 0, 1);
 }
 
 #green-round-button .text, #red-round-button .text, #yellow-round-button .text, #stroke-text {
     -fx-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,1), 1, 10, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1), 1, 10, 0, 0);
 }
 
 #red-round-button {
@@ -184,4 +184,20 @@
 
 .scroll-bar, .scroll-bar:pressed, .scroll-bar:focused {
     -fx-font-size: 15;
+}
+
+.tab-header-background {
+    -fx-background-color: rgba(0, 0, 0, 0.7);
+    -fx-padding: 0;
+}
+
+.tab-pane .tab {
+    -fx-background-color: rgba(0, 0, 0, 0.35);
+    -fx-background-insets: 0, 0 0 1 0;
+
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
 }

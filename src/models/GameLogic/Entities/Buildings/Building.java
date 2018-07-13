@@ -1,5 +1,6 @@
 package models.GameLogic.Entities.Buildings;
 
+import interfaces.Updatable;
 import interfaces.Upgradable;
 import javafx.geometry.Rectangle2D;
 import models.GameLogic.*;
@@ -138,6 +139,10 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
             e.getCause();
         }
         updateViewPort();
+    }
+
+    @Override
+    public void update(BattleGround battleGround, int turnPerSecond, int turn) {
     }
 
     public void updateViewPort() {

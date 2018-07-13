@@ -1,13 +1,14 @@
 package models.GameLogic.Entities.Troop;
 
 import interfaces.Destroyable;
+import interfaces.Movable;
 import interfaces.TimedEvent;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
+import models.GameLogic.utills.PathFinder;
 import models.setting.GameLogicConfig;
-import viewers.GameScene;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +35,25 @@ public class Healer extends Troop implements TimedEvent {
     }
 
     @Override
-    public void findTarget(ArrayList<Destroyable> tList) throws NoTargetFoundException {
+    public void update(BattleGround battleGround, int turnPerSecond, int turn) {
+        boolean isBigTurn = (turn % turnPerSecond == 0);
+        if (getTarget() == null || getTarget().isDestroyed() || isBigTurn) {
+            findTarget(battleGround);
+        }
+        if (getPath() == null || isBigTurn) {
+            findPath(battleGround);
+        }
+        if (((turn + 1) * getSpeed() / turnPerSecond) > (turn * getSpeed() / turnPerSecond)) {
+            move();
+        }
+        if (isBigTurn) {
+            heal(battleGround);
+            reduceTime();
+        }
+    }
+
+    @Override
+    public void findTarget(BattleGround battleGround) {
         if (target != null) {
             if (target.getHitPoints() >= target.getMaxHitPoints() || target.isDestroyed()) {
                 target = null;
@@ -43,17 +62,17 @@ public class Healer extends Troop implements TimedEvent {
         if (target == null) {
             double minDistance = Double.MAX_VALUE;
             Destroyable nearestAlly = null;
-            for (Destroyable destroyable : tList) {
-                if (!destroyable.isDestroyed() && destroyable.getHitPoints() < destroyable.getMaxHitPoints()) {
-                    double dis = destroyable.getPosition().calculateDistance(getPosition());
-                    if (dis < minDistance) {
-                        minDistance = dis;
-                        nearestAlly = destroyable;
+            for (Troop troop : battleGround.getDeployedTroops()) {
+                if (troop instanceof Destroyable) {
+                    Destroyable destroyable = (Destroyable) troop;
+                    if (!destroyable.isDestroyed() && destroyable.getHitPoints() < destroyable.getMaxHitPoints()) {
+                        double dis = destroyable.getPosition().calculateDistance(getPosition());
+                        if (dis < minDistance) {
+                            minDistance = dis;
+                            nearestAlly = destroyable;
+                        }
                     }
                 }
-            }
-            if (nearestAlly == null) {
-                throw new NoTargetFoundException();
             }
             target = nearestAlly;
         }
@@ -61,8 +80,10 @@ public class Healer extends Troop implements TimedEvent {
 
     @Override
     public void findPath(BattleGround battleGround) {
+        movementCounter = 0;
         if (target != null) {
-            super.findPath(battleGround);
+            setMovementPath(PathFinder.getPath(battleGround.getEnemyGameMap(), this, getTarget().getPosition(),
+                    Math.max(this.getEffectRange() - ((Movable) getTarget()).getSpeed(), 0)));
         } else {
             setMovementPath(new ArrayList<>(Arrays.asList(getPosition())));
         }

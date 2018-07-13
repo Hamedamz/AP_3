@@ -1,6 +1,7 @@
 package models.GameLogic.Entities.Troop;
 
 import interfaces.Movable;
+import interfaces.Updatable;
 import interfaces.Upgradable;
 import interfaces.Vulnerable;
 import models.GameLogic.BattleGround;
@@ -13,7 +14,7 @@ import models.setting.GameLogicConfig;
 
 import java.util.ArrayList;
 
-public abstract class Troop extends Entity implements Movable, Upgradable, Vulnerable {
+public abstract class Troop extends Entity implements Movable, Updatable, Upgradable, Vulnerable {
     protected MoveType moveType;
     protected int speed;
     private int level;
@@ -27,13 +28,8 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
         this.speed = (int) GameLogicConfig.getFromDictionary(className + "Speed");
     }
 
-    @Override
-    public void move() {
-        this.position = getNextPosition();
-    }
-
     public Position getNextPosition() {
-        return this.movementPath.get(Math.min(getSpeed(), getPath().size() - 1));
+        return this.movementPath.get(Math.min(movementCounter, getPath().size() - 1));
     }
 
     public void setMovementPath(ArrayList<Position> movementPath) {
@@ -48,9 +44,18 @@ public abstract class Troop extends Entity implements Movable, Upgradable, Vulne
         this.level = level;
     }
 
+    protected int movementCounter = 0;
+
     @Override
     public void findPath(BattleGround battleGround) {
+        movementCounter = 0;
         setMovementPath(PathFinder.getPath(battleGround.getEnemyGameMap(), this, getTarget().getPosition(), this.getEffectRange()));
+    }
+
+    @Override
+    public void move() {
+        movementCounter++;
+        this.position = getNextPosition();
     }
 
     @Override

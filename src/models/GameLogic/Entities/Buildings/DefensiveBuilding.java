@@ -2,30 +2,37 @@ package models.GameLogic.Entities.Buildings;
 
 import interfaces.Attacker;
 import interfaces.Destroyable;
+import interfaces.Movable;
+import interfaces.MovingAttacker;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.AttackerTroop;
+import models.GameLogic.Entities.Troop.Troop;
+import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.enums.BuildingDamageType;
 import models.GameLogic.enums.BuildingTargetType;
 import models.GameLogic.ID;
 import models.setting.GameLogicConfig;
+import models.setting.GameLogicConstants;
 import viewers.BattleGroundScene;
 
 import java.util.ArrayList;
 
 public abstract class DefensiveBuilding extends Building implements Attacker {
+    protected int attackSpeed;
     protected int damage;
     protected int range;
     protected BuildingDamageType damageType;
     protected BuildingTargetType targetType;
     protected Destroyable target;
-
     public DefensiveBuilding(Position position, ID id) {
         super(position, id);
         String className = this.getClass().getSimpleName();
         this.damage = (int) GameLogicConfig.getFromDictionary(className + "Damage");
         this.range = (int) GameLogicConfig.getFromDictionary(className + "Range");
+        this.attackSpeed = GameLogicConfig.getFromDictionary(className + "AttackSpeed");
+        this.attackCounter = Integer.MAX_VALUE/2;
     }
 
     public int getDamage() {
@@ -51,12 +58,38 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
         hitPoints += GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeHitPointsAddition");
     }
 
+    private int attackCounter;
+
+    @Override
+    public void update(BattleGround battleGround, int turnPerSecond, int turn) {
+        boolean isBigTurn = (turn % turnPerSecond == 0);
+        attackCounter++;
+        if (getTarget() == null || getTarget().isDestroyed() || isBigTurn) {
+            findTarget(battleGround);
+        }
+        if(this instanceof GuardianGiant) {
+            if(isBigTurn || ((MovingAttacker) this).getPath() == null) {
+                ((MovingAttacker) this).findPath(battleGround);
+            }
+            if(((turn + 1) * ((GuardianGiant) this).getSpeed() / turnPerSecond) >
+            (turn * ((GuardianGiant) this).getSpeed() / turnPerSecond)) {
+                ((GuardianGiant) this).move();
+            }
+        }
+        if (!isDestroyed()) {
+            if(attackCounter >= GameLogicConstants.DEFAULT_ATTACK_SPEED * turnPerSecond / getAttackSpeed()) {
+                giveDamageTo(getTarget(), battleGround);
+            }
+        }
+    }
+
     @Override
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
         if (destroyable == null) {
             return;
         }
         if (damageType == BuildingDamageType.SINGLE_TARGET) {
+            attackCounter = 0;
             destroyable.takeDamageFromAttack(damage);
             BattleGroundScene.getInstance().attackHappened(this, destroyable);
             if (destroyable.isDestroyed()) {
@@ -66,6 +99,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
         else {
             for (Entity entity : battleGround.getAttackerInPosition(destroyable.getPosition())) {
                 if(entity instanceof Destroyable) {
+                    attackCounter = 0;
                     ((Destroyable) entity).takeDamageFromAttack(damage);
                     BattleGroundScene.getInstance().attackHappened(this, destroyable);
                     if (destroyable.isDestroyed()) {
@@ -84,22 +118,26 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     }
 
     @Override
-    public void findTarget(ArrayList<Destroyable> destroyables) {
+    public void findTarget(BattleGround battleGround) {
         if(target != null) {
-            if(target.isDestroyed() || target.getPosition().calculateDistanceFromBuilding(getPosition(), getSize()) < getEffectRange()) {
+            if(target.isDestroyed() || target.getPosition().calculateDistanceFromBuilding(getPosition(), getSize()) > getEffectRange()) {
                 target = null;
             }
         }
         if(target == null) {
             double minDistance = Double.MAX_VALUE;
             Destroyable minDistanceDestroyable = null;
-            for (Destroyable destroyable : destroyables) {
-                if (!destroyable.isDestroyed() && BuildingTargetType.isBuildingTargetAppropriate(this, (AttackerTroop) destroyable)) {
-                    double distance = this.getPosition().calculateDistanceFromBuilding(destroyable.getPosition(), getSize());
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        minDistanceDestroyable = destroyable;
+            for (Troop troop : battleGround.getDeployedTroops()) {
+                if(troop instanceof Destroyable) {
+                    Destroyable destroyable = (Destroyable) troop;
+                    if (!destroyable.isDestroyed() && BuildingTargetType.isBuildingTargetAppropriate(this, (AttackerTroop) destroyable)) {
+                        double distance = this.getPosition().calculateDistanceFromBuilding(destroyable.getPosition(), getSize());
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            minDistanceDestroyable = destroyable;
+                        }
                     }
+
                 }
             }
             if (minDistance < this.getEffectRange()) {
@@ -112,6 +150,11 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     @Override
     public int getEffectRange() {
         return getMapRange() * Position.CELL_SIZE;
+    }
+
+    @Override
+    public int getAttackSpeed() {
+        return attackSpeed;
     }
 
     @Override

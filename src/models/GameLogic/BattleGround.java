@@ -23,10 +23,14 @@ public class BattleGround {
     private ArrayList<Building> enemyBuildings;
     private ArrayList<Troop> deployedTroops;
     private HashMap<String, ArrayList<Troop>> unDeployedTroops;
+
     private Bounty thisLootedBounty;
+
     private Bounty lootedBounty;
     private int[][] numberOfTroopsDeployed;
+    private boolean isGameFinished;
 
+    private boolean isWallDestroyed;
     public BattleGround(Village myVillage, GameMap enemyGameMap) {
         numberOfTroopsDeployed = new int[enemyGameMap.getMapWidth()][enemyGameMap.getMapWidth()];
         deployedTroops = new ArrayList<>();
@@ -135,8 +139,8 @@ public class BattleGround {
         return myVillage;
     }
 
-    //TODO check position correctness -> not occupied
 
+    //TODO check position correctness -> not occupied
     public synchronized Troop putTroop(String troopType, Position position)
             throws CountLimitReachedException, InvalidPositionException, TroopNotFoundException {
         ArrayList<Troop> troops = unDeployedTroops.get(troopType);
@@ -171,6 +175,9 @@ public class BattleGround {
     }
 
     public synchronized boolean isGameFinished() {
+        if(isGameFinished) {
+            return true;
+        }
         if (timeRemaining <= 0) {
             return true;
         }
@@ -220,5 +227,17 @@ public class BattleGround {
             }
         }
         myVillage.spreadTroops(unDeployedTroops);
+    }
+
+    public void setGameFinished(boolean gameFinished) {
+        isGameFinished = gameFinished;
+    }
+
+    public boolean isWallDestroyed() {
+        return isWallDestroyed;
+    }
+
+    public void setWallDestroyed(boolean wallDestroyed) {
+        isWallDestroyed = wallDestroyed;
     }
 }

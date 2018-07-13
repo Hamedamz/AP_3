@@ -4,6 +4,7 @@ import interfaces.Destroyable;
 import interfaces.MovingAttacker;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Bounty;
+import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
@@ -43,10 +44,7 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
         return new Bounty(score, resource);
     }
 
-    @Override
-    public void move() {
-        this.position = this.movementPath.get(Math.min(getSpeed(), getPath().size() - 1));
-    }
+    private int movementCounter = 0;
 
     @Override
     public MoveType getTroopMoveType() {
@@ -55,7 +53,14 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
 
     @Override
     public void findPath(BattleGround battleGround) {
+        movementCounter = 0;
         PathFinder.getPath(battleGround.getEnemyGameMap(), this, target.getPosition(), getEffectRange());
+    }
+
+    @Override
+    public void move() {
+        movementCounter++;
+        setPosition(getPath().get(Math.min(getPath().size() - 1, movementCounter)));
     }
 
     @Override
@@ -68,31 +73,12 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
         return speed * Position.CELL_SIZE;
     }
 
-    public void resetPosition() {
-        position = initialPosition;
+    public int getMovementCounter() {
+        return movementCounter;
     }
 
-    @Override
-    public void findTarget(ArrayList<Destroyable> destroyables) {
-        if (target != null) {
-            if (target.isDestroyed()) {
-                target = null;
-            }
-        }
-        if (target == null) {
-            double minDistance = Double.MAX_VALUE;
-            Destroyable minDistanceDestroyable = null;
-            for (Destroyable destroyable : destroyables) {
-                if (!destroyable.isDestroyed() && BuildingTargetType.isBuildingTargetAppropriate(this, (AttackerTroop) destroyable)) {
-                    double distance = this.getPosition().calculateDistance(destroyable.getPosition());
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        minDistanceDestroyable = destroyable;
-                    }
-                }
-            }
-            this.target = minDistanceDestroyable;
-        }
+    public void resetPosition() {
+        position = initialPosition;
     }
 
     @Override

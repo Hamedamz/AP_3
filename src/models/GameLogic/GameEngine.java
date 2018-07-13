@@ -3,12 +3,13 @@ package models.GameLogic;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import models.World;
+import models.setting.GameLogicConstants;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameEngine {
-    public static final int DEFAULT_DURATION = 1000;
+    public static final int DEFAULT_DURATION = 20;
 
     private World world;
     private VillageGameEngine villageGameEngine;
@@ -20,7 +21,10 @@ public class GameEngine {
 
     // isAttacking First Phase Only
 
+    private int turn;
+
     public GameEngine(World world) {
+        turn = 0;
         this.world = world;
         villageGameEngine = new VillageGameEngine();
         battleGroundGameEngine = new BattleGroundGameEngine();
@@ -49,11 +53,15 @@ public class GameEngine {
                     isAttacking = false;
                 }
             }
-            villageGameEngine.update();
+            if(turn % GameLogicConstants.DEFAULT_TURNS_PER_SEC == 0) {
+                villageGameEngine.update();
+            }
         }
+        turn++;
     }
 
     public void loadNewVillage() {
+        turn = 0;
         villageGameEngine.loadVillage(world.getMyVillage());
     }
 
@@ -63,6 +71,7 @@ public class GameEngine {
     }
 
     public void resetVillage(){
+        turn = 0;
         villageGameEngine.reset();
     }
 
