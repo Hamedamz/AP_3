@@ -23,7 +23,7 @@ public class BuildingMenuController {
     private BuildingMenu activeMenu;
     private BuildingMenu menu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP);
     private BuildingMenu barracksMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP, OPEN_TRAIN_TROOPS_POPUP);
-    private BuildingMenu campMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP, OPEN_ARMY_STATUS_POPUP);
+    private BuildingMenu campMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_ARMY_STATUS_POPUP);
 
     private BuildingMenuController() {
     }

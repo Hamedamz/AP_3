@@ -30,8 +30,8 @@ public enum ImageLibrary {
     WallBreaker("assets/troops/WallBreaker.png"),
     InfoIcon("assets/icons/Info.png"),
     UpgradeIcon("assets/icons/Upgrade.png"),
-    TrainIcon("assets/icons/SampleIcon.png"),
-    ArmyIcon("assets/icons/SampleIcon.png"),
+    TrainIcon("assets/icons/Train.png"),
+    ArmyIcon("assets/icons/Army.png"),
     BuildIcon("assets/icons/Build.png"),
     SettingsIcon("assets/icons/Settings.png"),
     HurryIcon("assets/icons/Hurry.png"),
@@ -39,7 +39,7 @@ public enum ImageLibrary {
     HitPointsIcon("assets/icons/HitPointsIcon.png"),
     GoldIcon("assets/icons/GoldIcon.png"),
     ElixirIcon("assets/icons/ElixirIcon.png"),
-    TroopsIcon("assets/icons/SampleIcon.png");
+    TroopsIcon("assets/icons/TroopsIcon.png");
 
     private Image image;
 

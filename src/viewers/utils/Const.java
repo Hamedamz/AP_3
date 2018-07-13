@@ -38,4 +38,7 @@ public class Const {
     public static final double PROGRESS_BAR_ICON_SIZE = 40;
     public static final double SCROLL_MENU_WIDTH = 640;
     public static final double SCROLL_MENU_HEIGHT = 120;
+
+    public static final double SLIDER_MENU_WIDTH = WINDOW_WIDTH / 4;
+    public static final double SLIDER_MENU_TAB_HEIGHT = 30;
 }

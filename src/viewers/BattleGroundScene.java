@@ -20,11 +20,14 @@ import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import viewers.utils.*;
+import viewers.utils.SliderMenu.ChatBox;
+import viewers.utils.SliderMenu.SliderMenu;
 import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.entityHolders.TroopHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.TroopsFancyButton;
 import viewers.utils.fancyPopups.AttackEndGlassPane;
+import viewers.utils.tiles.HexaTile;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -94,7 +97,7 @@ public class BattleGroundScene extends VillageScene {
         attackEndGlassPane.setVisible(false);
 
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, lootedBountyInfo, settingsButton, troopsScrollMenu, attackEndGlassPane, villageConsole);
+        root.getChildren().addAll(draggableView, lootedBountyInfo, settingsButton, troopsScrollMenu, attackEndGlassPane, villageConsole, SliderMenu.getInstance());
 
         setAnimationTimer().start();
     }
@@ -116,10 +119,10 @@ public class BattleGroundScene extends VillageScene {
                     buildingHolder.refresh();
                 }
 
-                if (isTurned) {
-                    isTurned = false;
-                    animateTroopsMovement();
-                }
+//                if (isTurned) {
+//                    isTurned = false;
+//                    animateTroopsMovement();
+//                }
 
                 Iterator<TroopHolder> iterator = troopHolders.iterator();
                 while (iterator.hasNext()) {
@@ -129,10 +132,13 @@ public class BattleGroundScene extends VillageScene {
                         iterator.remove();
                         troopsPane.getChildren().remove(troopHolder);
                     }
+
+                    IsometricPane.mapToIsometricLayout(troopHolder, troopHolder.getEntity().getPosition(), 1);
                 }
 
                 if (AppGUI.getController().getWorld().getBattleGround().isGameFinished()) {
                     this.stop();
+                    SoundPlayer.play(Sounds.winSound);  // FIXME: 7/13/18 how to know if we have won or lost?
                     attackEndGlassPane.setProperties();
                     attackEndGlassPane.setVisible(true);
                 }
@@ -229,5 +235,11 @@ public class BattleGroundScene extends VillageScene {
 
     public void movementHappened() {
         this.isTurned = true;
+    }
+
+    public void reBuild() {
+        build();
+        root.getChildren().clear();
+        root.getChildren().addAll(draggableView, lootedBountyInfo, settingsButton, troopsScrollMenu, attackEndGlassPane, villageConsole, SliderMenu.getInstance());
     }
 }

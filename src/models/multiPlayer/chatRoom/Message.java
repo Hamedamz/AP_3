@@ -15,4 +15,12 @@ public class Message implements Serializable {
     public String toString() {
         return from + " : " + text;
     }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getFrom() {
+        return from;
+    }
 }

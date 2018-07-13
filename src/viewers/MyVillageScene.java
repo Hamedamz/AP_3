@@ -13,10 +13,13 @@ import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
 import models.GameLogic.Position;
 import viewers.utils.*;
+import viewers.utils.SliderMenu.ChatBox;
+import viewers.utils.SliderMenu.SliderMenu;
 import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.RoundFancyButton;
 import viewers.utils.fancyPopups.AttackMenuGlassPane;
+import viewers.utils.tiles.MapTile;
 
 import java.util.ArrayList;
 
@@ -44,7 +47,6 @@ public class MyVillageScene extends VillageScene {
     @Override
     public void build() {
         super.build();
-
 
         tiles = new GridPane();
         tiles.setVgap(1);
@@ -99,7 +101,7 @@ public class MyVillageScene extends VillageScene {
         });
 
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton, villageConsole);
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton, villageConsole, SliderMenu.getInstance());
 
         setAnimationTimer().start();
     }
@@ -178,5 +180,10 @@ public class MyVillageScene extends VillageScene {
 
     public void showTiles(boolean visibility) {
         isometricPane.setVisible(visibility);
+    }
+
+    public void reBuild() {
+        root.getChildren().clear();
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton, villageConsole, SliderMenu.getInstance());
     }
 }
