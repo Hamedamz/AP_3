@@ -70,4 +70,12 @@ public abstract class FancyButton extends VBox {
     public boolean isActive() {
         return isActive;
     }
+
+    public void hideLabel() {
+        this.getChildren().remove(getLabel());
+    }
+
+    public void showLabel() {
+        this.getChildren().add(getLabel());
+    }
 }

@@ -33,6 +33,10 @@
     -fx-background-color: transparent;
 }
 
+#chat-box {
+    -fx-background-color: rgba(0,0,0,0.8);
+}
+
 #popup-title {
     -fx-background-color:
             linear-gradient(#ffd65b, #e68400),

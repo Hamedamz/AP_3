@@ -121,4 +121,6 @@ public abstract class VillageScene extends Scene {
     public void handleException(Exception e) {
         ErrorPopup.popError(e);
     }
+
+    public abstract void reBuild();
 }

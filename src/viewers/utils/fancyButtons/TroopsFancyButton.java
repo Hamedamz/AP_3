@@ -19,14 +19,6 @@ public class TroopsFancyButton extends EntityFancyButton {
         this.getWrapper().getChildren().add(new Pane(numberBadge));
     }
 
-    public void hideLabel() {
-        this.getChildren().remove(getLabel());
-    }
-
-    public void showLabel() {
-        this.getChildren().add(getLabel());
-    }
-
     public void hideNumberBadge() {
         this.numberBadge.setVisible(false);
     }

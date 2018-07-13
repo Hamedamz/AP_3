@@ -20,6 +20,7 @@ import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import viewers.utils.*;
+import viewers.utils.chatRoom.ChatBox;
 import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.entityHolders.TroopHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
@@ -94,7 +95,7 @@ public class BattleGroundScene extends VillageScene {
         attackEndGlassPane.setVisible(false);
 
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, lootedBountyInfo, settingsButton, troopsScrollMenu, attackEndGlassPane, villageConsole);
+        root.getChildren().addAll(draggableView, lootedBountyInfo, settingsButton, troopsScrollMenu, attackEndGlassPane, villageConsole, ChatBox.getInstance());
 
         setAnimationTimer().start();
     }
@@ -229,5 +230,11 @@ public class BattleGroundScene extends VillageScene {
 
     public void movementHappened() {
         this.isTurned = true;
+    }
+
+    public void reBuild() {
+        build();
+        root.getChildren().clear();
+        root.getChildren().addAll(draggableView, lootedBountyInfo, settingsButton, troopsScrollMenu, attackEndGlassPane, villageConsole, ChatBox.getInstance());
     }
 }

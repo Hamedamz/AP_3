@@ -116,7 +116,7 @@ public class AttackMenuGlassPane extends GlassPane {
             } catch (TroopNotFoundException e) {
                 AppGUI.getMyVillageScene().handleException(e);
             }
-            BattleGroundScene.getInstance().build();
+            BattleGroundScene.getInstance().reBuild();
             AppGUI.setStageScene(BattleGroundScene.getInstance());
             SoundPlayer.play(Sounds.warSound);
             this.toggleVisibility();

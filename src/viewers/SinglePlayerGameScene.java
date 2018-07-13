@@ -30,6 +30,7 @@ public class SinglePlayerGameScene extends Scene {
         root.getChildren().addAll(hBox);
 
         newGameButton.setOnAction(event -> {
+            MyVillageScene.getInstance().reBuild();
             AppGUI.setStageScene(MyVillageScene.getInstance());
             loadStage();
         });
@@ -69,6 +70,7 @@ public class SinglePlayerGameScene extends Scene {
                     for (File selectedFile : selectedFiles) {
                         try {
                             AppGUI.getController().loadGameFromFile(selectedFile);
+                            MyVillageScene.getInstance().reBuild();
                             AppGUI.setStageScene(MyVillageScene.getInstance());
                             loadStage();
                         } catch (FileNotFoundException e) {
