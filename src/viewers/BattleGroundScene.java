@@ -119,10 +119,10 @@ public class BattleGroundScene extends VillageScene {
                     buildingHolder.refresh();
                 }
 
-                if (isTurned) {
-                    isTurned = false;
-                    animateTroopsMovement();
-                }
+//                if (isTurned) {
+//                    isTurned = false;
+//                    animateTroopsMovement();
+//                }
 
                 Iterator<TroopHolder> iterator = troopHolders.iterator();
                 while (iterator.hasNext()) {
@@ -132,6 +132,8 @@ public class BattleGroundScene extends VillageScene {
                         iterator.remove();
                         troopsPane.getChildren().remove(troopHolder);
                     }
+
+                    IsometricPane.mapToIsometricLayout(troopHolder, troopHolder.getEntity().getPosition(), 1);
                 }
 
                 if (AppGUI.getController().getWorld().getBattleGround().isGameFinished()) {
