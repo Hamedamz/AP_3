@@ -18,6 +18,7 @@ import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.RoundFancyButton;
 import viewers.utils.fancyPopups.AttackMenuGlassPane;
+import viewers.utils.tiles.MapTile;
 
 import java.util.ArrayList;
 

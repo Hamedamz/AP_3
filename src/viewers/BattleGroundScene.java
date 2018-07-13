@@ -26,6 +26,7 @@ import viewers.utils.entityHolders.TroopHolder;
 import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.TroopsFancyButton;
 import viewers.utils.fancyPopups.AttackEndGlassPane;
+import viewers.utils.tiles.HexaTile;
 
 import java.util.ArrayList;
 import java.util.Iterator;

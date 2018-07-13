@@ -1,4 +1,4 @@
-package viewers.utils;
+package viewers.utils.tiles;
 
 import javafx.scene.layout.GridPane;
 

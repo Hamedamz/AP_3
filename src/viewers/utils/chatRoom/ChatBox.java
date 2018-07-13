@@ -35,20 +35,7 @@ public class ChatBox extends Pane {
         this.setLayoutX(-WIDTH);
 
         toggleButton = new RoundButton(">", "yellow");
-        toggleButton.setOnAction(event -> {
-            Timeline timeline = new Timeline();
-            KeyValue keyValue;
-            if (isOpen) {
-                keyValue = new KeyValue(this.layoutXProperty(), -WIDTH);
-            } else {
-                keyValue = new KeyValue(this.layoutXProperty(), 0);
-            }
-            KeyFrame keyFrame = new KeyFrame(TRANSITION_DURATION, keyValue);
-            timeline.getKeyFrames().add(keyFrame);
-            timeline.play();
-
-            toggleState();
-        });
+        toggleButton.setOnAction(event -> toggleState());
 
         textField = new TextField();
         textField.setPromptText("Message");
@@ -84,6 +71,17 @@ public class ChatBox extends Pane {
     }
 
     private void toggleState() {
+        Timeline timeline = new Timeline();
+        KeyValue keyValue;
+        if (isOpen) {
+            keyValue = new KeyValue(this.layoutXProperty(), -WIDTH);
+        } else {
+            keyValue = new KeyValue(this.layoutXProperty(), 0);
+        }
+        KeyFrame keyFrame = new KeyFrame(TRANSITION_DURATION, keyValue);
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.play();
+
         ScaleTransition scaleTransition = new ScaleTransition();
         scaleTransition.setNode(toggleButton);
         scaleTransition.setDuration(TRANSITION_DURATION);

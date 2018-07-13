@@ -1,4 +1,4 @@
-package viewers.utils;
+package viewers.utils.tiles;
 
 import javafx.animation.FadeTransition;
 import javafx.scene.input.Dragboard;
@@ -10,6 +10,8 @@ import models.GameLogic.Exceptions.InvalidPositionException;
 import models.GameLogic.Exceptions.NoFreeBuilderException;
 import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import viewers.AppGUI;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 
 import static viewers.utils.Const.TILE_SIZE;
 
