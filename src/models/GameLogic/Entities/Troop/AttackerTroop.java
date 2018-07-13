@@ -10,6 +10,8 @@ import models.GameLogic.Position;
 import models.GameLogic.enums.TroopTargetType;
 import models.setting.GameLogicConfig;
 import viewers.BattleGroundScene;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 
 import java.util.ArrayList;
 
@@ -89,6 +91,19 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
         int size = (destroyable instanceof Building) ? ((Building) destroyable).getSize() : 1;
         if (getPosition().calculateDistanceFromBuilding(destroyable.getPosition(), size) <= getEffectRange()) {
             destroyable.takeDamageFromAttack(damage);
+            switch (this.getClass().getSimpleName()) {
+                case "Archer" :
+                    SoundPlayer.play(Sounds.archerAttackSound);
+                    break;
+                case "Barbarian" :
+                    SoundPlayer.play(Sounds.barbarianAttackSound);
+                    break;
+                case "Dragon" :
+                    SoundPlayer.play(Sounds.dragonAttackSound);
+                    break;
+                case "Giant" :
+                    SoundPlayer.play(Sounds.giantAttackSound);
+            }
             BattleGroundScene.getInstance().attackHappened(this, destroyable);
         }
     }

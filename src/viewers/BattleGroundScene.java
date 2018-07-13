@@ -136,6 +136,7 @@ public class BattleGroundScene extends VillageScene {
 
                 if (AppGUI.getController().getWorld().getBattleGround().isGameFinished()) {
                     this.stop();
+                    SoundPlayer.play(Sounds.winSound);  // FIXME: 7/13/18 how to know if we have won or lost?
                     attackEndGlassPane.setProperties();
                     attackEndGlassPane.setVisible(true);
                 }
