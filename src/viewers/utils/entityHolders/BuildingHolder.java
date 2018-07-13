@@ -61,6 +61,7 @@ public class BuildingHolder extends EntityHolder {
             if (((Building) entity).isDestroyed()){
                 if (!isDestroyed()) {
                     this.setDestroyed(true);
+                    SoundPlayer.play(Sounds.buildingDestroyedSound);
                     grayScale.setSaturation(-1);
                 }
                 return;
