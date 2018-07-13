@@ -95,7 +95,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
                 case "Archer" :
                     SoundPlayer.play(Sounds.archerAttackSound);
                     break;
-                case "Barbarian" :
+                case "Guardian" :
                     SoundPlayer.play(Sounds.barbarianAttackSound);
                     break;
                 case "Dragon" :
