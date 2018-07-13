@@ -9,10 +9,12 @@ public class SoundPlayer {
 
 
     public static void playBackground(String sound) {
-            backgroundMediaPlayer = new MediaPlayer(new Media(sound));
-            backgroundMediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-            backgroundMediaPlayer.play();
-
+        if (backgroundMediaPlayer != null) {
+            backgroundMediaPlayer.stop();
+        }
+        backgroundMediaPlayer = new MediaPlayer(new Media(sound));
+        backgroundMediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        backgroundMediaPlayer.play();
     }
 
     public static void play(String sound) {
