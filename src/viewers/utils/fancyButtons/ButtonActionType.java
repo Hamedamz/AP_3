@@ -9,8 +9,6 @@ public enum ButtonActionType {
     OPEN_ATTACK_MENU("Attack"),
     FAST_FORWARD("Hurry"),
     SETTINGS("Settings"),
-    TOGGLE_CHAT_BOX("Chat"),
-    SEND_MESSAGE("Send"),
     NONE("");
 
     public static final String[] TROOPS = new String[]{"Archer", "Dragon", "Giant", "Guardian", "Healer", "WallBreaker"};
