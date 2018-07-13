@@ -1,4 +1,4 @@
-package viewers.utils.chatRoom;
+package viewers.utils.SliderMenu;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;

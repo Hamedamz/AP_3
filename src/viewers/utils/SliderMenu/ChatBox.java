@@ -1,41 +1,30 @@
-package viewers.utils.chatRoom;
+package viewers.utils.SliderMenu;
 
-import javafx.animation.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.util.Duration;
 import models.multiPlayer.chatRoom.Message;
 import viewers.utils.Const;
 import viewers.utils.fancyButtons.RoundButton;
 
 public class ChatBox extends Pane {
-    public static final double WIDTH = Const.WINDOW_WIDTH / 4;
     public static final double RATIO = 0.9;
-    public static final Duration TRANSITION_DURATION = Duration.millis(500);
+    public static final double HEIGHT = (Const.WINDOW_HEIGHT - Const.SLIDER_MENU_TAB_HEIGHT);
+
     private static ChatBox instance = new ChatBox();
 
     private TextField textField;
     private RoundButton sendButton;
     private ScrollPane messageScrollPane;
     private VBox messageList;
-    private RoundButton toggleButton;
-    private boolean isOpen;
 
     public static ChatBox getInstance() {
         return instance;
     }
 
     private ChatBox() {
-        isOpen = false;
-        this.setLayoutX(-WIDTH);
-
-        toggleButton = new RoundButton(">", "yellow");
-        toggleButton.setOnAction(event -> toggleState());
 
         textField = new TextField();
         textField.setPromptText("Message");
@@ -51,48 +40,20 @@ public class ChatBox extends Pane {
 
         messageList = new VBox(Const.SPACING);
         messageScrollPane = new ScrollPane(messageList);
-        messageScrollPane.setMaxHeight(Const.WINDOW_HEIGHT * RATIO);
-        messageScrollPane.setPrefHeight(Const.WINDOW_HEIGHT * RATIO);
+        messageScrollPane.setMaxHeight(HEIGHT * RATIO);
+        messageScrollPane.setPrefHeight(HEIGHT * RATIO);
         messageScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         messageScrollPane.setPadding(new Insets(Const.SPACING * 2));
         messageScrollPane.setId("scroll-menu");
 
         HBox inputBox = new HBox(Const.SPACING, textField, sendButton);
         inputBox.setAlignment(Pos.CENTER);
-        inputBox.setPrefHeight(Const.WINDOW_HEIGHT * (1 -RATIO));
+        inputBox.setPrefHeight(HEIGHT * (1 -RATIO));
         VBox chatBox = new VBox(messageScrollPane, inputBox);
-        chatBox.setMaxWidth(WIDTH);
-        chatBox.setPrefWidth(WIDTH);
-        chatBox.setId("chat-box");
-        HBox container = new HBox(Const.SPACING, chatBox, toggleButton);
-        container.setAlignment(Pos.CENTER);
-
-        this.getChildren().add(container);
-    }
-
-    private void toggleState() {
-        Timeline timeline = new Timeline();
-        KeyValue keyValue;
-        if (isOpen) {
-            keyValue = new KeyValue(this.layoutXProperty(), -WIDTH);
-        } else {
-            keyValue = new KeyValue(this.layoutXProperty(), 0);
-        }
-        KeyFrame keyFrame = new KeyFrame(TRANSITION_DURATION, keyValue);
-        timeline.getKeyFrames().add(keyFrame);
-        timeline.play();
-
-        ScaleTransition scaleTransition = new ScaleTransition();
-        scaleTransition.setNode(toggleButton);
-        scaleTransition.setDuration(TRANSITION_DURATION);
-        if (isOpen) {
-            isOpen = false;
-            scaleTransition.setToX(1);
-        } else {
-            isOpen = true;
-            scaleTransition.setToX(-1);
-        }
-        scaleTransition.play();
+        chatBox.setMaxWidth(Const.SLIDER_MENU_WIDTH);
+        chatBox.setPrefWidth(Const.SLIDER_MENU_WIDTH);
+        this.setId("glass-pane");
+        this.getChildren().add(chatBox);
     }
 
     public void recieveMessage(models.multiPlayer.chatRoom.Message message) {
@@ -117,6 +78,7 @@ public class ChatBox extends Pane {
     private void appendMessage(MessageBubble messageBubble) {
         textField.setText("");
         messageList.getChildren().add(messageBubble);
+        messageScrollPane.layout();
         messageScrollPane.setVvalue(1);
     }
 
