@@ -1,6 +1,8 @@
 package models.multiPlayer;
 
 import com.sun.xml.internal.bind.v2.TODO;
+import models.ConnectionManager;
+import models.ConnectionType;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.leaderBoard.LeaderBoard;
 import models.multiPlayer.packet.clientPacket.ClientPacket;
@@ -38,18 +40,21 @@ public class Server extends PacketHandler implements PacketListener<ServerPacket
         instance = new Server();
         instance.initSocket(port);
         instance.initThreads();
+        ConnectionManager.getInstance().setConnectionType(ConnectionType.SERVER);
     }
 
     private void initThreads() {
         receiverThread = new Thread(() -> {
             while (true) {
-                ServerPacket serverPacket = null;
+                ServerPacket serverPacket;
                 try {
                     serverPacket = (ServerPacket) receiveObject();
                 } catch (IOException e) {
                     // TODO: 7/14/2018
+                    continue;
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
+                    continue;
                 }
                 if (!addressMap.containsKey(serverPacket.getID())) {
                     addressMap.put(serverPacket.getID(), serverPacket.getFullAddress());
@@ -73,7 +78,7 @@ public class Server extends PacketHandler implements PacketListener<ServerPacket
                 ChatRoom.getInstance().receive((ServerChatPacket) serverPacket);
                 break;
             case LEADER_BOARD:
-                // TODO: 7/14/2018  
+                // TODO: 7/14/2018
         }
     }
 

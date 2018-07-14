@@ -4,7 +4,6 @@ import models.multiPlayer.chatRoom.Message;
 
 public class ServerChatPacket extends ServerPacket {
     private ServerChatPacketType chatPacketType;
-    private Message message;
 
     public ServerChatPacket(ServerChatPacketType chatPacketType, Object... elements) {
         super(ServerPacketType.CHAT_ROOM, elements);
@@ -16,7 +15,7 @@ public class ServerChatPacket extends ServerPacket {
     }
 
     public Message getMessage() {
-        return message;
+        return (Message) getElements()[0];
     }
 
     public ServerChatPacket withChatPacketType(ServerChatPacketType packetType) {
@@ -24,10 +23,6 @@ public class ServerChatPacket extends ServerPacket {
         return this;
     }
 
-    public ServerChatPacket withMessage(Message message) {
-        this.message = message;
-        return this;
-    }
 
 
 }
