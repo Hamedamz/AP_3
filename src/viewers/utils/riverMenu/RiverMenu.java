@@ -43,8 +43,8 @@ public class RiverMenu extends Pane {
 
     // index 3
     private RiverMenuPage newGameMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, NewGameMenu.getInstance());
-    private RiverMenuPage loadGameMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, new Pane(new Circle(20)));
-    private RiverMenuPage hostMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, new Pane(new Circle(20)));
+    private RiverMenuPage loadGameMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, LoadGameMenu.getInstance());
+    private RiverMenuPage hostMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, HostMenu.getInstance());
     private RiverMenuPage clientMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, new Pane(new Circle(20)));
 
     public RiverMenu() {
