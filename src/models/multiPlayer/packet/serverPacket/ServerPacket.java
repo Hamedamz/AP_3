@@ -1,36 +1,32 @@
 package models.multiPlayer.packet.serverPacket;
 
 import models.multiPlayer.packet.Packet;
-import models.multiPlayer.utils.FullAddress;
-
-import java.net.InetAddress;
+import models.AccountInfo;
 
 public class ServerPacket extends Packet {
     private ServerPacketType packetType;
-    private String id;
+    private AccountInfo accountInfo;
 
     protected ServerPacket(ServerPacketType packetType, Object... elements) {
         super(elements);
         this.packetType = packetType;
+        accountInfo = new AccountInfo();
     }
 
     public ServerPacketType getPacketType() {
         return packetType;
     }
 
-    public ServerPacket withPacketType(ServerPacketType packetType) {
-        this.packetType = packetType;
+    public ServerPacket withAccountInfo(AccountInfo accountInfo) {
+        this.accountInfo = accountInfo;
         return this;
     }
-
-    public Packet withID(String id) {
-        this.id = id;
-        return this;
-    }
-
-
 
     public String getID() {
-        return id;
+        return accountInfo.getID();
+    }
+
+    public AccountInfo getAccountInfo() {
+        return accountInfo;
     }
 }

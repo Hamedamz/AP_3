@@ -26,7 +26,7 @@ public class SendDataRunnable<T> implements Runnable {
         Scanner scanner = new Scanner(System.in);
         while (true){
             String text = scanner.nextLine();
-            Message message = new Message(text, from, to);
+            Message message = new Message(text, from);
             try {
                 outputStream.writeObject(message);
             } catch (IOException e) {
