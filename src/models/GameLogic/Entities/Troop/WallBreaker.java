@@ -2,9 +2,13 @@ package models.GameLogic.Entities.Troop;
 
 import interfaces.Destroyable;
 import models.GameLogic.BattleGround;
+import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Wall;
 import models.GameLogic.enums.MoveType;
 import models.GameLogic.enums.TroopTargetType;
+import viewers.BattleGroundScene;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 
 public class WallBreaker extends AttackerTroop {
 
@@ -17,13 +21,18 @@ public class WallBreaker extends AttackerTroop {
 
     @Override
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
-        super.giveDamageTo(destroyable, battleGround);
-        if(destroyable instanceof Wall) {
-            hitPoints = -10000;
-        }
-        else if(isThereWall) {
-            isThereWall = false;
-            damage /= 4;
+        int size = (destroyable instanceof Building) ? ((Building) destroyable).getSize() : 1;
+        if (getPosition().calculateDistanceFromBuilding(destroyable.getPosition(), size) <= getEffectRange()) {
+            attackCounter = 0;
+            destroyable.takeDamageFromAttack(damage);
+            if(destroyable instanceof Wall) {
+                hitPoints = -10000;
+            }
+            else if(isThereWall) {
+                isThereWall = false;
+                damage /= 4;
+            }
+            BattleGroundScene.getInstance().attackHappened(this, destroyable);
         }
     }
 }
