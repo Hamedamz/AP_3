@@ -5,7 +5,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import models.ConnectionManager;
 import models.multiPlayer.Client;
+import models.multiPlayer.Server;
+import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.chatRoom.Message;
 import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
@@ -15,6 +18,8 @@ import viewers.utils.fancyButtons.RoundButton;
 
 import java.util.List;
 
+import static models.ConnectionType.CLIENT;
+import static models.ConnectionType.SERVER;
 import static models.multiPlayer.packet.serverPacket.ServerChatPacketType.SEND;
 
 public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
@@ -72,9 +77,13 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
     private synchronized void sendMessage() {
         String text = textField.getText();
         if (text != null && !text.equals("")) {
-            // TODO: 7/13/2018 creating Message
-            Message message = new Message(text, Client.getInstance().getAccount().getUserName());
-            Client.getInstance().sendToServer(new ServerChatPacket(SEND, message));
+            if(ConnectionManager.getInstance().getConnectionType().equals(CLIENT)) {
+                Message message = new Message(text, Client.getInstance().getAccount().getUserName());
+                Client.getInstance().sendToServer(new ServerChatPacket(SEND, message));
+            } else if (ConnectionManager.getInstance().getConnectionType().equals(SERVER)){
+                Message message = new Message(text, "@SERVER@");
+                ChatRoom.getInstance().receive(new ServerChatPacket(SEND, message));
+            }
         }
     }
 

@@ -6,6 +6,15 @@ import models.multiPlayer.runnables.PacketListener;
 import java.util.ArrayList;
 
 public class LeaderBoard implements PacketListener<ServerLeaderBoardPacket> {
+    private static LeaderBoard instance = new LeaderBoard();
+
+    public static LeaderBoard getInstance() {
+        return instance;
+    }
+
+    private LeaderBoard() {
+    }
+
     private ArrayList<BattleHistory> history = new ArrayList<>();
 
     @Override

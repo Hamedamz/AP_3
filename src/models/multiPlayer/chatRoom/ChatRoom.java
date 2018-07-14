@@ -5,6 +5,7 @@ import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
 import models.multiPlayer.runnables.PacketListener;
 import models.multiPlayer.utils.ServerConstants;
+import viewers.utils.SliderMenu.ChatBox;
 
 import java.util.LinkedList;
 
@@ -12,6 +13,15 @@ import static models.multiPlayer.packet.clientPacket.ClientChatPacketType.LAST_M
 import static models.multiPlayer.packet.clientPacket.ClientChatPacketType.RECENT_MESSAGES;
 
 public class ChatRoom implements PacketListener<ServerChatPacket> {
+    private static ChatRoom instance = new ChatRoom();
+
+    public static ChatRoom getInstance(){
+        return instance;
+    }
+
+    private ChatRoom() {
+    }
+
 
     private LinkedList<Message> messages = new LinkedList<>();
 
@@ -25,6 +35,7 @@ public class ChatRoom implements PacketListener<ServerChatPacket> {
                     }
                     messages.addLast(serverChatPacket.getMessage());
                     Server.getInstance().sendToAll(new ClientChatPacket(LAST_MESSAGE, serverChatPacket.getMessage()));
+                    ChatBox.getInstance().receiveMessage(serverChatPacket.getMessage());
                     break;
                 case RECEIVE_ALL:
                     Server.getInstance().sendToID(new ClientChatPacket(RECENT_MESSAGES, messages), serverChatPacket.getID());

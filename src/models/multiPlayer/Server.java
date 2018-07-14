@@ -1,5 +1,6 @@
 package models.multiPlayer;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.leaderBoard.LeaderBoard;
 import models.multiPlayer.packet.clientPacket.ClientPacket;
@@ -30,9 +31,6 @@ public class Server extends PacketHandler implements PacketListener<ServerPacket
      */
     private Map<String, FullAddress> addressMap = new ConcurrentHashMap<>();
     private Map<String, AccountInfo> infoMap = new ConcurrentHashMap<>();
-
-    private ChatRoom chatRoom = new ChatRoom();
-    private LeaderBoard leaderBoard = new LeaderBoard();
 
     private Thread receiverThread;
 
@@ -72,10 +70,10 @@ public class Server extends PacketHandler implements PacketListener<ServerPacket
         updateInfo(serverPacket.getAccountInfo());
         switch (serverPacket.getPacketType()) {
             case CHAT_ROOM:
-                chatRoom.receive((ServerChatPacket) serverPacket);
+                ChatRoom.getInstance().receive((ServerChatPacket) serverPacket);
                 break;
             case LEADER_BOARD:
-
+                // TODO: 7/14/2018  
         }
     }
 
