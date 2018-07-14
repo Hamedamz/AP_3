@@ -33,7 +33,6 @@ public class HostMenu extends StackPane {
         portTextFiled.setText(String.valueOf(models.multiPlayer.utils.ServerConstants.SERVER_DEFAULT_PORT));
 
         hostTextField = new TextField();
-//        hostTextField.setText(Server.getInstance().getSocket().getInetAddress().toString());
         hostTextField.setText("localhost");
         hostTextField.setDisable(true);
 
@@ -43,7 +42,7 @@ public class HostMenu extends StackPane {
         terminate.setVisible(false);
 
         portTextFiled.setOnKeyTyped(event -> {
-            if (!portTextFiled.getText().equals("")) {
+            if (!portTextFiled.getText().isEmpty() && portTextFiled.getText().matches("\\d+")) {
                 setUpButton.setDisable(false);
             } else {
                 setUpButton.setDisable(true);
