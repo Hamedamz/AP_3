@@ -1,11 +1,8 @@
 package models;
 
-import models.GameLogic.GameMap;
 import models.GameLogic.Village;
 
-import java.io.File;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class Account implements Serializable {
@@ -41,4 +38,13 @@ public class Account implements Serializable {
     public String getId() {
         return id;
     }
+
+    public AccountInfo getInfo() {
+        AccountInfo info = new AccountInfo();
+        info.setName(userName);
+        info.setID(id);
+        info.setScore(myVillage.getTownHall().getVillageScore());
+        return info;
+    }
+
 }

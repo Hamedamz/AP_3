@@ -241,7 +241,7 @@
         DragonHitPoints: 700
         DragonRange: 3
         DragonDamage: 30
-        GiantAttackSpeed: 50
+        DragonAttackSpeed: 50
         DragonSpeed: 6
         DragonUpgradeDamageAddition: 1
         DragonUpgradeHitPointsAddition: 5

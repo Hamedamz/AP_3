@@ -5,11 +5,19 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import models.multiPlayer.Client;
 import models.multiPlayer.chatRoom.Message;
+import models.multiPlayer.packet.clientPacket.ClientChatPacket;
+import models.multiPlayer.packet.serverPacket.ServerChatPacket;
+import models.multiPlayer.runnables.PacketListener;
 import viewers.utils.Const;
 import viewers.utils.fancyButtons.RoundButton;
 
-public class ChatBox extends Pane {
+import java.util.List;
+
+import static models.multiPlayer.packet.serverPacket.ServerChatPacketType.SEND;
+
+public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
     public static final double RATIO = 0.9;
     public static final double HEIGHT = (Const.WINDOW_HEIGHT - Const.SLIDER_MENU_TAB_HEIGHT);
 
@@ -56,22 +64,17 @@ public class ChatBox extends Pane {
         this.getChildren().add(chatBox);
     }
 
-    public void recieveMessage(models.multiPlayer.chatRoom.Message message) {
-        // TODO: 7/13/2018
+    public void receiveMessage(models.multiPlayer.chatRoom.Message message) {
         MessageBubble messageBubble = new MessageBubble(message);
         appendMessage(messageBubble);
     }
 
-    private void sendMessage() {
+    private synchronized void sendMessage() {
         String text = textField.getText();
         if (text != null && !text.equals("")) {
             // TODO: 7/13/2018 creating Message
-            Message message = new Message(text, "FROM", "TO");
-
-            // TODO: 7/13/2018 send to server
-
-            // add to ui
-            appendMessage(new MessageBubble(message));
+            Message message = new Message(text, Client.getInstance().getAccount().getUserName());
+            Client.getInstance().sendToServer(new ServerChatPacket(SEND, message));
         }
     }
 
@@ -82,4 +85,19 @@ public class ChatBox extends Pane {
         messageScrollPane.setVvalue(1);
     }
 
+
+
+    @Override
+    public synchronized void receive(ClientChatPacket clientChatPacket) {
+        switch (clientChatPacket.getClientChatPacketType()) {
+            case LAST_MESSAGE:
+                receiveMessage((Message) clientChatPacket.getElements()[0]);
+                break;
+            case RECENT_MESSAGES:
+                messageList.getChildren().clear();
+                for(Message message : (List<Message>) clientChatPacket.getElements()[0]) {
+                    receiveMessage(message);
+                }
+        }
+    }
 }

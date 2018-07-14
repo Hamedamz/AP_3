@@ -1,13 +1,15 @@
 package models.multiPlayer.chatRoom;
 
 import models.multiPlayer.Server;
-import models.multiPlayer.packet.clientPacket.ClientPacket;
-import models.multiPlayer.packet.clientPacket.ClientPacketType;
+import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
 import models.multiPlayer.runnables.PacketListener;
 import models.multiPlayer.utils.ServerConstants;
 
 import java.util.LinkedList;
+
+import static models.multiPlayer.packet.clientPacket.ClientChatPacketType.LAST_MESSAGE;
+import static models.multiPlayer.packet.clientPacket.ClientChatPacketType.RECENT_MESSAGES;
 
 public class ChatRoom implements PacketListener<ServerChatPacket> {
 
@@ -22,11 +24,10 @@ public class ChatRoom implements PacketListener<ServerChatPacket> {
                         messages.removeFirst();
                     }
                     messages.addLast(serverChatPacket.getMessage());
-                    // TODO: 7/12/2018  
-                    //Server.getInstance().sendToAll();
+                    Server.getInstance().sendToAll(new ClientChatPacket(LAST_MESSAGE, serverChatPacket.getMessage()));
                     break;
                 case RECEIVE_ALL:
-
+                    Server.getInstance().sendToID(new ClientChatPacket(RECENT_MESSAGES, messages), serverChatPacket.getID());
                     break;
             }
         }

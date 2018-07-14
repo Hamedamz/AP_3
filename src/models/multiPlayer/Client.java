@@ -1,14 +1,81 @@
 package models.multiPlayer;
 
+import models.Account;
+import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.clientPacket.ClientPacket;
+import models.multiPlayer.packet.serverPacket.ServerPacket;
 import models.multiPlayer.runnables.PacketListener;
+import models.multiPlayer.utils.FullAddress;
+import viewers.utils.SliderMenu.ChatBox;
+
+import java.io.IOException;
+import java.net.SocketException;
 
 public class Client extends PacketHandler implements PacketListener<ClientPacket> {
 
-    @Override
-    public void receive(ClientPacket clientPacket) {
-        switch (clientPacket.getPacketType()) {
-            // TODO: 7/11/2018  
+        private static Client instance;
+
+        private Client() {
         }
-    }
+
+        public static Client getInstance() {
+            return instance;
+        }
+
+        private Account account;
+        private FullAddress serverAddress;
+
+        public static void initClient(int port) throws SocketException {
+            instance = new Client();
+            instance.initSocket(port);
+            instance.initThreads();
+        }
+
+        private Thread receiverThread;
+
+        public void initThreads() {
+            receiverThread = new Thread(() -> {
+                while (true) {
+                    ClientPacket clientPacket = null;
+                    try {
+                        clientPacket = (ClientPacket) receiveObject();
+                    } catch (IOException e) {
+                        // TODO: 7/14/2018
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    if (clientPacket.getFullAddress().equals(serverAddress)) {
+                        receive(clientPacket);
+                    }
+                }
+            });
+            receiverThread.start();
+        }
+
+        @Override
+        public void receive(ClientPacket clientPacket) {
+            switch (clientPacket.getPacketType()) {
+                case CHAT_ROOM:
+                    ChatBox.getInstance().receive((ClientChatPacket) clientPacket);
+                    break;
+                // TODO: 7/14/2018
+            }
+        }
+
+        public void sendToServer(ServerPacket serverPacket) {
+            try {
+                sendObject(serverPacket.withAccountInfo(account.getInfo()), serverAddress);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        public Account getAccount() {
+            return account;
+        }
+
+        public FullAddress getServerAddress() {
+            return serverAddress;
+        }
 }
