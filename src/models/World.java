@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class World {
     private Account account;
     private HashMap<File, GameMap> enemyVillagesFileAndMap = new HashMap<>();
-    private HashMap<String, File> myVillagesNameAndFile;
+    private HashMap<File, String> myVillagesNameAndFile;
     private BattleGround battleGround;
     private GameEngine gameEngine;
 
@@ -24,7 +24,11 @@ public class World {
     }
 
 
-    public HashMap<String, File> getMyVillagesNameAndFile() {
+    public void setMyVillagesNameAndFile(HashMap<File, String> myVillagesNameAndFile) {
+        this.myVillagesNameAndFile = myVillagesNameAndFile;
+    }
+
+    public HashMap<File, String> getMyVillagesNameAndFile() {
         return myVillagesNameAndFile;
     }
 
@@ -57,8 +61,8 @@ public class World {
         gameEngine.loadNewVillage();
     }
 
-    public void saveGame(Account account, String  name) {
-        JsonHandler.saveAccount(account, name);
+    public void saveGame(Account account) {
+        JsonHandler.saveAccount(account, getMyVillagesNameAndFile());
        // myVillagesNameAndFile.put(name, "savedMaps\\" + name + ".json");
         // TODO: 7/10/18 correct the above statement @HAMEDAMZ
     }
@@ -88,6 +92,7 @@ public class World {
     public Account getAccount() {
         return account;
     }
+
 
 
 }

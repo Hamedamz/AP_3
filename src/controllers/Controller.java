@@ -168,8 +168,7 @@ public class Controller {
         } else {
             if (command.matches(SAVE_GAME.toString())) {
                 controller.viewer.requestForInput("enter name for your village:");
-                String name = controller.viewer.getInput(); // TODO: 5/6/2018 Exception Handlings
-                controller.saveGame(controller.world.getAccount(), name);
+                controller.saveGame(controller.world.getAccount());
             } else if (command.matches(TURN_FORMAT)) {
                 int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
                 controller.turn(n);
@@ -200,12 +199,12 @@ public class Controller {
     }
 
     public void loadGame(String villageName) throws FileNotFoundException {
-        File file = controller.world.getMyVillagesNameAndFile().get(villageName);
-        if (file != null) {
-            loadGameFromFile(file);
-        } else {
-            controller.viewer.printErrorMessage("no village with this name!");
-        }
+//        File file = controller.world.getMyVillagesNameAndFile().get(villageName);
+//        if (file != null) {
+//            loadGameFromFile(file);
+//        } else {
+//            controller.viewer.printErrorMessage("no village with this name!");
+//        } FIXME FIXME FIXME FIXME FIXME FIXME FIXME
     }
 
 
@@ -213,6 +212,7 @@ public class Controller {
 
     public void loadGameFromFile(File file) throws FileNotFoundException {
         Account account = JsonHandler.loadAccountFromFile(file);
+        world.getMyVillagesNameAndFile().put(file, account.getInfo().getName());
         controller.world.getGameEngine().resetVillage();
         controller.world.setMyVillage(account.getMyVillage());
 //        controller.world.setEnemies(getEnemyVillagesFileAndMap());
@@ -224,8 +224,8 @@ public class Controller {
         controller.world.getMyVillage().trainTroop(troopType, count, barracks);
     }
 
-    private void saveGame(Account account, String name) {
-        controller.world.saveGame(account, name);
+    private void saveGame(Account account) {
+        controller.world.saveGame(account);
     }
 
     private void turn(int n) {

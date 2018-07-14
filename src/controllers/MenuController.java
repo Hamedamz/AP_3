@@ -171,7 +171,7 @@ public class MenuController {
 
     private LinkedHashMap<DynamicMenuItem, String> getVillageMapList() {
         LinkedHashMap<DynamicMenuItem, String> villageMapList = new LinkedHashMap<>();
-        for (String villageName : world.getMyVillagesNameAndFile().keySet()) {
+        for (String villageName : world.getMyVillagesNameAndFile().values()) {
             villageMapList.put(new DynamicMenuItem(LOAD_GAME, villageName), "");
         }
         return villageMapList;

@@ -43,7 +43,7 @@ public class MultiPlayerGameScene extends Scene {
 
             //choicePane choice components
             AtomicReference<String> loadingVillageName = new AtomicReference<>();
-            for (String villageName : AppGUI.getController().getWorld().getMyVillagesNameAndFile().keySet()) {
+            for (String villageName : AppGUI.getController().getWorld().getMyVillagesNameAndFile().values()) {
                 Button button = new Button(villageName);
                 button.setOnAction(event2 -> {
                     loadingVillageName.set(villageName);

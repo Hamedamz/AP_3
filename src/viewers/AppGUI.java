@@ -31,7 +31,7 @@ public class AppGUI extends Application {
         getMainStage().setResizable(false);
         setStageScene(GameLobbyScene.getInstance());
 //        setStageScene(GameScene.getInstance());
-        getMainStage().setOnHidden(event -> JsonHandler.saveAccount(Controller.getController().getWorld().getAccount(), "UIVillage"));
+        getMainStage().setOnHidden(event -> JsonHandler.saveAccount(Controller.getController().getWorld().getAccount(), Controller.getController().getWorld().getMyVillagesNameAndFile()));
         getMainStage().show();
 
     }
