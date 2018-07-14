@@ -10,6 +10,8 @@ import viewers.HostScene;
 import viewers.utils.Const;
 import viewers.utils.fancyButtons.RoundButton;
 
+import java.net.SocketException;
+
 public class HostMenu extends StackPane {
 
     private static HostMenu instance = new HostMenu();
@@ -22,7 +24,7 @@ public class HostMenu extends StackPane {
     private RoundButton setUpButton;
     private RoundButton terminate;
 
-    public HostMenu() {
+    private HostMenu() {
         portTextFiled = new TextField();
         portTextFiled.setPrefWidth(Const.SPACING * 8);
         portTextFiled.setText(String.valueOf(models.multiPlayer.utils.ServerConstants.SERVER_DEFAULT_PORT));
@@ -47,6 +49,11 @@ public class HostMenu extends StackPane {
 
         setUpButton.setOnAction(event -> {
             // TODO: 7/14/2018 set up server if successful open host scene
+            try {
+                Server.initServer(Integer.parseInt(portTextFiled.getText()));
+            } catch (SocketException e) {
+                e.printStackTrace();
+            }
             boolean isSetUp = true;
             if (isSetUp)
             {
