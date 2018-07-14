@@ -26,7 +26,7 @@ public abstract class VillageScene extends Scene {
     RoundFancyButton settingsButton;
     RoundFancyButton fastForwardButton;
     Pane buildingsPane;
-    ArrayList<BuildingHolder> buildingHolders;
+    ArrayList<BuildingHolder> buildingHolders = new ArrayList<>();
     MapBrowserPane draggableView;
     ImageView villageBackground = new ImageView();
 
@@ -96,7 +96,6 @@ public abstract class VillageScene extends Scene {
     protected abstract AnimationTimer setAnimationTimer();
 
     public void addBuildingsFromList(ArrayList<Building> buildings) {
-        buildingHolders = new ArrayList<>();
         buildings.sort((o1, o2) -> o2.getPosition().getMapX() - o1.getPosition().getMapX() + o2.getPosition().getMapY() - o1.getPosition().getMapY());
         for (Building building : buildings) {
             addBuildingToScene(new BuildingHolder(building));

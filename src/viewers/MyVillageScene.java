@@ -3,6 +3,7 @@ package viewers;
 import controllers.BuildingMenuController;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -67,8 +68,11 @@ public class MyVillageScene extends VillageScene {
         ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getBuildings());
         addBuildingsFromList(buildings);
 
-        ArrayList<Building> underConstructBuildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getUnderConstructBuildings());
-        addBuildingsFromList(underConstructBuildings);
+        for (Builder builder : AppGUI.getController().getWorld().getMyVillage().getTownHall().getBuilders()) {
+            if (builder.isBuilderBusy()) {
+                addBuildingToSceneByBuilder(builder, builder.getUnderConstructBuilding().getPosition());
+            }
+        }
 
         draggableView.getChildren().addAll(buildingsPane, isometricPane);
 

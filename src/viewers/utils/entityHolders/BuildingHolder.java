@@ -32,7 +32,7 @@ public class BuildingHolder extends EntityHolder {
             imageView.setFitWidth(Const.TOWNHALL_TILE_WIDTH * Const.TILE_SCALE);
             imageView.setFitHeight(Const.TOWNHALL_TILE_HEIGHT * Const.TILE_SCALE);
         }
-        if (builder != null) {
+        if (builder != null || ((Building) entity).isUnderConstruct()) {
             constructionProgressBar = new ProgressBarItem(ProgressBarType.REMAINED_TIME, builder);
             this.getChildren().add(constructionProgressBar);
         }
