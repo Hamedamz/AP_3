@@ -55,23 +55,17 @@ public class HostMenu extends StackPane {
                 Server.initServer(Integer.parseInt(portTextFiled.getText()));
             } catch (SocketException e) {
                 log.setText("Server Setup Unsuccessful!");
+                return;
             }
-            try {
-                Server.initServer(Integer.parseInt(portTextFiled.getText()));
-            } catch (SocketException e) {
-                e.printStackTrace();
-            }
-            boolean isSetUp = true;
-            if (isSetUp)
-            {
-                setUpButton.setVisible(false);
-                terminate.setVisible(true);
-                AppGUI.setStageScene(HostScene.getInstance());
-            }
+
+            setUpButton.setVisible(false);
+            terminate.setVisible(true);
+            AppGUI.setStageScene(HostScene.getInstance());
+
         });
 
         log = new Label();
-        log.setTextFill(Color.RED);
+        log.setId("error");
 
         this.setPrefSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
         this.setMaxSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
