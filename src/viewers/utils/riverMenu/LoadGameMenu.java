@@ -67,7 +67,10 @@ public class LoadGameMenu extends StackPane {
 
         logInButton = new RoundButton("Log in", "green");
         logInButton.setDisable(true);
-        logInButton.setOnAction(event -> sendLogInRequest());
+        logInButton.setOnAction(event -> {
+            SoundPlayer.play(Sounds.buttonSound);
+            sendLogInRequest();
+        });
 
         log = new Label();
 

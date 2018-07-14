@@ -14,6 +14,8 @@ import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
 import models.multiPlayer.runnables.PacketListener;
 import viewers.utils.Const;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 import viewers.utils.fancyButtons.RoundButton;
 
 import java.util.List;
@@ -49,7 +51,10 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
         }});
 
         sendButton = new RoundButton("send", "green");
-        sendButton.setOnAction(event -> sendMessage());
+        sendButton.setOnAction(event -> {
+            SoundPlayer.play(Sounds.buttonSound);
+            sendMessage();
+        });
 
         messageList = new VBox(Const.SPACING);
         messageScrollPane = new ScrollPane(messageList);
