@@ -13,7 +13,7 @@ import models.GameLogic.Resource;
 import viewers.AppGUI;
 import viewers.BattleGroundScene;
 import viewers.utils.*;
-import viewers.utils.fancyButtons.ButtonActionType;
+import viewers.utils.ButtonActionType;
 import viewers.utils.fancyButtons.RoundButton;
 import viewers.utils.fancyButtons.TroopsFancyButton;
 

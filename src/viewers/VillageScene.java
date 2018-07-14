@@ -13,7 +13,7 @@ import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.TownHall;
 import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
-import viewers.utils.fancyButtons.ButtonActionType;
+import viewers.utils.ButtonActionType;
 import viewers.utils.fancyButtons.RoundFancyButton;
 
 import java.util.ArrayList;

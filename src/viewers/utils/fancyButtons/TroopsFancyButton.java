@@ -4,7 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import viewers.utils.Const;
+import viewers.utils.ButtonActionType;
 
 public class TroopsFancyButton extends EntityFancyButton {
 

@@ -8,9 +8,9 @@ import viewers.utils.fancyPopups.ArmyStatusPopup;
 import viewers.utils.fancyPopups.InfoPopup;
 import viewers.utils.fancyPopups.TrainTroopsPopup;
 import viewers.utils.fancyPopups.UpgradePopup;
-import viewers.utils.fancyButtons.ButtonActionType;
+import viewers.utils.ButtonActionType;
 
-import static viewers.utils.fancyButtons.ButtonActionType.*;
+import static viewers.utils.ButtonActionType.*;
 
 public class BuildingMenuController {
     private static BuildingMenuController buildingMenuController = new BuildingMenuController();

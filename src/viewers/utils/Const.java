@@ -1,5 +1,7 @@
 package viewers.utils;
 
+import javafx.util.Duration;
+
 public class Const {
     public static final double WINDOW_WIDTH = 1280;
     public static final double WINDOW_HEIGHT = 720;
@@ -41,4 +43,7 @@ public class Const {
 
     public static final double SLIDER_MENU_WIDTH = WINDOW_WIDTH / 4;
     public static final double SLIDER_MENU_TAB_HEIGHT = 30;
+    public static final double RIVER_MENU_SIZE = WINDOW_WIDTH / 6;
+
+    public static final Duration TRANSITION_DURATION = new Duration(500);
 }

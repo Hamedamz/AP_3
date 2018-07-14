@@ -5,6 +5,7 @@ import controllers.JsonHandler;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import viewers.utils.GameLobbyScene;
 
 public class AppGUI extends Application {
     private static Stage mainStage;
@@ -29,7 +30,8 @@ public class AppGUI extends Application {
     public void start(Stage primaryStage) throws Exception {
         mainStage = primaryStage;
         getMainStage().setResizable(false);
-        setStageScene(GameScene.getInstance());
+        setStageScene(GameLobbyScene.getInstance());
+//        setStageScene(GameScene.getInstance());
         getMainStage().setOnHidden(event -> JsonHandler.saveAccount(Controller.getController().getWorld().getAccount(), "UIVillage"));
         getMainStage().show();
 

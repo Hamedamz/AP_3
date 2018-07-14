@@ -1,10 +1,10 @@
 package viewers.utils.fancyButtons;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextAlignment;
 import models.GameLogic.utills.StringUtils;
+import viewers.utils.ButtonActionType;
 import viewers.utils.Const;
 import viewers.utils.ImageLibrary;
 

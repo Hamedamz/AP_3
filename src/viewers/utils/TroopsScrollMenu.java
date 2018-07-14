@@ -9,7 +9,6 @@ import models.GameLogic.Exceptions.NotEnoughResourcesException;
 import models.GameLogic.Resource;
 import models.setting.GameLogicConfig;
 import viewers.AppGUI;
-import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.TroopsFancyButton;
 
 import java.util.HashMap;

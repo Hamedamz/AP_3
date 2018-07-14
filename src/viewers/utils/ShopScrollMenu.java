@@ -4,7 +4,6 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import viewers.AppGUI;
-import viewers.utils.fancyButtons.ButtonActionType;
 import viewers.utils.fancyButtons.EntityFancyButton;
 
 public class ShopScrollMenu extends ScrollMenu {

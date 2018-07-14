@@ -1,13 +1,11 @@
 package viewers.utils;
 
-import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Popup;
 import models.GameLogic.Entities.Buildings.Building;
 import viewers.AppGUI;
 import viewers.utils.fancyButtons.BuildingMenuFancyButton;
-import viewers.utils.fancyButtons.ButtonActionType;
 
 public class BuildingMenu extends Popup {
     private Building building;

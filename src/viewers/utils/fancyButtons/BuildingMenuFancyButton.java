@@ -2,6 +2,7 @@ package viewers.utils.fancyButtons;
 
 import controllers.BuildingMenuController;
 import javafx.geometry.Pos;
+import viewers.utils.ButtonActionType;
 import viewers.utils.ImageLibrary;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;

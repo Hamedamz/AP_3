@@ -10,7 +10,7 @@ import models.GameLogic.TrainingTroop;
 import viewers.AppGUI;
 import viewers.utils.Const;
 import viewers.utils.TroopsScrollMenu;
-import viewers.utils.fancyButtons.ButtonActionType;
+import viewers.utils.ButtonActionType;
 
 import java.util.ArrayList;
 

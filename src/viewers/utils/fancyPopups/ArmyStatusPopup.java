@@ -6,7 +6,7 @@ import javafx.scene.layout.StackPane;
 import viewers.AppGUI;
 import viewers.utils.Const;
 import viewers.utils.TroopsScrollMenu;
-import viewers.utils.fancyButtons.ButtonActionType;
+import viewers.utils.ButtonActionType;
 
 public class ArmyStatusPopup extends FancyPopup {
 
