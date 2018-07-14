@@ -199,18 +199,13 @@ public class Controller {
         }
     }
 
-    public void loadGame(String name, String password) throws WrongPasswordException{
+    public void loadGame(String name, String password) throws WrongPasswordException, FileNotFoundException {
         Account account;
-        try {
-            account = JsonHandler.loadAccountbyName(name);
-        } catch (FileNotFoundException e) {
-            newGame(name, password);
-            return;
-        }
+        account = JsonHandler.loadAccountbyName(name);
+
         if (account.checkPassword(password)) {
             controller.world.getGameEngine().resetVillage();
             controller.world.setMyVillage(account.getMyVillage());
-            controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
         }
         else {
             throw new WrongPasswordException();

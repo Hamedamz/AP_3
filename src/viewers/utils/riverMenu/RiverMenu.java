@@ -76,6 +76,7 @@ public class RiverMenu extends Pane {
                 menuToOpen = newGameMenu;
                 break;
             case OPEN_LOAD_GAME_MENU:
+                LoadGameMenu.getInstance().reset();
                 menuToOpen = loadGameMenu;
                 break;
             case OPEN_HOST_MENU:

@@ -21,8 +21,8 @@ import java.util.Scanner;
 public class JsonHandler {
     private static int currentBuildingNumber = 0;
     private static final String SAVED_CONFIGS_PATH = "maps/configs/config.json";
-    private static final String SAVED_CONFIGS_FOLDER_NAME = "maps/configs";
-    public static final String SAVED_MAPS_FOLDER_NAME = "maps";
+    private static final String SAVED_CONFIGS_FOLDER_NAME = "maps/configs/";
+    public static final String SAVED_MAPS_FOLDER_NAME = "maps/";
     private static YaGsonBuilder builder = new YaGsonBuilder();
     private static YaGson gson;
     static {
@@ -101,7 +101,7 @@ public class JsonHandler {
 
     public static Account loadAccountbyName(String name) throws FileNotFoundException {
         String jsonAccount = toStringJson(new File(SAVED_MAPS_FOLDER_NAME + name + ".json"));
-        String jsonConfig = toStringJson(new File(SAVED_CONFIGS_FOLDER_NAME + name + ".json"));
+        String jsonConfig = toStringJson(new File(SAVED_CONFIGS_FOLDER_NAME + "config.json"));
         return loadAccountFromJson(jsonAccount);
     }
 
