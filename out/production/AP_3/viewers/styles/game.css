@@ -37,6 +37,10 @@
     -fx-background-color: rgba(0, 0, 0, 0.8);
 }
 
+#thin-glass-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+}
+
 #popup-title {
     -fx-background-color: linear-gradient(#ffd65b, #e68400),
     linear-gradient(#ffef84, #f2ba44),

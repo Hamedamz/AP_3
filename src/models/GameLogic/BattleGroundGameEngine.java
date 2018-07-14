@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class BattleGroundGameEngine {
     private BattleGround battleGround;
 
-    int battleGroundTurn;
+    private int battleGroundTurn;
 
     public BattleGroundGameEngine() {
         battleGroundTurn = 0;
