@@ -28,22 +28,13 @@ public class LoadGameMenu extends StackPane {
     private RoundButton logInButton;
     private PasswordField passwordField;
     private Label log;
-    private boolean isUserSet;
-    private boolean isPasswordSet;
 
     public LoadGameMenu() {
 
         namesComboBox = new ComboBox();
         namesComboBox.setPrefWidth(Const.RIVER_MENU_SIZE);
         namesComboBox.setMaxWidth(Const.RIVER_MENU_SIZE);
-        namesComboBox.setOnHidden(event -> {
-            if (namesComboBox.getSelectionModel().isEmpty()) {
-                isUserSet = false;
-            } else {
-                isUserSet = true;
-            }
-            checkInputs();
-        });
+        namesComboBox.setOnHidden(event -> checkInputs());
 
         passwordField = new PasswordField();
         passwordField.setPromptText("password");
@@ -56,20 +47,14 @@ public class LoadGameMenu extends StackPane {
                     break;
             }
         });
-        passwordField.setOnKeyTyped(event -> {
-            if (passwordField.getText().isEmpty()) {
-                isPasswordSet = false;
-            } else {
-                isPasswordSet = true;
-            }
-            checkInputs();
-        });
+        passwordField.setOnKeyTyped(event -> checkInputs());
 
         logInButton = new RoundButton("Log in", "green");
         logInButton.setDisable(true);
         logInButton.setOnAction(event -> sendLogInRequest());
 
         log = new Label();
+        log.setId("error");
 
         this.setPrefSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
         this.setMaxSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
@@ -93,20 +78,19 @@ public class LoadGameMenu extends StackPane {
     }
 
     public void reset() {
-        isUserSet = false;
-        isPasswordSet = false;
         log.setText("");
         passwordField.setText("");
         addExistingUsersToComboBox();
     }
 
     public boolean checkInputs() {
-        if (isUserSet && (isPasswordSet || !passwordField.getText().isEmpty())) {
+        boolean condition = !namesComboBox.getSelectionModel().isEmpty() && !passwordField.getText().isEmpty();
+        if (condition) {
             logInButton.setDisable(false);
         } else {
             logInButton.setDisable(true);
         }
-        return isUserSet && isPasswordSet;
+        return condition;
     }
 
     private void sendLogInRequest() {

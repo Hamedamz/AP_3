@@ -16,9 +16,9 @@ public enum ButtonActionType {
     OPEN_SINGLE_PLAYER_MENU("Single Player"),
     OPEN_MULTI_PLAYER_MENU("Multi Player"),
     OPEN_NEW_GAME_MENU("New Game"),
-    OPEN_LOAD_GAME_MENU("Load Game"),
+    OPEN_LOGIN_MENU("Login"),
     OPEN_HOST_MENU("Host"),
-    OPEN_CLIENT_MENU("Cleint"),
+    OPEN_CLIENT_MENU("Client"),
     NONE("");
 
     public static final String[] TROOPS = new String[]{"Archer", "Dragon", "Giant", "Guardian", "Healer", "WallBreaker"};

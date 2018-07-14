@@ -2,12 +2,10 @@ package viewers.utils.riverMenu;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import viewers.AppGUI;
 import viewers.utils.ButtonActionType;
 import viewers.utils.Const;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,20 +34,20 @@ public class RiverMenu extends Pane {
 
     // index 2
     private RiverButton newGameButton = new RiverButton(OPEN_NEW_GAME_MENU, 2);
-    private RiverButton loadGameButton = new RiverButton(OPEN_LOAD_GAME_MENU, 2);
-    private RiverMenuPage singlePlayerChoices = new RiverMenuPage(2, Const.RIVER_MENU_SIZE * 3, newGameButton, loadGameButton);
+    private RiverButton loginButton = new RiverButton(OPEN_LOGIN_MENU, 2);
+    private RiverMenuPage singlePlayerChoices = new RiverMenuPage(2, Const.RIVER_MENU_SIZE * 3, loginButton, newGameButton);
     private RiverButton hostButton = new RiverButton(OPEN_HOST_MENU, 2);
     private RiverButton clientButton = new RiverButton(OPEN_CLIENT_MENU, 2);
     private RiverMenuPage multiPlayerChoices = new RiverMenuPage(2, Const.RIVER_MENU_SIZE * 3, hostButton, clientButton);
 
     // index 3
     private RiverMenuPage newGameMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, NewGameMenu.getInstance());
-    private RiverMenuPage loadGameMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, LoadGameMenu.getInstance());
+    private RiverMenuPage loginMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, LoadGameMenu.getInstance());
     private RiverMenuPage hostMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, HostMenu.getInstance());
     private RiverMenuPage clientMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, new Pane(new Circle(20)));
 
     public RiverMenu() {
-        riverMenuPages = Arrays.asList(clientMenu, hostMenu, loadGameMenu, newGameMenu, singlePlayerChoices, multiPlayerChoices, optionsMenu, playChoices, mainMenu);
+        riverMenuPages = Arrays.asList(clientMenu, hostMenu, loginMenu, newGameMenu, singlePlayerChoices, multiPlayerChoices, optionsMenu, playChoices, mainMenu);
         this.getChildren().addAll(riverMenuPages);
         mainMenu.open();
     }
@@ -75,9 +73,9 @@ public class RiverMenu extends Pane {
             case OPEN_NEW_GAME_MENU:
                 menuToOpen = newGameMenu;
                 break;
-            case OPEN_LOAD_GAME_MENU:
+            case OPEN_LOGIN_MENU:
                 LoadGameMenu.getInstance().reset();
-                menuToOpen = loadGameMenu;
+                menuToOpen = loginMenu;
                 break;
             case OPEN_HOST_MENU:
                 menuToOpen = hostMenu;
