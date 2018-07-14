@@ -2,13 +2,10 @@ package models.multiPlayer.chatRoom;
 
 import models.multiPlayer.Server;
 import models.multiPlayer.packet.clientPacket.ClientChatPacket;
-import models.multiPlayer.packet.clientPacket.ClientPacket;
-import models.multiPlayer.packet.clientPacket.ClientPacketType;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
 import models.multiPlayer.runnables.PacketListener;
 import models.multiPlayer.utils.ServerConstants;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static models.multiPlayer.packet.clientPacket.ClientChatPacketType.LAST_MESSAGE;
@@ -30,7 +27,7 @@ public class ChatRoom implements PacketListener<ServerChatPacket> {
                     Server.getInstance().sendToAll(new ClientChatPacket(LAST_MESSAGE, serverChatPacket.getMessage()));
                     break;
                 case RECEIVE_ALL:
-                    Server.getInstance().sendTo(new ClientChatPacket(RECENT_MESSAGES, messages), serverChatPacket.getFullAddress());
+                    Server.getInstance().sendToID(new ClientChatPacket(RECENT_MESSAGES, messages), serverChatPacket.getID());
                     break;
             }
         }
