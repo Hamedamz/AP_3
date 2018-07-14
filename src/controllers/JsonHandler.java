@@ -101,7 +101,6 @@ public class JsonHandler {
 
     public static Account loadAccountbyName(String name) throws FileNotFoundException {
         String jsonAccount = toStringJson(new File(SAVED_MAPS_FOLDER_NAME + name + ".json"));
-        String jsonConfig = toStringJson(new File(SAVED_CONFIGS_FOLDER_NAME + "config.json"));
         return loadAccountFromJson(jsonAccount);
     }
 
@@ -134,6 +133,10 @@ public class JsonHandler {
 
     public static void resetBuildingsView(Account account) {
         for (Building building : account.getMyVillage().getBuildings()) {
+            building.setImage();
+            building.updateViewPort();
+        }
+        for (Building building : account.getMyVillage().getUnderConstructBuildings()) {
             building.setImage();
             building.updateViewPort();
         }
