@@ -43,7 +43,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
         return currentTarget;
     }
 
-    private int attackCounter;
+    protected int attackCounter;
 
     @Override
     public void update(BattleGround battleGround, int turnPerSecond, int turn) {
@@ -130,6 +130,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
                     break;
                 case "Giant" :
                     SoundPlayer.play(Sounds.giantAttackSound);
+                    //WallBreaker Overrides this function
             }
             BattleGroundScene.getInstance().attackHappened(this, destroyable);
         }

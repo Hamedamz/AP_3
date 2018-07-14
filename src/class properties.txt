@@ -123,7 +123,7 @@
         CannonSize: 1
         CannonHitPoints: 400
         CannonDamage: 20
-        CannonAttackSpeed: 100
+        CannonAttackSpeed: 25
         CannonRange: 13
         CannonDestructionScore: 4
         CannonUpgradeGold: 100
@@ -241,7 +241,7 @@
         DragonHitPoints: 700
         DragonRange: 3
         DragonDamage: 30
-        GiantAttackSpeed: 50
+        DragonAttackSpeed: 50
         DragonSpeed: 6
         DragonUpgradeDamageAddition: 1
         DragonUpgradeHitPointsAddition: 5
