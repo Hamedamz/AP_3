@@ -139,6 +139,8 @@ public class ProgressBarItem extends Pane {
                 progressBar.setId("orange-bar");
             } else if (progress < 0.75) {
                 progressBar.setId("gold-bar");
+            } else {
+                progressBar.setId("green-bar");
             }
         }
     }
