@@ -4,6 +4,7 @@ import models.GameLogic.GameMap;
 import models.GameLogic.Position;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 //import static javafx.scene.input.KeyCode.Q;
@@ -11,6 +12,9 @@ import java.util.LinkedList;
 public class BFS {
 
     public static ArrayList<Position> getPath(GameMap gameMap, Position origin, Position destination, int range) {
+        if(origin.equals(destination)) {
+            return new ArrayList<>(Arrays.asList(origin));
+        }
         boolean[][] isVisited = new boolean[gameMap.getWidth()][gameMap.getHeight()];
         Position[][] lastPositionInPath = new Position[gameMap.getWidth()][gameMap.getHeight()];
         isVisited[origin.getX()][origin.getY()] = true;

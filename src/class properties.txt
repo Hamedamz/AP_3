@@ -216,6 +216,7 @@
         GuardianTrainTime: 10
         GuardianHitPoints: 100
         GuardianRange: 1
+        GuardianGiantAttentionRange: 5
         GuardianDamage: 10
         GuardianAttackSpeed: 50
         GuardianSpeed: 2

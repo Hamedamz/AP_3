@@ -6,6 +6,7 @@ import models.GameLogic.BattleGround;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.AttackerTroop;
+import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.enums.BuildingDamageType;
@@ -14,6 +15,7 @@ import models.GameLogic.enums.MoveType;
 import models.GameLogic.utills.PathFinder;
 import models.GameLogic.utills.IDGenerator;
 import models.setting.GameLogicConfig;
+import models.setting.GameLogicConstants;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,34 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
     }
 
     @Override
+    public void update(BattleGround battleGround, int turnPerSecond, int turn) {
+        boolean isBigTurn = (turn % turnPerSecond == 0);
+        attackCounter++;
+        if (getTarget() == null || getTarget().isDestroyed() || isBigTurn) {
+            try {
+                findTarget(battleGround);
+            } catch (NoTargetFoundException e) {
+                return;
+            }
+        }
+        if(getTarget() != null) {
+            if (isBigTurn || getPath() == null) {
+                findPath(battleGround);
+            }
+            if (((turn + 1) * getSpeed() / turnPerSecond) >
+                    (turn * getSpeed() / turnPerSecond)) {
+                move();
+            }
+        }
+
+        if (!isDestroyed()) {
+            if (attackCounter >= GameLogicConstants.DEFAULT_ATTACK_SPEED * turnPerSecond / getAttackSpeed()) {
+                giveDamageTo(getTarget(), battleGround);
+            }
+        }
+    }
+
+    @Override
     public void findPath(BattleGround battleGround) {
         movementCounter = 0;
         PathFinder.getPath(battleGround.getEnemyGameMap(), this, target.getPosition(), getEffectRange());
@@ -65,7 +95,7 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
 
     @Override
     public ArrayList<Position> getPath() {
-        return null;
+        return movementPath;
     }
 
     @Override

@@ -58,22 +58,17 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
         hitPoints += GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeHitPointsAddition");
     }
 
-    private int attackCounter;
+    protected int attackCounter;
 
     @Override
     public void update(BattleGround battleGround, int turnPerSecond, int turn) {
         boolean isBigTurn = (turn % turnPerSecond == 0);
         attackCounter++;
         if (getTarget() == null || getTarget().isDestroyed() || isBigTurn) {
-            findTarget(battleGround);
-        }
-        if(this instanceof GuardianGiant) {
-            if(isBigTurn || ((MovingAttacker) this).getPath() == null) {
-                ((MovingAttacker) this).findPath(battleGround);
-            }
-            if(((turn + 1) * ((GuardianGiant) this).getSpeed() / turnPerSecond) >
-            (turn * ((GuardianGiant) this).getSpeed() / turnPerSecond)) {
-                ((GuardianGiant) this).move();
+            try {
+                findTarget(battleGround);
+            } catch (NoTargetFoundException e) {
+                return;
             }
         }
         if (!isDestroyed()) {
@@ -118,7 +113,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     }
 
     @Override
-    public void findTarget(BattleGround battleGround) {
+    public void findTarget(BattleGround battleGround) throws NoTargetFoundException {
         if(target != null) {
             if(target.isDestroyed() || target.getPosition().calculateDistanceFromBuilding(getPosition(), getSize()) > getEffectRange()) {
                 target = null;
@@ -144,7 +139,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
                 this.target = minDistanceDestroyable;
             }
         }
-
+        throw new NoTargetFoundException();
     }
 
     @Override
