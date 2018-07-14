@@ -65,6 +65,9 @@ public class BattleGroundScene extends VillageScene {
         ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getBattleGround().getEnemyBuildings());
         addBuildingsFromList(buildings);
 
+        ArrayList<Building> underConstructBuildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getUnderConstructBuildings());
+        addBuildingsFromList(underConstructBuildings);
+
         // tiles
         tiles = new GridPane();
         tiles.setVgap(1);

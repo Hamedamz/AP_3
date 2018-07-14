@@ -67,6 +67,9 @@ public class MyVillageScene extends VillageScene {
         ArrayList<Building> buildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getBuildings());
         addBuildingsFromList(buildings);
 
+        ArrayList<Building> underConstructBuildings = new ArrayList<>(AppGUI.getController().getWorld().getMyVillage().getUnderConstructBuildings());
+        addBuildingsFromList(underConstructBuildings);
+
         draggableView.getChildren().addAll(buildingsPane, isometricPane);
 
 
