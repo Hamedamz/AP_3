@@ -1,9 +1,11 @@
 package viewers.utils.riverMenu;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import models.multiPlayer.Server;
 import viewers.AppGUI;
 import viewers.HostScene;
@@ -23,6 +25,7 @@ public class HostMenu extends StackPane {
     private TextField hostTextField;
     private RoundButton setUpButton;
     private RoundButton terminate;
+    private Label log;
 
     private HostMenu() {
         portTextFiled = new TextField();
@@ -52,6 +55,11 @@ public class HostMenu extends StackPane {
             try {
                 Server.initServer(Integer.parseInt(portTextFiled.getText()));
             } catch (SocketException e) {
+                log.setText("Server Setup Unsuccessful!");
+            }
+            try {
+                Server.initServer(Integer.parseInt(portTextFiled.getText()));
+            } catch (SocketException e) {
                 e.printStackTrace();
             }
             boolean isSetUp = true;
@@ -63,13 +71,17 @@ public class HostMenu extends StackPane {
             }
         });
 
+        log = new Label();
+        log.setTextFill(Color.RED);
+
         this.setPrefSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
         this.setMaxSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
         GridPane gridPane = new GridPane();
         gridPane.add(portTextFiled, 0,0);
         gridPane.add(hostTextField, 1,0);
-        gridPane.add(setUpButton, 0,1);
-        gridPane.add(terminate, 1,1);
+        gridPane.add(log, 0,1);
+        gridPane.add(setUpButton, 0,2);
+        gridPane.add(terminate, 1,2);
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setVgap(Const.SPACING);
         gridPane.setHgap(Const.SPACING);
