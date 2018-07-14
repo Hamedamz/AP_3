@@ -45,7 +45,7 @@ public class VillageCheater {
                 }
             }
         } else if(cheatCode.contains(END_BUILDING)) {
-            makeconstructionEnder(village);
+            makeConstructionEnder(village);
         } else if(cheatCode.contains(STRONG_SOLDIERS)) {
             for(Building building : village.findBuildingsWithSameType(Camp.class)) {
                 for(Troop troop : ((Camp) building).getTroops()) {
@@ -88,7 +88,7 @@ public class VillageCheater {
         resourceSpreader.start();
     }
 
-    private static void makeconstructionEnder(Village village) {
+    private static void makeConstructionEnder(Village village) {
         constructionEnder = new Thread(() -> {
             while (true) {
                 for (Builder builder : village.getTownHall().getBuilders()) {

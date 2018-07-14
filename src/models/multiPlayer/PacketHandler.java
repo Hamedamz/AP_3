@@ -49,4 +49,8 @@ public class PacketHandler {
         return ((Packet) o).withFullAddress(new FullAddress(packet.getAddress(), packet.getPort()));
 
     }
+
+    public DatagramSocket getSocket() {
+        return socket;
+    }
 }
