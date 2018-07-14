@@ -2,6 +2,7 @@ package viewers.utils.riverMenu;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import viewers.utils.ButtonActionType;
 import viewers.utils.Const;
 
@@ -41,7 +42,7 @@ public class RiverMenu extends Pane {
     private RiverMenuPage multiPlayerChoices = new RiverMenuPage(2, Const.RIVER_MENU_SIZE * 3, hostButton, clientButton);
 
     // index 3
-    private RiverMenuPage newGameMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, new Pane(new Circle(20)));
+    private RiverMenuPage newGameMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, NewGameMenu.getInstance());
     private RiverMenuPage loadGameMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, new Pane(new Circle(20)));
     private RiverMenuPage hostMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, new Pane(new Circle(20)));
     private RiverMenuPage clientMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, new Pane(new Circle(20)));

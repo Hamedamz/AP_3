@@ -5,6 +5,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import viewers.AppGUI;
 import viewers.utils.Const;
@@ -16,7 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class LoadGameMenu extends Pane {
+public class LoadGameMenu extends StackPane {
     private static LoadGameMenu instance = new LoadGameMenu();
 
     public static LoadGameMenu getInstance() {

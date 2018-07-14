@@ -1,6 +1,6 @@
 package viewers.utils.riverMenu;
 
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
-public class ClientMenu extends Pane {
+public class ClientMenu extends StackPane {
 }
