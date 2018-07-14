@@ -1,7 +1,6 @@
 package models.GameLogic.Entities;
 
-import interfaces.Locatable;
-import javafx.geometry.Rectangle2D;
+import models.interfaces.Locatable;
 import javafx.scene.image.ImageView;
 import models.GameLogic.Position;
 import viewers.utils.ImageLibrary;

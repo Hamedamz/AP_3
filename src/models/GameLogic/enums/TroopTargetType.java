@@ -1,13 +1,9 @@
 package models.GameLogic.enums;
 
-import interfaces.Attacker;
-import interfaces.Destroyable;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Buildings.Storage;
 import models.GameLogic.Entities.Buildings.Wall;
 import models.GameLogic.Entities.Defender;
-import models.GameLogic.Entities.Troop.AttackerTroop;
-import models.GameLogic.Entities.Troop.Troop;
 
 public enum TroopTargetType {
     BUILDING, RESOURCES, TOWER, WALL;

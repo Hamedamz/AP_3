@@ -1,7 +1,7 @@
 package models.GameLogic.utills;
 
-import interfaces.Destroyable;
-import interfaces.MovingAttacker;
+import models.interfaces.Destroyable;
+import models.interfaces.MovingAttacker;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Wall;
 import models.GameLogic.GameMap;

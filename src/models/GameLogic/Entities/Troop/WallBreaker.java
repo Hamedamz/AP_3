@@ -1,14 +1,12 @@
 package models.GameLogic.Entities.Troop;
 
-import interfaces.Destroyable;
+import models.interfaces.Destroyable;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Wall;
 import models.GameLogic.enums.MoveType;
 import models.GameLogic.enums.TroopTargetType;
 import viewers.BattleGroundScene;
-import viewers.utils.SoundPlayer;
-import viewers.utils.Sounds;
 
 public class WallBreaker extends AttackerTroop {
 

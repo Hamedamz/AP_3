@@ -1,6 +1,6 @@
 package models.GameLogic;
 
-import interfaces.Effector;
+import models.interfaces.Effector;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Defender;
 import models.GameLogic.Entities.Entity;

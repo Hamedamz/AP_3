@@ -1,7 +1,7 @@
 package models.GameLogic.Entities;
 
-import interfaces.Revivable;
-import interfaces.Updatable;
+import models.interfaces.Revivable;
+import models.interfaces.Updatable;
 import models.GameLogic.Position;
 
 public abstract class Defender extends Entity implements Revivable, Updatable {

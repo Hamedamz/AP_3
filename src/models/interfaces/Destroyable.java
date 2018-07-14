@@ -1,4 +1,4 @@
-package interfaces;
+package models.interfaces;
 
 public interface Destroyable extends Locatable, Vulnerable{
     void takeDamageFromAttack(int damage);

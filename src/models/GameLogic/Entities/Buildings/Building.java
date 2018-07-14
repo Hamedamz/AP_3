@@ -1,7 +1,6 @@
 package models.GameLogic.Entities.Buildings;
 
-import interfaces.Updatable;
-import interfaces.Upgradable;
+import models.interfaces.Upgradable;
 import javafx.geometry.Rectangle2D;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Defender;

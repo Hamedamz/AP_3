@@ -1,10 +1,9 @@
 package models.GameLogic.Entities.Troop;
 
-import interfaces.Destroyable;
-import interfaces.Movable;
-import interfaces.TimedEvent;
+import models.interfaces.Destroyable;
+import models.interfaces.Movable;
+import models.interfaces.TimedEvent;
 import models.GameLogic.BattleGround;
-import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;
 import models.GameLogic.utills.PathFinder;

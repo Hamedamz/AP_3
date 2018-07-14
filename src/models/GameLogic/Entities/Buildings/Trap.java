@@ -1,6 +1,6 @@
 package models.GameLogic.Entities.Buildings;
 
-import interfaces.Destroyable;
+import models.interfaces.Destroyable;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Bounty;
 import models.GameLogic.Entities.Entity;

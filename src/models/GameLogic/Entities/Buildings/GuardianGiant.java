@@ -1,11 +1,9 @@
 package models.GameLogic.Entities.Buildings;
 
-import interfaces.Destroyable;
-import interfaces.MovingAttacker;
+import models.interfaces.Destroyable;
+import models.interfaces.MovingAttacker;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Bounty;
-import models.GameLogic.Entities.Entity;
-import models.GameLogic.Entities.Troop.AttackerTroop;
 import models.GameLogic.Exceptions.NoTargetFoundException;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;

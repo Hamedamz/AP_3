@@ -1,6 +1,6 @@
 package models.GameLogic;
 
-import interfaces.*;
+import models.interfaces.*;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Wall;
 import models.GameLogic.Entities.Defender;

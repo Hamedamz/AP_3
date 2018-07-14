@@ -1,9 +1,9 @@
 package models.GameLogic.Entities.Troop;
 
-import interfaces.Movable;
-import interfaces.Updatable;
-import interfaces.Upgradable;
-import interfaces.Vulnerable;
+import models.interfaces.Movable;
+import models.interfaces.Updatable;
+import models.interfaces.Upgradable;
+import models.interfaces.Vulnerable;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Position;

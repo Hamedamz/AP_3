@@ -1,7 +1,7 @@
 package models.GameLogic.utills;
 
-import interfaces.Movable;
-import interfaces.MovingAttacker;
+import models.interfaces.Movable;
+import models.interfaces.MovingAttacker;
 import models.GameLogic.GameMap;
 import models.GameLogic.Position;
 import models.GameLogic.enums.MoveType;

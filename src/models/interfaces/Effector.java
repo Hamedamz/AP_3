@@ -1,10 +1,7 @@
-package interfaces;
+package models.interfaces;
 
 import models.GameLogic.BattleGround;
-import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.NoTargetFoundException;
-
-import java.util.ArrayList;
 
 public interface Effector<T> {
     int getEffectRange();

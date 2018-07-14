@@ -1,4 +1,4 @@
-package interfaces;
+package models.interfaces;
 
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.Resource;

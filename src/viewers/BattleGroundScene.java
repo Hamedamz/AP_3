@@ -1,7 +1,7 @@
 package viewers;
 
-import interfaces.Attacker;
-import interfaces.Destroyable;
+import models.interfaces.Attacker;
+import models.interfaces.Destroyable;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

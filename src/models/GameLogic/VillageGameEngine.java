@@ -1,6 +1,6 @@
 package models.GameLogic;
 
-import interfaces.Revivable;
+import models.interfaces.Revivable;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Exceptions.BuildingNotFoundException;
 import models.GameLogic.Exceptions.NotEnoughCapacityException;

@@ -1,6 +1,6 @@
 package viewers.utils;
 
-import interfaces.Destroyable;
+import models.interfaces.Destroyable;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;

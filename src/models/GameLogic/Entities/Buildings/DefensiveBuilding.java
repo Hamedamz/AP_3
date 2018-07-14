@@ -1,9 +1,7 @@
 package models.GameLogic.Entities.Buildings;
 
-import interfaces.Attacker;
-import interfaces.Destroyable;
-import interfaces.Movable;
-import interfaces.MovingAttacker;
+import models.interfaces.Attacker;
+import models.interfaces.Destroyable;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.AttackerTroop;
@@ -16,8 +14,6 @@ import models.GameLogic.ID;
 import models.setting.GameLogicConfig;
 import models.setting.GameLogicConstants;
 import viewers.BattleGroundScene;
-
-import java.util.ArrayList;
 
 public abstract class DefensiveBuilding extends Building implements Attacker {
     protected int attackSpeed;

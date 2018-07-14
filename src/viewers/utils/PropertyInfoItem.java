@@ -1,12 +1,10 @@
 package viewers.utils;
 
-import interfaces.Upgradable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Buildings.Mine;
-import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.Troop;
 
 public class PropertyInfoItem extends GridPane {
