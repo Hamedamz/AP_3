@@ -46,6 +46,10 @@ public class World {
         gameEngine.loadNewVillage();
     }
 
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
     public void setEnemies(HashMap<File, GameMap> enemies){
         enemyVillagesFileAndMap = enemies;
     }

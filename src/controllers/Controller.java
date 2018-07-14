@@ -205,7 +205,7 @@ public class Controller {
 
         if (account.checkPassword(password)) {
             controller.world.getGameEngine().resetVillage();
-            controller.world.setMyVillage(account.getMyVillage());
+            controller.world.setAccount(account);
         }
         else {
             throw new WrongPasswordException();
