@@ -21,7 +21,7 @@ public class GameScene extends Scene {
         root.getChildren().addAll(vBox);
 
         Button singlePlayerButton = new Button("SinglePlayer");
-        Button multiPlayerButton = new Button("MultiPlayer");
+        Button multiPlayerButton = new Button("multiPlayer");
         Button options = new Button("Options");
         Button quit = new Button("Quit");
 

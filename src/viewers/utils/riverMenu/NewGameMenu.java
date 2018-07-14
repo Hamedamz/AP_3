@@ -1,5 +1,6 @@
 package viewers.utils.riverMenu;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -22,30 +23,26 @@ public class NewGameMenu extends StackPane {
     }
 
     public NewGameMenu() {
-        this.setPrefSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
-        this.setMaxSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
         nameField = new TextField();
         passwordField = new TextField();
 
         newGameButton = new RoundButton("New Game", "green");
         newGameButton.setOnAction(event -> {
+            // TODO: 7/14/2018 handle account data @svt
             MyVillageScene.getInstance().reBuild();
             AppGUI.setStageScene(MyVillageScene.getInstance());
-            loadStage();
+            SoundPlayer.play(Sounds.loadSound);
+            SoundPlayer.playBackground(Sounds.mainSound);
         });
 
+        this.setPrefSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
+        this.setMaxSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
         GridPane gridPane = new GridPane();
         gridPane.add(nameField, 0,0);
         gridPane.add(passwordField, 0,1);
         gridPane.add(newGameButton, 0,2);
-
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setVgap(Const.SPACING);
         this.getChildren().addAll(gridPane);
-    }
-
-    private void loadStage() {
-        AppGUI.getMainStage().setX(10);
-        AppGUI.getMainStage().setY(10);
-        SoundPlayer.play(Sounds.loadSound);
-        SoundPlayer.playBackground(Sounds.mainSound);
     }
 }
