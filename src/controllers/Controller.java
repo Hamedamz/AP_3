@@ -42,10 +42,10 @@ public class Controller {
     public static void main(String[] args) {
 //        controller.menuController.openMenu(controller.menuController.getEntranceMenu()); //TEMP
 //         TEMP
-        controller.newGame("Guest", "");
+        JsonHandler.loadConfig();
+      //  controller.newGame("Guest", "");
 //        Application.launch(AppGUI.class, args);
         new Thread(() -> Application.launch(AppGUI.class, args)).start();
-        controller.menuController.openMenu(controller.menuController.getVillageMenu());
 //
 
         while (controller.menuController.isMenuOpen()) {
@@ -77,7 +77,7 @@ public class Controller {
                 case NULL:
                     break;
                 case NEW_GAME:
-                    controller.newGame("Guest", "input");
+                   // controller.newGame("Guest", "input");
                     controller.menuController.openMenu(controller.menuController.getVillageMenu());
                     break;
                 case OPEN_BUILDING_MENU:
@@ -120,7 +120,7 @@ public class Controller {
                 case LOAD_GAME:
                     dynamicMenuItem = (DynamicMenuItem) requestedMenuItem;
                     String villageName = dynamicMenuItem.getLabel();
-                    controller.loadGame(villageName);
+//                    controller.loadGame(villageName);
                     controller.menuController.openMenu(controller.menuController.getVillageMenu());
                     break;
                 case OPEN_MAP_MENU:
@@ -178,8 +178,9 @@ public class Controller {
         }
     }
 
-    private void newGame(String name, String password) {
+    public void newGame(String name, String password) {
         try {
+            controller.getWorld().getMyVillagesNameAndFile().put(new File(JsonHandler.SAVED_MAPS_FOLDER_NAME + "/" + name + ".json"), name);
             controller.world.getGameEngine().resetVillage();
             controller.world.makeNewGame(name, password);
             controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
@@ -198,13 +199,22 @@ public class Controller {
         }
     }
 
-    public void loadGame(String villageName) throws FileNotFoundException {
-//        File file = controller.world.getMyVillagesNameAndFile().get(villageName);
-//        if (file != null) {
-//            loadGameFromFile(file);
-//        } else {
-//            controller.viewer.printErrorMessage("no village with this name!");
-//        } FIXME FIXME FIXME FIXME FIXME FIXME FIXME
+    public void loadGame(String name, String password) throws WrongPasswordException{
+        Account account;
+        try {
+            account = JsonHandler.loadAccountbyName(name);
+        } catch (FileNotFoundException e) {
+            newGame(name, password);
+            return;
+        }
+        if (account.checkPassword(password)) {
+            controller.world.getGameEngine().resetVillage();
+            controller.world.setMyVillage(account.getMyVillage());
+            controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
+        }
+        else {
+            throw new WrongPasswordException();
+        }
     }
 
 

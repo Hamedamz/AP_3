@@ -20,8 +20,9 @@ import java.util.Scanner;
 
 public class JsonHandler {
     private static int currentBuildingNumber = 0;
+    private static final String SAVED_CONFIGS_PATH = "maps/configs/config.json";
     private static final String SAVED_CONFIGS_FOLDER_NAME = "maps/configs";
-    private static final String SAVED_MAPS_FOLDER_NAME = "maps";
+    public static final String SAVED_MAPS_FOLDER_NAME = "maps";
     private static YaGsonBuilder builder = new YaGsonBuilder();
     private static YaGson gson;
     static {
@@ -50,22 +51,35 @@ public class JsonHandler {
         gson = builder.create();
     }
 
-    public static void saveAccount(Account account, HashMap<File, String> myVillagesFileAndNames) {
+    public static void saveAccount(Account account) {
         try {
             createFolder(SAVED_MAPS_FOLDER_NAME);
-            createFolder(SAVED_CONFIGS_FOLDER_NAME);
         }
         catch (Exception e) {
             System.err.println(e.getMessage());
         }
         String accountFilePath = SAVED_MAPS_FOLDER_NAME + "/" + account.getInfo().getName() + ".json";
-        String configFilePath = SAVED_CONFIGS_FOLDER_NAME + "/" + account.getInfo().getName() + ".json";
         try{
             Writer writer = new FileWriter(accountFilePath);
             gson.toJson(account, writer);
             writer.flush();
-            writer = new FileWriter(configFilePath);
-            gson.toJson(myVillagesFileAndNames, writer);
+        }
+        catch (IOException e) {
+            System.err.println(e.getMessage());
+            Controller.getController().getWorld().getMyVillagesNameAndFile().put(new File(SAVED_MAPS_FOLDER_NAME + "/" + account.getUserName() + ".json"), account.getInfo().getName());
+        }
+    }
+
+    public static void saveConfig() {
+        try {
+            createFolder(SAVED_CONFIGS_FOLDER_NAME);
+        }
+        catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            Writer writer = new FileWriter(SAVED_CONFIGS_PATH);
+            gson.toJson(Controller.getController().getWorld().getMyVillagesNameAndFile(), writer);
             writer.flush();
         }
         catch (IOException e) {
@@ -75,8 +89,6 @@ public class JsonHandler {
 
     public static Account loadAccountFromFile(File mapFile) throws FileNotFoundException {
         String json = toStringJson(mapFile);
-        String jsonConfig = toStringJson(new File(SAVED_CONFIGS_FOLDER_NAME + mapFile.getName()));
-        Controller.getController().getWorld().setMyVillagesNameAndFile(loadConfigFromJson(jsonConfig));
         return loadAccountFromJson(json);
     }
 
@@ -90,12 +102,21 @@ public class JsonHandler {
     public static Account loadAccountbyName(String name) throws FileNotFoundException {
         String jsonAccount = toStringJson(new File(SAVED_MAPS_FOLDER_NAME + name + ".json"));
         String jsonConfig = toStringJson(new File(SAVED_CONFIGS_FOLDER_NAME + name + ".json"));
-        Controller.getController().getWorld().setMyVillagesNameAndFile(loadConfigFromJson(jsonConfig));
         return loadAccountFromJson(jsonAccount);
     }
 
-    private static HashMap<File, String> loadConfigFromJson(String jsonConfig) {
-        return gson.fromJson(jsonConfig, HashMap.class);
+    public static void loadConfig() {
+        String jsonConfig = null;
+        try {
+            jsonConfig = toStringJson(new File(SAVED_CONFIGS_PATH));
+        } catch (FileNotFoundException e) {
+            e.getCause();
+        }
+        if (jsonConfig != null) {
+            Controller.getController().getWorld().setMyVillagesNameAndFile(gson.fromJson(jsonConfig, HashMap.class));
+            return;
+        }
+        Controller.getController().getWorld().setMyVillagesNameAndFile(new HashMap<>());
     }
 
     public static ArrayList<Building> loadEnemyVillageBuildingsFromFile(File mapFile) throws FileNotFoundException{

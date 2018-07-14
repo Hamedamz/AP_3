@@ -1,5 +1,6 @@
 package models;
 
+import controllers.Controller;
 import controllers.Exceptions.VillageAlreadyExists;
 import controllers.JsonHandler;
 import models.GameLogic.*;
@@ -62,7 +63,7 @@ public class World {
     }
 
     public void saveGame(Account account) {
-        JsonHandler.saveAccount(account, getMyVillagesNameAndFile());
+        JsonHandler.saveAccount(account);
        // myVillagesNameAndFile.put(name, "savedMaps\\" + name + ".json");
         // TODO: 7/10/18 correct the above statement @HAMEDAMZ
     }

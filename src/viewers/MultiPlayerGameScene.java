@@ -57,15 +57,15 @@ public class MultiPlayerGameScene extends Scene {
             Button cancelButton = new Button("Cancel");
 
             loadButton.setOnAction(event1 -> {
-                try {
-                    if (loadingVillageName.get() != null) {
-                        AppGUI.getController().loadGame(loadingVillageName.get());
-                        loadStage();
-                    }
-                    // FIXME: 7/9/2018
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    if (loadingVillageName.get() != null) {
+//                        AppGUI.getController().loadGame(loadingVillageName.get());  // FIXME: 7/14/18 hamedamz
+////                        loadStage();
+//                    }
+//                    // FIXME: 7/9/2018
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
             });
 
             cancelButton.setOnAction(event2 -> menuPane.hide());

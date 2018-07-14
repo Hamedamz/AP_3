@@ -1,5 +1,6 @@
 package viewers.utils.riverMenu;
 
+import controllers.Controller;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -29,6 +30,7 @@ public class NewGameMenu extends StackPane {
         newGameButton = new RoundButton("New Game", "green");
         newGameButton.setOnAction(event -> {
             // TODO: 7/14/2018 handle account data @svt
+            Controller.getController().newGame(nameField.getText(), passwordField.getText());
             MyVillageScene.getInstance().reBuild();
             AppGUI.setStageScene(MyVillageScene.getInstance());
             SoundPlayer.play(Sounds.loadSound);
