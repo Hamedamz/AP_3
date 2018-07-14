@@ -11,6 +11,8 @@ import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import viewers.AppGUI;
 import viewers.utils.Const;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 import viewers.utils.fancyButtons.RoundButton;
 
 public class SliderMenu extends Pane {
@@ -35,7 +37,10 @@ public class SliderMenu extends Pane {
         this.setLayoutX(-WIDTH);
 
         toggleButton = new RoundButton(">", "yellow");
-        toggleButton.setOnAction(event -> toggleState());
+        toggleButton.setOnAction(event -> {
+            SoundPlayer.play(Sounds.buttonSound);
+            toggleState();
+        });
 
         Tab chatTab = new Tab("Chat");
         chatTab.setContent(ChatBox.getInstance());

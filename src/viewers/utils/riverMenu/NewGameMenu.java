@@ -30,6 +30,7 @@ public class NewGameMenu extends StackPane {
         newGameButton = new RoundButton("New Game", "green");
         newGameButton.setOnAction(event -> {
             // TODO: 7/14/2018 handle account data @svt
+            SoundPlayer.play(Sounds.buttonSound);
             Controller.getController().newGame(nameField.getText(), passwordField.getText());
             MyVillageScene.getInstance().reBuild();
             AppGUI.setStageScene(MyVillageScene.getInstance());

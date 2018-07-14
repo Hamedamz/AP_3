@@ -10,6 +10,8 @@ import models.multiPlayer.Server;
 import viewers.AppGUI;
 import viewers.HostScene;
 import viewers.utils.Const;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 import viewers.utils.fancyButtons.RoundButton;
 
 import java.net.SocketException;
@@ -50,6 +52,7 @@ public class HostMenu extends StackPane {
         });
 
         setUpButton.setOnAction(event -> {
+            SoundPlayer.play(Sounds.buttonSound);
             // TODO: 7/14/2018 set up server if successful open host scene
             try {
                 Server.initServer(Integer.parseInt(portTextFiled.getText()));
