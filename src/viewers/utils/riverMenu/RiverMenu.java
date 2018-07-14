@@ -3,6 +3,7 @@ package viewers.utils.riverMenu;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import viewers.AppGUI;
 import viewers.utils.ButtonActionType;
 import viewers.utils.Const;
 
@@ -63,6 +64,7 @@ public class RiverMenu extends Pane {
                 menuToOpen = optionsMenu;
                 break;
             case EXIT:
+                AppGUI.getMainStage().close();
                 break;
             case OPEN_SINGLE_PLAYER_MENU:
                 menuToOpen = singlePlayerChoices;
