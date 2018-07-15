@@ -21,6 +21,7 @@ public class BFS {
         LinkedList<Position> queue = new LinkedList<>();
         Position position = null;
         queue.addFirst(origin);
+        isVisited[origin.getX()][origin.getY()] = true;
         while (!queue.isEmpty()) {
             position = queue.pollFirst();
             int x = position.getX();
@@ -33,6 +34,7 @@ public class BFS {
                 Position neighbour = Position.addPositions(position, dir);
                 if (neighbour.isInBoundary(gameMap) && !isVisited[neighbour.getX()][neighbour.getY()]) {
                     lastPositionInPath[neighbour.getX()][neighbour.getY()] = position;
+                    isVisited[neighbour.getX()][neighbour.getY()] = true;
                     queue.addLast(neighbour);
                 }
             }

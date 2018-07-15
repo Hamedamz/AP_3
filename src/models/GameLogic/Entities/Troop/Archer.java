@@ -10,5 +10,4 @@ public class Archer extends AttackerTroop {
         this.targetType = TroopTargetType.BUILDING;
         this.moveType = MoveType.GROUND;
     }
-
 }

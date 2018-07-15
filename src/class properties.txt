@@ -108,6 +108,7 @@
         ArcherTowerSize: 1
         ArcherTowerHitPoints: 300
         ArcherTowerDamage: 20
+        ArcherTowerAttackSpeed: 50
         ArcherTowerRange: 10
         ArcherTowerDestructionScore: 3
         ArcherTowerUpgradeGold: 100
