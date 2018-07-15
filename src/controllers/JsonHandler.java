@@ -130,6 +130,10 @@ public class JsonHandler {
         return enemyAccount.getMyVillage().getBuildings();
     }
 
+    public static String villageToJson(Village village) {
+        return gson.toJson(village);
+    }
+
 
     public static void resetBuildingsView(Account account) {
         for (Building building : account.getMyVillage().getBuildings()) {
