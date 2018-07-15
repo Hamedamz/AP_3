@@ -23,7 +23,6 @@ public class VillageGameEngine {
                 revivable.revive();
             }
         }
-        // FIXME: 4/26/2018 add village Giant to revivables
 
         updateTrainingTroops();
 
