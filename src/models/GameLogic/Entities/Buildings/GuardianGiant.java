@@ -175,6 +175,6 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
 
 
     public int getAttentionRange() {
-        return attentionRange;
+        return attentionRange * Position.CELL_SIZE;
     }
 }
