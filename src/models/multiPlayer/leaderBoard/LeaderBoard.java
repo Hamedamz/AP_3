@@ -10,6 +10,7 @@ import models.multiPlayer.packet.serverPacket.ServerLeaderBoardPacketType;
 import models.multiPlayer.runnables.PacketListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -36,6 +37,7 @@ public class LeaderBoard implements PacketListener<Packet> {
         for (String id : infoMap.keySet()) {
             leaderBoard.add(infoMap.get(id));
         }
+        Collections.sort(leaderBoard);
         return leaderBoard;
     }
 
