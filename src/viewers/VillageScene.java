@@ -89,6 +89,11 @@ public abstract class VillageScene extends Scene {
                         villageConsole.minimize();
                     }
                     break;
+                case S:
+                    if (keyEvent.isControlDown()) {
+                        AppGUI.getController().saveGame();
+                        LogPopup.popInfo("Game Saved!");
+                    }
             }
         });
     }
@@ -118,7 +123,7 @@ public abstract class VillageScene extends Scene {
     }
 
     public void handleException(Exception e) {
-        ErrorPopup.popError(e);
+        LogPopup.popError(e);
     }
 
     public abstract void reBuild();

@@ -40,28 +40,8 @@ public class Controller {
     private BattleGroundViewer battleGroundViewer = new BattleGroundViewer();
 
     public static void main(String[] args) {
-//        controller.menuController.openMenu(controller.menuController.getEntranceMenu()); //TEMP
-//         TEMP
         JsonHandler.loadConfig();
-      //  controller.newGame("Guest", "");
-//        Application.launch(AppGUI.class, args);
-        new Thread(() -> Application.launch(AppGUI.class, args)).start();
-//
-
-        while (controller.menuController.isMenuOpen()) {
-            try {
-                handleMenuInputs();
-            } catch (InvalidInputException | NoFreeBuilderException |
-                    NotEnoughResourcesException | InvalidPositionException |
-                    NotAvailableAtThisLevelException | CountLimitReachedException |
-                    TroopNotFoundException e) {
-                controller.viewer.printErrorMessage(e.getMessage());
-            } catch (NumberFormatException e) {
-                controller.viewer.printErrorMessage("input is out of range");
-            } catch (FileNotFoundException e) {
-                controller.viewer.printErrorMessage("file not found!");
-            }
-        }
+        Application.launch(AppGUI.class, args);
     }
 
     private static void handleMenuInputs() throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException, NotAvailableAtThisLevelException, FileNotFoundException, TroopNotFoundException {
@@ -168,7 +148,7 @@ public class Controller {
         } else {
             if (command.matches(SAVE_GAME.toString())) {
                 controller.viewer.requestForInput("enter name for your village:");
-                controller.saveGame(controller.world.getAccount());
+                controller.saveGame();
             } else if (command.matches(TURN_FORMAT)) {
                 int n = Integer.parseInt(controller.getArgument(1, command, TURN_FORMAT));
                 controller.turn(n);
@@ -213,9 +193,6 @@ public class Controller {
         }
     }
 
-
-
-
     public void loadGameFromFile(File file) throws FileNotFoundException {
         Account account = JsonHandler.loadAccountFromFile(file);
         world.getMyVillagesNameAndFile().put(file, account.getInfo().getName());
@@ -230,8 +207,13 @@ public class Controller {
         controller.world.getMyVillage().trainTroop(troopType, count, barracks);
     }
 
-    private void saveGame(Account account) {
-        controller.world.saveGame(account);
+    public void saveGame() {
+        try {
+            JsonHandler.saveAccount(Controller.getController().getWorld().getAccount());
+            JsonHandler.saveConfig();
+        } catch (NullPointerException e) {
+            e.getCause();
+        }
     }
 
     private void turn(int n) {

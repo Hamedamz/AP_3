@@ -4,7 +4,11 @@ import controllers.Controller;
 import controllers.JsonHandler;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class AppGUI extends Application {
     private static Stage mainStage;
@@ -30,17 +34,19 @@ public class AppGUI extends Application {
         mainStage = primaryStage;
         getMainStage().setResizable(false);
         setStageScene(GameLobbyScene.getInstance());
-//        setStageScene(GameScene.getInstance());
-        getMainStage().setOnHidden(event -> {
-            try {
-                JsonHandler.saveAccount(Controller.getController().getWorld().getAccount());
-                JsonHandler.saveConfig();
-            } catch (NullPointerException e) {
-                e.getCause();
+
+        getMainStage().setOnHiding(event -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Save Game");
+            alert.setHeaderText(null);
+            alert.setContentText("Save the game before closing?");
+            Optional<ButtonType> action = alert.showAndWait();
+            if (action.get() == ButtonType.OK) {
+                getController().saveGame();
             }
+
         });
         getMainStage().show();
-
     }
 
     public static void setStageScene(Scene scene) {
