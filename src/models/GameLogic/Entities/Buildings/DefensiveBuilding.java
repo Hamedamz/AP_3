@@ -122,7 +122,7 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
                 if(troop instanceof Destroyable) {
                     Destroyable destroyable = (Destroyable) troop;
                     if (!destroyable.isDestroyed() && BuildingTargetType.isBuildingTargetAppropriate(this, (AttackerTroop) destroyable)) {
-                        double distance = this.getPosition().calculateDistanceFromBuilding(destroyable.getPosition(), getSize());
+                        double distance = destroyable.getPosition().calculateDistanceFromBuilding(this.getPosition(), getSize());
                         if (distance < minDistance) {
                             minDistance = distance;
                             minDistanceDestroyable = destroyable;

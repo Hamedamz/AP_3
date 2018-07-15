@@ -1,5 +1,6 @@
 package models.multiPlayer.packet.clientPacket;
 
 public enum ClientPacketType {
-    CHAT_ROOM;
+    CHAT_ROOM,
+    LEADER_BOARD;
 }

@@ -19,6 +19,7 @@ import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
+import models.interfaces.Movable;
 import viewers.utils.*;
 import viewers.utils.SliderMenu.SliderMenu;
 import viewers.utils.entityHolders.BuildingHolder;
@@ -232,7 +233,7 @@ public class BattleGroundScene extends VillageScene {
 
     }
 
-    public void movementHappened(int direction, Troop troop) {
+    public void movementHappened(int direction, Movable movable) {
         this.isTurned = true;
     }
 

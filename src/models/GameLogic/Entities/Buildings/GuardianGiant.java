@@ -1,5 +1,7 @@
 package models.GameLogic.Entities.Buildings;
 
+import models.GameLogic.Entities.Troop.AttackerTroop;
+import models.GameLogic.Entities.Troop.Troop;
 import models.interfaces.Destroyable;
 import models.interfaces.MovingAttacker;
 import models.GameLogic.BattleGround;
@@ -14,6 +16,7 @@ import models.GameLogic.utills.PathFinder;
 import models.GameLogic.utills.IDGenerator;
 import models.setting.GameLogicConfig;
 import models.setting.GameLogicConstants;
+import viewers.AppGUI;
 
 import java.util.ArrayList;
 
@@ -28,12 +31,15 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
         speed = GameLogicConfig.getFromDictionary("GuardianGiantSpeed");
         this.targetType = BuildingTargetType.GROUND;
         this.damageType = BuildingDamageType.SINGLE_TARGET;
+        this.attentionRange = GameLogicConfig.getFromDictionary("GuardianGiantAttentionRange");
     }
 
     private Position initialPosition;
 
     private int speed;
     private ArrayList<Position> movementPath;
+
+    private int attentionRange;
 
     @Override
     public Bounty getBounty() {
@@ -48,7 +54,7 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
 
     @Override
     public MoveType getTroopMoveType() {
-        return MoveType.GROUND;
+        return MoveType.JUMPER;
     }
 
     @Override
@@ -80,15 +86,68 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
     }
 
     @Override
+    public void findTarget(BattleGround battleGround) throws NoTargetFoundException {
+        if(target != null) {
+            if(target.isDestroyed() || target.getPosition().calculateDistanceFromBuilding(getPosition(), getSize()) > getAttentionRange()) {
+                target = null;
+            }
+        }
+        if(target == null) {
+            double minDistance = Double.MAX_VALUE;
+            Destroyable minDistanceDestroyable = null;
+            for (Troop troop : battleGround.getDeployedTroops()) {
+                if(troop instanceof Destroyable) {
+                    Destroyable destroyable = (Destroyable) troop;
+                    if (!destroyable.isDestroyed() && BuildingTargetType.isBuildingTargetAppropriate(this, (AttackerTroop) destroyable)) {
+                        double distance = this.getPosition().calculateDistance(destroyable.getPosition());
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            minDistanceDestroyable = destroyable;
+                        }
+                    }
+
+                }
+            }
+            if (minDistance < this.getAttentionRange()) {
+                this.target = minDistanceDestroyable;
+            }
+        }
+        throw new NoTargetFoundException();
+    }
+
+    @Override
+    public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
+        if(destroyable.getPosition().calculateDistanceFromBuilding(this.getPosition(), getSize()) <= getEffectRange()) {
+            super.giveDamageTo(destroyable, battleGround);
+        }
+    }
+
+    @Override
     public void findPath(BattleGround battleGround) {
         movementCounter = 0;
-        PathFinder.getPath(battleGround.getEnemyGameMap(), this, target.getPosition(), getEffectRange());
+        movementPath = PathFinder.getPath(battleGround.getEnemyGameMap(), this, target.getPosition(), getEffectRange());
     }
 
     @Override
     public void move() {
         movementCounter++;
-        setPosition(getPath().get(Math.min(getPath().size() - 1, movementCounter)));
+        int dir = calculateDirection();
+        setPosition(getNextPosition());
+        AppGUI.getBattleGroundScene().movementHappened(dir, this);
+    }
+
+    public Position getNextPosition() {
+        return this.movementPath.get(Math.min(movementCounter, getPath().size() - 1));
+    }
+
+    private int calculateDirection() {
+        if(getPosition().equals(getNextPosition())) {
+            return 0;
+        }
+        if(getPosition().getX() < getNextPosition().getX() || getPosition().getY() > getNextPosition().getY()) {
+            return -1;
+        }
+        return 1;
     }
 
     @Override
@@ -112,5 +171,10 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
     @Override
     public void setTarget(Destroyable destroyable) {
         target = destroyable;
+    }
+
+
+    public int getAttentionRange() {
+        return attentionRange;
     }
 }
