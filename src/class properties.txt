@@ -23,6 +23,7 @@
         GoldMineUpgradeProductionRateAddition: 60
         GoldMineProductionRate: 10
         GoldMineUpgradeHitPointsAddition: 0
+        GoldMineReviveTime: 2
 
 
     #Elixir mine properties:
@@ -38,6 +39,7 @@
         ElixirMineUpgradeProductionRateAddition: 60
         ElixirMineProductionRate: 5
         ElixirMineUpgradeHitPointsAddition: 0
+        ElixirMineReviveTime: 2
 
     #Gold storage properties:
         GoldStorageBuildGold: 200
@@ -53,6 +55,7 @@
         GoldStorageGoldCapacity: 500
         GoldStorageElixirCapacity: 0
         GoldStorageUpgradeHitPointsAddition: 0
+        GoldStorageReviveTime: 2
 
     #Elixir storage properties:
         ElixirStorageBuildGold: 200
@@ -68,6 +71,7 @@
         ElixirStorageElixirCapacity: 20
         ElixirStorageGoldCapacity: 0
         ElixirStorageUpgradeHitPointsAddition: 0
+        ElixirStorageReviveTime: 2
 
     #Town hall properties:
         TownHallBuildTime: 100
@@ -82,6 +86,7 @@
         TownHallUpgradeGold: 500
         TownHallUpgradeElixir: 0
         TownHallUpgradeHitPointsAddition: 500
+        TownHallReviveTime: 5
 
     #Barracks properties:
         BarracksBuildGold: 200
@@ -94,6 +99,7 @@
         BarracksUpgradeGold: 100
         BarracksUpgradeElixir: 0
         BarracksUpgradeHitPointsAddition: 0
+        BarracksReviveTime: 2
 
     #Camp properties:
         CampBuildGold: 200
@@ -104,6 +110,7 @@
         CampHitPoints: 900
         CampDestructionScore: 1
         CampCapacity: 50
+        CampReviveTime: 2
 
     #Archer tower properties:
         ArcherTowerBuildGold: 300
@@ -120,6 +127,7 @@
         ArcherTowerUpgradeElixir: 0
         ArcherTowerUpgradeDamageAddition: 1
         ArcherTowerUpgradeHitPointsAddition: 10
+        ArcherTowerReviveTime: 2
 
     #Cannon properties:
         CannonBuildGold: 400
@@ -136,6 +144,7 @@
         CannonUpgradeElixir: 0
         CannonUpgradeDamageAddition: 1
         CannonUpgradeHitPointsAddition: 10
+        CannonReviveTime: 2
 
     #Air defense properties:
         AirDefenseBuildGold: 300
@@ -152,6 +161,7 @@
         AirDefenseUpgradeElixir: 0
         AirDefenseUpgradeDamageAddition: 1
         AirDefenseUpgradeHitPointsAddition: 10
+        AirDefenseReviveTime: 2
 
     #Wizard tower properties:
         WizardTowerBuildGold: 500
@@ -168,6 +178,7 @@
         WizardTowerUpgradeElixir: 0
         WizardTowerUpgradeDamageAddition: 1
         WizardTowerUpgradeHitPointsAddition: 10
+        WizardTowerReviveTime: 2
 
     #Wall properties:
         WallBuildGold: 100
@@ -180,6 +191,7 @@
         WallUpgradeGold: 100
         WallUpgradeElixir: 0
         WallUpgradeHitPointsAddition: 10
+        WallReviveTime: 1
 
     #Trap properties:
         TrapBuildGold: 100
@@ -196,6 +208,7 @@
         TrapUpgradeElixir: 0
         TrapUpgradeDamageAddition: 1
         TrapUpgradeHitPointsAddition: 10
+        TrapReviveTime: 1
 
     #Guardian giant properties:
         GuardianGiantBuildGold: 10000
@@ -214,6 +227,7 @@
         GuardianGiantUpgradeDamageAddition: 1
         GuardianGiantUpgradeHitPointsAddition: 10
         GuardianGiantSpeed: 3
+        GuardianGiantReviveTime: 1000
 
 
 #Troops:
