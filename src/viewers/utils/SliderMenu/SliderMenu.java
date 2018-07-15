@@ -9,11 +9,15 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
+import models.multiPlayer.chatRoom.ChatRoom;
+import models.multiPlayer.chatRoom.Message;
 import viewers.AppGUI;
 import viewers.utils.Const;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 import viewers.utils.fancyButtons.RoundButton;
+
+import java.util.ArrayList;
 
 public class SliderMenu extends Pane {
     public static final double WIDTH = Const.WINDOW_WIDTH / 4;
@@ -24,6 +28,7 @@ public class SliderMenu extends Pane {
     private TabPane tabPane;
     private RoundButton toggleButton;
     private boolean isOpen;
+    private AnimationTimer animationTimer;
 
     public static SliderMenu getInstance() {
         return instance;
@@ -46,15 +51,22 @@ public class SliderMenu extends Pane {
         Tab chatTab = new Tab("Chat");
         chatTab.setContent(ChatBox.getInstance());
 
-        Tab leaderBoaradTab = new Tab("Leader Board");
+        Tab leaderBoardTab = new Tab("Leader Board");
 
         tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabMaxHeight(Const.SLIDER_MENU_TAB_HEIGHT);
         tabPane.setTabMinHeight(Const.SLIDER_MENU_TAB_HEIGHT);
-        tabPane.getTabs().addAll(chatTab, leaderBoaradTab);
+        tabPane.getTabs().addAll(chatTab, leaderBoardTab);
         HBox container = new HBox(Const.SPACING, tabPane, toggleButton);
         container.setAlignment(Pos.CENTER);
+
+        animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                ChatBox.getInstance().refresh();
+            }
+        };
 
         this.getChildren().add(container);
     }
@@ -76,9 +88,11 @@ public class SliderMenu extends Pane {
         scaleTransition.setDuration(TRANSITION_DURATION);
         if (isOpen) {
             isOpen = false;
+            animationTimer.stop();
             scaleTransition.setToX(1);
         } else {
             isOpen = true;
+            animationTimer.start();
             scaleTransition.setToX(-1);
         }
         scaleTransition.play();

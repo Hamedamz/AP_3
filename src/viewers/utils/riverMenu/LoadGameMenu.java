@@ -40,17 +40,6 @@ public class LoadGameMenu extends StackPane {
 
         passwordField = new PasswordField();
         passwordField.setPromptText("password");
-        passwordField.setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case ENTER:
-                    if (checkInputs()) {
-                        if (sendLogInRequest()) {
-                            AppGUI.loadVillageScene();
-                        }
-                    }
-                    break;
-            }
-        });
         passwordField.setOnKeyTyped(event -> checkInputs());
 
         logInButton = new RoundButton("Log in", "green");
@@ -125,6 +114,18 @@ public class LoadGameMenu extends StackPane {
                 ClientMenu.getInstance().disableLoginOrNewGame(true);
             }
         });
+
+        passwordField.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ENTER:
+                    if (checkInputs()) {
+                        if (sendLogInRequest()) {
+                            ClientMenu.getInstance().disableLoginOrNewGame(true);
+                        }
+                    }
+                    break;
+            }
+        });
     }
 
     public void rebuildForLoadGameMenu() {
@@ -132,6 +133,18 @@ public class LoadGameMenu extends StackPane {
             SoundPlayer.play(Sounds.buttonSound);
             if (sendLogInRequest()) {
                 AppGUI.loadVillageScene();
+            }
+        });
+
+        passwordField.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ENTER:
+                    if (checkInputs()) {
+                        if (sendLogInRequest()) {
+                            AppGUI.loadVillageScene();
+                        }
+                    }
+                    break;
             }
         });
     }

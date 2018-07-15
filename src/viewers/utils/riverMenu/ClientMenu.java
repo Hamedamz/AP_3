@@ -94,7 +94,7 @@ public class ClientMenu extends StackPane {
         body.add(clientAddress, 1, 1);
         body.add(serverPort, 0,2);
         body.add(serverAddress, 1,2);
-        body.add(log, 0,3);
+        body.add(log, 0,3, 2, 1);
         body.add(joinButton, 0,4);
         body.setAlignment(Pos.CENTER);
         body.setVgap(Const.SPACING);

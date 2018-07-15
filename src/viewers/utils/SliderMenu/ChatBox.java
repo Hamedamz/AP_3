@@ -115,6 +115,15 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
     }
 
 
+    public void refresh() {
+        ArrayList<Message> messages = new ArrayList<>(ChatRoom.getInstance().getMessages());
+        for (Message message : messages) {
+            MessageBubble messageBubble = new MessageBubble(message);
+            if (!messageList.getChildren().contains(messageBubble)) {
+                appendMessage(messageBubble);
+            }
+        }
+    }
 
     @Override
     public synchronized void receive(ClientChatPacket clientChatPacket) {

@@ -78,7 +78,7 @@ public class HostMenu extends StackPane {
         GridPane gridPane = new GridPane();
         gridPane.add(portTextFiled, 0,0);
         gridPane.add(hostTextField, 1,0);
-        gridPane.add(log, 0,1);
+        gridPane.add(log, 0,1, 2, 1);
         gridPane.add(setUpButton, 0,2);
         gridPane.add(terminate, 1,2);
         gridPane.setAlignment(Pos.CENTER);
