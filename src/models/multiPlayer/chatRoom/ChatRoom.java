@@ -61,7 +61,7 @@ public class ChatRoom implements PacketListener<Packet> {
 
     @Override
     public void receive(Packet packet) {
-        System.err.println("Invalid Packet for ChatRoom");
+        System.err.println("Invalid Packet in ChatRoom: " + packet.getClass().getSimpleName());
     }
 
     public LinkedList<Message> getMessages() {

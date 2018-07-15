@@ -32,7 +32,6 @@ public class Server extends PacketHandler implements PacketListener<ServerPacket
      * each time a packet is received, packet id and fullAddress is added to this map
      */
     private Map<String, FullAddress> addressMap = new ConcurrentHashMap<>();
-    private Map<String, AccountInfo> infoMap = new ConcurrentHashMap<>();
 
     private Thread receiverThread;
 
@@ -58,7 +57,6 @@ public class Server extends PacketHandler implements PacketListener<ServerPacket
                 }
                 if (!addressMap.containsKey(serverPacket.getID())) {
                     addressMap.put(serverPacket.getID(), serverPacket.getFullAddress());
-                    infoMap.put(serverPacket.getID(), serverPacket.getAccountInfo());
                 } else {
                     // TODO: 7/12/2018
                     addressMap.replace(serverPacket.getID(), serverPacket.getFullAddress());
@@ -72,7 +70,7 @@ public class Server extends PacketHandler implements PacketListener<ServerPacket
 
     @Override
     public void receive(ServerPacket serverPacket) {
-        updateInfo(serverPacket.getAccountInfo());
+        LeaderBoard.getInstance().updateInfo(serverPacket.getAccountInfo());
         switch (serverPacket.getPacketType()) {
             case CHAT_ROOM:
                 ChatRoom.getInstance().receive((ServerChatPacket) serverPacket);
@@ -96,12 +94,10 @@ public class Server extends PacketHandler implements PacketListener<ServerPacket
         }
     }
 
-    private void updateInfo(AccountInfo accountInfo) {
-        infoMap.replace(accountInfo.getID(), accountInfo);
-    }
+
 
     public void disconnect(String id) {
         addressMap.remove(id);
-        infoMap.remove(id);
+        LeaderBoard.getInstance().removeInfo(id);
     }
 }

@@ -2,7 +2,9 @@ package models.multiPlayer.leaderBoard;
 
 import models.GameLogic.Bounty;
 
-public class BattleHistory {
+import java.io.Serializable;
+
+public class BattleHistory implements Serializable {
     private int battleTime;
     private String attackerName;
     private String defenderName;

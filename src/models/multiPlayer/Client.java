@@ -6,6 +6,8 @@ import models.ConnectionType;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.clientPacket.ClientPacket;
+import models.multiPlayer.packet.serverPacket.ServerChatPacket;
+import models.multiPlayer.packet.serverPacket.ServerChatPacketType;
 import models.multiPlayer.packet.serverPacket.ServerPacket;
 import models.multiPlayer.runnables.PacketListener;
 import models.multiPlayer.utils.FullAddress;
@@ -38,6 +40,7 @@ public class Client extends PacketHandler implements PacketListener<ClientPacket
     public void setupConnection(InetAddress serverInetAddress, int serverPort) {
         serverAddress = new FullAddress(serverInetAddress, serverPort);
         ConnectionManager.getInstance().setConnectionType(ConnectionType.CLIENT);
+        sendToServer(new ServerChatPacket(ServerChatPacketType.RECEIVE_ALL));
     }
 
     private Thread receiverThread;

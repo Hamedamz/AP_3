@@ -62,10 +62,10 @@ public class ClientMenu extends StackPane {
             try {
                 Client.initClient(Integer.parseInt(clientPort.getText()));
                 try {
+                    Client.getInstance().setAccount(AppGUI.getController().getWorld().getAccount());
                     Client.getInstance().setupConnection(InetAddress.getByName(serverAddress.getText()), Integer.parseInt(serverPort.getText()));
                     ConnectionManager.getInstance().setConnectionType(ConnectionType.CLIENT);
                     AppGUI.loadVillageScene();
-                    Client.getInstance().setAccount(AppGUI.getController().getWorld().getAccount());
                 } catch (UnknownHostException e) {
                     log.setText("Unable to Setup Connection");
                 }

@@ -10,7 +10,7 @@ public class ClientLeaderBoardPacket extends ClientPacket {
         this.leaderBoardPacketType = leaderBoardPacketType;
     }
 
-    public ClientLeaderBoardPacketType getClientLeaderBoardPacketType() {
+    public ClientLeaderBoardPacketType getLeaderBoardPacketType() {
         return leaderBoardPacketType;
     }
 }
