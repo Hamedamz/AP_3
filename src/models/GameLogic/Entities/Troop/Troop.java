@@ -11,6 +11,7 @@ import models.GameLogic.Resource;
 import models.GameLogic.enums.MoveType;
 import models.GameLogic.utills.PathFinder;
 import models.setting.GameLogicConfig;
+import viewers.AppGUI;
 
 import java.util.ArrayList;
 
@@ -55,7 +56,19 @@ public abstract class Troop extends Entity implements Movable, Updatable, Upgrad
     @Override
     public void move() {
         movementCounter++;
+        int dir = calculateDirection();
         this.position = getNextPosition();
+        AppGUI.getBattleGroundScene().movementHappened(dir, this);
+    }
+
+    private int calculateDirection() {
+        if(getPosition().equals(getNextPosition())) {
+            return 0;
+        }
+        if(getPosition().getX() < getNextPosition().getX() || getPosition().getY() > getNextPosition().getY()) {
+            return -1;
+        }
+        return 1;
     }
 
     @Override

@@ -33,17 +33,18 @@ public class BattleGroundGameEngine {
             updateTroops();
             updateDefenders();
             collectBounties();
-            if(battleGroundTurn % GameLogicConstants.DEFAULT_TURNS_PER_SEC == 0)
+            if(battleGroundTurn % GameLogicConstants.DEFAULT_TURNS_PER_SEC == 0) {
                 handleTimedEvents();
+            }
             battleGround.setWallDestroyed(false);
             removeDestroyedDestroyables();
-            battleGround.reset();
+            if(battleGroundTurn % GameLogicConstants.DEFAULT_TURNS_PER_SEC == 0) {
+                battleGround.reset();
+            }
             if (battleGround.isGameFinished()) {
                 battleGround.endBattle();
             }
         }
-
-        AppGUI.getBattleGroundScene().movementHappened();
     }
 
     private void updateTroops() {

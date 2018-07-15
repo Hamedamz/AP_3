@@ -20,7 +20,12 @@ public class LeaderBoard implements PacketListener<ServerLeaderBoardPacket> {
     @Override
     public void receive(ServerLeaderBoardPacket serverLeaderBoardPacket) {
         switch (serverLeaderBoardPacket.getLeaderBoardPacketType()) {
-
+            case GET_BATTLE_HiSTORIES:
+                // TODO: 7/14/2018
+                break;
+            case GET_LEADER_BOARD:
+                // TODO: 7/14/2018  
+                break;
         }
     }
 }

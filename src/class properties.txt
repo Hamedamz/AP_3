@@ -108,6 +108,7 @@
         ArcherTowerSize: 1
         ArcherTowerHitPoints: 300
         ArcherTowerDamage: 20
+        ArcherTowerAttackSpeed: 50
         ArcherTowerRange: 10
         ArcherTowerDestructionScore: 3
         ArcherTowerUpgradeGold: 100
@@ -183,6 +184,7 @@
         TrapSize: 1
         TrapHitPoints: 100
         TrapDamage: 100
+        TrapAttackSpeed: 200
         TrapRange: 1
         TrapDestructionScore: 1
         TrapUpgradeGold: 100
@@ -198,6 +200,7 @@
         GuardianGiantHitPoints: 700
         GuardianGiantSize: 1
         GuardianGiantRange: 1
+        GuardianGiantAttentionRange: 10
         GuardianGiantDestructionScore: 6
         GuardianGiantDamage: 60
         GuardianGiantAttackSpeed: 50
