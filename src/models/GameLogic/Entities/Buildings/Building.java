@@ -202,13 +202,15 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
         if (hitPoints > maxHitPoint) {
             isDestroyed = false;
             hitPoints = maxHitPoint;
+            if (this instanceof Trap) {
+                ((Trap) this).rearm();
+            }
         }
     }
 
     @Override
     public int getReviveTime() {
-        // TODO: 4/23/2018 fixme after dictionary implementation
-        return 0;
+        return GameLogicConfig.getFromDictionary(this.getClass().getSimpleName() + "ReviveTime");
     }
 
     @Override

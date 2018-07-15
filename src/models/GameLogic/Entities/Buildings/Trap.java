@@ -25,6 +25,10 @@ public class Trap extends DefensiveBuilding {
         this.damageType = BuildingDamageType.AREA_SPLASH;
     }
 
+    public void rearm() {
+        isRearmed = true;
+    }
+
 
     @Override
     public Bounty getBounty() {
@@ -49,6 +53,9 @@ public class Trap extends DefensiveBuilding {
 
     @Override
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
+        if (!isRearmed) {
+            return;
+        }
         if (destroyable == null) {
             return;
         }
@@ -72,5 +79,6 @@ public class Trap extends DefensiveBuilding {
                 }
             }
         }
+        isRearmed = false;
     }
 }

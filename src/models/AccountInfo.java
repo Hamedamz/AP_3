@@ -4,7 +4,7 @@ import models.GameLogic.Resource;
 
 import java.io.Serializable;
 
-public class AccountInfo implements Serializable {
+public class AccountInfo implements Serializable, Comparable<AccountInfo> {
     private String id;
     private String name;
     private int score;
@@ -31,5 +31,15 @@ public class AccountInfo implements Serializable {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+
+    @Override
+    public int compareTo(AccountInfo o) {
+        int ans = -Integer.compare(score, o.score);
+        if(ans == 0) {
+            ans = name.compareTo(o.name);
+        }
+        return ans;
     }
 }
