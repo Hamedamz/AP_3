@@ -1,14 +1,14 @@
 package models.multiPlayer.packet.clientPacket;
 
 public class ClientChatPacket extends ClientPacket {
-    private ClientChatPacketType clientChatPacketType;
+    private ClientChatPacketType chatPacketType;
 
-    public ClientChatPacket(ClientChatPacketType clientChatPacketType, Object... elements) {
+    public ClientChatPacket(ClientChatPacketType chatPacketType, Object... elements) {
         super(ClientPacketType.CHAT_ROOM, elements);
-        this.clientChatPacketType = clientChatPacketType;
+        this.chatPacketType = chatPacketType;
     }
 
-    public ClientChatPacketType getClientChatPacketType() {
-        return clientChatPacketType;
+    public ClientChatPacketType getChatPacketType() {
+        return chatPacketType;
     }
 }

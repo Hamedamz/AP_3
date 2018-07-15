@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import models.ConnectionManager;
 import models.multiPlayer.Client;
-import models.multiPlayer.Server;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.chatRoom.Message;
 import models.multiPlayer.packet.clientPacket.ClientChatPacket;
@@ -103,7 +102,7 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
 
     @Override
     public synchronized void receive(ClientChatPacket clientChatPacket) {
-        switch (clientChatPacket.getClientChatPacketType()) {
+        switch (clientChatPacket.getChatPacketType()) {
             case LAST_MESSAGE:
                 receiveMessage((Message) clientChatPacket.getElements()[0]);
                 break;
