@@ -9,7 +9,7 @@ public class AccountInfo implements Serializable, Comparable<AccountInfo> {
     private String name;
     private int score;
 
-    public String getID() {
+    public String getId() {
         return id;
     }
 
@@ -21,7 +21,7 @@ public class AccountInfo implements Serializable, Comparable<AccountInfo> {
         return score;
     }
 
-    public void setID(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 

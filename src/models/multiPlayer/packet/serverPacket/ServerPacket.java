@@ -24,7 +24,7 @@ public class ServerPacket extends Packet {
     }
 
     public String getID() {
-        return accountInfo.getID();
+        return accountInfo.getId();
     }
 
     public AccountInfo getAccountInfo() {
