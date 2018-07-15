@@ -173,6 +173,10 @@ public class JsonHandler {
         savePath.mkdirs();
     }
 
+    public static Village jsonToVillage(String jsonVillage) {
+        return gson.fromJson(jsonVillage, Village.class);
+    }
+
     private static Position extractPosition(JsonBuilding jsonBuilding) {
         return Position.newMapPosition(jsonBuilding.x, jsonBuilding.y);
     }

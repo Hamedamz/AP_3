@@ -1,5 +1,6 @@
 package models;
 
+import controllers.JsonHandler;
 import models.GameLogic.Village;
 
 import java.io.Serializable;
@@ -45,6 +46,10 @@ public class Account implements Serializable {
         info.setID(id);
         info.setScore(myVillage.getTownHall().getVillageScore());
         return info;
+    }
+
+    public void updateAcoount(String jsonVillage) {
+        this.myVillage = JsonHandler.jsonToVillage(jsonVillage);
     }
 
 }
