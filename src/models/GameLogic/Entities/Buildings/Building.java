@@ -202,6 +202,9 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
         if (hitPoints > maxHitPoint) {
             isDestroyed = false;
             hitPoints = maxHitPoint;
+            if (this instanceof Trap) {
+                ((Trap) this).rearm();
+            }
         }
     }
 

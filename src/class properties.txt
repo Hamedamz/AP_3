@@ -208,7 +208,7 @@
         TrapUpgradeElixir: 0
         TrapUpgradeDamageAddition: 1
         TrapUpgradeHitPointsAddition: 10
-        TrapReviveTime: 1
+        TrapReviveTime: 500
 
     #Guardian giant properties:
         GuardianGiantBuildGold: 10000
