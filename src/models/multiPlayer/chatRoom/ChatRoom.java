@@ -9,8 +9,8 @@ import models.multiPlayer.utils.ServerConstants;
 
 import java.util.LinkedList;
 
-import static models.multiPlayer.packet.clientPacket.ClientChatPacketType.LAST_MESSAGE;
-import static models.multiPlayer.packet.clientPacket.ClientChatPacketType.RECENT_MESSAGES;
+import static models.multiPlayer.packet.clientPacket.types.ClientChatPacketType.LAST_MESSAGE;
+import static models.multiPlayer.packet.clientPacket.types.ClientChatPacketType.RECENT_MESSAGES;
 
 public class ChatRoom implements PacketListener<Packet> {
     private static ChatRoom instance = new ChatRoom();

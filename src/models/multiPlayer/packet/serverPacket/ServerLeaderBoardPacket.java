@@ -1,5 +1,8 @@
 package models.multiPlayer.packet.serverPacket;
 
+import models.multiPlayer.packet.serverPacket.types.ServerLeaderBoardPacketType;
+import models.multiPlayer.packet.serverPacket.types.ServerPacketType;
+
 public class ServerLeaderBoardPacket extends ServerPacket {
     private ServerLeaderBoardPacketType leaderBoardPacketType;
 

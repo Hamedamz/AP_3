@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import static models.ConnectionType.CLIENT;
 import static models.ConnectionType.SERVER;
-import static models.multiPlayer.packet.serverPacket.ServerChatPacketType.SEND;
+import static models.multiPlayer.packet.serverPacket.types.ServerChatPacketType.SEND;
 
 public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
     public static final double RATIO = 0.9;

@@ -1,5 +1,8 @@
 package models.multiPlayer.packet.clientPacket;
 
+import models.multiPlayer.packet.clientPacket.types.ClientChatPacketType;
+import models.multiPlayer.packet.clientPacket.types.ClientPacketType;
+
 public class ClientChatPacket extends ClientPacket {
     private ClientChatPacketType chatPacketType;
 

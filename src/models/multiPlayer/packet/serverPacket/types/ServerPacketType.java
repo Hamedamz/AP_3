@@ -1,4 +1,4 @@
-package models.multiPlayer.packet.serverPacket;
+package models.multiPlayer.packet.serverPacket.types;
 
 public enum ServerPacketType {
     CHAT_ROOM,

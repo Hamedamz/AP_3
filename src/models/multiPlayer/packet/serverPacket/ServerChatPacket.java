@@ -1,6 +1,8 @@
 package models.multiPlayer.packet.serverPacket;
 
 import models.multiPlayer.chatRoom.Message;
+import models.multiPlayer.packet.serverPacket.types.ServerChatPacketType;
+import models.multiPlayer.packet.serverPacket.types.ServerPacketType;
 
 public class ServerChatPacket extends ServerPacket {
     private ServerChatPacketType chatPacketType;

@@ -9,11 +9,10 @@ import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.clientPacket.ClientLeaderBoardPacket;
 import models.multiPlayer.packet.clientPacket.ClientPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
-import models.multiPlayer.packet.serverPacket.ServerChatPacketType;
+import models.multiPlayer.packet.serverPacket.types.ServerChatPacketType;
 import models.multiPlayer.packet.serverPacket.ServerPacket;
 import models.multiPlayer.runnables.PacketListener;
 import models.multiPlayer.utils.FullAddress;
-import viewers.utils.SliderMenu.ChatBox;
 
 import java.io.IOException;
 import java.net.InetAddress;

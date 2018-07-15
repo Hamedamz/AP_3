@@ -1,6 +1,8 @@
 package models.multiPlayer.packet.clientPacket;
 
-import static models.multiPlayer.packet.clientPacket.ClientPacketType.LEADER_BOARD;
+import models.multiPlayer.packet.clientPacket.types.ClientLeaderBoardPacketType;
+
+import static models.multiPlayer.packet.clientPacket.types.ClientPacketType.LEADER_BOARD;
 
 public class ClientLeaderBoardPacket extends ClientPacket {
     private ClientLeaderBoardPacketType leaderBoardPacketType;

@@ -2,6 +2,7 @@ package models.multiPlayer.packet.serverPacket;
 
 import models.multiPlayer.packet.Packet;
 import models.AccountInfo;
+import models.multiPlayer.packet.serverPacket.types.ServerPacketType;
 
 public class ServerPacket extends Packet {
     private ServerPacketType packetType;

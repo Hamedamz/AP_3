@@ -4,9 +4,8 @@ import models.AccountInfo;
 import models.multiPlayer.Server;
 import models.multiPlayer.packet.Packet;
 import models.multiPlayer.packet.clientPacket.ClientLeaderBoardPacket;
-import models.multiPlayer.packet.clientPacket.ClientLeaderBoardPacketType;
+import models.multiPlayer.packet.clientPacket.types.ClientLeaderBoardPacketType;
 import models.multiPlayer.packet.serverPacket.ServerLeaderBoardPacket;
-import models.multiPlayer.packet.serverPacket.ServerLeaderBoardPacketType;
 import models.multiPlayer.runnables.PacketListener;
 
 import java.util.ArrayList;
