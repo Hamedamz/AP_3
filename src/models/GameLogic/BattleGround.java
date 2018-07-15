@@ -191,9 +191,9 @@ public class BattleGround {
         if(!flag && deployedTroops.size() == 0) {
             return true;
         }
-        if (!myVillage.isThereAvailableSpaceForResources()) {
-            return true;
-        }
+//        if (!myVillage.isThereAvailableSpaceForResources()) {
+//            return true;
+//        }
         for (Defender defender : enemyGameMap.getBuildings()) {
             if(!defender.isDestroyed()) {
                 return false;
