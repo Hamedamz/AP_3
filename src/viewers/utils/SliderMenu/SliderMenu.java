@@ -11,6 +11,7 @@ import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.chatRoom.Message;
+import models.multiPlayer.leaderBoard.LeaderBoard;
 import viewers.AppGUI;
 import viewers.utils.Const;
 import viewers.utils.SoundPlayer;
@@ -52,6 +53,7 @@ public class SliderMenu extends Pane {
         chatTab.setContent(ChatBox.getInstance());
 
         Tab leaderBoardTab = new Tab("Leader Board");
+        leaderBoardTab.setContent(LeaderBoardBox.getInstance());
 
         tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
@@ -65,6 +67,7 @@ public class SliderMenu extends Pane {
             @Override
             public void handle(long now) {
                 ChatBox.getInstance().refresh();
+                LeaderBoardBox.getInstance().refresh();
             }
         };
 

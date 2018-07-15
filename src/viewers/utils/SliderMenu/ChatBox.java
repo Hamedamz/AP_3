@@ -89,11 +89,6 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
         }.start();
     }
 
-//    public void receiveMessage(models.multiPlayer.chatRoom.Message message) {
-//        MessageBubble messageBubble = new MessageBubble(message);
-//        appendMessage(messageBubble);
-//    }
-
     private synchronized void sendMessage() {
         String text = textField.getText();
         textField.setText("");
