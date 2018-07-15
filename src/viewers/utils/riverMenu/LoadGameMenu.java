@@ -7,6 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import models.GameLogic.Exceptions.WrongPasswordException;
 import viewers.AppGUI;
 import viewers.MyVillageScene;
@@ -28,6 +29,7 @@ public class LoadGameMenu extends StackPane {
     private RoundButton logInButton;
     private PasswordField passwordField;
     private Label log;
+    private GridPane body;
 
     public LoadGameMenu() {
 
@@ -57,20 +59,19 @@ public class LoadGameMenu extends StackPane {
         });
 
         log = new Label();
-        log.setId("error");
 
         this.setPrefSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
         this.setMaxSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
-        GridPane gridPane = new GridPane();
-        gridPane.add(namesComboBox, 0,0);
-        gridPane.add(passwordField, 0,1);
-        gridPane.add(log, 0,2);
-        gridPane.add(logInButton, 0,3);
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setVgap(Const.SPACING);
-        gridPane.setHgap(Const.SPACING);
+        body = new GridPane();
+        body.add(namesComboBox, 0,0);
+        body.add(passwordField, 0,1);
+        body.add(log, 0,2);
+        body.add(logInButton, 0,3);
+        body.setAlignment(Pos.CENTER);
+        body.setVgap(Const.SPACING);
+        body.setHgap(Const.SPACING);
 
-        this.getChildren().addAll(gridPane);
+        this.getChildren().addAll(body);
     }
 
     private void addExistingUsersToComboBox() {
@@ -80,10 +81,36 @@ public class LoadGameMenu extends StackPane {
         }
     }
 
+    private boolean sendLogInRequest() {
+        String name = (String) namesComboBox.getSelectionModel().getSelectedItem();
+        String password = passwordField.getText();
+
+        try {
+            AppGUI.getController().loadGame(name, password);
+        } catch (WrongPasswordException | FileNotFoundException e) {
+            log.setTextFill(Color.RED);
+            log.setText(e.getMessage());
+            return false;
+        }
+        log.setTextFill(Color.DODGERBLUE);
+        log.setText("logged in as" + name);
+        return true;
+    }
+
+    private void loadVillageScene() {
+        MyVillageScene.getInstance().reBuild();
+        AppGUI.setStageScene(MyVillageScene.getInstance());
+        SoundPlayer.play(Sounds.loadSound);
+        SoundPlayer.playBackground(Sounds.mainSound);
+    }
+
     public void reset() {
+        this.getChildren().clear();
+        this.getChildren().addAll(body);
         log.setText("");
         passwordField.setText("");
         addExistingUsersToComboBox();
+        checkInputs();
     }
 
     public boolean checkInputs() {
@@ -96,24 +123,25 @@ public class LoadGameMenu extends StackPane {
         return condition;
     }
 
-    private void sendLogInRequest() {
-        String name = (String) namesComboBox.getSelectionModel().getSelectedItem();
-        String password = passwordField.getText();
-
-        try {
-            AppGUI.getController().loadGame(name, password);
-        } catch (WrongPasswordException | FileNotFoundException e) {
-            log.setText(e.getMessage());
-            return;
-        }
-
-        loadVillage();
+    public void rebuildForClientMenu() {
+        logInButton.setOnAction(event -> {
+            SoundPlayer.play(Sounds.buttonSound);
+            if (sendLogInRequest()) {
+                ClientMenu.getInstance().disableLoginOrNewGame(true);
+            }
+        });
     }
 
-    private void loadVillage() {
-        MyVillageScene.getInstance().reBuild();
-        AppGUI.setStageScene(MyVillageScene.getInstance());
-        SoundPlayer.play(Sounds.loadSound);
-        SoundPlayer.playBackground(Sounds.mainSound);
+    public void rebuildForLoadGameMenu() {
+        logInButton.setOnAction(event -> {
+            SoundPlayer.play(Sounds.buttonSound);
+            if (sendLogInRequest()) {
+                loadVillageScene();
+            }
+        });
+    }
+
+    public GridPane getBody() {
+        return body;
     }
 }

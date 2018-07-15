@@ -45,13 +45,13 @@ public class SliderMenu extends Pane {
         Tab chatTab = new Tab("Chat");
         chatTab.setContent(ChatBox.getInstance());
 
-        Tab leaderBorad = new Tab();
+        Tab leaderBoaradTab = new Tab("Leader Board");
 
         tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabMaxHeight(Const.SLIDER_MENU_TAB_HEIGHT);
         tabPane.setTabMinHeight(Const.SLIDER_MENU_TAB_HEIGHT);
-        tabPane.getTabs().add(chatTab);
+        tabPane.getTabs().addAll(chatTab, leaderBoaradTab);
         HBox container = new HBox(Const.SPACING, tabPane, toggleButton);
         container.setAlignment(Pos.CENTER);
 

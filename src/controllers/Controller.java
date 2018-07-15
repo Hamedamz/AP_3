@@ -158,15 +158,11 @@ public class Controller {
         }
     }
 
-    public void newGame(String name, String password) {
-        try {
-            controller.getWorld().getMyVillagesNameAndFile().put(new File(JsonHandler.SAVED_MAPS_FOLDER_NAME + "/" + name + ".json"), name);
-            controller.world.getGameEngine().resetVillage();
-            controller.world.makeNewGame(name, password);
-            controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
-        } catch (VillageAlreadyExists villageAlreadyExists) {
-            villageAlreadyExists.getMessage();
-        }
+    public void newGame(String name, String password) throws VillageAlreadyExists {
+        controller.getWorld().getMyVillagesNameAndFile().put(new File(JsonHandler.SAVED_MAPS_FOLDER_NAME + "/" + name + ".json"), name);
+        controller.world.getGameEngine().resetVillage();
+        controller.world.makeNewGame(name, password);
+        controller.villageViewer = new VillageViewer(controller.world.getMyVillage());
     }
 
     private String getArgument(int i, String command, String format) throws InvalidInputException {

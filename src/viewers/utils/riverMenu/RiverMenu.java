@@ -44,7 +44,7 @@ public class RiverMenu extends Pane {
     private RiverMenuPage newGameMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, NewGameMenu.getInstance());
     private RiverMenuPage loginMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, LoadGameMenu.getInstance());
     private RiverMenuPage hostMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, HostMenu.getInstance());
-    private RiverMenuPage clientMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, new Pane(new Circle(20)));
+    private RiverMenuPage clientMenu = new RiverMenuPage(3, Const.RIVER_MENU_SIZE * 6, ClientMenu.getInstance());
 
     public RiverMenu() {
         riverMenuPages = Arrays.asList(clientMenu, hostMenu, loginMenu, newGameMenu, singlePlayerChoices, multiPlayerChoices, optionsMenu, playChoices, mainMenu);
@@ -71,16 +71,24 @@ public class RiverMenu extends Pane {
                 menuToOpen = multiPlayerChoices;
                 break;
             case OPEN_NEW_GAME_MENU:
+                NewGameMenu.getInstance().reset();
+                NewGameMenu.getInstance().rebuildForNewGameMenu();
                 menuToOpen = newGameMenu;
                 break;
             case OPEN_LOGIN_MENU:
                 LoadGameMenu.getInstance().reset();
+                LoadGameMenu.getInstance().rebuildForLoadGameMenu();
                 menuToOpen = loginMenu;
                 break;
             case OPEN_HOST_MENU:
                 menuToOpen = hostMenu;
                 break;
             case OPEN_CLIENT_MENU:
+                LoadGameMenu.getInstance().reset();
+                LoadGameMenu.getInstance().rebuildForClientMenu();
+                NewGameMenu.getInstance().reset();
+                NewGameMenu.getInstance().rebuildForClientMenu();
+                ClientMenu.getInstance().reset();
                 menuToOpen = clientMenu;
                 break;
         }
