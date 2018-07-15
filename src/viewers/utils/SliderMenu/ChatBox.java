@@ -1,10 +1,8 @@
 package viewers.utils.SliderMenu;
 
 import javafx.animation.AnimationTimer;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -21,7 +19,6 @@ import viewers.utils.Sounds;
 import viewers.utils.fancyButtons.RoundButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static models.ConnectionType.CLIENT;
 import static models.ConnectionType.SERVER;
@@ -90,10 +87,10 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
         }.start();
     }
 
-    public void receiveMessage(models.multiPlayer.chatRoom.Message message) {
-        MessageBubble messageBubble = new MessageBubble(message);
-        appendMessage(messageBubble);
-    }
+//    public void receiveMessage(models.multiPlayer.chatRoom.Message message) {
+//        MessageBubble messageBubble = new MessageBubble(message);
+//        appendMessage(messageBubble);
+//    }
 
     private synchronized void sendMessage() {
         String text = textField.getText();
@@ -119,15 +116,15 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
 
     @Override
     public synchronized void receive(ClientChatPacket clientChatPacket) {
-        switch (clientChatPacket.getChatPacketType()) {
-            case LAST_MESSAGE:
-                receiveMessage((Message) clientChatPacket.getElements()[0]);
-                break;
-            case RECENT_MESSAGES:
-                messageList.getChildren().clear();
-                for(Message message : (List<Message>) clientChatPacket.getElements()[0]) {
-                    receiveMessage(message);
-                }
-        }
+//        switch (clientChatPacket.getChatPacketType()) {
+//            case LAST_MESSAGE:
+//                receiveMessage((Message) clientChatPacket.getElements()[0]);
+//                break;
+//            case RECENT_MESSAGES:
+//                messageList.getChildren().clear();
+//                for(Message message : (List<Message>) clientChatPacket.getElements()[0]) {
+//                    receiveMessage(message);
+//                }
+//        }
     }
 }
