@@ -13,6 +13,10 @@ import models.multiPlayer.utils.ServerConstants;
 import viewers.utils.Const;
 import viewers.utils.fancyButtons.RoundButton;
 
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
 public class ClientMenu extends StackPane {
 
     private static ClientMenu instance = new ClientMenu();
@@ -52,7 +56,18 @@ public class ClientMenu extends StackPane {
         joinButton = new RoundButton("Join", "green");
         joinButton.setDisable(true);
         joinButton.setOnAction(event -> {
-            // TODO: 7/15/2018 init client
+            try {
+                Client.initClient(Integer.parseInt(clientPort.getText()));
+                try {
+                    Client.getInstance().setupConnection(InetAddress.getByName(serverAddress.getText()), Integer.parseInt(serverPort.getText()));
+                    clientAddress.setText(Client.getInstance().getSocket().getInetAddress().getHostName());
+                } catch (UnknownHostException e) {
+                    log.setText("Unable to Setup Connection");
+                }
+            } catch (SocketException e) {
+                log.setText("Client Setup Unsuccessful!");
+            }
+
         });
 
         log = new Label();
