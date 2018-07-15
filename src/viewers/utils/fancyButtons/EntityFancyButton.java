@@ -10,13 +10,14 @@ import viewers.utils.ImageLibrary;
 
 public class EntityFancyButton extends FancyButton {
 
+    public static final double SIZE = Const.FANCY_BUTTON_ICON_SIZE + 10;
     private String clazz;
 
     public EntityFancyButton(ButtonActionType type, String clazz) {
         super(type);
         this.clazz = clazz;
         this.getWrapper().setId("blue-fancy-button");
-        this.getIcon().setFitHeight(Const.FANCY_BUTTON_ICON_SIZE + 10);
+        this.getIcon().setFitHeight(SIZE);
         this.getIcon().setFitWidth(Const.FANCY_BUTTON_ICON_SIZE + 10);
         this.getLabel().setId("round-fancy-button-label");
         this.getLabel().setTextAlignment(TextAlignment.CENTER);
@@ -27,7 +28,7 @@ public class EntityFancyButton extends FancyButton {
     @Override
     void setImage() {
         getIcon().setViewport(new Rectangle2D(0, Const.ENTITY_TILE_HEIGHT - Const.ENTITY_TILE_WIDTH, Const.ENTITY_TILE_WIDTH, Const.ENTITY_TILE_WIDTH));
-        getIcon().setClip(new Circle(Const.FANCY_BUTTON_ICON_SIZE / 2 ,Const.FANCY_BUTTON_ICON_SIZE / 2,Const.FANCY_BUTTON_ICON_SIZE / 2));
+        getIcon().setClip(new Circle(SIZE / 2 ,SIZE / 2,SIZE / 2));
         getIcon().setImage(ImageLibrary.valueOf(clazz).getImage());
     }
 
