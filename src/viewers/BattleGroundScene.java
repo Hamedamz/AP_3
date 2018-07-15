@@ -232,7 +232,7 @@ public class BattleGroundScene extends VillageScene {
 
     }
 
-    public void movementHappened() {
+    public void movementHappened(int direction, Troop troop) {
         this.isTurned = true;
     }
 
