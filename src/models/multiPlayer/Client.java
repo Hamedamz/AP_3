@@ -3,11 +3,14 @@ package models.multiPlayer;
 import models.Account;
 import models.ConnectionManager;
 import models.ConnectionType;
+import models.multiPlayer.battleManager.BattleManager;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.leaderBoard.LeaderBoard;
+import models.multiPlayer.packet.clientPacket.ClientBattleManagerPacket;
 import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.clientPacket.ClientLeaderBoardPacket;
 import models.multiPlayer.packet.clientPacket.ClientPacket;
+import models.multiPlayer.packet.serverPacket.ServerBattleManagerPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
 import models.multiPlayer.packet.serverPacket.types.ServerChatPacketType;
 import models.multiPlayer.packet.serverPacket.ServerPacket;
@@ -76,6 +79,8 @@ public class Client extends PacketHandler implements PacketListener<ClientPacket
             case LEADER_BOARD:
                 LeaderBoard.getInstance().receive((ClientLeaderBoardPacket) clientPacket);
                 break;
+            case BATTLE_MANAGER:
+                BattleManager.getInstance().receive((ClientBattleManagerPacket) clientPacket);
             // TODO: 7/14/2018
         }
     }

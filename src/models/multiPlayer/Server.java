@@ -3,10 +3,13 @@ package models.multiPlayer;
 import com.sun.xml.internal.bind.v2.TODO;
 import models.ConnectionManager;
 import models.ConnectionType;
+import models.multiPlayer.battleManager.BattleManager;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.leaderBoard.LeaderBoard;
 import models.multiPlayer.packet.clientPacket.ClientPacket;
+import models.multiPlayer.packet.serverPacket.ServerBattleManagerPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
+import models.multiPlayer.packet.serverPacket.ServerLeaderBoardPacket;
 import models.multiPlayer.packet.serverPacket.ServerPacket;
 import models.multiPlayer.runnables.PacketListener;
 import models.AccountInfo;
@@ -76,7 +79,11 @@ public class Server extends PacketHandler implements PacketListener<ServerPacket
                 ChatRoom.getInstance().receive((ServerChatPacket) serverPacket);
                 break;
             case LEADER_BOARD:
-                // TODO: 7/14/2018
+                LeaderBoard.getInstance().receive((ServerLeaderBoardPacket) serverPacket);
+                break;
+            case BATTLE_MANAGER:
+                BattleManager.getInstance().receive((ServerBattleManagerPacket) serverPacket);
+                break;
         }
     }
 
