@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public enum ImageLibrary {
     VillageBackground("assets/map/village.jpg"),
+    ZombieMenu("assets/map/ZombieMenu.png"),
     AirDefense("assets/buildings/AirDefense.png"),
     ArcherTower("assets/buildings/ArcherTower.png"),
     Barracks("assets/buildings/Barracks.png"),

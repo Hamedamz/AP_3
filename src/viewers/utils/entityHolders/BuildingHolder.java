@@ -31,6 +31,7 @@ public class BuildingHolder extends EntityHolder {
         if (entity.getClass().equals(TownHall.class)) {
             imageView.setFitWidth(Const.TOWNHALL_TILE_WIDTH * Const.TILE_SCALE);
             imageView.setFitHeight(Const.TOWNHALL_TILE_HEIGHT * Const.TILE_SCALE);
+            this.setMaxSize(Const.ENTITY_TILE_WIDTH * Const.TILE_SCALE * 2, Const.ENTITY_TILE_HEIGHT * Const.TILE_SCALE * 2);
         }
         if (builder != null || ((Building) entity).isUnderConstruct()) {
             constructionProgressBar = new ProgressBarItem(ProgressBarType.REMAINED_TIME, builder);

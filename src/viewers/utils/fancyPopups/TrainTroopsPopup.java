@@ -4,7 +4,9 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.TrainingTroop;
 import viewers.AppGUI;
@@ -19,23 +21,23 @@ public class TrainTroopsPopup extends FancyPopup {
     private ScrollPane status;
     private VBox trainingTroopsList;
     private TroopsScrollMenu troopsScrollMenu;
-    private AnimationTimer animationTimer;
 
     private TrainTroopsPopup(Object model) {
         super(model);
         setProperties();
-        VBox body = new VBox(Const.SPACING * 2, status, troopsScrollMenu);
-        body.setAlignment(Pos.CENTER);
-        setBody(body);
+
+        GridPane gridPane = new GridPane();
+        gridPane.add(status, 0, 0);
+        gridPane.add(troopsScrollMenu, 0, 1);
+        gridPane.setVgap(Const.SPACING * 2);
+        setBody(gridPane);
         setAnimationTimer(this);
-
-        this.setOnShown(event -> animationTimer.start());
-
-        this.setOnHidden(event -> animationTimer.stop());
     }
 
     public static void openPopup(Object model) {
-        new TrainTroopsPopup(model).show(AppGUI.getMainStage());
+        TrainTroopsPopup trainTroopsPopup = new TrainTroopsPopup(model);
+        trainTroopsPopup.show(AppGUI.getMyVillageScene());
+        trainTroopsPopup.requestFocus();
     }
 
     private void setProperties() {
@@ -58,7 +60,9 @@ public class TrainTroopsPopup extends FancyPopup {
         ArrayList<TrainingTroop> trainingTroops = barracks.getTrainingTroops();
         trainingTroopsList.getChildren().clear();
         for (TrainingTroop trainingTroop : trainingTroops) {
-            trainingTroopsList.getChildren().add(new Label(String.format("%s %ds",trainingTroop.getTroop().getClass().getSimpleName(), trainingTroop.getTimeRemaining())));
+            Label label = new Label(String.format("%s %ds", trainingTroop.getTroop().getClass().getSimpleName(), trainingTroop.getTimeRemaining()));
+            label.setTextFill(Color.WHITE);
+            trainingTroopsList.getChildren().add(label);
         }
     }
 

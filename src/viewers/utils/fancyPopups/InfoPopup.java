@@ -3,6 +3,7 @@ package viewers.utils.fancyPopups;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import models.GameLogic.Entities.Buildings.TownHall;
@@ -16,17 +17,17 @@ public class InfoPopup extends FancyPopup {
     private VBox imagePane = new VBox(imageView);
     private VBox progressBarContainer = new VBox(Const.SPACING);
     private VBox propertyInfoItemContainer = new VBox(Const.SPACING);
-    private AnimationTimer animationTimer;
 
     private InfoPopup(Object model) {
         super(model);
-        setBody(new HBox(imagePane, new VBox(Const.SPACING * 2, progressBarContainer, propertyInfoItemContainer)));
+        GridPane gridPane = new GridPane();
+        gridPane.add(imagePane, 0 , 0, 1, 2);
+        gridPane.add(progressBarContainer, 1 , 0);
+        gridPane.add(propertyInfoItemContainer, 1 , 1);
+        gridPane.setVgap(Const.SPACING * 2);
+        setBody(gridPane);
         setProperties();
         setAnimationTimer(this);
-
-        this.setOnShown(event -> animationTimer.start());
-
-        this.setOnHidden(event -> animationTimer.stop());
     }
 
     private void setProperties() {
@@ -36,8 +37,6 @@ public class InfoPopup extends FancyPopup {
             imageView.setFitWidth(Const.TOWNHALL_TILE_WIDTH / 2);
             imageView.setFitHeight(Const.TOWNHALL_TILE_HEIGHT / 2);
         }
-
-        wrapper.setMinHeight(Const.POPUP_HEIGHT);
     }
 
     public static void openPopup(Object model, InfoPopupItems items) {
@@ -51,7 +50,8 @@ public class InfoPopup extends FancyPopup {
         for (PropertyInfoType propertyInfoType : items.getPropertyInfoTypes()) {
             infoPopup.withPropertyInfoItem(new PropertyInfoItem(propertyInfoType, model));
         }
-        infoPopup.show(AppGUI.getMainStage());
+        infoPopup.show(AppGUI.getMyVillageScene());
+        infoPopup.requestFocus();
     }
 
     private void setAnimationTimer(InfoPopup popup) {

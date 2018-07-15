@@ -16,6 +16,8 @@ public class EntityFancyButton extends FancyButton {
         super(type);
         this.clazz = clazz;
         this.getWrapper().setId("blue-fancy-button");
+        this.getIcon().setFitHeight(Const.FANCY_BUTTON_ICON_SIZE + 10);
+        this.getIcon().setFitWidth(Const.FANCY_BUTTON_ICON_SIZE + 10);
         this.getLabel().setId("round-fancy-button-label");
         this.getLabel().setTextAlignment(TextAlignment.CENTER);
         setLabel();

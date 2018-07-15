@@ -1,5 +1,7 @@
 package viewers.utils.entityHolders;
 
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.GameLogic.Entities.Entity;
@@ -11,6 +13,7 @@ public abstract class EntityHolder extends Pane {
     Entity entity;
     ImageView imageView;
     ProgressBarItem hitPointsProgressBar;
+    Button button;
     private boolean isDestroyed;
 
     public EntityHolder(Entity entity) {
@@ -21,9 +24,13 @@ public abstract class EntityHolder extends Pane {
         imageView = entity.getImageView();
         imageView.setFitWidth(Const.ENTITY_TILE_WIDTH * Const.TILE_SCALE);
         imageView.setFitHeight(Const.ENTITY_TILE_HEIGHT * Const.TILE_SCALE);
-//        this.setMaxSize(imageView.getViewport().getWidth(), imageView.getViewport().getHeight());
+        this.setMaxSize(Const.ENTITY_TILE_WIDTH * Const.TILE_SCALE, Const.ENTITY_TILE_HEIGHT * Const.TILE_SCALE);
         hitPointsProgressBar = new ProgressBarItem(ProgressBarType.HIT_POINTS, entity);
-        this.getChildren().addAll(imageView, hitPointsProgressBar);
+        button = new Button();
+        button.setId("entity-image-holder");
+        button.setPadding(new Insets(0));
+        button.setGraphic(imageView);
+        this.getChildren().addAll(button, hitPointsProgressBar);
 
     }
 
@@ -43,5 +50,9 @@ public abstract class EntityHolder extends Pane {
 
     public boolean isDestroyed() {
         return isDestroyed;
+    }
+
+    public Button getButton() {
+        return button;
     }
 }

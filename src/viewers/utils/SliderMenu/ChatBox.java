@@ -42,6 +42,7 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
     private ChatBox() {
 
         textField = new TextField();
+        textField.setFocusTraversable(false);
         textField.setPromptText("Message");
         textField.setOnKeyPressed(event -> {
             switch (event.getCode()) {
@@ -51,6 +52,7 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
         }});
 
         sendButton = new RoundButton("send", "green");
+        sendButton.setFocusTraversable(false);
         sendButton.setOnAction(event -> {
             SoundPlayer.play(Sounds.buttonSound);
             sendMessage();

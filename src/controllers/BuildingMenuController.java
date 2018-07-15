@@ -3,6 +3,7 @@ package controllers;
 import models.GameLogic.Entities.Buildings.Barracks;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.Camp;
+import viewers.AppGUI;
 import viewers.utils.*;
 import viewers.utils.fancyPopups.ArmyStatusPopup;
 import viewers.utils.fancyPopups.InfoPopup;
@@ -26,18 +27,22 @@ public class BuildingMenuController {
     private BuildingMenu campMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_ARMY_STATUS_POPUP);
 
     private BuildingMenuController() {
+        AppGUI.getMyVillageScene().addBuildingMenus(menu, barracksMenu, campMenu);
     }
 
     public void handleClickOnBuilding(Building building) {
-        if (building == this.building) {
+        if (building == this.building && activeMenu != null) {
             activeMenu.toggle();
         } else {
             setBuilding(building);
-            if (activeMenu != null && activeMenu.isShowing()) {
+            if (activeMenu != null && activeMenu.isVisible()) {
                 activeMenu.toggle();
             }
             setActiveMenu(getMenuToOpen(building));
             activeMenu.toggle();
+        }
+        if (activeMenu != null) {
+            activeMenu.setTitle(building.getClass().getSimpleName() + " " + building.getID().getCount());
         }
     }
 

@@ -2,6 +2,7 @@ package viewers.utils;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.DefensiveBuilding;
 import models.GameLogic.Entities.Buildings.Mine;
@@ -17,7 +18,9 @@ public class PropertyInfoItem extends GridPane {
         this.type = type;
         this.model = model;
         this.propertyName = new Label();
+        this.propertyName.setTextFill(Color.FLORALWHITE);
         this.value = new Label();
+        this.value.setTextFill(Color.WHITE);
         this.add(this.propertyName, 0, 0);
         this.add(this.value, 1, 0);
         setValues();

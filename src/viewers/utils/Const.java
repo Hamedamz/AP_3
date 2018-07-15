@@ -34,9 +34,9 @@ public class Const {
     public static final double SPACING = 10;
 
     public static final double POPUP_WIDTH = 550;
-    public static final double POPUP_HEIGHT = 360;
+    public static final double POPUP_HEIGHT = 300;
 
-    public static final double FANCY_BUTTON_ICON_SIZE = 60;
+    public static final double FANCY_BUTTON_ICON_SIZE = 50;
     public static final double PROGRESS_BAR_ICON_SIZE = 40;
     public static final double SCROLL_MENU_WIDTH = 640;
     public static final double SCROLL_MENU_HEIGHT = 120;

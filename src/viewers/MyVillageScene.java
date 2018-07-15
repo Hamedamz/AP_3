@@ -4,7 +4,9 @@ import controllers.BuildingMenuController;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -87,7 +89,7 @@ public class MyVillageScene extends VillageScene {
         shopScrollMenu = new ShopScrollMenu(ButtonActionType.TOWERS);
         shopScrollMenu.setVisible(false);
         buildButton = new RoundFancyButton(ButtonActionType.OPEN_BUILD_MENU, "red");
-        buildButton.setLayoutX(Const.WINDOW_WIDTH - 100);
+        buildButton.setLayoutX(Const.WINDOW_WIDTH - 80);
         buildButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
         buildButton.setOnMouseClicked(event -> {
             toggleVisibility(shopScrollMenu);
@@ -156,20 +158,30 @@ public class MyVillageScene extends VillageScene {
 
     private void setBuildingHolderEvents(BuildingHolder buildingHolder) {
         Entity entity = buildingHolder.getEntity();
-        ImageView imageView = buildingHolder.getImageView();
-        imageView.setOnMouseEntered(event -> buildingHolder.getGlow().setLevel(0.5));
-        imageView.setOnMouseExited(event -> buildingHolder.getGlow().setLevel(0));
-        imageView.setOnMouseClicked(event -> {
-            if (entity instanceof GoldStorage || entity instanceof GoldMine) {
-                SoundPlayer.play(Sounds.goldSound);
-            }
-            else if (entity instanceof ElixirStorage || entity instanceof ElixirMine) {
-                SoundPlayer.play(Sounds.elixirSound);
-            }
-            else {
-                SoundPlayer.play(Sounds.buildingClickSound);
-            }
+        Button button = buildingHolder.getButton();
+        button.setId("building-image-holder");
+        button.setOnMouseEntered(event -> buildingHolder.getGlow().setLevel(0.5));
+        button.setOnMouseExited(event -> buildingHolder.getGlow().setLevel(0));
+        button.setOnAction(event -> {
             BuildingMenuController.getInstance().handleClickOnBuilding((Building) entity);
+            SoundPlayer.play(entity);
+        });
+        button.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ENTER:
+                    BuildingMenuController.getInstance().handleClickOnBuilding((Building) entity);
+                    SoundPlayer.play(entity);
+                    break;
+                case I:
+                    BuildingMenuController.getInstance().setBuilding((Building) entity);
+                    BuildingMenuController.getInstance().handleClickOnButton(ButtonActionType.OPEN_INFO_POPUP);
+                    break;
+                case U:
+                    BuildingMenuController.getInstance().setBuilding((Building) entity);
+                    BuildingMenuController.getInstance().handleClickOnButton(ButtonActionType.OPEN_UPGRADE_POPUP);
+                    break;
+
+            }
         });
     }
 
@@ -191,5 +203,9 @@ public class MyVillageScene extends VillageScene {
     public void reBuild() {
         root.getChildren().clear();
         root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton, villageConsole, SliderMenu.getInstance());
+    }
+
+    public void addBuildingMenus(BuildingMenu... menus) {
+        root.getChildren().addAll(menus);
     }
 }

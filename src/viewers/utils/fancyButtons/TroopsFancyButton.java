@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import viewers.utils.ButtonActionType;
+import viewers.utils.Const;
 
 public class TroopsFancyButton extends EntityFancyButton {
 
@@ -15,6 +16,8 @@ public class TroopsFancyButton extends EntityFancyButton {
 
     public TroopsFancyButton(ButtonActionType type, String clazz) {
         super(type, clazz);
+        this.getIcon().setFitHeight(Const.FANCY_BUTTON_ICON_SIZE + 10);
+        this.getIcon().setFitWidth(Const.FANCY_BUTTON_ICON_SIZE + 10);
         this.numberBadge.setId("number-badge");
         this.getWrapper().getChildren().add(new Pane(numberBadge));
     }

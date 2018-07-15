@@ -2,6 +2,7 @@ package viewers.utils.fancyPopups;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import viewers.AppGUI;
 import viewers.utils.Const;
@@ -11,7 +12,6 @@ import viewers.utils.ButtonActionType;
 public class ArmyStatusPopup extends FancyPopup {
 
     private TroopsScrollMenu troopsScrollMenu;
-    private AnimationTimer animationTimer;
 
     public ArmyStatusPopup(Object model) {
         super(model);
@@ -19,18 +19,17 @@ public class ArmyStatusPopup extends FancyPopup {
         troopsScrollMenu = new TroopsScrollMenu(ButtonActionType.TROOPS, model);
         troopsScrollMenu.setMaxWidth(Const.POPUP_WIDTH - 6 * Const.SPACING);
 
-        StackPane body = new StackPane(troopsScrollMenu);
-        body.setAlignment(Pos.CENTER);
-        setBody(body);
+        GridPane gridPane = new GridPane();
+        gridPane.add(troopsScrollMenu, 0,0);
+        setBody(gridPane);
         setAnimationTimer(this);
-
-        this.setOnShown(event -> animationTimer.start());
-
-        this.setOnHidden(event -> animationTimer.stop());
     }
 
     public static void openPopup(Object model) {
-        new ArmyStatusPopup(model).show(AppGUI.getMainStage());
+        ArmyStatusPopup armyStatusPopup = new ArmyStatusPopup(model);
+        armyStatusPopup.show(AppGUI.getMyVillageScene());
+        armyStatusPopup.requestFocus();
+
     }
 
     private void refresh() {
