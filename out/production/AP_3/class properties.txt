@@ -22,6 +22,7 @@
         GoldMineUpgradeElixir: 0
         GoldMineUpgradeProductionRateAddition: 60
         GoldMineProductionRate: 10
+        GoldMineUpgradeHitPointsAddition: 0
 
 
     #Elixir mine properties:
@@ -36,6 +37,7 @@
         ElixirMineUpgradeElixir: 0
         ElixirMineUpgradeProductionRateAddition: 60
         ElixirMineProductionRate: 5
+        ElixirMineUpgradeHitPointsAddition: 0
 
     #Gold storage properties:
         GoldStorageBuildGold: 200
@@ -50,6 +52,7 @@
         GoldStorageUpgradeCapacityAddition: 60
         GoldStorageGoldCapacity: 500
         GoldStorageElixirCapacity: 0
+        GoldStorageUpgradeHitPointsAddition: 0
 
     #Elixir storage properties:
         ElixirStorageBuildGold: 200
@@ -64,6 +67,7 @@
         ElixirStorageUpgradeCapacityAddition: 60
         ElixirStorageElixirCapacity: 20
         ElixirStorageGoldCapacity: 0
+        ElixirStorageUpgradeHitPointsAddition: 0
 
     #Town hall properties:
         TownHallBuildTime: 100
@@ -89,6 +93,7 @@
         BarracksDestructionScore: 1
         BarracksUpgradeGold: 100
         BarracksUpgradeElixir: 0
+        BarracksUpgradeHitPointsAddition: 0
 
     #Camp properties:
         CampBuildGold: 200
@@ -108,6 +113,7 @@
         ArcherTowerSize: 1
         ArcherTowerHitPoints: 300
         ArcherTowerDamage: 20
+        ArcherTowerAttackSpeed: 50
         ArcherTowerRange: 10
         ArcherTowerDestructionScore: 3
         ArcherTowerUpgradeGold: 100
@@ -183,6 +189,7 @@
         TrapSize: 1
         TrapHitPoints: 100
         TrapDamage: 100
+        TrapAttackSpeed: 200
         TrapRange: 1
         TrapDestructionScore: 1
         TrapUpgradeGold: 100
@@ -198,6 +205,7 @@
         GuardianGiantHitPoints: 700
         GuardianGiantSize: 1
         GuardianGiantRange: 1
+        GuardianGiantAttentionRange: 10
         GuardianGiantDestructionScore: 6
         GuardianGiantDamage: 60
         GuardianGiantAttackSpeed: 50

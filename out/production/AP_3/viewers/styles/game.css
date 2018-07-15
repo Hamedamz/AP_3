@@ -111,6 +111,18 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1), 1, 10, 0, 0);
 }
 
+#error {
+    -fx-text-fill: #EA2027;
+}
+
+#success {
+    -fx-text-fill: #009432;
+}
+
+#info {
+    -fx-text-fill: #0652DD;
+}
+
 #red-round-button {
     -fx-background-color: linear-gradient(#ff5400, #be1d00);
 }

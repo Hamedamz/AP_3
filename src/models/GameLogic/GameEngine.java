@@ -7,17 +7,20 @@ import models.setting.GameLogicConstants;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class GameEngine {
-    public static final int DEFAULT_DURATION = 20;
+    public static final int DEFAULT_DURATION = 40;
 
     private World world;
     private VillageGameEngine villageGameEngine;
     private BattleGroundGameEngine battleGroundGameEngine;
     private boolean isAttacking = false;
     private ObjectProperty<Integer> duration = new SimpleObjectProperty<>(DEFAULT_DURATION);
-    private Timer timer;
-    private TimerTask updateTask;
+    private ScheduledThreadPoolExecutor sch;
 
     // isAttacking First Phase Only
 
@@ -35,29 +38,28 @@ public class GameEngine {
     }
 
     private void setupTimerTask() {
-        timer = new Timer();
-        updateTask = new TimerTask() {
-            @Override
-            public void run() {
-                update();
-            }
-        };
-        timer.schedule(updateTask, 0, duration.get());
+        if(sch != null) {
+            sch.shutdown();
+        }
+        sch = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(5);
+        sch.scheduleAtFixedRate(() -> update(), 0, duration.get(), TimeUnit.MILLISECONDS);
     }
 
     public void update() {
-        if(villageGameEngine.isRunning()) {
-            if (isAttacking) {
-                battleGroundGameEngine.update();
-                if (world.getBattleGround().isGameFinished()) {
-                    isAttacking = false;
+        new Thread(() -> {
+            if(villageGameEngine.isRunning()) {
+                if (isAttacking) {
+                    battleGroundGameEngine.update();
+                    if (world.getBattleGround().isGameFinished()) {
+                        isAttacking = false;
+                    }
+                }
+                if(turn % GameLogicConstants.DEFAULT_TURNS_PER_SEC == 0) {
+                    villageGameEngine.update();
                 }
             }
-            if(turn % GameLogicConstants.DEFAULT_TURNS_PER_SEC == 0) {
-                villageGameEngine.update();
-            }
-        }
-        turn++;
+            turn++;
+        }).start();
     }
 
     public void loadNewVillage() {

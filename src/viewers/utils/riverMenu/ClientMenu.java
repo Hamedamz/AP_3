@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import models.ConnectionManager;
+import models.ConnectionType;
 import models.multiPlayer.Client;
 import models.multiPlayer.utils.ClientConstants;
 import models.multiPlayer.utils.ServerConstants;
@@ -61,8 +63,9 @@ public class ClientMenu extends StackPane {
                 Client.initClient(Integer.parseInt(clientPort.getText()));
                 try {
                     Client.getInstance().setupConnection(InetAddress.getByName(serverAddress.getText()), Integer.parseInt(serverPort.getText()));
-                    clientAddress.setText(Client.getInstance().getSocket().getInetAddress().getHostName());
+                    ConnectionManager.getInstance().setConnectionType(ConnectionType.CLIENT);
                     AppGUI.loadVillageScene();
+                    Client.getInstance().setAccount(AppGUI.getController().getWorld().getAccount());
                 } catch (UnknownHostException e) {
                     log.setText("Unable to Setup Connection");
                 }

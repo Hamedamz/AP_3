@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import models.ConnectionManager;
+import models.ConnectionType;
 import models.multiPlayer.Server;
 import viewers.AppGUI;
 import viewers.HostScene;
@@ -56,6 +58,7 @@ public class HostMenu extends StackPane {
             // TODO: 7/14/2018 set up server if successful open host scene
             try {
                 Server.initServer(Integer.parseInt(portTextFiled.getText()));
+                ConnectionManager.getInstance().setConnectionType(ConnectionType.SERVER);
             } catch (SocketException e) {
                 log.setText("Server Setup Unsuccessful!");
                 return;

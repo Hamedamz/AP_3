@@ -81,6 +81,7 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
         if (!isDestroyed()) {
             if (attackCounter >= GameLogicConstants.DEFAULT_ATTACK_SPEED * turnPerSecond / getAttackSpeed()) {
                 giveDamageTo(getTarget(), battleGround);
+                target = null;
             }
         }
     }
