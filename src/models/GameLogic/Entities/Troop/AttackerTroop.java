@@ -151,6 +151,7 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
         setLevel(getLevel() + 1);
         damage += GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeDamageAddition");
         hitPoints += GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeHitPointsAddition");
+        maxHitPoints = hitPoints;
     }
 
     @Override

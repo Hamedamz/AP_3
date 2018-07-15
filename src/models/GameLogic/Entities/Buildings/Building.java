@@ -131,6 +131,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
             throw new UpgradeLimitReachedException();
         }
         level++;
+        maxHitPoint += GameLogicConfig.getFromDictionary(this.getClass().getSimpleName() + "UpgradeHitPointsAddition");
         try {
             SoundPlayer.play(Sounds.buildCompleteSound);
         }

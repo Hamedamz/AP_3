@@ -48,6 +48,7 @@ public class TownHall extends Storage {
         Building.setMaxLevel(level);
         int hitPointsAddition = (int) GameLogicConfig.getFromDictionary("TownHallUpgradeHitPointsAddition");
         this.setHitPoints(this.hitPoints + hitPointsAddition);
+        maxHitPoint += hitPointsAddition;
         updateViewPort();
         try {
             SoundPlayer.play(Sounds.buildCompleteSound);
