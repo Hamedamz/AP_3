@@ -63,4 +63,8 @@ public class ChatRoom implements PacketListener<Packet> {
     public void receive(Packet packet) {
         System.err.println("Invalid Packet for ChatRoom");
     }
+
+    public LinkedList<Message> getMessages() {
+        return messages;
+    }
 }

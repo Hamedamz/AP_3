@@ -1,7 +1,10 @@
 package viewers.utils.SliderMenu;
 
+import javafx.animation.AnimationTimer;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -17,6 +20,7 @@ import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 import viewers.utils.fancyButtons.RoundButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static models.ConnectionType.CLIENT;
@@ -71,6 +75,19 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
         chatBox.setPrefWidth(Const.SLIDER_MENU_WIDTH);
         this.setId("glass-pane");
         this.getChildren().add(chatBox);
+
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                ArrayList<Message> messages = new ArrayList<>(ChatRoom.getInstance().getMessages());
+                for (Message message : messages) {
+                    MessageBubble messageBubble = new MessageBubble(message);
+                    if (!messageList.getChildren().contains(messageBubble)) {
+                        appendMessage(messageBubble);
+                    }
+                }
+            }
+        }.start();
     }
 
     public void receiveMessage(models.multiPlayer.chatRoom.Message message) {
@@ -80,6 +97,7 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
 
     private synchronized void sendMessage() {
         String text = textField.getText();
+        textField.setText("");
         if (text != null && !text.equals("")) {
             if(ConnectionManager.getInstance().getConnectionType().equals(CLIENT)) {
                 Message message = new Message(text, Client.getInstance().getAccount().getUserName());
@@ -92,7 +110,6 @@ public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
     }
 
     private void appendMessage(MessageBubble messageBubble) {
-        textField.setText("");
         messageList.getChildren().add(messageBubble);
         messageScrollPane.layout();
         messageScrollPane.setVvalue(1);

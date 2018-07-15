@@ -73,7 +73,7 @@ public class AttackMenuGlassPane extends GlassPane {
 
         // file chooser
         fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File("savedMaps"));
+        fileChooser.setInitialDirectory(new File("maps"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("jSon files", "*.json"));
         chooserBox = new GridPane();
         chooserBox.setHgap(Const.SPACING);

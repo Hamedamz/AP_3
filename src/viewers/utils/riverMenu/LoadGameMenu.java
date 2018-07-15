@@ -44,7 +44,9 @@ public class LoadGameMenu extends StackPane {
             switch (event.getCode()) {
                 case ENTER:
                     if (checkInputs()) {
-                        sendLogInRequest();
+                        if (sendLogInRequest()) {
+                            AppGUI.loadVillageScene();
+                        }
                     }
                     break;
             }
