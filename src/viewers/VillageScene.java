@@ -49,7 +49,7 @@ public abstract class VillageScene extends Scene {
         draggableView.initialize();
 
         settingsButton = new RoundFancyButton(ButtonActionType.SETTINGS, "red");
-        settingsButton.setLayoutX(Const.WINDOW_WIDTH - 80);
+        settingsButton.setLayoutX(Const.WINDOW_WIDTH - 85);
         settingsButton.setLayoutY(Const.WINDOW_HEIGHT - 200);
         settingsButton.setOnMouseClicked(event -> {
             SoundPlayer.play(Sounds.buttonSound);
