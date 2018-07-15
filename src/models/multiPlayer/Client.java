@@ -4,6 +4,7 @@ import models.Account;
 import models.ConnectionManager;
 import models.ConnectionType;
 import models.multiPlayer.chatRoom.ChatRoom;
+import models.multiPlayer.leaderBoard.LeaderBoard;
 import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.clientPacket.ClientPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
@@ -71,6 +72,9 @@ public class Client extends PacketHandler implements PacketListener<ClientPacket
         switch (clientPacket.getPacketType()) {
             case CHAT_ROOM:
                 ChatRoom.getInstance().receive((ClientChatPacket) clientPacket);
+                break;
+            case LEADER_BOARD:
+                LeaderBoard.getInstance().receive(clientPacket);
                 break;
             // TODO: 7/14/2018
         }

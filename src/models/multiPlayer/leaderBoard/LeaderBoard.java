@@ -6,6 +6,7 @@ import models.multiPlayer.packet.Packet;
 import models.multiPlayer.packet.clientPacket.ClientLeaderBoardPacket;
 import models.multiPlayer.packet.clientPacket.ClientLeaderBoardPacketType;
 import models.multiPlayer.packet.serverPacket.ServerLeaderBoardPacket;
+import models.multiPlayer.packet.serverPacket.ServerLeaderBoardPacketType;
 import models.multiPlayer.runnables.PacketListener;
 
 import java.util.ArrayList;
@@ -41,14 +42,7 @@ public class LeaderBoard implements PacketListener<Packet> {
     public void receive(ServerLeaderBoardPacket serverLeaderBoardPacket) {
         synchronized (this) {
             switch (serverLeaderBoardPacket.getLeaderBoardPacketType()) {
-                case GET_BATTLE_HiSTORIES:
-                    Server.getInstance().sendToID(new ClientLeaderBoardPacket(ClientLeaderBoardPacketType.GET_BATTLE_HiSTORIES,
-                            getHistory()), serverLeaderBoardPacket.getID());
-                    break;
-                case GET_LEADER_BOARD:
-                    Server.getInstance().sendToID(new ClientLeaderBoardPacket(ClientLeaderBoardPacketType.GET_LEADER_BOARD,
-                            getLeaderBoard()), serverLeaderBoardPacket.getID());
-                    break;
+
             }
         }
     }
@@ -57,10 +51,10 @@ public class LeaderBoard implements PacketListener<Packet> {
         synchronized (this) {
             switch (clientLeaderBoardPacket.getLeaderBoardPacketType()) {
                 case GET_LEADER_BOARD:
-
+                    this.infoMap = (Map<String, AccountInfo>) clientLeaderBoardPacket.getElements()[0];
                     break;
                 case GET_BATTLE_HiSTORIES:
-
+                    history = (ArrayList<BattleHistory>) clientLeaderBoardPacket.getElements()[0];
                     break;
             }
         }
@@ -73,9 +67,18 @@ public class LeaderBoard implements PacketListener<Packet> {
 
     public synchronized void updateInfo(AccountInfo accountInfo) {
         infoMap.put(accountInfo.getID(), accountInfo);
+        informAll();
     }
 
     public synchronized void removeInfo(String id) {
         infoMap.remove(id);
+        informAll();
+    }
+
+    private void informAll(){
+        Server.getInstance().sendToAll(new ClientLeaderBoardPacket(ClientLeaderBoardPacketType.GET_BATTLE_HiSTORIES,
+                getHistory()));
+        Server.getInstance().sendToAll(new ClientLeaderBoardPacket(ClientLeaderBoardPacketType.GET_LEADER_BOARD,
+                infoMap));
     }
 }
