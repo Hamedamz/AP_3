@@ -97,13 +97,6 @@ public class LoadGameMenu extends StackPane {
         return true;
     }
 
-    private void loadVillageScene() {
-        MyVillageScene.getInstance().reBuild();
-        AppGUI.setStageScene(MyVillageScene.getInstance());
-        SoundPlayer.play(Sounds.loadSound);
-        SoundPlayer.playBackground(Sounds.mainSound);
-    }
-
     public void reset() {
         this.getChildren().clear();
         this.getChildren().addAll(body);
@@ -136,7 +129,7 @@ public class LoadGameMenu extends StackPane {
         logInButton.setOnAction(event -> {
             SoundPlayer.play(Sounds.buttonSound);
             if (sendLogInRequest()) {
-                loadVillageScene();
+                AppGUI.loadVillageScene();
             }
         });
     }

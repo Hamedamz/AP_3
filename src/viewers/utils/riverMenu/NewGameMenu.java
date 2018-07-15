@@ -65,13 +65,6 @@ public class NewGameMenu extends StackPane {
         return true;
     }
 
-    private void loadVillageScene() {
-        MyVillageScene.getInstance().reBuild();
-        AppGUI.setStageScene(MyVillageScene.getInstance());
-        SoundPlayer.play(Sounds.loadSound);
-        SoundPlayer.playBackground(Sounds.mainSound);
-    }
-
     private boolean checkInputs() {
         boolean condition = !nameField.getText().isEmpty() && !passwordField.getText().isEmpty();
         if (condition) {
@@ -104,7 +97,7 @@ public class NewGameMenu extends StackPane {
         newGameButton.setOnAction(event -> {
             SoundPlayer.play(Sounds.buttonSound);
             if (newGame()) {
-                loadVillageScene();
+                AppGUI.loadVillageScene();
             }
         });
     }

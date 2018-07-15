@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import models.multiPlayer.Client;
 import models.multiPlayer.utils.ClientConstants;
 import models.multiPlayer.utils.ServerConstants;
+import viewers.AppGUI;
 import viewers.utils.Const;
 import viewers.utils.fancyButtons.RoundButton;
 
@@ -61,6 +62,7 @@ public class ClientMenu extends StackPane {
                 try {
                     Client.getInstance().setupConnection(InetAddress.getByName(serverAddress.getText()), Integer.parseInt(serverPort.getText()));
                     clientAddress.setText(Client.getInstance().getSocket().getInetAddress().getHostName());
+                    AppGUI.loadVillageScene();
                 } catch (UnknownHostException e) {
                     log.setText("Unable to Setup Connection");
                 }

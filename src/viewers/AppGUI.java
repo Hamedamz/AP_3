@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import viewers.utils.SoundPlayer;
+import viewers.utils.Sounds;
 
 import java.util.Optional;
 
@@ -55,4 +57,12 @@ public class AppGUI extends Application {
         AppGUI.getMainStage().setScene(scene);
         getMainStage().sizeToScene();
     }
+
+    public static void loadVillageScene() {
+        MyVillageScene.getInstance().reBuild();
+        AppGUI.setStageScene(MyVillageScene.getInstance());
+        SoundPlayer.play(Sounds.loadSound);
+        SoundPlayer.playBackground(Sounds.mainSound);
+    }
+
 }
