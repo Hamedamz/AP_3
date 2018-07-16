@@ -133,4 +133,8 @@ public class ChatBox extends Pane implements ClientPacketListener<ClientChatPack
 //                }
 //        }
     }
+
+    public static void reset() {
+        instance = new ChatBox();
+    }
 }

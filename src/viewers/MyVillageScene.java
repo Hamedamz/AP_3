@@ -12,6 +12,7 @@ import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
 import models.GameLogic.Position;
+import models.GameLogic.Village;
 import viewers.utils.*;
 import viewers.utils.SliderMenu.SliderMenu;
 import viewers.utils.entityHolders.BuildingHolder;
@@ -216,4 +217,19 @@ public class MyVillageScene extends VillageScene {
             priceTicket.setLayoutY(y);
         }
     }
+
+    public void lockVillage() {
+        int i = root.getChildren().lastIndexOf(SliderMenu.getInstance());
+        Pane pane = new Pane();
+        pane.setMinSize(Const.WINDOW_HEIGHT, Const.WINDOW_HEIGHT);
+        root.getChildren().add(i, pane);
+    }
+
+    public void previewEnemyVillage(Village village) {
+        Pane preview = VillagePreviewScene.getPreview(village);
+        preview.setScaleX(0.7);
+        preview.setScaleY(0.7);
+        root.getChildren().add(preview);
+    }
+
 }

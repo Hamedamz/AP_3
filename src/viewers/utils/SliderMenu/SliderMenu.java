@@ -28,6 +28,9 @@ public class SliderMenu extends Pane {
 
     private double width = WIDTH;
     private TabPane tabPane;
+    private Tab chatTab;
+    private Tab leaderBoardTab;
+    private Tab battleHistoryTab;
     private RoundButton toggleButton;
     private boolean isOpen;
     private AnimationTimer animationTimer;
@@ -50,11 +53,11 @@ public class SliderMenu extends Pane {
             toggleState();
         });
 
-        Tab chatTab = new Tab("Chat");
+        chatTab = new Tab("Chat");
         chatTab.setContent(ChatBox.getInstance());
         chatTab.setOnSelectionChanged(event -> setWidth(WIDTH));
 
-        Tab leaderBoardTab = new Tab("Leader Board");
+        leaderBoardTab = new Tab("Leader Board");
         leaderBoardTab.setContent(LeaderBoardBox.getInstance());
         leaderBoardTab.setOnSelectionChanged(event -> setWidth(2 * WIDTH));
 
@@ -111,5 +114,12 @@ public class SliderMenu extends Pane {
         tabPane.setMaxWidth(width);
         tabPane.setMinWidth(width);
         this.width = width;
+    }
+
+    public void reset() {
+        ChatBox.reset();
+        chatTab.setContent(ChatBox.getInstance());
+        LeaderBoardBox.reset();
+        leaderBoardTab.setContent(LeaderBoardBox.getInstance());
     }
 }
