@@ -79,6 +79,6 @@ public class Trap extends DefensiveBuilding {
                 }
             }
         }
-        isRearmed = false;
+        destroy();
     }
 }
