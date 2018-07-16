@@ -6,17 +6,16 @@ import models.multiPlayer.battleManager.BattleManager;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.leaderBoard.LeaderBoard;
 import models.multiPlayer.packet.clientPacket.ClientPacket;
-import models.multiPlayer.packet.serverPacket.ServerBattleManagerPacket;
-import models.multiPlayer.packet.serverPacket.ServerChatPacket;
-import models.multiPlayer.packet.serverPacket.ServerLeaderBoardPacket;
-import models.multiPlayer.packet.serverPacket.ServerPacket;
+import models.multiPlayer.packet.serverPacket.*;
 import models.multiPlayer.runnables.ClientPacketListener;
 import models.multiPlayer.runnables.ServerPacketListener;
 import models.multiPlayer.utils.FullAddress;
 
 import java.io.IOException;
 import java.net.SocketException;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server extends PacketHandler implements ServerPacketListener<ServerPacket> {
@@ -51,6 +50,7 @@ public class Server extends PacketHandler implements ServerPacketListener<Server
                 try {
                     serverPacket = (ServerPacket) receiveObject();
                 } catch (IOException e) {
+                    e.printStackTrace();
                     // TODO: 7/14/2018
                     continue;
                 } catch (ClassNotFoundException e) {
@@ -72,17 +72,22 @@ public class Server extends PacketHandler implements ServerPacketListener<Server
 
     @Override
     public void receive(ServerPacket serverPacket) {
-        LeaderBoard.getInstance().updateInfo(serverPacket.getAccountInfo());
-        switch (serverPacket.getPacketType()) {
-            case CHAT_ROOM:
-                ChatRoom.getInstance().receive((ServerChatPacket) serverPacket);
-                break;
-            case LEADER_BOARD:
-                LeaderBoard.getInstance().receive((ServerLeaderBoardPacket) serverPacket);
-                break;
-            case BATTLE_MANAGER:
-                BattleManager.getInstance().receive((ServerBattleManagerPacket) serverPacket);
-                break;
+        if(ConnectionManager.getInstance().getConnectionType().equals(ConnectionType.SERVER)) {
+            LeaderBoard.getInstance().updateInfo(serverPacket.getAccountInfo());
+            switch (serverPacket.getPacketType()) {
+                case CHAT_ROOM:
+                    ChatRoom.getInstance().receive((ServerChatPacket) serverPacket);
+                    break;
+                case LEADER_BOARD:
+                    LeaderBoard.getInstance().receive((ServerLeaderBoardPacket) serverPacket);
+                    break;
+                case BATTLE_MANAGER:
+                    BattleManager.getInstance().receive((ServerBattleManagerPacket) serverPacket);
+                    break;
+                case CONNECTION:
+                    ConnectionManager.getInstance().receive((ServerConnectionPacket) serverPacket);
+                    break;
+            }
         }
     }
 
@@ -100,6 +105,9 @@ public class Server extends PacketHandler implements ServerPacketListener<Server
         }
     }
 
+    public Set<String> getIDs(){
+        return new HashSet<>(addressMap.keySet());
+    }
 
 
     public void disconnect(String id) {

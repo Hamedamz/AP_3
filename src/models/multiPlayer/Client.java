@@ -6,11 +6,9 @@ import models.ConnectionType;
 import models.multiPlayer.battleManager.BattleManager;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.leaderBoard.LeaderBoard;
-import models.multiPlayer.packet.clientPacket.ClientBattleManagerPacket;
-import models.multiPlayer.packet.clientPacket.ClientChatPacket;
-import models.multiPlayer.packet.clientPacket.ClientLeaderBoardPacket;
-import models.multiPlayer.packet.clientPacket.ClientPacket;
+import models.multiPlayer.packet.clientPacket.*;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
+import models.multiPlayer.packet.serverPacket.ServerConnectionPacket;
 import models.multiPlayer.packet.serverPacket.types.ServerChatPacketType;
 import models.multiPlayer.packet.serverPacket.ServerPacket;
 import models.multiPlayer.runnables.ClientPacketListener;
@@ -43,6 +41,7 @@ public class Client extends PacketHandler implements ClientPacketListener<Client
     public void setupConnection(InetAddress serverInetAddress, int serverPort) {
         serverAddress = new FullAddress(serverInetAddress, serverPort);
         ConnectionManager.getInstance().setConnectionType(ConnectionType.CLIENT);
+        sendToServer(new ServerConnectionPacket());
         sendToServer(new ServerChatPacket(ServerChatPacketType.RECEIVE_ALL));
     }
 
@@ -71,16 +70,22 @@ public class Client extends PacketHandler implements ClientPacketListener<Client
 
     @Override
     public void receive(ClientPacket clientPacket) {
-        switch (clientPacket.getPacketType()) {
-            case CHAT_ROOM:
-                ChatRoom.getInstance().receive((ClientChatPacket) clientPacket);
-                break;
-            case LEADER_BOARD:
-                LeaderBoard.getInstance().receive((ClientLeaderBoardPacket) clientPacket);
-                break;
-            case BATTLE_MANAGER:
-                BattleManager.getInstance().receive((ClientBattleManagerPacket) clientPacket);
-            // TODO: 7/14/2018
+        if(ConnectionManager.getInstance().getConnectionType().equals(ConnectionType.CLIENT)) {
+            switch (clientPacket.getPacketType()) {
+                case CHAT_ROOM:
+                    ChatRoom.getInstance().receive((ClientChatPacket) clientPacket);
+                    break;
+                case LEADER_BOARD:
+                    LeaderBoard.getInstance().receive((ClientLeaderBoardPacket) clientPacket);
+                    break;
+                case BATTLE_MANAGER:
+                    BattleManager.getInstance().receive((ClientBattleManagerPacket) clientPacket);
+                    break;
+                // TODO: 7/14/2018
+                case CONNECTION:
+                    ConnectionManager.getInstance().receive((ClientConnectionPacket) clientPacket);
+                    break;
+            }
         }
     }
 
