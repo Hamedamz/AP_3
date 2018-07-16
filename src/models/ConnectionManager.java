@@ -87,6 +87,7 @@ public class ConnectionManager implements ClientPacketListener<ClientConnectionP
     private synchronized void disconnect() {
         setConnectionType(ConnectionType.NONE);
         connectionTimeout = 0;
+        Client.getInstance().disconnect();
         // TODO: 7/16/2018
     }
 

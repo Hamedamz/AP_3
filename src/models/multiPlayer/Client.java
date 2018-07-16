@@ -65,6 +65,7 @@ public class Client extends PacketHandler implements ClientPacketListener<Client
                 }
             }
         });
+        receiverThread.setDaemon(true);
         receiverThread.start();
     }
 
@@ -108,5 +109,9 @@ public class Client extends PacketHandler implements ClientPacketListener<Client
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public void disconnect() {
+        receiverThread.interrupt();
     }
 }

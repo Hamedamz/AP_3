@@ -66,6 +66,7 @@ public class Server extends PacketHandler implements ServerPacketListener<Server
                 receive(serverPacket);
             }
         });
+        receiverThread.setDaemon(true);
         receiverThread.start();
     }
 
