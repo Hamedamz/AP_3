@@ -39,10 +39,8 @@ public class Healer extends Troop implements TimedEvent {
         if (getTarget() == null || getTarget().isDestroyed() || isBigTurn) {
             findTarget(battleGround);
         }
-        if (getPath() == null || isBigTurn) {
-            findPath(battleGround);
-        }
         if (((turn + 1) * getSpeed() / turnPerSecond) > (turn * getSpeed() / turnPerSecond)) {
+            findPath(battleGround);
             move();
         }
         if (isBigTurn) {

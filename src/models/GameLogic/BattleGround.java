@@ -113,7 +113,7 @@ public class BattleGround {
     public  ArrayList<Entity> getAttackerInPosition(Position pos) {
         ArrayList<Entity> result = new ArrayList<>();
         for (Troop troop : deployedTroops) {
-            if (troop.getPosition().equals(pos)) {
+            if (troop.getPosition().getMapX() == pos.getMapX() && troop.getPosition().getMapY() == pos.getMapY()) {
                 result.add(troop);
             }
         }

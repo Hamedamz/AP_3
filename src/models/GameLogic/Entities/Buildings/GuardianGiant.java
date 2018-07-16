@@ -69,7 +69,7 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
             }
         }
         if(getTarget() != null) {
-            if (isBigTurn || getPath() == null) {
+            if (getPath() == null || isBigTurn) {
                 findPath(battleGround);
             }
             if (((turn + 1) * getSpeed() / turnPerSecond) >

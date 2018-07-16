@@ -5,10 +5,12 @@ import models.multiPlayer.packet.clientPacket.types.ClientPacketType;
 
 public class ClientBattleManagerPacket extends ClientPacket {
     private ClientBattleManagerPacketType battleManagerPacketType;
+    private boolean isRequest;
 
     public ClientBattleManagerPacket(ClientBattleManagerPacketType battleManagerPacketType, boolean isRequest, Object... elements) {
         super(ClientPacketType.BATTLE_MANAGER, elements);
         this.battleManagerPacketType = battleManagerPacketType;
+        this.isRequest = isRequest;
     }
 
     public ClientBattleManagerPacketType getBattleManagerPacketType() {
@@ -16,6 +18,6 @@ public class ClientBattleManagerPacket extends ClientPacket {
     }
 
     public boolean isReceiveRequest(){
-        return (boolean) getElements()[0];
+        return isRequest;
     }
 }

@@ -5,10 +5,12 @@ import models.multiPlayer.packet.serverPacket.types.ServerPacketType;
 
 public class ServerBattleManagerPacket extends ServerPacket {
     private ServerBattleManagerPacketType battleManagerPacketType;
+    private boolean isRequest;
 
     public ServerBattleManagerPacket(ServerBattleManagerPacketType battleManagerPacketType, boolean isRequest, Object... elements) {
-        super(ServerPacketType.BATTLE_MANAGER, isRequest, elements);
+        super(ServerPacketType.BATTLE_MANAGER, elements);
         this.battleManagerPacketType = battleManagerPacketType;
+        this.isRequest = isRequest;
     }
 
     public ServerBattleManagerPacketType getBattleManagerPacketType() {
@@ -16,6 +18,6 @@ public class ServerBattleManagerPacket extends ServerPacket {
     }
 
     public boolean isReceiveRequest(){
-        return (boolean) getElements()[0];
+        return isRequest;
     }
 }

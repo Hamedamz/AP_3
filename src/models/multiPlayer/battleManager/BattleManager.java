@@ -34,24 +34,24 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
             case VIEW_S:
                 if(serverBattleManagerPacket.isReceiveRequest()) {
                     Server.getInstance().sendToID(new ClientBattleManagerPacket(VIEW_C, true, serverBattleManagerPacket.getID()),
-                            (String) serverBattleManagerPacket.getElements()[1]);
+                            (String) serverBattleManagerPacket.getElements()[0]);
                 } else {
-                    Server.getInstance().sendToID(new ClientBattleManagerPacket(VIEW_C, false, serverBattleManagerPacket.getElements()[2]),
-                            (String) serverBattleManagerPacket.getElements()[1]);
+                    Server.getInstance().sendToID(new ClientBattleManagerPacket(VIEW_C, false, serverBattleManagerPacket.getElements()[1]),
+                            (String) serverBattleManagerPacket.getElements()[0]);
                 }
                 break;
             case ATTACK_S:
                 if(serverBattleManagerPacket.isReceiveRequest()) {
                     Server.getInstance().sendToID(new ClientBattleManagerPacket(LOCK, true, serverBattleManagerPacket.getID()),
-                            (String) serverBattleManagerPacket.getElements()[1]);
+                            (String) serverBattleManagerPacket.getElements()[0]);
                 } else {
-                    Server.getInstance().sendToID(new ClientBattleManagerPacket(ATTACK_C, false, serverBattleManagerPacket.getElements()[2]),
-                            (String) serverBattleManagerPacket.getElements()[1]);
+                    Server.getInstance().sendToID(new ClientBattleManagerPacket(ATTACK_C, false, serverBattleManagerPacket.getElements()[1]),
+                            (String) serverBattleManagerPacket.getElements()[0]);
                 }
                 break;
             case END_ATTACK_S:
                 Server.getInstance().sendToID(new ClientBattleManagerPacket(END_ATTACK_C, false,
-                        serverBattleManagerPacket.getElements()[2]), (String) serverBattleManagerPacket.getElements()[1]);
+                        serverBattleManagerPacket.getElements()[1]), (String) serverBattleManagerPacket.getElements()[0]);
                 break;
         }
     }
@@ -63,15 +63,15 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
                 if (clientBattleManagerPacket.isReceiveRequest()) {
                     Client.getInstance().sendToServer(
                             new ServerBattleManagerPacket(VIEW_S, false,
-                                    clientBattleManagerPacket.getElements()[1],
+                                    clientBattleManagerPacket.getElements()[0],
                                     JsonHandler.villageToJson(Client.getInstance().getAccount().getMyVillage())
                             ));
                 } else {
-                    requestedVillage.set(JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[1]));
+                    requestedVillage.set(JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[0]));
                 }
                 break;
             case ATTACK_C:
-                requestedVillage.set(JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[1]));
+                requestedVillage.set(JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[0]));
                 break;
             case LOCK:
                 // TODO: 7/16/2018
