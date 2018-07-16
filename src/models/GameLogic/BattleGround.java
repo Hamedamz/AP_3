@@ -209,6 +209,7 @@ public class BattleGround {
     }
 
     public synchronized void endBattle() {
+        isGameFinished = true;
         for (Troop troop : deployedTroops) {
             if (unDeployedTroops.containsKey(troop.getClass().getSimpleName())) {
                 unDeployedTroops.get(troop.getClass().getSimpleName()).add(troop);
