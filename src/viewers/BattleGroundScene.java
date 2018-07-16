@@ -1,5 +1,7 @@
 package viewers;
 
+import models.ConnectionManager;
+import models.ConnectionType;
 import models.GameLogic.Entities.Buildings.GuardianGiant;
 import models.GameLogic.Entities.Entity;
 import models.interfaces.Attacker;
@@ -112,9 +114,7 @@ public class BattleGroundScene extends VillageScene {
         attackEndGlassPane = new AttackEndGlassPane();
         attackEndGlassPane.setVisible(false);
 
-        root.getChildren().clear();
-        root.getChildren().addAll(draggableView, battleInfo, settingsButton, quitButton, troopsScrollMenu, attackEndGlassPane, villageConsole, SliderMenu.getInstance());
-
+        setRoot();
         animationTimer = setAnimationTimer();
     }
 
@@ -254,13 +254,22 @@ public class BattleGroundScene extends VillageScene {
 
     public void reBuild() {
         build();
-        root.getChildren().clear();
-        root.getChildren().addAll(draggableView, battleInfo, settingsButton, quitButton, troopsScrollMenu, attackEndGlassPane, villageConsole, SliderMenu.getInstance());
+        setRoot();
         animationTimer.start();
     }
 
+    private void setRoot() {
+        ConnectionType connectionType = ConnectionManager.getInstance().getConnectionType();
+        root.getChildren().clear();
+        root.getChildren().addAll(draggableView, battleInfo, settingsButton, quitButton, troopsScrollMenu, attackEndGlassPane, villageConsole);
+        if (connectionType.equals(ConnectionType.SERVER) || connectionType.equals(ConnectionType.CLIENT)) {
+            root.getChildren().add(SliderMenu.getInstance());
+        }
+
+    }
+
     private void finishBattle() {
-        SoundPlayer.play(Sounds.winSound);  // FIXME: 7/13/18 how to know if we have won or lost?
+        SoundPlayer.play(Sounds.winSound);
         attackEndGlassPane.setProperties();
         attackEndGlassPane.setVisible(true);
     }

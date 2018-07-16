@@ -25,6 +25,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class AttackMenuGlassPane extends GlassPane {
+    private static AttackMenuGlassPane instance = new AttackMenuGlassPane();
+
+    public static AttackMenuGlassPane getInstance() {
+        return instance;
+    }
 
     private GameMap enemyMap;
 
@@ -197,7 +202,7 @@ public class AttackMenuGlassPane extends GlassPane {
         return AppGUI.getController().getWorld().getEnemyVillagesFileAndMap().get(file);
     }
 
-    private Resource getEnemyMapResourceStock(GameMap gameMap) {
+    public Resource getEnemyMapResourceStock(GameMap gameMap) {
         Resource resource = new Resource(0, 0);
         for (Building building : gameMap.getBuildings()) {
             if (building instanceof Storage) {
@@ -230,5 +235,25 @@ public class AttackMenuGlassPane extends GlassPane {
             number += troop.getValue();
         }
         return number;
+    }
+
+    public ProgressBarItem getTotalGoldProgressBar() {
+        return totalGoldProgressBar;
+    }
+
+    public ProgressBarItem getTotalElixirProgressBar() {
+        return totalElixirProgressBar;
+    }
+
+    public GridPane getTotalStock() {
+        return totalStock;
+    }
+
+    public TroopsScrollMenu getTroopsScrollMenu() {
+        return troopsScrollMenu;
+    }
+
+    public HashMap<String, Integer> getSelectedTroopsHashMap() {
+        return selectedTroopsHashMap;
     }
 }

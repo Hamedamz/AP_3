@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import models.ConnectionManager;
+import models.ConnectionType;
 import viewers.AppGUI;
 import viewers.MyVillageScene;
 import viewers.utils.Const;
@@ -97,6 +99,7 @@ public class NewGameMenu extends StackPane {
         newGameButton.setOnAction(event -> {
             SoundPlayer.play(Sounds.buttonSound);
             if (newGame()) {
+                ConnectionManager.getInstance().setConnectionType(ConnectionType.SINGLE_PLAYER);
                 AppGUI.loadVillageScene();
             }
         });

@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import models.ConnectionType;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Entity;
@@ -19,6 +20,7 @@ import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.ButtonActionType;
 import viewers.utils.fancyButtons.RoundFancyButton;
 import viewers.utils.fancyPopups.AttackMenuGlassPane;
+import viewers.utils.fancyPopups.AttackPreview;
 import viewers.utils.tiles.MapTile;
 
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class MyVillageScene extends VillageScene {
     private GridPane tiles;
     private IsometricPane isometricPane;
     private PriceTicket priceTicket;
+    private Pane previewPane;
 
     private MyVillageScene() {
         super();
@@ -97,7 +100,7 @@ public class MyVillageScene extends VillageScene {
         });
 
         // attack button
-        attackMenuGlassPane = new AttackMenuGlassPane();
+        attackMenuGlassPane = AttackMenuGlassPane.getInstance();
         attackMenuGlassPane.setProperties();
         attackMenuGlassPane.setVisible(false);
         attackButton = new RoundFancyButton(ButtonActionType.OPEN_ATTACK_MENU, "red");
@@ -109,7 +112,7 @@ public class MyVillageScene extends VillageScene {
             SoundPlayer.play(Sounds.buttonSound);
         });
 
-        reBuild();
+//        reBuild(connectionType);
         setAnimationTimer().start();
     }
 
@@ -193,11 +196,17 @@ public class MyVillageScene extends VillageScene {
         isometricPane.setVisible(visibility);
     }
 
-    public void reBuild() {
+    public void reBuild(ConnectionType connectionType) {
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton);
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton);
+        if (connectionType.equals(ConnectionType.SINGLE_PLAYER)) {
+            root.getChildren().addAll(attackMenuGlassPane, attackButton);
+        }
         root.getChildren().addAll(BuildingMenuController.getInstance().getMenus());
-        root.getChildren().addAll(villageConsole, SliderMenu.getInstance());
+        root.getChildren().addAll(villageConsole);
+        if (connectionType.equals(ConnectionType.CLIENT) || connectionType.equals(ConnectionType.SERVER)) {
+            root.getChildren().addAll(SliderMenu.getInstance());
+        }
     }
 
     public void showPriceTicket(String buildingType) {
@@ -225,11 +234,13 @@ public class MyVillageScene extends VillageScene {
         root.getChildren().add(i, pane);
     }
 
-    public void previewEnemyVillage(Village village) {
-        Pane preview = VillagePreviewScene.getPreview(village);
-        preview.setScaleX(0.7);
-        preview.setScaleY(0.7);
-        root.getChildren().add(preview);
+    public void previewEnemyVillage(Village village, String name) {
+        previewPane = new AttackPreview(name, village);
+        root.getChildren().add(previewPane);
+    }
+
+    public void closeEnemyPreview() {
+        root.getChildren().remove(previewPane);
     }
 
 }

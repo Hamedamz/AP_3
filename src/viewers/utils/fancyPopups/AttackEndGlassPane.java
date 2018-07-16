@@ -29,8 +29,7 @@ public class AttackEndGlassPane extends GlassPane {
 
         returnButton.setOnAction(event -> {
             SoundPlayer.play(Sounds.buttonSound);
-            MyVillageScene.getInstance().reBuild();
-            AppGUI.setStageScene(MyVillageScene.getInstance());
+            AppGUI.loadVillageScene();
         });
 
         body.getChildren().clear();

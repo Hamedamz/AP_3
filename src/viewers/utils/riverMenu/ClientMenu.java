@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import models.ConnectionManager;
 import models.ConnectionType;
@@ -14,6 +15,7 @@ import models.multiPlayer.utils.ClientConstants;
 import models.multiPlayer.utils.ServerConstants;
 import viewers.AppGUI;
 import viewers.utils.Const;
+import viewers.utils.StrokeText;
 import viewers.utils.fancyButtons.RoundButton;
 
 import java.net.InetAddress;
@@ -67,9 +69,11 @@ public class ClientMenu extends StackPane {
                     ConnectionManager.getInstance().setConnectionType(ConnectionType.CLIENT);
                     AppGUI.loadVillageScene();
                 } catch (UnknownHostException e) {
+                    log.setTextFill(Color.RED);
                     log.setText("Unable to Setup Connection");
                 }
             } catch (SocketException e) {
+                log.setTextFill(Color.RED);
                 log.setText("Client Setup Unsuccessful!");
             }
 
@@ -80,9 +84,9 @@ public class ClientMenu extends StackPane {
         this.setPrefSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
         this.setMaxSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
         gridPane = new GridPane();
-        gridPane.add(new Text("login"), 0,0);
-        gridPane.add(new Text("or"), 1,0);
-        gridPane.add(new Text("create new game"), 2,0);
+        gridPane.add(new StrokeText("login"), 0,0);
+        gridPane.add(new StrokeText("or"), 1,0);
+        gridPane.add(new StrokeText("create new"), 2,0);
         gridPane.add(loginMenu, 0,1);
         gridPane.add(newGameMenu, 2,1);
         gridPane.setVgap(Const.SPACING);

@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import models.ConnectionManager;
+import models.ConnectionType;
 import models.GameLogic.Exceptions.WrongPasswordException;
 import viewers.AppGUI;
 import viewers.MyVillageScene;
@@ -132,6 +134,7 @@ public class LoadGameMenu extends StackPane {
         logInButton.setOnAction(event -> {
             SoundPlayer.play(Sounds.buttonSound);
             if (sendLogInRequest()) {
+                ConnectionManager.getInstance().setConnectionType(ConnectionType.SINGLE_PLAYER);
                 AppGUI.loadVillageScene();
             }
         });
@@ -141,6 +144,7 @@ public class LoadGameMenu extends StackPane {
                 case ENTER:
                     if (checkInputs()) {
                         if (sendLogInRequest()) {
+                            ConnectionManager.getInstance().setConnectionType(ConnectionType.SINGLE_PLAYER);
                             AppGUI.loadVillageScene();
                         }
                     }

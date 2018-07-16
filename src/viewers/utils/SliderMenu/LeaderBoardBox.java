@@ -1,9 +1,11 @@
 package viewers.utils.SliderMenu;
 
+import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -11,6 +13,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import models.AccountInfo;
+import models.ConnectionManager;
+import models.ConnectionType;
+import models.GameLogic.BattleGround;
 import models.GameLogic.Village;
 import models.multiPlayer.Client;
 import models.multiPlayer.battleManager.BattleManager;
@@ -65,22 +70,22 @@ public class LeaderBoardBox extends Pane {
 
         chooseButton = new RoundButton("Choose Enemy", "yellow");
         cancelButton = new RoundButton("Cancel", "red");
-        cancelButton.setScaleX(0);
+        cancelButton.setVisible(false);
         viewButton = new RoundButton("View", "green");
-        viewButton.setScaleX(0);
+        viewButton.setVisible(false);
 
         chooseButton.setOnAction(event -> {
             lock = true;
-            chooseButton.setScaleX(0);
-            cancelButton.setScaleX(1);
-            viewButton.setScaleX(1);
+            chooseButton.setVisible(false);
+            cancelButton.setVisible(true);
+            viewButton.setVisible(true);
         });
 
         cancelButton.setOnAction(event -> {
             lock = false;
-            chooseButton.setScaleX(1);
-            cancelButton.setScaleX(0);
-            viewButton.setScaleX(0);
+            chooseButton.setVisible(true);
+            cancelButton.setVisible(false);
+            viewButton.setVisible(false);
         });
 
 
@@ -88,25 +93,31 @@ public class LeaderBoardBox extends Pane {
             AccountInfo selectedItem = table.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 Client.getInstance().sendToServer(new ServerBattleManagerPacket(ServerBattleManagerPacketType.VIEW_S, true, selectedItem.getId()));
-                BattleManager.getInstance().requestedVillageProperty().addListener(new ChangeListener<Village>() {
+                new AnimationTimer() {
                     @Override
-                    public void changed(ObservableValue<? extends Village> observable, Village oldValue, Village newValue) {
+                    public void handle(long now) {
                         Village village = BattleManager.getInstance().getRequestedVillage();
                         if (village != null) {
-                            System.out.println("ssss");
-                            AppGUI.getMyVillageScene().previewEnemyVillage(village);
+                            this.stop();
+                            BattleManager.getInstance().setRequestedAccount(selectedItem);
+                            AppGUI.getMyVillageScene().previewEnemyVillage(village, selectedItem.getName());
                         }
                     }
-                });
-
+                }.start();
             }
         });
 
-        HBox hBox = new HBox(Const.SPACING, viewButton, cancelButton, chooseButton);
-        hBox.setMinSize(Const.SLIDER_MENU_WIDTH * 2, HEIGHT * (1 - RATIO));
-        hBox.setId("glass-pane");
+        HBox buttons = new HBox(Const.SPACING, chooseButton, viewButton, cancelButton);
+        buttons.setMinSize(Const.SLIDER_MENU_WIDTH * 2, HEIGHT * (1 - RATIO));
+        buttons.setId("glass-pane");
+        buttons.setAlignment(Pos.CENTER);
 
-        this.getChildren().addAll(new VBox(table, hBox));
+        VBox leaderBoardBox = new VBox(table);
+        if (!ConnectionManager.getInstance().getConnectionType().equals(ConnectionType.SERVER)) {
+            leaderBoardBox.getChildren().add(buttons);
+        }
+
+        this.getChildren().addAll(leaderBoardBox);
     }
 
     public void refresh() {

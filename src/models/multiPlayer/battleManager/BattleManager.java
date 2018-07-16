@@ -4,6 +4,7 @@ import controllers.JsonHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableObjectValue;
+import models.AccountInfo;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Village;
 import models.multiPlayer.Client;
@@ -25,6 +26,7 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
     }
 
     private ObjectProperty<Village> requestedVillage = new SimpleObjectProperty<>();
+    private AccountInfo requestedAccount;
 
     private BattleManager() {
     }
@@ -89,5 +91,13 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
 
     public ObjectProperty<Village> requestedVillageProperty() {
         return requestedVillage;
+    }
+
+    public void setRequestedAccount(AccountInfo accountInfo) {
+        this.requestedAccount = accountInfo;
+    }
+
+    public AccountInfo getRequestedAccount() {
+        return requestedAccount;
     }
 }

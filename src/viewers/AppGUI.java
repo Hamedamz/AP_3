@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import models.ConnectionManager;
+import models.ConnectionType;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 
@@ -46,7 +48,7 @@ public class AppGUI extends Application {
             if (action.get() == ButtonType.OK) {
                 getController().saveGame();
             }
-
+            ConnectionManager.getInstance().disconnect();
         });
         getMainStage().show();
     }
@@ -59,7 +61,8 @@ public class AppGUI extends Application {
     }
 
     public static void loadVillageScene() {
-        MyVillageScene.getInstance().reBuild();
+        ConnectionType connectionType = ConnectionManager.getInstance().getConnectionType();
+        MyVillageScene.getInstance().reBuild(connectionType);
         AppGUI.setStageScene(MyVillageScene.getInstance());
         SoundPlayer.play(Sounds.loadSound);
         SoundPlayer.playBackground(Sounds.mainSound);

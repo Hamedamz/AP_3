@@ -55,11 +55,11 @@ public class HostMenu extends StackPane {
 
         setUpButton.setOnAction(event -> {
             SoundPlayer.play(Sounds.buttonSound);
-            // TODO: 7/14/2018 set up server if successful open host scene
             try {
                 Server.initServer(Integer.parseInt(portTextFiled.getText()));
                 ConnectionManager.getInstance().setConnectionType(ConnectionType.SERVER);
             } catch (SocketException e) {
+                log.setTextFill(Color.RED);
                 log.setText("Server Setup Unsuccessful!");
                 return;
             }
@@ -71,7 +71,6 @@ public class HostMenu extends StackPane {
         });
 
         log = new Label();
-        log.setId("error");
 
         this.setPrefSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
         this.setMaxSize(Const.RIVER_MENU_SIZE * 2, Const.WINDOW_HEIGHT);
