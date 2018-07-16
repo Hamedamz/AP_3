@@ -7,6 +7,7 @@ import com.gilecode.yagson.com.google.gson.FieldAttributes;
 import models.Account;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Troop.Troop;
+import models.GameLogic.GameMap;
 import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.Village;
@@ -118,44 +119,60 @@ public class JsonHandler {
         Controller.getController().getWorld().setMyVillagesNameAndFile(new HashMap<>());
     }
 
-    public static ArrayList<Building> loadEnemyVillageBuildingsFromFile(File mapFile) throws FileNotFoundException{
+    public static GameMap loadEnemyGameMapFromFile(File mapFile) throws FileNotFoundException{
         Account enemyAccount = loadAccountFromFile(mapFile);
         resetTroopsView(enemyAccount);
-        return enemyAccount.getMyVillage().getBuildings();
+        return enemyAccount.getMyVillage().getGameMap();
     }
 
-    public static ArrayList<Building> loadEnemyVillageBuildingsFromJson(String json){
-        Account enemyAccount = loadAccountFromJson(json);
-        resetTroopsView(enemyAccount);
-        return enemyAccount.getMyVillage().getBuildings();
-    }
+
 
     public static String villageToJson(Village village) {
         return gson.toJson(village);
     }
 
+    public static Village jsonToVillage(String jsonVillage) {
+        Village village = gson.fromJson(jsonVillage, Village.class);
+        resetBuildingsView(village);
+        resetBuildingsMaxLevel(village);
+        resetTroopsView(village);
+        return village;
+    }
+
+    public static void resetBuildingsView(Village village) {
+        for (Building building : village.getBuildings()) {
+            building.setImage();
+            building.updateViewPort();
+        }
+        for (Building building : village.getUnderConstructBuildings()) {
+            building.setImage();
+            building.updateViewPort();
+        }
+    }
+
 
     public static void resetBuildingsView(Account account) {
-        for (Building building : account.getMyVillage().getBuildings()) {
-            building.setImage();
-            building.updateViewPort();
-        }
-        for (Building building : account.getMyVillage().getUnderConstructBuildings()) {
-            building.setImage();
-            building.updateViewPort();
-        }
+        resetBuildingsView(account.getMyVillage());
+    }
+
+    private static void resetBuildingsMaxLevel(Village village) {
+        Building.setMaxLevel(village.getTownHall().getLevel());
     }
 
     public static void resetBuildingsMaxLevel(Account account) {
         Building.setMaxLevel(account.getMyVillage().getTownHall().getLevel());
     }
 
-    public static void resetTroopsView(Account account) {
-        for(Camp camp : account.getMyVillage().findBuildingsWithSameType(Camp.class)) {
+    public static void resetTroopsView(Village village) {
+        for(Camp camp : village.findBuildingsWithSameType(Camp.class)) {
             for (Troop troop : camp.getTroops()) {
                 troop.setImage();
             }
         }
+    }
+
+    public static void resetTroopsView(Account account) {
+        resetBuildingsView(account.getMyVillage());
     }
 
     private static String toStringJson(File mapFile) throws FileNotFoundException {
@@ -175,10 +192,6 @@ public class JsonHandler {
             return;
         }
         savePath.mkdirs();
-    }
-
-    public static Village jsonToVillage(String jsonVillage) {
-        return gson.fromJson(jsonVillage, Village.class);
     }
 
     private static Position extractPosition(JsonBuilding jsonBuilding) {

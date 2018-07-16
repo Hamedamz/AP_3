@@ -1,6 +1,5 @@
 package models;
 
-import controllers.Controller;
 import controllers.Exceptions.VillageAlreadyExists;
 import controllers.JsonHandler;
 import models.GameLogic.*;
@@ -89,10 +88,10 @@ public class World {
 
 
     public void loadEnemyMap(File file) throws java.io.FileNotFoundException {
-        ArrayList<Building> buildings = JsonHandler.loadEnemyVillageBuildingsFromFile(file);
-        GameMap gameMap = new GameMap(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
-        gameMap.setBuildings(buildings);
-        getEnemyVillagesFileAndMap().put(file, gameMap);
+//        ArrayList<Building> buildings = JsonHandler.loadEnemyGameMapFromFile(file);
+//        GameMap gameMap = new GameMap(GameLogicConfig.getFromDictionary("VillageWidth"), GameLogicConfig.getFromDictionary("VillageHeight"));
+//        gameMap.setBuildings(buildings);
+        getEnemyVillagesFileAndMap().put(file, JsonHandler.loadEnemyGameMapFromFile(file));
     }
 
 

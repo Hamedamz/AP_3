@@ -15,7 +15,7 @@ public class ClientBattleManagerPacket extends ClientPacket {
         return battleManagerPacketType;
     }
 
-    public boolean isServerRequest(){
+    public boolean isReceiveRequest(){
         return (boolean) getElements()[0];
     }
 }

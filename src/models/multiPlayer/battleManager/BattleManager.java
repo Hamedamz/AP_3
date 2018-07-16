@@ -1,17 +1,17 @@
 package models.multiPlayer.battleManager;
 
 import controllers.JsonHandler;
+import models.GameLogic.BattleGround;
 import models.GameLogic.Village;
 import models.multiPlayer.Client;
 import models.multiPlayer.Server;
-import models.multiPlayer.packet.Packet;
 import models.multiPlayer.packet.clientPacket.ClientBattleManagerPacket;
 import models.multiPlayer.packet.serverPacket.ServerBattleManagerPacket;
 import models.multiPlayer.runnables.ClientPacketListener;
 import models.multiPlayer.runnables.ServerPacketListener;
 
-import static models.multiPlayer.packet.clientPacket.types.ClientBattleManagerPacketType.VIEW_C;
-import static models.multiPlayer.packet.serverPacket.types.ServerBattleManagerPacketType.VIEW_S;
+import static models.multiPlayer.packet.clientPacket.types.ClientBattleManagerPacketType.*;
+import static models.multiPlayer.packet.serverPacket.types.ServerBattleManagerPacketType.*;
 
 public class BattleManager implements ClientPacketListener<ClientBattleManagerPacket>,
         ServerPacketListener<ServerBattleManagerPacket> {
@@ -29,7 +29,7 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
     public void receive(ServerBattleManagerPacket serverBattleManagerPacket) {
         switch (serverBattleManagerPacket.getBattleManagerPacketType()) {
             case VIEW_S:
-                if(serverBattleManagerPacket.isClientRequest()) {
+                if(serverBattleManagerPacket.isReceiveRequest()) {
                     Server.getInstance().sendToID(new ClientBattleManagerPacket(VIEW_C, true, serverBattleManagerPacket.getID()),
                             (String) serverBattleManagerPacket.getElements()[1]);
                 } else {
@@ -38,9 +38,17 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
                 }
                 break;
             case ATTACK_S:
-                if(serverBattleManagerPacket.isClientRequest()) {
-
+                if(serverBattleManagerPacket.isReceiveRequest()) {
+                    Server.getInstance().sendToID(new ClientBattleManagerPacket(LOCK, true, serverBattleManagerPacket.getID()),
+                            (String) serverBattleManagerPacket.getElements()[1]);
+                } else {
+                    Server.getInstance().sendToID(new ClientBattleManagerPacket(ATTACK_C, false, serverBattleManagerPacket.getElements()[2]),
+                            (String) serverBattleManagerPacket.getElements()[1]);
                 }
+                break;
+            case END_ATTACK_S:
+                Server.getInstance().sendToID(new ClientBattleManagerPacket(END_ATTACK_C, false,
+                        serverBattleManagerPacket.getElements()[2]), (String) serverBattleManagerPacket.getElements()[1]);
                 break;
         }
     }
@@ -49,7 +57,7 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
     public void receive(ClientBattleManagerPacket clientBattleManagerPacket) {
         switch (clientBattleManagerPacket.getBattleManagerPacketType()) {
             case VIEW_C:
-                if (clientBattleManagerPacket.isServerRequest()) {
+                if (clientBattleManagerPacket.isReceiveRequest()) {
                     Client.getInstance().sendToServer(
                             new ServerBattleManagerPacket(VIEW_S, false,
                                     clientBattleManagerPacket.getElements()[1],
@@ -60,15 +68,18 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
                 }
                 break;
             case ATTACK_C:
-                // TODO: 7/16/2018
+                requestedVillage = JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[1]);
                 break;
             case LOCK:
+                // TODO: 7/16/2018
+                break;
+            case END_ATTACK_C:
                 // TODO: 7/16/2018
                 break;
         }
     }
 
-    public Village pollRequestedVillage() {
+    public Village peekRequestedVillage() {
         Village village = requestedVillage;
         requestedVillage = null;
         return village;

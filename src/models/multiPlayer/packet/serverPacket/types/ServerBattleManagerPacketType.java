@@ -7,5 +7,6 @@ package models.multiPlayer.packet.serverPacket.types;
  */
 public enum ServerBattleManagerPacketType {
     VIEW_S,
-    ATTACK_S;
+    ATTACK_S,
+    END_ATTACK_S;
 }
