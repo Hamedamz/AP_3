@@ -115,4 +115,8 @@ public class Server extends PacketHandler implements ServerPacketListener<Server
         addressMap.remove(id);
         LeaderBoard.getInstance().removeInfo(id);
     }
+
+    public void disconnect() {
+        receiverThread.interrupt();
+    }
 }
