@@ -39,6 +39,7 @@ public class MyVillageScene extends VillageScene {
     private IsometricPane isometricPane;
     private PriceTicket priceTicket;
     private Pane previewPane;
+    private Button selectedBuilding;
 
     private MyVillageScene() {
         super();
@@ -165,20 +166,24 @@ public class MyVillageScene extends VillageScene {
         button.setOnMouseEntered(event -> buildingHolder.getGlow().setLevel(0.5));
         button.setOnMouseExited(event -> buildingHolder.getGlow().setLevel(0));
         button.setOnAction(event -> {
+            selectedBuilding = button;
             BuildingMenuController.getInstance().handleClickOnBuilding((Building) entity);
             SoundPlayer.play(entity);
         });
         button.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case ENTER:
+                    selectedBuilding = button;
                     BuildingMenuController.getInstance().handleClickOnBuilding((Building) entity);
                     SoundPlayer.play(entity);
                     break;
                 case I:
+                    selectedBuilding = button;
                     BuildingMenuController.getInstance().setBuilding((Building) entity);
                     BuildingMenuController.getInstance().handleClickOnButton(ButtonActionType.OPEN_INFO_POPUP);
                     break;
                 case U:
+                    selectedBuilding = button;
                     BuildingMenuController.getInstance().setBuilding((Building) entity);
                     BuildingMenuController.getInstance().handleClickOnButton(ButtonActionType.OPEN_UPGRADE_POPUP);
                     break;
@@ -229,8 +234,7 @@ public class MyVillageScene extends VillageScene {
 
     public void lockVillage() {
         int i = root.getChildren().lastIndexOf(SliderMenu.getInstance());
-        Pane pane = new Pane();
-        pane.setMinSize(Const.WINDOW_HEIGHT, Const.WINDOW_HEIGHT);
+        Pane pane = new VillageLockPane();
         root.getChildren().add(i, pane);
     }
 
@@ -241,6 +245,12 @@ public class MyVillageScene extends VillageScene {
 
     public void closeEnemyPreview() {
         root.getChildren().remove(previewPane);
+    }
+
+    public void focusOnSelectedBuilding() {
+        if (selectedBuilding != null) {
+            selectedBuilding.requestFocus();
+        }
     }
 
 }
