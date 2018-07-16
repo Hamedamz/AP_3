@@ -74,10 +74,11 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
                 requestedVillage.set(JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[0]));
                 break;
             case LOCK:
-                // TODO: 7/16/2018
+                // TODO: 7/16/2018 lock
+                requestedVillage.set(JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[0]));
                 break;
             case END_ATTACK_C:
-                // TODO: 7/16/2018
+                // TODO: 7/16/2018 merging villages
                 break;
         }
     }
