@@ -193,7 +193,8 @@ public class MyVillageScene extends VillageScene {
 
     public void reBuild() {
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton, villageConsole, SliderMenu.getInstance());
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton);
         root.getChildren().addAll(BuildingMenuController.getInstance().getMenus());
+        root.getChildren().addAll(villageConsole, SliderMenu.getInstance());
     }
 }
