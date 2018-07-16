@@ -17,6 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import models.GameLogic.Entities.Buildings.Building;
+import viewers.AppGUI;
 import viewers.utils.Const;
 import viewers.utils.ImageLibrary;
 import viewers.utils.SoundPlayer;
@@ -102,5 +103,6 @@ public abstract class FancyPopup extends Pane {
             animationTimer.stop();
         }
         BuildingMenuController.getInstance().toggleActiveMenu();
+        AppGUI.getMyVillageScene().focusOnSelectedBuilding();
     }
 }

@@ -39,6 +39,7 @@ public class MyVillageScene extends VillageScene {
     private IsometricPane isometricPane;
     private PriceTicket priceTicket;
     private Pane previewPane;
+    private Button selectedBuilding;
 
     private MyVillageScene() {
         super();
@@ -165,12 +166,14 @@ public class MyVillageScene extends VillageScene {
         button.setOnMouseEntered(event -> buildingHolder.getGlow().setLevel(0.5));
         button.setOnMouseExited(event -> buildingHolder.getGlow().setLevel(0));
         button.setOnAction(event -> {
+            selectedBuilding = button;
             BuildingMenuController.getInstance().handleClickOnBuilding((Building) entity);
             SoundPlayer.play(entity);
         });
         button.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case ENTER:
+                    selectedBuilding = button;
                     BuildingMenuController.getInstance().handleClickOnBuilding((Building) entity);
                     SoundPlayer.play(entity);
                     break;
@@ -241,6 +244,12 @@ public class MyVillageScene extends VillageScene {
 
     public void closeEnemyPreview() {
         root.getChildren().remove(previewPane);
+    }
+
+    public void focusOnSelectedBuilding() {
+        if (selectedBuilding != null) {
+            selectedBuilding.requestFocus();
+        }
     }
 
 }
