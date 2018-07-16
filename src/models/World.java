@@ -9,6 +9,7 @@ import models.GameLogic.Exceptions.TroopNotFoundException;
 import models.setting.GameLogicConfig;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -35,6 +36,20 @@ public class World {
 
     public HashMap<File, GameMap> getEnemyVillagesFileAndMap() {
         return enemyVillagesFileAndMap;
+    }
+
+    public Account getEnemyAccount(GameMap gameMap) {
+        Account enemyAccount = null;
+        for (File file : enemyVillagesFileAndMap.keySet()) {
+            if (enemyVillagesFileAndMap.get(file) == gameMap) {
+                try {
+                    enemyAccount = JsonHandler.loadAccountFromFile(file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return enemyAccount;
     }
 
     public Village getMyVillage() {
