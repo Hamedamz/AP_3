@@ -51,7 +51,6 @@ public abstract class DefensiveBuilding extends Building implements Attacker {
     public void upgrade() throws UpgradeLimitReachedException {
         super.upgrade();
         damage += GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeDamageAddition");
-        hitPoints += GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeHitPointsAddition");
     }
 
     protected int attackCounter;
