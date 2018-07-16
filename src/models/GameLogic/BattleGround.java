@@ -1,6 +1,7 @@
 package models.GameLogic;
 
 import models.Account;
+import models.AccountInfo;
 import models.interfaces.Effector;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Defender;
@@ -26,7 +27,7 @@ public class BattleGround {
     private ArrayList<Building> enemyBuildings;
     private ArrayList<Troop> deployedTroops;
     private HashMap<String, ArrayList<Troop>> unDeployedTroops;
-    private Account enemyAccount;
+    private AccountInfo enemyAccountInfo;
 
     private Bounty thisLootedBounty;
 
@@ -36,7 +37,7 @@ public class BattleGround {
 
     private boolean isWallDestroyed;
     public BattleGround(Village myVillage, GameMap enemyGameMap) {
-        enemyAccount = AppGUI.getController().getWorld().getEnemyAccount(enemyGameMap);
+        enemyAccountInfo = AppGUI.getController().getWorld().getEnemyAccount(enemyGameMap).getInfo();
         numberOfTroopsDeployed = new int[enemyGameMap.getMapWidth()][enemyGameMap.getMapWidth()];
         deployedTroops = new ArrayList<>();
         enemyBuildings = new ArrayList<>(enemyGameMap.getBuildings());
