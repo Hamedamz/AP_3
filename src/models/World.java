@@ -99,9 +99,8 @@ public class World {
         return gameEngine;
     } // FIXME: 5/8/2018 gameEngine must not be passed
 
-    public void attackMap(GameMap gameMap) {
-        battleGround = new BattleGround(getMyVillage(), gameMap);
-        gameEngine.loadBattleGround();
+    public void setBattleGround(BattleGround battleGround) {
+        this.battleGround = battleGround;
     }
 
     public void sendTroopToAttack(String troopType, int count) throws TroopNotFoundException {

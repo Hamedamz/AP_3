@@ -243,10 +243,15 @@ public class Controller {
     }
 
     public void setEnemyMap(GameMap enemyMap) {
-        controller.world.attackMap(enemyMap);
+        controller.attackMap(enemyMap);
 
         // for console
         battleGroundViewer.setBattleGround(controller.world.getBattleGround());
+    }
+
+    public void attackMap(GameMap gameMap) {
+        controller.world.setBattleGround(new BattleGround(controller.world.getMyVillage(), gameMap));
+        controller.world.getGameEngine().loadBattleGround();
     }
 
     public void startAttack() {
