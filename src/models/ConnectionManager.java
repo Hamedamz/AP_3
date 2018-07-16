@@ -84,10 +84,15 @@ public class ConnectionManager implements ClientPacketListener<ClientConnectionP
         disConnectedIds.remove(serverConnectionPacket.getID());
     }
 
-    private synchronized void disconnect() {
-        setConnectionType(ConnectionType.NONE);
+    public synchronized void disconnect() {
         connectionTimeout = 0;
-        Client.getInstance().disconnect();
+        if(connectionType.equals(ConnectionType.CLIENT)) {
+            Client.getInstance().disconnect();
+        }
+        if(connectionType.equals(ConnectionType.SERVER)) {
+            Server.getInstance().disconnect();
+        }
+        setConnectionType(ConnectionType.NONE);
         // TODO: 7/16/2018
     }
 
