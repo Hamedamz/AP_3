@@ -1,36 +1,43 @@
-package viewers;
+package viewers.oldScenes;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import viewers.AppGUI;
+import viewers.MyVillageScene;
 import viewers.utils.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static viewers.utils.Const.WINDOW_HEIGHT;
 import static viewers.utils.Const.WINDOW_WIDTH;
 
-public class MultiPlayerGameScene extends Scene {
-    private static MultiPlayerGameScene instance = new MultiPlayerGameScene();
+public class SinglePlayerGameScene extends Scene {
+    private static SinglePlayerGameScene instance = new SinglePlayerGameScene();
 
-    private MultiPlayerGameScene() {
+    private SinglePlayerGameScene() {
         super(new Group(), WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
         Group root = (Group) getRoot();
-        Button hostButton = new Button("Host");
-        Button joinButton = new Button("Join");
+        Button newGameButton = new Button("New Game");
+        Button loadGameButton = new Button("Load Game");
         Button backButton = new Button("Back");
 
-        VBox vBox = new VBox(hostButton, joinButton, backButton);
+        HBox hBox = new HBox(newGameButton, loadGameButton, backButton);
 
-        root.getChildren().addAll(vBox);
+        root.getChildren().addAll(hBox);
 
-        hostButton.setOnAction(event -> {
-
+        newGameButton.setOnAction(event -> {
+            MyVillageScene.getInstance().reBuild();
+            AppGUI.setStageScene(MyVillageScene.getInstance());
+            loadStage();
         });
 
-        joinButton.setOnAction(event -> {
+        loadGameButton.setOnAction(event -> {
             PopupPane menuPane = new PopupPane(AppGUI.getMainStage());
             menuPane.setLayoutX(WINDOW_WIDTH/3);
             menuPane.setLayoutY(WINDOW_HEIGHT/3);
@@ -57,13 +64,30 @@ public class MultiPlayerGameScene extends Scene {
             Button cancelButton = new Button("Cancel");
 
             loadButton.setOnAction(event1 -> {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setInitialDirectory(new File("savedMaps"));
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("jSon files", "*.json"));
+                List<File> selectedFiles = fileChooser.showOpenMultipleDialog(AppGUI.getMainStage());
+                if (selectedFiles != null) {
+                    for (File selectedFile : selectedFiles) {
+                        try {
+                            AppGUI.getController().loadGameFromFile(selectedFile);
+                            MyVillageScene.getInstance().reBuild();
+                            AppGUI.setStageScene(MyVillageScene.getInstance());
+                            loadStage();
+                        } catch (FileNotFoundException e) {
+                            AppGUI.getMyVillageScene().handleException(e);
+                        }
+                    }
+                }
 //                try {
 //                    if (loadingVillageName.get() != null) {
-//                        AppGUI.getController().loadGame(loadingVillageName.get());  // FIXME: 7/14/18 hamedamz
-////                        loadStage();
+//                     //   AppGUI.getController().loadGame(AppGUI.getController().getWorld().getMyVillagesNameAndFile().get(loadingVillageName.get()));
+//                        // FIXME: 7/10/18 correct above
+//                        //loadStage();
 //                    }
 //                    // FIXME: 7/9/2018
-//                } catch (FileNotFoundException e) {
+//                } catch (Exception e) {
 //                    e.printStackTrace();
 //                }
             });
@@ -76,9 +100,11 @@ public class MultiPlayerGameScene extends Scene {
         backButton.setOnAction(event -> {
             AppGUI.setStageScene(GameScene.getInstance());
         });
+
+
     }
 
-    public static MultiPlayerGameScene getInstance() {
+    public static SinglePlayerGameScene getInstance() {
         return instance;
     }
 

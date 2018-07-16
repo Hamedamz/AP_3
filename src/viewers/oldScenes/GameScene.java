@@ -1,9 +1,10 @@
-package viewers;
+package viewers.oldScenes;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import viewers.AppGUI;
 import viewers.utils.Const;
 
 public class GameScene extends Scene {

@@ -1,41 +1,36 @@
-package viewers;
+package viewers.oldScenes;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.stage.FileChooser;
+import javafx.scene.layout.VBox;
+import viewers.AppGUI;
 import viewers.utils.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static viewers.utils.Const.WINDOW_HEIGHT;
 import static viewers.utils.Const.WINDOW_WIDTH;
 
-public class SinglePlayerGameScene extends Scene {
-    private static SinglePlayerGameScene instance = new SinglePlayerGameScene();
+public class MultiPlayerGameScene extends Scene {
+    private static MultiPlayerGameScene instance = new MultiPlayerGameScene();
 
-    private SinglePlayerGameScene() {
+    private MultiPlayerGameScene() {
         super(new Group(), WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
         Group root = (Group) getRoot();
-        Button newGameButton = new Button("New Game");
-        Button loadGameButton = new Button("Load Game");
+        Button hostButton = new Button("Host");
+        Button joinButton = new Button("Join");
         Button backButton = new Button("Back");
 
-        HBox hBox = new HBox(newGameButton, loadGameButton, backButton);
+        VBox vBox = new VBox(hostButton, joinButton, backButton);
 
-        root.getChildren().addAll(hBox);
+        root.getChildren().addAll(vBox);
 
-        newGameButton.setOnAction(event -> {
-            MyVillageScene.getInstance().reBuild();
-            AppGUI.setStageScene(MyVillageScene.getInstance());
-            loadStage();
+        hostButton.setOnAction(event -> {
+
         });
 
-        loadGameButton.setOnAction(event -> {
+        joinButton.setOnAction(event -> {
             PopupPane menuPane = new PopupPane(AppGUI.getMainStage());
             menuPane.setLayoutX(WINDOW_WIDTH/3);
             menuPane.setLayoutY(WINDOW_HEIGHT/3);
@@ -62,30 +57,13 @@ public class SinglePlayerGameScene extends Scene {
             Button cancelButton = new Button("Cancel");
 
             loadButton.setOnAction(event1 -> {
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setInitialDirectory(new File("savedMaps"));
-                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("jSon files", "*.json"));
-                List<File> selectedFiles = fileChooser.showOpenMultipleDialog(AppGUI.getMainStage());
-                if (selectedFiles != null) {
-                    for (File selectedFile : selectedFiles) {
-                        try {
-                            AppGUI.getController().loadGameFromFile(selectedFile);
-                            MyVillageScene.getInstance().reBuild();
-                            AppGUI.setStageScene(MyVillageScene.getInstance());
-                            loadStage();
-                        } catch (FileNotFoundException e) {
-                            AppGUI.getMyVillageScene().handleException(e);
-                        }
-                    }
-                }
 //                try {
 //                    if (loadingVillageName.get() != null) {
-//                     //   AppGUI.getController().loadGame(AppGUI.getController().getWorld().getMyVillagesNameAndFile().get(loadingVillageName.get()));
-//                        // FIXME: 7/10/18 correct above
-//                        //loadStage();
+//                        AppGUI.getController().loadGame(loadingVillageName.get());  // FIXME: 7/14/18 hamedamz
+////                        loadStage();
 //                    }
 //                    // FIXME: 7/9/2018
-//                } catch (Exception e) {
+//                } catch (FileNotFoundException e) {
 //                    e.printStackTrace();
 //                }
             });
@@ -98,11 +76,9 @@ public class SinglePlayerGameScene extends Scene {
         backButton.setOnAction(event -> {
             AppGUI.setStageScene(GameScene.getInstance());
         });
-
-
     }
 
-    public static SinglePlayerGameScene getInstance() {
+    public static MultiPlayerGameScene getInstance() {
         return instance;
     }
 

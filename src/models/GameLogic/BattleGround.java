@@ -1,5 +1,7 @@
 package models.GameLogic;
 
+import models.Account;
+import models.AccountInfo;
 import models.interfaces.Effector;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Defender;
@@ -9,6 +11,8 @@ import models.GameLogic.Exceptions.CountLimitReachedException;
 import models.GameLogic.Exceptions.InvalidPositionException;
 import models.GameLogic.Exceptions.TroopNotFoundException;
 import models.setting.GameLogicConfig;
+import viewers.AppGUI;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,6 +27,7 @@ public class BattleGround {
     private ArrayList<Building> enemyBuildings;
     private ArrayList<Troop> deployedTroops;
     private HashMap<String, ArrayList<Troop>> unDeployedTroops;
+    private AccountInfo enemyAccountInfo;
 
     private Bounty thisLootedBounty;
 
@@ -32,6 +37,7 @@ public class BattleGround {
 
     private boolean isWallDestroyed;
     public BattleGround(Village myVillage, GameMap enemyGameMap) {
+        enemyAccountInfo = AppGUI.getController().getWorld().getEnemyAccount(enemyGameMap).getInfo();
         numberOfTroopsDeployed = new int[enemyGameMap.getMapWidth()][enemyGameMap.getMapWidth()];
         deployedTroops = new ArrayList<>();
         enemyBuildings = new ArrayList<>(enemyGameMap.getBuildings());
@@ -203,6 +209,7 @@ public class BattleGround {
     }
 
     public synchronized void endBattle() {
+        isGameFinished = true;
         for (Troop troop : deployedTroops) {
             if (unDeployedTroops.containsKey(troop.getClass().getSimpleName())) {
                 unDeployedTroops.get(troop.getClass().getSimpleName()).add(troop);

@@ -42,8 +42,8 @@ public class BuildingMenu extends StackPane {
             buttonsContainer.getChildren().add(new BuildingMenuFancyButton(actions[i]));
         }
         content.add(new StackPane(title), 0, 0, actions.length, 1);
-        this.setPrefWidth(Const.WINDOW_WIDTH);
-        this.setLayoutX(0);
+        this.setPrefWidth(Const.WINDOW_WIDTH - 200);
+        this.setLayoutX(100);
         this.setLayoutY(Const.WINDOW_HEIGHT - 150);
         this.getChildren().add(content);
         this.hide();

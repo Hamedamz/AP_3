@@ -83,13 +83,14 @@ public class MyVillageScene extends VillageScene {
         totalStock.setPadding(new Insets(Const.SPACING));
 
         // building shop
-        shopScrollMenu = new ShopScrollMenu(ButtonActionType.TOWERS);
+        shopScrollMenu = ShopScrollMenu.getInstance();
         shopScrollMenu.setVisible(false);
         buildButton = new RoundFancyButton(ButtonActionType.OPEN_BUILD_MENU, "red");
         buildButton.setLayoutX(Const.WINDOW_WIDTH - 80);
         buildButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
         buildButton.setOnMouseClicked(event -> {
-            toggleVisibility(shopScrollMenu);
+            BuildingMenuController.getInstance().hideActiveMenu();
+            shopScrollMenu.toggleView();
             SoundPlayer.play(Sounds.buttonSound);
         });
 
@@ -101,6 +102,7 @@ public class MyVillageScene extends VillageScene {
         attackButton.setLayoutX(Const.SPACING * 3);
         attackButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
         attackButton.setOnMouseClicked(event -> {
+            BuildingMenuController.getInstance().hideActiveMenu();
             attackMenuGlassPane.toggleVisibility();
             SoundPlayer.play(Sounds.buttonSound);
         });
