@@ -1,6 +1,5 @@
 package models.multiPlayer;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import models.ConnectionManager;
 import models.ConnectionType;
 import models.multiPlayer.battleManager.BattleManager;
@@ -11,8 +10,8 @@ import models.multiPlayer.packet.serverPacket.ServerBattleManagerPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
 import models.multiPlayer.packet.serverPacket.ServerLeaderBoardPacket;
 import models.multiPlayer.packet.serverPacket.ServerPacket;
-import models.multiPlayer.runnables.PacketListener;
-import models.AccountInfo;
+import models.multiPlayer.runnables.ClientPacketListener;
+import models.multiPlayer.runnables.ServerPacketListener;
 import models.multiPlayer.utils.FullAddress;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ import java.net.SocketException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Server extends PacketHandler implements PacketListener<ServerPacket> {
+public class Server extends PacketHandler implements ServerPacketListener<ServerPacket> {
     private static Server instance;
 
     private Server(){

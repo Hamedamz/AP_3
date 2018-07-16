@@ -10,18 +10,17 @@ import models.multiPlayer.packet.clientPacket.ClientBattleManagerPacket;
 import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.clientPacket.ClientLeaderBoardPacket;
 import models.multiPlayer.packet.clientPacket.ClientPacket;
-import models.multiPlayer.packet.serverPacket.ServerBattleManagerPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
 import models.multiPlayer.packet.serverPacket.types.ServerChatPacketType;
 import models.multiPlayer.packet.serverPacket.ServerPacket;
-import models.multiPlayer.runnables.PacketListener;
+import models.multiPlayer.runnables.ClientPacketListener;
 import models.multiPlayer.utils.FullAddress;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketException;
 
-public class Client extends PacketHandler implements PacketListener<ClientPacket> {
+public class Client extends PacketHandler implements ClientPacketListener<ClientPacket> {
 
     private static Client instance;
 

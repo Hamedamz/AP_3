@@ -12,7 +12,7 @@ import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.chatRoom.Message;
 import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
-import models.multiPlayer.runnables.PacketListener;
+import models.multiPlayer.runnables.ClientPacketListener;
 import viewers.utils.Const;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
@@ -24,7 +24,7 @@ import static models.ConnectionType.CLIENT;
 import static models.ConnectionType.SERVER;
 import static models.multiPlayer.packet.serverPacket.types.ServerChatPacketType.SEND;
 
-public class ChatBox extends Pane implements PacketListener<ClientChatPacket> {
+public class ChatBox extends Pane implements ClientPacketListener<ClientChatPacket> {
     public static final double RATIO = 0.9;
     public static final double HEIGHT = (Const.WINDOW_HEIGHT - Const.SLIDER_MENU_TAB_HEIGHT);
 

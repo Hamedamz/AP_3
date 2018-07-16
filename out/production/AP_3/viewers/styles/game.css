@@ -20,9 +20,17 @@
     -fx-opacity: .2;
 }
 
-#popup-wrapper {
-    -fx-background-color: rgba(255, 255, 255, 0.8);
-    -fx-background-radius: 30;
+#entity-image-holder, #building-image-holder {
+    -fx-background-color: transparent;
+}
+
+#building-image-holder:focused {
+    -fx-effect: innershadow( three-pass-box , rgba(9, 202, 255, 1), 10, 0.2 , 0 , 1 );
+
+}
+
+#popup-view *.text{
+    -fx-text-fill: white;
 }
 
 #scroll-menu {
@@ -42,18 +50,11 @@
 }
 
 #popup-title {
-    -fx-background-color: linear-gradient(#ffd65b, #e68400),
-    linear-gradient(#ffef84, #f2ba44),
-    linear-gradient(#ffea6a, #efaa22),
-    linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
-    linear-gradient(from 0% 0% to 15% 50%, rgba(255, 248, 169, 0.9), rgba(255, 255, 255, 0));
-    -fx-background-radius: 30;
-    -fx-background-insets: 0, 1, 2, 3, 0;
-    -fx-text-fill: #654b00;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 14;
+    -fx-font-size: 18;
     -fx-padding: 10 20 10 20;
-
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1), 1, 10, 0, 0);
 }
 
 #yellow-fancy-button {
@@ -66,7 +67,7 @@
     radial-gradient(center 50% 50%, radius 100%, #ffdd09, #fcc309);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0, 0, 1);
     -fx-font-weight: bold;
-    -fx-font-size: 12;
+    -fx-font-size: 10;
 }
 
 #red-fancy-button {
@@ -104,6 +105,10 @@
     -fx-background-insets: 0;
     -fx-text-fill: white;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 2, 0, 0, 1);
+}
+
+#red-round-button:focused, #green-round-button:focused, #yellow-round-button:focused {
+    -fx-effect: dropshadow(gaussian, rgba(9, 202, 255, 1), 2, 0, 0, 1);
 }
 
 #green-round-button .text, #red-round-button .text, #yellow-round-button .text, #stroke-text {
@@ -208,12 +213,78 @@
 }
 
 .tab-pane .tab {
-    -fx-background-color: rgba(0, 0, 0, 0.35);
+    -fx-background-color: rgba(0, 0, 0, 0.5);
     -fx-background-insets: 0, 0 0 1 0;
+}
 
+.tab-pane .tab:selected, .tab-pane .tab:focused {
+    -fx-background-color: rgba(0, 0, 0, 0.35);
 }
 
 .tab .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: white;
+}
+
+.table-view{
+    -fx-background-color: rgba(0,0,0,0.8);
+}
+
+.table-view:focused{
+    -fx-background-color: rgba(0,0,0,0.8);
+}
+
+.table-view .column-header-background{
+    -fx-background-color: transparent;
+    -fx-padding: 5 0 5 0;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: white;
+    -fx-background-insets: 0;
+}
+
+.table-column {
+    -fx-background-insets: 0;
+}
+
+.table-row-cell{
+    -fx-background-color: rgba(0,0,0, 0.3);
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgba(9, 202, 255, 1);
+}
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background,
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button,
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
 }

@@ -6,12 +6,14 @@ import models.multiPlayer.Server;
 import models.multiPlayer.packet.Packet;
 import models.multiPlayer.packet.clientPacket.ClientBattleManagerPacket;
 import models.multiPlayer.packet.serverPacket.ServerBattleManagerPacket;
-import models.multiPlayer.runnables.PacketListener;
+import models.multiPlayer.runnables.ClientPacketListener;
+import models.multiPlayer.runnables.ServerPacketListener;
 
 import static models.multiPlayer.packet.clientPacket.types.ClientBattleManagerPacketType.VIEW_C;
 import static models.multiPlayer.packet.serverPacket.types.ServerBattleManagerPacketType.VIEW_S;
 
-public class BattleManager implements PacketListener<Packet> {
+public class BattleManager implements ClientPacketListener<ClientBattleManagerPacket>,
+        ServerPacketListener<ServerBattleManagerPacket> {
     private static BattleManager ourInstance = new BattleManager();
 
     public static BattleManager getInstance() {
@@ -38,6 +40,7 @@ public class BattleManager implements PacketListener<Packet> {
         }
     }
 
+    @Override
     public void receive(ClientBattleManagerPacket clientBattleManagerPacket) {
         switch (clientBattleManagerPacket.getBattleManagerPacketType()) {
             case VIEW_C:
@@ -60,9 +63,4 @@ public class BattleManager implements PacketListener<Packet> {
         }
     }
 
-
-    @Override
-    public void receive(Packet packet) {
-        System.err.println("Invalid Packet at BattleManager: " + packet.getClass().getSimpleName());
-    }
 }

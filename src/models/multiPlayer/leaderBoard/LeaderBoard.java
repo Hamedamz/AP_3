@@ -6,14 +6,16 @@ import models.multiPlayer.packet.Packet;
 import models.multiPlayer.packet.clientPacket.ClientLeaderBoardPacket;
 import models.multiPlayer.packet.clientPacket.types.ClientLeaderBoardPacketType;
 import models.multiPlayer.packet.serverPacket.ServerLeaderBoardPacket;
-import models.multiPlayer.runnables.PacketListener;
+import models.multiPlayer.runnables.ClientPacketListener;
+import models.multiPlayer.runnables.ServerPacketListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class LeaderBoard implements PacketListener<Packet> {
+public class LeaderBoard implements ClientPacketListener<ClientLeaderBoardPacket>,
+        ServerPacketListener<ServerLeaderBoardPacket> {
     private static LeaderBoard instance = new LeaderBoard();
 
     public static LeaderBoard getInstance() {
@@ -59,11 +61,6 @@ public class LeaderBoard implements PacketListener<Packet> {
                     break;
             }
         }
-    }
-
-    @Override
-    public void receive(Packet packet) {
-        System.err.println("Invalid Packet in LeaderBoard: " + packet.getClass().getSimpleName());
     }
 
     public synchronized void updateInfo(AccountInfo accountInfo) {

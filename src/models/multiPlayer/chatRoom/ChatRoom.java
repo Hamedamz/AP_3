@@ -4,7 +4,8 @@ import models.multiPlayer.Server;
 import models.multiPlayer.packet.Packet;
 import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
-import models.multiPlayer.runnables.PacketListener;
+import models.multiPlayer.runnables.ClientPacketListener;
+import models.multiPlayer.runnables.ServerPacketListener;
 import models.multiPlayer.utils.ServerConstants;
 
 import java.util.LinkedList;
@@ -12,7 +13,7 @@ import java.util.LinkedList;
 import static models.multiPlayer.packet.clientPacket.types.ClientChatPacketType.LAST_MESSAGE;
 import static models.multiPlayer.packet.clientPacket.types.ClientChatPacketType.RECENT_MESSAGES;
 
-public class ChatRoom implements PacketListener<Packet> {
+public class ChatRoom implements ClientPacketListener<ClientChatPacket>, ServerPacketListener<ServerChatPacket> {
     private static ChatRoom instance = new ChatRoom();
 
     public static ChatRoom getInstance(){
@@ -25,7 +26,7 @@ public class ChatRoom implements PacketListener<Packet> {
 
     private LinkedList<Message> messages = new LinkedList<>();
 
-
+    @Override
     public void receive(ServerChatPacket serverChatPacket) {
         synchronized (this) {
             switch (serverChatPacket.getChatPacketType()) {
@@ -43,6 +44,7 @@ public class ChatRoom implements PacketListener<Packet> {
         }
     }
 
+    @Override
     public void receive(ClientChatPacket clientChatPacket) {
         synchronized (this) {
             switch (clientChatPacket.getChatPacketType()) {
@@ -57,11 +59,6 @@ public class ChatRoom implements PacketListener<Packet> {
         }
 
 
-    }
-
-    @Override
-    public void receive(Packet packet) {
-        System.err.println("Invalid Packet in ChatRoom: " + packet.getClass().getSimpleName());
     }
 
     public LinkedList<Message> getMessages() {
