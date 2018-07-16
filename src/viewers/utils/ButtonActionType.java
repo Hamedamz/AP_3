@@ -6,6 +6,7 @@ public enum ButtonActionType {
     OPEN_TRAIN_TROOPS_POPUP("Train"),
     OPEN_ARMY_STATUS_POPUP("Army"),
     OPEN_BUILD_MENU("Build"),
+    QUIT_ATTACK("Quit"),
     OPEN_ATTACK_MENU("Attack"),
     FAST_FORWARD("Hurry"),
     SETTINGS("Settings"),

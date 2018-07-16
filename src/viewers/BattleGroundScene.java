@@ -27,6 +27,7 @@ import viewers.utils.SliderMenu.SliderMenu;
 import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.entityHolders.TroopHolder;
 import viewers.utils.ButtonActionType;
+import viewers.utils.fancyButtons.RoundFancyButton;
 import viewers.utils.fancyButtons.TroopsFancyButton;
 import viewers.utils.fancyPopups.AttackEndGlassPane;
 import viewers.utils.tiles.HexaTile;
@@ -43,14 +44,17 @@ public class BattleGroundScene extends VillageScene {
     private Text leftElixirLoot;
     private Text achievedGoldLoot;
     private Text achievedElixirLoot;
-    private GridPane lootedBountyInfo;
+    private Text remainedTime;
+    private GridPane battleInfo;
 
     private ArrayList<TroopHolder> troopHolders = new ArrayList<>();
     private TroopsScrollMenu troopsScrollMenu;
     private GridPane tiles;
     private Pane troopsPane;
     private IsometricPane isometricPane;
+    private RoundFancyButton quitButton;
     private AttackEndGlassPane attackEndGlassPane;
+    private AnimationTimer animationTimer;
 
     private BattleGroundScene() {
         super();
@@ -85,8 +89,8 @@ public class BattleGroundScene extends VillageScene {
 
 
         // available loots
-        lootedBountyInfo = buildLootedBountyInfo();
-        lootedBountyInfo.setPadding(new Insets(Const.SPACING));
+        battleInfo = buildBattleInfo();
+        battleInfo.setPadding(new Insets(Const.SPACING));
 
 
         // troops
@@ -95,26 +99,32 @@ public class BattleGroundScene extends VillageScene {
         troopsScrollMenu.setLayoutX(Const.WINDOW_WIDTH / 2 - Const.POPUP_WIDTH / 2 + 3 * Const.SPACING);
         troopsScrollMenu.setSelectable(true);
 
+        // quit button
+        quitButton = new RoundFancyButton(ButtonActionType.QUIT_ATTACK, "red");
+        quitButton.setLayoutX(Const.WINDOW_WIDTH - 80);
+        quitButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
+        quitButton.setOnMouseClicked(event -> {
+            animationTimer.stop();
+            AppGUI.getController().getWorld().getBattleGround().endBattle();
+            finishBattle();
+        });
+
         attackEndGlassPane = new AttackEndGlassPane();
         attackEndGlassPane.setVisible(false);
 
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, lootedBountyInfo, settingsButton, troopsScrollMenu, attackEndGlassPane, villageConsole, SliderMenu.getInstance());
+        root.getChildren().addAll(draggableView, battleInfo, settingsButton, quitButton, troopsScrollMenu, attackEndGlassPane, villageConsole, SliderMenu.getInstance());
 
-        setAnimationTimer().start();
+        animationTimer = setAnimationTimer();
     }
 
     @Override
     protected AnimationTimer setAnimationTimer() {
         return new AnimationTimer() {
-            long last = 0;
             @Override
             public void handle(long now) {
-                if (last == 0) {
-                    last = now;
-                }
 
-                refreshAvailableLoots();
+                refreshBattleInfo();
                 troopsScrollMenu.refreshForBattleGround();
 
                 for (BuildingHolder buildingHolder : buildingHolders) {
@@ -123,11 +133,6 @@ public class BattleGroundScene extends VillageScene {
                         IsometricPane.mapToIsometricLayout(buildingHolder, buildingHolder.getEntity().getPosition(), 1);
                     }
                 }
-
-//                if (isTurned) {
-//                    isTurned = false;
-//                    animateTroopsMovement();
-//                }
 
                 Iterator<TroopHolder> iterator = troopHolders.iterator();
                 while (iterator.hasNext()) {
@@ -143,12 +148,8 @@ public class BattleGroundScene extends VillageScene {
 
                 if (AppGUI.getController().getWorld().getBattleGround().isGameFinished()) {
                     this.stop();
-                    SoundPlayer.play(Sounds.winSound);  // FIXME: 7/13/18 how to know if we have won or lost?
-                    attackEndGlassPane.setProperties();
-                    attackEndGlassPane.setVisible(true);
+                    finishBattle();
                 }
-
-                last = now;
             }
         };
     }
@@ -183,21 +184,26 @@ public class BattleGroundScene extends VillageScene {
         return AppGUI.getController().getWorld().getGameEngine().getDuration();
     }
 
-    private void refreshAvailableLoots() {
+    private void refreshBattleInfo() {
         Resource remainingResources = AppGUI.getController().getWorld().getBattleGround().getRemainingResources();
         Bounty lootedBounty = AppGUI.getController().getWorld().getBattleGround().getLootedBounty();
+        int seconds = AppGUI.getController().getWorld().getBattleGround().getTimeRemaining();
+        String time = String.format("%02d:%02d", seconds / 60, seconds % 60);
         leftGoldLoot.setText(String.valueOf(remainingResources.getGold()));
         leftElixirLoot.setText(String.valueOf(remainingResources.getElixir()));
         achievedGoldLoot.setText(String.valueOf(lootedBounty.getGold()));
         achievedElixirLoot.setText(String.valueOf(lootedBounty.getElixir()));
+        remainedTime.setText(time);
     }
 
-    private GridPane buildLootedBountyInfo() {
+    private GridPane buildBattleInfo() {
         GridPane gridPane = new GridPane();
         leftGoldLoot = new StrokeText();
         leftElixirLoot = new StrokeText();
         achievedGoldLoot = new StrokeText();
         achievedElixirLoot = new StrokeText();
+        remainedTime = new StrokeText();
+        StrokeText defenderName = new StrokeText("Defender");
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(Const.SPACING);
         gridPane.setVgap(Const.SPACING / 2);
@@ -207,14 +213,16 @@ public class BattleGroundScene extends VillageScene {
         goldIcon.setFitHeight(Const.PROGRESS_BAR_ICON_SIZE);
         elixirIcon.setFitWidth(Const.PROGRESS_BAR_ICON_SIZE);
         elixirIcon.setFitHeight(Const.PROGRESS_BAR_ICON_SIZE);
-        gridPane.add(new StrokeText("achieved"), 1, 0);
-        gridPane.add(new StrokeText("left"), 2, 0);
-        gridPane.add(goldIcon, 0, 1);
-        gridPane.add(achievedGoldLoot, 1, 1);
-        gridPane.add(leftGoldLoot, 2, 1);
-        gridPane.add(elixirIcon, 0, 2);
-        gridPane.add(achievedElixirLoot, 1, 2);
-        gridPane.add(leftElixirLoot, 2, 2);
+        gridPane.add(defenderName, 0, 0, 3, 1);
+        gridPane.add(new StrokeText("achieved"), 1, 1);
+        gridPane.add(new StrokeText("left"), 2, 1);
+        gridPane.add(goldIcon, 0, 2);
+        gridPane.add(achievedGoldLoot, 1, 2);
+        gridPane.add(leftGoldLoot, 2, 2);
+        gridPane.add(elixirIcon, 0, 3);
+        gridPane.add(achievedElixirLoot, 1, 3);
+        gridPane.add(leftElixirLoot, 2, 3);
+        gridPane.add(remainedTime, 0, 4, 3, 1);
         return gridPane;
     }
 
@@ -247,6 +255,13 @@ public class BattleGroundScene extends VillageScene {
     public void reBuild() {
         build();
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, lootedBountyInfo, settingsButton, troopsScrollMenu, attackEndGlassPane, villageConsole, SliderMenu.getInstance());
+        root.getChildren().addAll(draggableView, battleInfo, settingsButton, quitButton, troopsScrollMenu, attackEndGlassPane, villageConsole, SliderMenu.getInstance());
+        animationTimer.start();
+    }
+
+    private void finishBattle() {
+        SoundPlayer.play(Sounds.winSound);  // FIXME: 7/13/18 how to know if we have won or lost?
+        attackEndGlassPane.setProperties();
+        attackEndGlassPane.setVisible(true);
     }
 }
