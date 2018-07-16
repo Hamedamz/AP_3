@@ -34,12 +34,12 @@ public class LeaderBoardBox extends Pane {
         scoreCol.setCellValueFactory(new PropertyValueFactory<AccountInfo, String>("score"));
 
         TableColumn goldCol = new TableColumn("Gold");
-        scoreCol.setMinWidth(Const.SLIDER_MENU_WIDTH / 2);
-        scoreCol.setCellValueFactory(new PropertyValueFactory<AccountInfo, String>("gold"));
+        goldCol.setMinWidth(Const.SLIDER_MENU_WIDTH / 2);
+        goldCol.setCellValueFactory(new PropertyValueFactory<AccountInfo, String>("gold"));
 
         TableColumn elixirCol = new TableColumn("Elixir");
-        scoreCol.setMinWidth(Const.SLIDER_MENU_WIDTH / 2);
-        scoreCol.setCellValueFactory(new PropertyValueFactory<AccountInfo, String>("elixir"));
+        elixirCol.setMinWidth(Const.SLIDER_MENU_WIDTH / 2);
+        elixirCol.setCellValueFactory(new PropertyValueFactory<AccountInfo, String>("elixir"));
 
         table.getColumns().setAll(nameCol, scoreCol, goldCol, elixirCol);
         table.setMinWidth(Const.SLIDER_MENU_WIDTH * 2);
