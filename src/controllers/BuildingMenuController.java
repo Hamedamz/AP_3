@@ -36,6 +36,7 @@ public class BuildingMenuController {
     }
 
     public void handleClickOnBuilding(Building building) {
+        ShopScrollMenu.getInstance().hide();
         if (building == this.building && activeMenu != null) {
             activeMenu.toggle();
         } else {

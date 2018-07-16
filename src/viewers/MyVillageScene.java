@@ -83,14 +83,14 @@ public class MyVillageScene extends VillageScene {
         totalStock.setPadding(new Insets(Const.SPACING));
 
         // building shop
-        shopScrollMenu = new ShopScrollMenu(ButtonActionType.TOWERS);
+        shopScrollMenu = ShopScrollMenu.getInstance();
         shopScrollMenu.setVisible(false);
         buildButton = new RoundFancyButton(ButtonActionType.OPEN_BUILD_MENU, "red");
         buildButton.setLayoutX(Const.WINDOW_WIDTH - 80);
         buildButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
         buildButton.setOnMouseClicked(event -> {
             BuildingMenuController.getInstance().hideActiveMenu();
-            toggleVisibility(shopScrollMenu);
+            shopScrollMenu.toggleView();
             SoundPlayer.play(Sounds.buttonSound);
         });
 

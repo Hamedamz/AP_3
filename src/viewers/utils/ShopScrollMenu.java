@@ -7,6 +7,12 @@ import viewers.AppGUI;
 import viewers.utils.fancyButtons.EntityFancyButton;
 
 public class ShopScrollMenu extends ScrollMenu {
+    private static ShopScrollMenu instance = new ShopScrollMenu(ButtonActionType.TOWERS);
+
+    public static ShopScrollMenu getInstance() {
+        return instance;
+    }
+
     public ShopScrollMenu(String[] entities) {
         super(entities);
         build();
@@ -31,6 +37,26 @@ public class ShopScrollMenu extends ScrollMenu {
             });
 
             entityFancyButton.setOnDragDone(event -> AppGUI.getMyVillageScene().showTiles(false));
+        }
+    }
+
+    public void toggleView() {
+        if (isVisible()) {
+            hide();
+        } else {
+            show();
+        }
+    }
+
+    public void show() {
+        if (!isVisible()) {
+            setVisible(true);
+        }
+    }
+
+    public void hide() {
+        if (isVisible()) {
+            setVisible(false);
         }
     }
 }
