@@ -11,6 +11,9 @@ import viewers.utils.fancyPopups.TrainTroopsPopup;
 import viewers.utils.fancyPopups.UpgradePopup;
 import viewers.utils.ButtonActionType;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static viewers.utils.ButtonActionType.*;
 
 public class BuildingMenuController {
@@ -22,12 +25,14 @@ public class BuildingMenuController {
 
     private Building building;
     private BuildingMenu activeMenu;
-    private BuildingMenu menu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP);
-    private BuildingMenu barracksMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP, OPEN_TRAIN_TROOPS_POPUP);
-    private BuildingMenu campMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_ARMY_STATUS_POPUP);
+    private BuildingMenu menu;
+    private BuildingMenu barracksMenu;
+    private BuildingMenu campMenu;
 
     private BuildingMenuController() {
-        AppGUI.getMyVillageScene().addBuildingMenus(menu, barracksMenu, campMenu);
+        menu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP);
+        barracksMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_UPGRADE_POPUP, OPEN_TRAIN_TROOPS_POPUP);
+        campMenu = new BuildingMenu(OPEN_INFO_POPUP, OPEN_ARMY_STATUS_POPUP);
     }
 
     public void handleClickOnBuilding(Building building) {
@@ -95,5 +100,9 @@ public class BuildingMenuController {
         if (activeMenu != null) {
             activeMenu.toggle();
         }
+    }
+
+    public List<BuildingMenu> getMenus() {
+        return Arrays.asList(menu, barracksMenu, campMenu);
     }
 }

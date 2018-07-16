@@ -1,6 +1,7 @@
 package viewers;
 
 import models.GameLogic.Entities.Buildings.GuardianGiant;
+import models.GameLogic.Entities.Entity;
 import models.interfaces.Attacker;
 import models.interfaces.Destroyable;
 import javafx.animation.AnimationTimer;
@@ -238,7 +239,9 @@ public class BattleGroundScene extends VillageScene {
     }
 
     public void movementHappened(int direction, Movable movable) {
-        this.isTurned = true;
+        if (direction != 0) {
+            ((Entity) movable).getImageView().setScaleX(direction);
+        }
     }
 
     public void reBuild() {

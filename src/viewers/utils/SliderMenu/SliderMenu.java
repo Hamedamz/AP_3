@@ -78,9 +78,9 @@ public class SliderMenu extends Pane {
         Timeline timeline = new Timeline();
         KeyValue keyValue;
         if (isOpen) {
-            keyValue = new KeyValue(this.layoutXProperty(), -WIDTH);
+            keyValue = new KeyValue(this.layoutXProperty(), -WIDTH, Interpolator.EASE_OUT);
         } else {
-            keyValue = new KeyValue(this.layoutXProperty(), 0);
+            keyValue = new KeyValue(this.layoutXProperty(), 0, Interpolator.EASE_OUT);
         }
         KeyFrame keyFrame = new KeyFrame(TRANSITION_DURATION, keyValue);
         timeline.getKeyFrames().add(keyFrame);
