@@ -1,6 +1,6 @@
 #BattleGround:
 
-    WarTime: 10000
+    WarTime: 250
 
 #Village
     VillageInitialGold: 1500
