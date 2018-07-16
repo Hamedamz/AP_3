@@ -178,10 +178,12 @@ public class MyVillageScene extends VillageScene {
                     SoundPlayer.play(entity);
                     break;
                 case I:
+                    selectedBuilding = button;
                     BuildingMenuController.getInstance().setBuilding((Building) entity);
                     BuildingMenuController.getInstance().handleClickOnButton(ButtonActionType.OPEN_INFO_POPUP);
                     break;
                 case U:
+                    selectedBuilding = button;
                     BuildingMenuController.getInstance().setBuilding((Building) entity);
                     BuildingMenuController.getInstance().handleClickOnButton(ButtonActionType.OPEN_UPGRADE_POPUP);
                     break;
