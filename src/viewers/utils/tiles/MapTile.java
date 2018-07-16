@@ -51,7 +51,7 @@ public class MapTile extends Rectangle {
             if (event.getDragboard().hasString()) {
                 fadeIn.play();
             }
-
+            AppGUI.getMyVillageScene().movePriceTicket(event.getSceneX(), event.getSceneY());
             event.consume();
         });
 
