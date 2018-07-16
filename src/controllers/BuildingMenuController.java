@@ -102,6 +102,12 @@ public class BuildingMenuController {
         }
     }
 
+    public void hideActiveMenu() {
+        if (activeMenu != null){
+            activeMenu.hide();
+        }
+    }
+
     public List<BuildingMenu> getMenus() {
         return Arrays.asList(menu, barracksMenu, campMenu);
     }

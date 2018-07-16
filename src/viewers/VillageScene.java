@@ -1,5 +1,6 @@
 package viewers;
 
+import controllers.BuildingMenuController;
 import javafx.animation.AnimationTimer;
 import javafx.animation.RotateTransition;
 import javafx.scene.Group;
@@ -52,6 +53,7 @@ public abstract class VillageScene extends Scene {
         settingsButton.setLayoutX(Const.WINDOW_WIDTH - 85);
         settingsButton.setLayoutY(Const.WINDOW_HEIGHT - 200);
         settingsButton.setOnMouseClicked(event -> {
+            BuildingMenuController.getInstance().hideActiveMenu();
             SoundPlayer.play(Sounds.buttonSound);
             RotateTransition rotateTransition = new RotateTransition();
             rotateTransition.setNode(settingsButton.getIcon());

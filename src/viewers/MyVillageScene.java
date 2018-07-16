@@ -89,6 +89,7 @@ public class MyVillageScene extends VillageScene {
         buildButton.setLayoutX(Const.WINDOW_WIDTH - 80);
         buildButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
         buildButton.setOnMouseClicked(event -> {
+            BuildingMenuController.getInstance().hideActiveMenu();
             toggleVisibility(shopScrollMenu);
             SoundPlayer.play(Sounds.buttonSound);
         });
@@ -101,6 +102,7 @@ public class MyVillageScene extends VillageScene {
         attackButton.setLayoutX(Const.SPACING * 3);
         attackButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
         attackButton.setOnMouseClicked(event -> {
+            BuildingMenuController.getInstance().hideActiveMenu();
             attackMenuGlassPane.toggleVisibility();
             SoundPlayer.play(Sounds.buttonSound);
         });
