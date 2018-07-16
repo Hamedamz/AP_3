@@ -25,7 +25,7 @@ public enum ImageLibrary {
     GuardianGiant("assets/buildings/GuardianGiant.png"),
     Trap("assets/buildings/Trap.png"),
     Archer("assets/troops/Archer.gif"),
-    Dragon("assets/troops/Dragon.png"),
+    Dragon("assets/troops/Dragon.gif"),
     Giant("assets/troops/Giant.gif"),
     Guardian("assets/troops/Guardian.gif"),
     Healer("assets/troops/Healer.gif"),
