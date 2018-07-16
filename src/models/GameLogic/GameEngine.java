@@ -42,7 +42,7 @@ public class GameEngine {
             sch.shutdown();
         }
         sch = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(5);
-        sch.scheduleAtFixedRate(() -> update(), 0, duration.get(), TimeUnit.MILLISECONDS);
+        sch.scheduleAtFixedRate(this::update, 0, duration.get(), TimeUnit.MILLISECONDS);
     }
 
     public void update() {
@@ -87,5 +87,11 @@ public class GameEngine {
 
     public Integer getDuration() {
         return this.duration.get();
+    }
+
+    public void shutDown(){
+        if(sch != null) {
+            sch.shutdown();
+        }
     }
 }
