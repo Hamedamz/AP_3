@@ -1,6 +1,7 @@
 package models.multiPlayer.battleManager;
 
 import controllers.JsonHandler;
+import models.GameLogic.Village;
 import models.multiPlayer.Client;
 import models.multiPlayer.Server;
 import models.multiPlayer.packet.Packet;
@@ -20,6 +21,8 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
         return ourInstance;
     }
 
+    private Village requestedVillage;
+
     private BattleManager() {
     }
 
@@ -35,7 +38,9 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
                 }
                 break;
             case ATTACK_S:
-                // TODO: 7/16/2018
+                if(serverBattleManagerPacket.isClientRequest()) {
+
+                }
                 break;
         }
     }
@@ -44,14 +49,14 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
     public void receive(ClientBattleManagerPacket clientBattleManagerPacket) {
         switch (clientBattleManagerPacket.getBattleManagerPacketType()) {
             case VIEW_C:
-                if(clientBattleManagerPacket.isServerRequest()) {
+                if (clientBattleManagerPacket.isServerRequest()) {
                     Client.getInstance().sendToServer(
                             new ServerBattleManagerPacket(VIEW_S, false,
                                     clientBattleManagerPacket.getElements()[1],
-                            JsonHandler.villageToJson(Client.getInstance().getAccount().getMyVillage())
+                                    JsonHandler.villageToJson(Client.getInstance().getAccount().getMyVillage())
                             ));
                 } else {
-                    // TODO: 7/16/2018  
+                    requestedVillage = JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[1]);
                 }
                 break;
             case ATTACK_C:
@@ -63,4 +68,9 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
         }
     }
 
+    public Village pollRequestedVillage() {
+        Village village = requestedVillage;
+        requestedVillage = null;
+        return village;
+    }
 }
