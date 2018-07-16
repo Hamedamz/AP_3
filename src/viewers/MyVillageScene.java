@@ -3,10 +3,7 @@ package viewers;
 import controllers.BuildingMenuController;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -108,9 +105,7 @@ public class MyVillageScene extends VillageScene {
             SoundPlayer.play(Sounds.buttonSound);
         });
 
-        root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton, villageConsole, SliderMenu.getInstance());
-
+        reBuild();
         setAnimationTimer().start();
     }
 
@@ -190,12 +185,6 @@ public class MyVillageScene extends VillageScene {
         tile.setVisible(false);
     }
 
-    public void showBuildButton(double sceneX, double sceneY) {
-        buildButton.setLayoutX(sceneX);
-        buildButton.setLayoutY(sceneY);
-        buildButton.setVisible(true);
-    }
-
     public void showTiles(boolean visibility) {
         isometricPane.setVisible(visibility);
     }
@@ -203,9 +192,6 @@ public class MyVillageScene extends VillageScene {
     public void reBuild() {
         root.getChildren().clear();
         root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton, villageConsole, SliderMenu.getInstance());
-    }
-
-    public void addBuildingMenus(BuildingMenu... menus) {
-        root.getChildren().addAll(menus);
+        root.getChildren().addAll(BuildingMenuController.getInstance().getMenus());
     }
 }

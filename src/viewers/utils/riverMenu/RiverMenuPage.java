@@ -1,5 +1,6 @@
 package viewers.utils.riverMenu;
 
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -69,7 +70,7 @@ public class RiverMenuPage extends Pane {
     private void animate(double x) {
         Timeline timeline = new Timeline();
         KeyValue keyValue;
-        keyValue = new KeyValue(this.layoutXProperty(), x);
+        keyValue = new KeyValue(this.layoutXProperty(), x, Interpolator.EASE_OUT);
         KeyFrame keyFrame = new KeyFrame(Const.TRANSITION_DURATION.divide(2), keyValue);
         timeline.getKeyFrames().add(keyFrame);
         timeline.play();

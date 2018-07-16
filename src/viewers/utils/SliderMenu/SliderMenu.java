@@ -26,6 +26,7 @@ public class SliderMenu extends Pane {
 
     private static SliderMenu instance = new SliderMenu();
 
+    private double width = WIDTH;
     private TabPane tabPane;
     private RoundButton toggleButton;
     private boolean isOpen;
@@ -40,7 +41,7 @@ public class SliderMenu extends Pane {
         this.setMaxWidth(WIDTH);
         this.setPrefWidth(WIDTH);
         isOpen = false;
-        this.setLayoutX(-WIDTH);
+        this.setLayoutX(- WIDTH);
 
         toggleButton = new RoundButton(">", "yellow");
         toggleButton.setFocusTraversable(false);
@@ -51,9 +52,11 @@ public class SliderMenu extends Pane {
 
         Tab chatTab = new Tab("Chat");
         chatTab.setContent(ChatBox.getInstance());
+        chatTab.setOnSelectionChanged(event -> setWidth(WIDTH));
 
         Tab leaderBoardTab = new Tab("Leader Board");
         leaderBoardTab.setContent(LeaderBoardBox.getInstance());
+        leaderBoardTab.setOnSelectionChanged(event -> setWidth(2 * WIDTH));
 
         tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
@@ -78,9 +81,9 @@ public class SliderMenu extends Pane {
         Timeline timeline = new Timeline();
         KeyValue keyValue;
         if (isOpen) {
-            keyValue = new KeyValue(this.layoutXProperty(), -WIDTH);
+            keyValue = new KeyValue(this.layoutXProperty(), - width, Interpolator.EASE_OUT);
         } else {
-            keyValue = new KeyValue(this.layoutXProperty(), 0);
+            keyValue = new KeyValue(this.layoutXProperty(), 0, Interpolator.EASE_OUT);
         }
         KeyFrame keyFrame = new KeyFrame(TRANSITION_DURATION, keyValue);
         timeline.getKeyFrames().add(keyFrame);
@@ -99,5 +102,14 @@ public class SliderMenu extends Pane {
             scaleTransition.setToX(-1);
         }
         scaleTransition.play();
+    }
+
+    @Override
+    public void setWidth(double width) {
+        this.setMaxWidth(width);
+        this.setPrefWidth(width);
+        tabPane.setMaxWidth(width);
+        tabPane.setMinWidth(width);
+        this.width = width;
     }
 }

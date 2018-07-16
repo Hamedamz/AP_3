@@ -6,7 +6,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import models.Account;
 import models.AccountInfo;
 import models.multiPlayer.leaderBoard.LeaderBoard;
 import viewers.utils.Const;
@@ -27,24 +26,31 @@ public class LeaderBoardBox extends Pane {
         table.setEditable(true);
 
         TableColumn nameCol = new TableColumn("Name");
-        nameCol.setMinWidth(120);
+        nameCol.setMinWidth(Const.SLIDER_MENU_WIDTH / 2);
         nameCol.setCellValueFactory(new PropertyValueFactory<AccountInfo, String>("name"));
 
-        TableColumn idCol = new TableColumn("Id");
-        idCol.setMinWidth(80);
-        idCol.setCellValueFactory(new PropertyValueFactory<AccountInfo, String>("id"));
-
         TableColumn scoreCol = new TableColumn("Score");
-        scoreCol.setMinWidth(80);
+        scoreCol.setMinWidth(Const.SLIDER_MENU_WIDTH / 2);
         scoreCol.setCellValueFactory(new PropertyValueFactory<AccountInfo, String>("score"));
 
-        table.getColumns().setAll(nameCol, idCol, scoreCol);
+        TableColumn goldCol = new TableColumn("Gold");
+        scoreCol.setMinWidth(Const.SLIDER_MENU_WIDTH / 2);
+        scoreCol.setCellValueFactory(new PropertyValueFactory<AccountInfo, String>("gold"));
+
+        TableColumn elixirCol = new TableColumn("Elixir");
+        scoreCol.setMinWidth(Const.SLIDER_MENU_WIDTH / 2);
+        scoreCol.setCellValueFactory(new PropertyValueFactory<AccountInfo, String>("elixir"));
+
+        table.getColumns().setAll(nameCol, scoreCol, goldCol, elixirCol);
+        table.setMinWidth(Const.SLIDER_MENU_WIDTH * 2);
+        table.setMaxHeight(HEIGHT);
+        table.setMinHeight(HEIGHT);
         this.getChildren().add(table);
     }
 
     public void refresh() {
         ArrayList<AccountInfo> leaderBoard = LeaderBoard.getInstance().getLeaderBoard();
-        ObservableList<AccountInfo> data = FXCollections.observableArrayList();
+        ObservableList<AccountInfo> data = FXCollections.observableArrayList(leaderBoard);
         table.getItems().clear();
         table.setItems(data);
     }

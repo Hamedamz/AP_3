@@ -67,7 +67,7 @@ public class LeaderBoard implements PacketListener<Packet> {
     }
 
     public synchronized void updateInfo(AccountInfo accountInfo) {
-        infoMap.put(accountInfo.getID(), accountInfo);
+        infoMap.put(accountInfo.getId(), accountInfo);
         informAll();
     }
 
