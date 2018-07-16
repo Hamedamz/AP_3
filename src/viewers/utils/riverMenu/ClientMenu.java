@@ -121,11 +121,11 @@ public class ClientMenu extends StackPane {
         log.setText("");
         serverPort.setText(String.valueOf(ServerConstants.SERVER_DEFAULT_PORT));
         clientPort.setText(String.valueOf(ClientConstants.DEFAULT_CLIENT_PORT));
-        clientAddress.setText("todo: client ip");
+        clientAddress.setText("you");
         gridPane.getChildren().clear();
-        gridPane.add(new Text("login"), 0,0);
-        gridPane.add(new Text("or"), 1,0);
-        gridPane.add(new Text("create new game"), 2,0);
+        gridPane.add(new StrokeText("login"), 0,0);
+        gridPane.add(new StrokeText("or"), 1,0);
+        gridPane.add(new StrokeText("create new game"), 2,0);
         gridPane.add(loginMenu, 0,1);
         gridPane.add(newGameMenu, 2,1);
         disableLoginOrNewGame(false);
