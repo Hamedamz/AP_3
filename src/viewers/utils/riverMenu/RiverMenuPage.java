@@ -35,7 +35,7 @@ public class RiverMenuPage extends Pane {
         this.width = width;
 
         this.buttons = new VBox(Const.SPACING);
-        this.buttons.setPadding(new Insets(Const.SPACING * 4));
+        this.buttons.setPadding(new Insets(Const.SPACING * 3.5));
         this.buttons.getChildren().addAll(buttons);
         this.buttons.setMinHeight(Const.WINDOW_HEIGHT);
         this.buttons.setPrefWidth(Const.RIVER_MENU_SIZE);

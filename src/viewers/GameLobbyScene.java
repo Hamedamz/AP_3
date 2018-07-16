@@ -3,6 +3,7 @@ package viewers;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import viewers.utils.LobbyBackground;
 import viewers.utils.riverMenu.RiverMenu;
 
 import static viewers.utils.Const.*;
@@ -28,6 +29,6 @@ public class GameLobbyScene extends Scene {
 //        background = new ImageView(ImageLibrary);
 
         root.getChildren().clear();
-        root.getChildren().addAll(RiverMenu.getInstance());
+        root.getChildren().addAll(LobbyBackground.getInstance(), RiverMenu.getInstance());
     }
 }

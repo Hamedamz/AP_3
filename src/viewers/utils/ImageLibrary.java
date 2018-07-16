@@ -42,7 +42,21 @@ public enum ImageLibrary {
     HitPointsIcon("assets/icons/HitPointsIcon.png"),
     GoldIcon("assets/icons/GoldIcon.png"),
     ElixirIcon("assets/icons/ElixirIcon.png"),
-    TroopsIcon("assets/icons/TroopsIcon.png");
+    TroopsIcon("assets/icons/TroopsIcon.png"),
+
+    LOBBY_0("assets/lobby/bg_0.png"),
+    LOBBY_1("assets/lobby/bg_1.png"),
+    LOBBY_2("assets/lobby/bg_2.png"),
+    LOBBY_3("assets/lobby/bg_3.png"),
+    LOBBY_4("assets/lobby/bg_4.png"),
+    LOBBY_5("assets/lobby/bg_5.png"),
+    LOBBY_6("assets/lobby/bg_6.png"),
+    LOBBY_7("assets/lobby/bg_7.png"),
+    LOBBY_8("assets/lobby/bg_8.png"),
+    LOBBY_9("assets/lobby/bg_9.png"),
+    LOBBY_10("assets/lobby/bg_10.png"),
+    LOBBY_11("assets/lobby/bg_11.png"),
+    LOBBY_12("assets/lobby/bg_12.png");
 
     private Image image;
 
