@@ -120,6 +120,7 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
     public void giveDamageTo(Destroyable destroyable, BattleGround battleGround) {
         if(destroyable.getPosition().calculateDistanceFromBuilding(this.getPosition(), getSize()) <= getEffectRange()) {
             super.giveDamageTo(destroyable, battleGround);
+            // TODO: 7/16/2018 GuardianGiant attackListener
         }
     }
 

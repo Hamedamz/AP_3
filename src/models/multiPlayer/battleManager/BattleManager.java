@@ -1,6 +1,9 @@
 package models.multiPlayer.battleManager;
 
 import controllers.JsonHandler;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableObjectValue;
 import models.GameLogic.BattleGround;
 import models.GameLogic.Village;
 import models.multiPlayer.Client;
@@ -21,7 +24,7 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
         return ourInstance;
     }
 
-    private Village requestedVillage;
+    private ObjectProperty<Village> requestedVillage = new SimpleObjectProperty<>();
 
     private BattleManager() {
     }
@@ -64,11 +67,11 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
                                     JsonHandler.villageToJson(Client.getInstance().getAccount().getMyVillage())
                             ));
                 } else {
-                    requestedVillage = JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[1]);
+                    requestedVillage.set(JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[1]));
                 }
                 break;
             case ATTACK_C:
-                requestedVillage = JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[1]);
+                requestedVillage.set(JsonHandler.jsonToVillage((String) clientBattleManagerPacket.getElements()[1]));
                 break;
             case LOCK:
                 // TODO: 7/16/2018
@@ -79,9 +82,11 @@ public class BattleManager implements ClientPacketListener<ClientBattleManagerPa
         }
     }
 
-    public Village peekRequestedVillage() {
-        Village village = requestedVillage;
-        requestedVillage = null;
-        return village;
+    public Village getRequestedVillage() {
+        return requestedVillage.get();
+    }
+
+    public ObjectProperty<Village> requestedVillageProperty() {
+        return requestedVillage;
     }
 }
