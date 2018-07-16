@@ -1,4 +1,7 @@
 package models.multiPlayer.packet.clientPacket.types;
 
-public class ClientBattleManagerPacketType {
+public enum ClientBattleManagerPacketType {
+    VIEW_C,
+    ATTACK_C,
+    LOCK;
 }

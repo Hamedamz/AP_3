@@ -13,6 +13,8 @@ public class Account implements Serializable {
 
     private Village myVillage;
 
+    private boolean isLocked = false;
+
     public Account(String userName, String password) {
         this.userName = userName;
         this.password = password;
@@ -52,4 +54,16 @@ public class Account implements Serializable {
         this.myVillage = JsonHandler.jsonToVillage(jsonVillage);
     }
 
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void lock() {
+        isLocked = true;
+    }
+
+    public void unlock() {
+        isLocked = false;
+    }
 }
