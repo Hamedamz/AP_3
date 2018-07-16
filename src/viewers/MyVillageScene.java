@@ -194,8 +194,4 @@ public class MyVillageScene extends VillageScene {
         root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton, villageConsole, SliderMenu.getInstance());
         root.getChildren().addAll(BuildingMenuController.getInstance().getMenus());
     }
-
-//    public void addBuildingMenus(BuildingMenu... menus) {
-//        root.getChildren().addAll(menus);
-//    }
 }
