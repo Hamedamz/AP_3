@@ -234,8 +234,7 @@ public class MyVillageScene extends VillageScene {
 
     public void lockVillage() {
         int i = root.getChildren().lastIndexOf(SliderMenu.getInstance());
-        Pane pane = new Pane();
-        pane.setMinSize(Const.WINDOW_HEIGHT, Const.WINDOW_HEIGHT);
+        Pane pane = new VillageLockPane();
         root.getChildren().add(i, pane);
     }
 
