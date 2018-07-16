@@ -8,6 +8,7 @@ public class AccountInfo implements Serializable, Comparable<AccountInfo> {
     private String id;
     private String name;
     private int score;
+    private Resource resource;
 
     public String getId() {
         return id;
@@ -15,6 +16,14 @@ public class AccountInfo implements Serializable, Comparable<AccountInfo> {
 
     public String getName() {
         return name;
+    }
+
+    public int getGold() {
+        return resource.getGold();
+    }
+
+    public int getElixir() {
+        return resource.getElixir();
     }
 
     public int getScore() {
@@ -31,6 +40,10 @@ public class AccountInfo implements Serializable, Comparable<AccountInfo> {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
 

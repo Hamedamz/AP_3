@@ -45,6 +45,7 @@ public class Account implements Serializable {
         info.setName(userName);
         info.setId(id);
         info.setScore(myVillage.getTownHall().getVillageScore());
+        info.setResource(myVillage.getTotalResourceStock());
         return info;
     }
 
