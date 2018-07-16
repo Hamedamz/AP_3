@@ -25,6 +25,8 @@ public class ShopScrollMenu extends ScrollMenu {
 
             entityFancyButton.setOnDragDetected(event -> {
                 AppGUI.getMyVillageScene().showTiles(true);
+                AppGUI.getMyVillageScene().showPriceTicket(entityFancyButton.getClazz());
+                System.out.println(event.getSceneY());
                 /* drag was detected, start a drag-and-drop gesture*/
                 /* allow any transfer mode */
                 Dragboard db = entityFancyButton.startDragAndDrop(TransferMode.ANY);
@@ -36,7 +38,10 @@ public class ShopScrollMenu extends ScrollMenu {
                 event.consume();
             });
 
-            entityFancyButton.setOnDragDone(event -> AppGUI.getMyVillageScene().showTiles(false));
+            entityFancyButton.setOnDragDone(event -> {
+                AppGUI.getMyVillageScene().showTiles(false);
+                AppGUI.getMyVillageScene().hidePriceTicket();
+            });
         }
     }
 

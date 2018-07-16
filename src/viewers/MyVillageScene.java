@@ -34,6 +34,7 @@ public class MyVillageScene extends VillageScene {
     private AttackMenuGlassPane attackMenuGlassPane;
     private GridPane tiles;
     private IsometricPane isometricPane;
+    private PriceTicket priceTicket;
 
     private MyVillageScene() {
         super();
@@ -196,5 +197,23 @@ public class MyVillageScene extends VillageScene {
         root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, attackMenuGlassPane, attackButton);
         root.getChildren().addAll(BuildingMenuController.getInstance().getMenus());
         root.getChildren().addAll(villageConsole, SliderMenu.getInstance());
+    }
+
+    public void showPriceTicket(String buildingType) {
+        priceTicket = new PriceTicket(buildingType);
+        root.getChildren().add(priceTicket);
+    }
+
+    public void hidePriceTicket() {
+        if (priceTicket != null) {
+            root.getChildren().remove(priceTicket);
+        }
+    }
+
+    public void movePriceTicket(double x, double y) {
+        if (priceTicket != null) {
+            priceTicket.setLayoutX(x);
+            priceTicket.setLayoutY(y);
+        }
     }
 }

@@ -116,6 +116,10 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1), 1, 10, 0, 0);
 }
 
+#solid-stroke {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 1), 1, 10, 0, 0);
+}
+
 #error {
     -fx-text-fill: #EA2027;
 }
