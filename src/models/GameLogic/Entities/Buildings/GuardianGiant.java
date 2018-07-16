@@ -27,7 +27,7 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
 
     public GuardianGiant(Position position, boolean isFriendly) {
         super(position, isFriendly ? friendlyIDGenerator.getNewID() : hostileIDGenerator.getNewID());
-        initialPosition = position;
+        initialPosition = new Position(position.getX(), position.getY());
         speed = GameLogicConfig.getFromDictionary("GuardianGiantSpeed");
         this.targetType = BuildingTargetType.GROUND;
         this.damageType = BuildingDamageType.SINGLE_TARGET;
@@ -69,11 +69,9 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
             }
         }
         if(getTarget() != null) {
-            if (getPath() == null || isBigTurn) {
-                findPath(battleGround);
-            }
             if (((turn + 1) * getSpeed() / turnPerSecond) >
                     (turn * getSpeed() / turnPerSecond)) {
+                findPath(battleGround);
                 move();
             }
         }
@@ -109,8 +107,9 @@ public class GuardianGiant extends DefensiveBuilding implements MovingAttacker {
 
                 }
             }
-            if (minDistance < this.getAttentionRange()) {
+            if (minDistance <= this.getAttentionRange()) {
                 this.target = minDistanceDestroyable;
+                return;
             }
         }
         throw new NoTargetFoundException();
