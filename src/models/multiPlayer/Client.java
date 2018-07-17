@@ -3,7 +3,6 @@ package models.multiPlayer;
 import models.Account;
 import models.ConnectionManager;
 import models.ConnectionType;
-import models.multiPlayer.battleManager.BattleManager;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.leaderBoard.LeaderBoard;
 import models.multiPlayer.packet.clientPacket.*;
@@ -80,7 +79,7 @@ public class Client extends PacketHandler implements ClientPacketListener<Client
                     LeaderBoard.getInstance().receive((ClientLeaderBoardPacket) clientPacket);
                     break;
                 case BATTLE_MANAGER:
-                    BattleManager.getInstance().receive((ClientBattleManagerPacket) clientPacket);
+                    InteractionManager.getInstance().receive((ClientInteractionPacket) clientPacket);
                     break;
                 // TODO: 7/14/2018
                 case CONNECTION:

@@ -1,8 +1,6 @@
 package viewers.utils.SliderMenu;
 
 import javafx.animation.AnimationTimer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -15,19 +13,17 @@ import javafx.scene.layout.VBox;
 import models.AccountInfo;
 import models.ConnectionManager;
 import models.ConnectionType;
-import models.GameLogic.BattleGround;
 import models.GameLogic.Village;
 import models.multiPlayer.Client;
-import models.multiPlayer.battleManager.BattleManager;
+import models.multiPlayer.InteractionManager;
 import models.multiPlayer.leaderBoard.LeaderBoard;
-import models.multiPlayer.packet.serverPacket.ServerBattleManagerPacket;
-import models.multiPlayer.packet.serverPacket.types.ServerBattleManagerPacketType;
+import models.multiPlayer.packet.serverPacket.ServerInteractionPacket;
+import models.multiPlayer.packet.serverPacket.types.ServerInteractionPacketType;
 import viewers.AppGUI;
 import viewers.utils.Const;
 import viewers.utils.fancyButtons.RoundButton;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class LeaderBoardBox extends Pane {
     public static final double RATIO = 0.9;
@@ -92,14 +88,14 @@ public class LeaderBoardBox extends Pane {
         viewButton.setOnAction(event -> {
             AccountInfo selectedItem = table.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                Client.getInstance().sendToServer(new ServerBattleManagerPacket(ServerBattleManagerPacketType.VIEW_S, true, selectedItem.getId()));
+                Client.getInstance().sendToServer(new ServerInteractionPacket(ServerInteractionPacketType.VIEW_S, true, selectedItem.getId()));
                 new AnimationTimer() {
                     @Override
                     public void handle(long now) {
-                        Village village = BattleManager.getInstance().getRequestedVillage();
+                        Village village = InteractionManager.getInstance().getRequestedVillage();
                         if (village != null) {
                             this.stop();
-                            BattleManager.getInstance().setRequestedAccount(selectedItem);
+                            InteractionManager.getInstance().setRequestedAccount(selectedItem);
                             AppGUI.getMyVillageScene().previewEnemyVillage(village, selectedItem.getName());
                         }
                     }

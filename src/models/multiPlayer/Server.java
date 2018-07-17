@@ -2,12 +2,10 @@ package models.multiPlayer;
 
 import models.ConnectionManager;
 import models.ConnectionType;
-import models.multiPlayer.battleManager.BattleManager;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.leaderBoard.LeaderBoard;
 import models.multiPlayer.packet.clientPacket.ClientPacket;
 import models.multiPlayer.packet.serverPacket.*;
-import models.multiPlayer.runnables.ClientPacketListener;
 import models.multiPlayer.runnables.ServerPacketListener;
 import models.multiPlayer.utils.FullAddress;
 
@@ -83,7 +81,7 @@ public class Server extends PacketHandler implements ServerPacketListener<Server
                     LeaderBoard.getInstance().receive((ServerLeaderBoardPacket) serverPacket);
                     break;
                 case BATTLE_MANAGER:
-                    BattleManager.getInstance().receive((ServerBattleManagerPacket) serverPacket);
+                    InteractionManager.getInstance().receive((ServerInteractionPacket) serverPacket);
                     break;
                 case CONNECTION:
                     ConnectionManager.getInstance().receive((ServerConnectionPacket) serverPacket);
