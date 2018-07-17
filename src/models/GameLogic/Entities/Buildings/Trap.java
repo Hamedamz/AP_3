@@ -48,7 +48,7 @@ public class Trap extends DefensiveBuilding {
 
     @Override
     public boolean isDestroyed() {
-        return super.isDestroyed() && isRearmed;
+        return super.isDestroyed() || !isRearmed;
     }
 
     @Override
