@@ -133,7 +133,7 @@ public class BattleGroundScene extends VillageScene {
                 refreshBattleInfo();
                 troopsScrollMenu.refreshForBattleGround();
 
-                for (BuildingHolder buildingHolder : buildingHolders) {
+                for (BuildingHolder buildingHolder : new ArrayList<>(buildingHolders)) {
                     buildingHolder.refresh();
                     if (buildingHolder.getEntity().getClass().equals(GuardianGiant.class)) {
                         IsometricPane.mapToIsometricLayout(buildingHolder, buildingHolder.getEntity().getPosition(), 1);
