@@ -119,9 +119,6 @@ public class MyVillageScene extends VillageScene {
 
         villageLockPane = new VillageLockPane();
         villageLockPane.setVisible(false);
-
-//        reBuild(connectionType);
-        setAnimationTimer().start();
     }
 
     @Override
@@ -132,6 +129,7 @@ public class MyVillageScene extends VillageScene {
 
                 if (connectionType.equals(ConnectionType.CLIENT) && ConnectionManager.getInstance().getConnectionType().equals(ConnectionType.NONE)) {
                     LogPopup.popError(new Exception("Connection Lost :("));
+                    this.stop();
                     AppGUI.setStageScene(GameLobbyScene.getInstance());
                 }
 
@@ -231,6 +229,7 @@ public class MyVillageScene extends VillageScene {
         if (connectionType.equals(ConnectionType.CLIENT)) {
             root.getChildren().addAll(villageLockPane, SliderMenu.getInstance());
         }
+        setAnimationTimer().start();
     }
 
     public void showPriceTicket(String buildingType) {
