@@ -31,6 +31,7 @@ public abstract class VillageScene extends Scene {
     ArrayList<BuildingHolder> buildingHolders = new ArrayList<>();
     MapBrowserPane draggableView;
     ImageView villageBackground = new ImageView();
+    private boolean pause = false;
 
     VillageConsole villageConsole;
 
@@ -96,6 +97,14 @@ public abstract class VillageScene extends Scene {
                     if (keyEvent.isControlDown()) {
                         AppGUI.getController().saveGame();
                         LogPopup.popInfo("Game Saved!");
+                    }
+                case P:
+                    if (pause) {
+                        AppGUI.getController().getWorld().getGameEngine().changeDuration(GameEngine.DEFAULT_DURATION);
+                        pause = false;
+                    } else {
+                        AppGUI.getController().getWorld().getGameEngine().changeDuration(100000);
+                        pause = true;
                     }
             }
         });
