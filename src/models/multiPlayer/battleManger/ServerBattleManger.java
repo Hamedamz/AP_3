@@ -22,7 +22,7 @@ public class ServerBattleManger {
     private Map<String, Battle> battleMap = new ConcurrentHashMap<>();
 
 
-    private void disconnectID(String accountID) {
+    public void disconnectID(String accountID) {
         for(Battle battle : battleMap.values()) {
             if(battle.containsAccountID(accountID)) {
                 Server.getInstance().sendToID(new ClientInteractionPacket(ClientInteractionPacketType.END_ATTACK_C, true), battle.getAttacker().getId());
@@ -33,7 +33,6 @@ public class ServerBattleManger {
 
     public void makeNewBattle(String attackerID, String defenderID) {
         Battle battle = new Battle(LeaderBoard.getInstance().getInfo(attackerID), LeaderBoard.getInstance().getInfo(defenderID));
-        LeaderBoard.getInstance().getInfo(attackerID);
-        LeaderBoard.getInstance().getInfo(defenderID);
+        battleMap.put(battle.getBattleID(), battle);
     }
 }
