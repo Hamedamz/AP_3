@@ -3,6 +3,7 @@ package models.multiPlayer.battleManger;
 import controllers.multiPlayer.Server;
 import controllers.multiPlayer.packet.clientPacket.ClientInteractionPacket;
 import controllers.multiPlayer.packet.clientPacket.types.ClientInteractionPacketType;
+import models.multiPlayer.leaderBoard.LeaderBoard;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,5 +31,9 @@ public class ServerBattleManger {
     }
 
 
-
+    public void makeNewBattle(String attackerID, String defenderID) {
+        Battle battle = new Battle(LeaderBoard.getInstance().getInfo(attackerID), LeaderBoard.getInstance().getInfo(defenderID));
+        LeaderBoard.getInstance().getInfo(attackerID);
+        LeaderBoard.getInstance().getInfo(defenderID);
+    }
 }

@@ -28,4 +28,13 @@ public class WarLog implements Serializable {
     public ArrayList<Entity> getDestroyedEntities() {
         return destroyedEntities;
     }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public int getTime() {
+
+        return time;
+    }
 }

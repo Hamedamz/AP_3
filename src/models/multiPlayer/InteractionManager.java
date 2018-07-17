@@ -11,6 +11,9 @@ import controllers.multiPlayer.packet.clientPacket.ClientInteractionPacket;
 import controllers.multiPlayer.packet.serverPacket.ServerInteractionPacket;
 import controllers.multiPlayer.runnables.ClientPacketListener;
 import controllers.multiPlayer.runnables.ServerPacketListener;
+import models.multiPlayer.battleManger.ServerBattleManger;
+import models.multiPlayer.battleManger.WarLog;
+import models.multiPlayer.leaderBoard.LeaderBoard;
 
 import static controllers.multiPlayer.packet.clientPacket.types.ClientInteractionPacketType.*;
 import static controllers.multiPlayer.packet.serverPacket.types.ServerInteractionPacketType.*;
@@ -47,12 +50,15 @@ public class InteractionManager implements ClientPacketListener<ClientInteractio
                     Server.getInstance().sendToID(new ClientInteractionPacket(LOCK, true, serverInteractionPacket.getID()),
                             (String) serverInteractionPacket.getElements()[0]);
                 } else {
+                    ServerBattleManger.getInstance().makeNewBattle((String) serverInteractionPacket.getElements()[0],
+                            serverInteractionPacket.getID());
                     Server.getInstance().sendToID(new ClientInteractionPacket(ATTACK_C, false, serverInteractionPacket.getElements()[1]),
                             (String) serverInteractionPacket.getElements()[0]);
                 }
                 break;
             case END_ATTACK_S:
-                // TODO: 7/17/2018 fix battle history
+                LeaderBoard.getInstance().addBattleHistory(serverInteractionPacket.getID(),
+                        (String) serverInteractionPacket.getElements()[0], (WarLog) serverInteractionPacket.getElements()[2]);
                 Server.getInstance().sendToID(new ClientInteractionPacket(END_ATTACK_C, false,
                         serverInteractionPacket.getElements()[1]), (String) serverInteractionPacket.getElements()[0]);
                 break;
@@ -86,6 +92,7 @@ public class InteractionManager implements ClientPacketListener<ClientInteractio
                 break;
             case END_ATTACK_C:
                 // TODO: 7/16/2018 merging villages or ending attacks
+                // TODO: 7/17/2018 id + json + warLog
                 break;
         }
     }
