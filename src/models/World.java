@@ -5,6 +5,8 @@ import controllers.JsonHandler;
 import models.GameLogic.*;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Exceptions.TroopNotFoundException;
+import models.multiPlayer.ConnectionManager;
+import models.multiPlayer.InteractionManager;
 import models.setting.GameLogicConfig;
 
 import java.io.File;
@@ -37,7 +39,11 @@ public class World {
         return enemyVillagesFileAndMap;
     }
 
-    public Account getEnemyAccount(GameMap gameMap) {
+    public AccountInfo getEnemyAccount(GameMap gameMap) {
+        if (ConnectionManager.getInstance().getConnectionType().equals(ConnectionType.CLIENT)) {
+            return InteractionManager.getInstance().getRequestedAccount();
+        }
+
         Account enemyAccount = null;
         for (File file : enemyVillagesFileAndMap.keySet()) {
             if (enemyVillagesFileAndMap.get(file) == gameMap) {
@@ -48,7 +54,7 @@ public class World {
                 }
             }
         }
-        return enemyAccount;
+        return enemyAccount.getInfo();
     }
 
     public Village getMyVillage() {

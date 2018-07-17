@@ -14,6 +14,7 @@ import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
 import models.GameLogic.Position;
 import models.GameLogic.Village;
+import models.multiPlayer.InteractionManager;
 import viewers.utils.*;
 import viewers.utils.SliderMenu.SliderMenu;
 import viewers.utils.entityHolders.BuildingHolder;
@@ -40,6 +41,7 @@ public class MyVillageScene extends VillageScene {
     private PriceTicket priceTicket;
     private Pane previewPane;
     private Button selectedBuilding;
+    private VillageLockPane villageLockPane;
 
     private MyVillageScene() {
         super();
@@ -113,6 +115,9 @@ public class MyVillageScene extends VillageScene {
             AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
         });
 
+        villageLockPane = new VillageLockPane();
+        villageLockPane.setVisible(false);
+
 //        reBuild(connectionType);
         setAnimationTimer().start();
     }
@@ -122,6 +127,12 @@ public class MyVillageScene extends VillageScene {
         return new AnimationTimer() {
             @Override
             public void handle(long now) {
+
+                if (InteractionManager.getInstance().isLocked()) {
+                    lockVillage();
+                } else {
+                    unlockVillage();
+                }
 
                 for (BuildingHolder buildingHolder : buildingHolders) {
                     buildingHolder.refresh();
@@ -209,8 +220,8 @@ public class MyVillageScene extends VillageScene {
         }
         root.getChildren().addAll(BuildingMenuController.getInstance().getMenus());
         root.getChildren().addAll(villageConsole);
-        if (connectionType.equals(ConnectionType.CLIENT) || connectionType.equals(ConnectionType.SERVER)) {
-            root.getChildren().addAll(SliderMenu.getInstance());
+        if (connectionType.equals(ConnectionType.CLIENT)) {
+            root.getChildren().addAll(villageLockPane, SliderMenu.getInstance());
         }
     }
 
@@ -233,12 +244,17 @@ public class MyVillageScene extends VillageScene {
     }
 
     public void lockVillage() {
-        int i = root.getChildren().lastIndexOf(SliderMenu.getInstance());
-        Pane pane = new VillageLockPane();
-        root.getChildren().add(i, pane);
+        villageLockPane.setVisible(true);
+    }
+
+    public void unlockVillage() {
+        if (villageLockPane != null && villageLockPane.isVisible()) {
+            villageLockPane.setVisible(false);
+        }
     }
 
     public void previewEnemyVillage(Village village, String name) {
+        attackMenuGlassPane.setProperties();
         previewPane = new AttackPreview(name, village);
         root.getChildren().add(previewPane);
     }

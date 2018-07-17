@@ -1,13 +1,16 @@
 package viewers;
 
 import controllers.Controller;
+import controllers.JsonHandler;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import models.multiPlayer.ConnectionManager;
 import models.ConnectionType;
+import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 
 import java.util.Optional;
@@ -46,7 +49,12 @@ public class AppGUI extends Application {
             if (action.get() == ButtonType.OK) {
                 getController().saveGame();
             }
+        });
+
+        getMainStage().setOnCloseRequest(event -> {
             ConnectionManager.getInstance().disconnect();
+            Platform.exit();
+            System.exit(0);
         });
         getMainStage().show();
     }

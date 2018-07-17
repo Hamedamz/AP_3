@@ -1,5 +1,10 @@
 package viewers;
 
+import controllers.JsonHandler;
+import controllers.multiPlayer.Client;
+import controllers.multiPlayer.packet.serverPacket.ServerInteractionPacket;
+import controllers.multiPlayer.packet.serverPacket.types.ServerInteractionPacketType;
+import models.GameLogic.Village;
 import models.multiPlayer.ConnectionManager;
 import models.ConnectionType;
 import models.GameLogic.Entities.Buildings.GuardianGiant;
@@ -32,6 +37,7 @@ import viewers.utils.ButtonActionType;
 import viewers.utils.fancyButtons.RoundFancyButton;
 import viewers.utils.fancyButtons.TroopsFancyButton;
 import viewers.utils.fancyPopups.AttackEndGlassPane;
+import viewers.utils.fancyPopups.AttackPreview;
 import viewers.utils.tiles.HexaTile;
 
 import java.util.ArrayList;
@@ -203,7 +209,8 @@ public class BattleGroundScene extends VillageScene {
         achievedGoldLoot = new StrokeText();
         achievedElixirLoot = new StrokeText();
         remainedTime = new StrokeText();
-        StrokeText defenderName = new StrokeText("Defender");
+        String name = AppGUI.getController().getWorld().getBattleGround().getEnemyAccountInfo().getName();
+        StrokeText defenderName = new StrokeText(name);
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(Const.SPACING);
         gridPane.setVgap(Const.SPACING / 2);
@@ -273,4 +280,5 @@ public class BattleGroundScene extends VillageScene {
         attackEndGlassPane.setProperties();
         attackEndGlassPane.setVisible(true);
     }
+
 }

@@ -237,18 +237,6 @@ public class AttackMenuGlassPane extends GlassPane {
         return number;
     }
 
-    public ProgressBarItem getTotalGoldProgressBar() {
-        return totalGoldProgressBar;
-    }
-
-    public ProgressBarItem getTotalElixirProgressBar() {
-        return totalElixirProgressBar;
-    }
-
-    public GridPane getTotalStock() {
-        return totalStock;
-    }
-
     public TroopsScrollMenu getTroopsScrollMenu() {
         return troopsScrollMenu;
     }

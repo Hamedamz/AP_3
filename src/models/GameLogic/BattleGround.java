@@ -1,7 +1,12 @@
 package models.GameLogic;
 
+import controllers.JsonHandler;
+import controllers.multiPlayer.Client;
+import controllers.multiPlayer.packet.serverPacket.ServerInteractionPacket;
+import controllers.multiPlayer.packet.serverPacket.types.ServerInteractionPacketType;
 import models.Account;
 import models.AccountInfo;
+import models.ConnectionType;
 import models.interfaces.Effector;
 import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Defender;
@@ -10,6 +15,8 @@ import models.GameLogic.Entities.Troop.*;
 import models.GameLogic.Exceptions.CountLimitReachedException;
 import models.GameLogic.Exceptions.InvalidPositionException;
 import models.GameLogic.Exceptions.TroopNotFoundException;
+import models.multiPlayer.ConnectionManager;
+import models.multiPlayer.battleManger.WarLog;
 import models.setting.GameLogicConfig;
 import viewers.AppGUI;
 
@@ -24,6 +31,7 @@ public class BattleGround {
     private int timeRemaining;
     private Village myVillage;
     private GameMap enemyGameMap;
+    private Village enemyVillage;
     private ArrayList<Building> enemyBuildings;
     private ArrayList<Troop> deployedTroops;
     private HashMap<String, ArrayList<Troop>> unDeployedTroops;
@@ -37,7 +45,7 @@ public class BattleGround {
 
     private boolean isWallDestroyed;
     public BattleGround(Village myVillage, GameMap enemyGameMap) {
-        enemyAccountInfo = AppGUI.getController().getWorld().getEnemyAccount(enemyGameMap).getInfo();
+        enemyAccountInfo = AppGUI.getController().getWorld().getEnemyAccount(enemyGameMap);
         numberOfTroopsDeployed = new int[enemyGameMap.getMapWidth()][enemyGameMap.getMapWidth()];
         deployedTroops = new ArrayList<>();
         enemyBuildings = new ArrayList<>(enemyGameMap.getBuildings());
@@ -234,6 +242,12 @@ public class BattleGround {
             }
         }
         myVillage.spreadTroops(unDeployedTroops);
+
+        if (ConnectionManager.getInstance().getConnectionType().equals(ConnectionType.CLIENT)) {
+            String id = AppGUI.getController().getWorld().getBattleGround().getEnemyAccountInfo().getId();
+            WarLog warLog = new WarLog(getTimeRemaining(), lootedBounty);
+            Client.getInstance().sendToServer(new ServerInteractionPacket(ServerInteractionPacketType.END_ATTACK_S, false, id, JsonHandler.villageToJson(getEnemyVillage()), warLog));
+        }
     }
 
     public void setGameFinished(boolean gameFinished) {
@@ -246,5 +260,17 @@ public class BattleGround {
 
     public void setWallDestroyed(boolean wallDestroyed) {
         isWallDestroyed = wallDestroyed;
+    }
+
+    public AccountInfo getEnemyAccountInfo() {
+        return enemyAccountInfo;
+    }
+
+    public Village getEnemyVillage() {
+        return enemyVillage;
+    }
+
+    public void setEnemyVillage(Village enemyVillage) {
+        this.enemyVillage = enemyVillage;
     }
 }

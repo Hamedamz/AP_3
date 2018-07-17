@@ -1,5 +1,9 @@
 package viewers.utils.fancyPopups;
 
+import controllers.multiPlayer.Client;
+import controllers.multiPlayer.packet.serverPacket.ServerInteractionPacket;
+import controllers.multiPlayer.packet.serverPacket.types.ServerInteractionPacketType;
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
@@ -10,6 +14,7 @@ import models.GameLogic.Entities.Buildings.TownHall;
 import models.GameLogic.Exceptions.TroopNotFoundException;
 import models.GameLogic.Resource;
 import models.GameLogic.Village;
+import models.multiPlayer.InteractionManager;
 import viewers.AppGUI;
 import viewers.BattleGroundScene;
 import viewers.utils.*;
@@ -73,7 +78,29 @@ public class AttackPreview extends GlassPane {
         attackButton = new RoundButton("Attack", "green");
         attackButton.setOnAction(event -> {
             selectedTroopsHashMap = AttackMenuGlassPane.getInstance().getSelectedTroopsHashMap();
-            System.out.println(selectedTroopsHashMap);
+            Client.getInstance().sendToServer(new ServerInteractionPacket(ServerInteractionPacketType.ATTACK_S, true, InteractionManager.getInstance().getRequestedAccount().getId()));
+            new AnimationTimer() {
+                @Override
+                public void handle(long now) {
+                    Village village = InteractionManager.getInstance().getRequestedVillage();
+                    if (village != null) {
+                        this.stop();
+                        AppGUI.getMyVillageScene().previewEnemyVillage(village, "ENEMY LOG");
+                        AppGUI.getController().setEnemyMap(village.getGameMap());
+                        try {
+                            AppGUI.getController().setSelectedTroops(selectedTroopsHashMap);
+                        } catch (TroopNotFoundException e) {
+                            AppGUI.getMyVillageScene().handleException(e);
+                        }
+
+                        AppGUI.getController().getWorld().getBattleGround().setEnemyVillage(village);
+                        BattleGroundScene.getInstance().reBuild();
+                        AppGUI.setStageScene(BattleGroundScene.getInstance());
+                        AppGUI.getMyVillageScene().closeEnemyPreview();
+                        AppGUI.getController().getSoundPlayer().playBackground(Sounds.warSound);
+                    }
+                }
+            }.start();
         });
 
         troopPane = new VBox(Const.SPACING * 3, troopsScrollMenu, attackButton);
@@ -120,5 +147,9 @@ public class AttackPreview extends GlassPane {
 
     public void refresh() {
 
+    }
+
+    public Village getVillage() {
+        return village;
     }
 }

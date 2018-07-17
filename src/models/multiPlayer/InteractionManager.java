@@ -112,4 +112,8 @@ public class InteractionManager implements ClientPacketListener<ClientInteractio
     public AccountInfo getRequestedAccount() {
         return requestedAccount;
     }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
 }
