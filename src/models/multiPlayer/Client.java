@@ -86,6 +86,9 @@ public class Client extends PacketHandler implements ClientPacketListener<Client
                 case CONNECTION:
                     ConnectionManager.getInstance().receive((ClientConnectionPacket) clientPacket);
                     break;
+                case BROADCAST:
+                    BroadcastStation.getInstance().receive((ClientBroadcastPacket) clientPacket);
+                    break;
             }
         }
     }

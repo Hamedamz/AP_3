@@ -88,6 +88,9 @@ public class Server extends PacketHandler implements ServerPacketListener<Server
                 case CONNECTION:
                     ConnectionManager.getInstance().receive((ServerConnectionPacket) serverPacket);
                     break;
+                case BROADCAST:
+                    BroadcastStation.getInstance().receive((ServerBroadcastPacket) serverPacket);
+                    break;
             }
         }
     }
