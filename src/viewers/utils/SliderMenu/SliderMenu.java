@@ -52,11 +52,15 @@ public class SliderMenu extends Pane {
         leaderBoardTab.setContent(LeaderBoardBox.getInstance());
         leaderBoardTab.setOnSelectionChanged(event -> setWidth(2 * WIDTH));
 
+        battleHistoryTab = new Tab("Battle History");
+        battleHistoryTab.setContent(BattleHistoryBox.getInstance());
+        battleHistoryTab.setOnSelectionChanged(event -> setWidth(2 * WIDTH));
+
         tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabMaxHeight(Const.SLIDER_MENU_TAB_HEIGHT);
         tabPane.setTabMinHeight(Const.SLIDER_MENU_TAB_HEIGHT);
-        tabPane.getTabs().addAll(chatTab, leaderBoardTab);
+        tabPane.getTabs().addAll(chatTab, leaderBoardTab, battleHistoryTab);
         HBox container = new HBox(Const.SPACING, tabPane, toggleButton);
         container.setAlignment(Pos.CENTER);
 
@@ -65,6 +69,7 @@ public class SliderMenu extends Pane {
             public void handle(long now) {
                 ChatBox.getInstance().refresh();
                 LeaderBoardBox.getInstance().refresh();
+                BattleHistoryBox.getInstance().refresh();
             }
         };
 

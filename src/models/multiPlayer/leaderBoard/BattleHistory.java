@@ -5,6 +5,8 @@ import models.GameLogic.Bounty;
 import java.io.Serializable;
 
 public class BattleHistory implements Serializable {
+
+
     private int battleTime;
     private String attackerName;
     private String defenderName;
@@ -34,8 +36,16 @@ public class BattleHistory implements Serializable {
         this.defenderName = defenderName;
     }
 
-    public Bounty getLootedBounty() {
-        return lootedBounty;
+    public int getGold() {
+        return lootedBounty.getGold();
+    }
+
+    public int getElixir() {
+        return lootedBounty.getElixir();
+    }
+
+    public int getScore() {
+        return lootedBounty.getScore();
     }
 
     public void setLootedBounty(Bounty lootedBounty) {
