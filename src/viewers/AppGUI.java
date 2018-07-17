@@ -38,7 +38,7 @@ public class AppGUI extends Application {
         mainStage = primaryStage;
         getMainStage().setResizable(false);
         setStageScene(GameLobbyScene.getInstance());
-
+        getController().getSoundPlayer().playBackground(Sounds.lobbySound);
         getMainStage().setOnHiding(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Save Game");
@@ -64,8 +64,8 @@ public class AppGUI extends Application {
         ConnectionType connectionType = ConnectionManager.getInstance().getConnectionType();
         MyVillageScene.getInstance().reBuild(connectionType);
         AppGUI.setStageScene(MyVillageScene.getInstance());
-        SoundPlayer.play(Sounds.loadSound);
-        SoundPlayer.playBackground(Sounds.mainSound);
+        AppGUI.getController().getSoundPlayer().play(Sounds.loadSound);
+        getController().getSoundPlayer().playBackground(Sounds.mainSound);
     }
 
 }

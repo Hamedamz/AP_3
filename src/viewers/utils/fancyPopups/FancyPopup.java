@@ -60,7 +60,7 @@ public abstract class FancyPopup extends Pane {
         closeButton.setLayoutX(300);
         closeButton.setOnAction(event -> {
             this.hide();
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
         });
 
         this.setPrefSize(Const.WINDOW_WIDTH, Const.WINDOW_HEIGHT);

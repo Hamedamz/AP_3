@@ -67,7 +67,7 @@ public class UpgradePopup extends FancyPopup {
         } catch (UpgradeLimitReachedException | NotEnoughResourcesException e) {
             AppGUI.getMyVillageScene().handleException(e);
         }
-        SoundPlayer.play(Sounds.buttonSound);
+        AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
         this.hide();
     }
 }

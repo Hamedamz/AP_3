@@ -97,7 +97,7 @@ public class MyVillageScene extends VillageScene {
         buildButton.setOnMouseClicked(event -> {
             BuildingMenuController.getInstance().hideActiveMenu();
             shopScrollMenu.toggleView();
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
         });
 
         // attack button
@@ -110,7 +110,7 @@ public class MyVillageScene extends VillageScene {
         attackButton.setOnMouseClicked(event -> {
             BuildingMenuController.getInstance().hideActiveMenu();
             attackMenuGlassPane.toggleVisibility();
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
         });
 
 //        reBuild(connectionType);

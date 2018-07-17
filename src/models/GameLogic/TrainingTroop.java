@@ -5,6 +5,7 @@ import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.NotEnoughCapacityException;
 import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.setting.GameLogicConfig;
+import viewers.AppGUI;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 
@@ -58,7 +59,7 @@ public class TrainingTroop {
     public void moveToCamp(Camp camp) throws NotEnoughCapacityException {
         Troop trainedTroop = this.convertToTroop();
         camp.addTroop(trainedTroop);
-        SoundPlayer.play(Sounds.troopCompleteSound);
+        AppGUI.getController().getSoundPlayer().play(Sounds.troopCompleteSound);
        // trainedTroop.setTroopCamp(camp);
     }
 

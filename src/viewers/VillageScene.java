@@ -54,7 +54,7 @@ public abstract class VillageScene extends Scene {
         settingsButton.setLayoutY(Const.WINDOW_HEIGHT - 200);
         settingsButton.setOnMouseClicked(event -> {
             BuildingMenuController.getInstance().hideActiveMenu();
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             RotateTransition rotateTransition = new RotateTransition();
             rotateTransition.setNode(settingsButton.getIcon());
             rotateTransition.setDuration(Duration.millis(1000));

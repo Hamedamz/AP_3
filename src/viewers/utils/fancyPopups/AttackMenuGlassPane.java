@@ -87,7 +87,7 @@ public class AttackMenuGlassPane extends GlassPane {
         chooserBox.add(browseButton, 1,0);
 
         browseButton.setOnAction(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             List<File> selectedFiles = fileChooser.showOpenMultipleDialog(AppGUI.getMainStage());
             if (selectedFiles != null) {
                 for (File selectedFile : selectedFiles) {
@@ -123,7 +123,7 @@ public class AttackMenuGlassPane extends GlassPane {
             }
             BattleGroundScene.getInstance().reBuild();
             AppGUI.setStageScene(BattleGroundScene.getInstance());
-            SoundPlayer.play(Sounds.warSound);
+            AppGUI.getController().getSoundPlayer().playBackground(Sounds.warSound);
             this.toggleVisibility();
         });
 
@@ -138,7 +138,7 @@ public class AttackMenuGlassPane extends GlassPane {
 
             fancyButton.getIncrementButton().setOnAction(event -> {
                 if (!fancyButton.getIncrementButton().isDisable()) {
-                    SoundPlayer.play(Sounds.buttonSound);
+                    AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
                 }
                 int newValue = selectedTroopsHashMap.get(fancyButton.getClazz()) + 1;
                 if (newValue <= troopsMaxNumberHashMap.get(fancyButton.getClazz())) {
@@ -153,7 +153,7 @@ public class AttackMenuGlassPane extends GlassPane {
 
             fancyButton.getDecrementButton().setOnAction(event -> {
                 if (!fancyButton.getDecrementButton().isDisable()) {
-                    SoundPlayer.play(Sounds.buttonSound);
+                    AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
                 }
                 int newValue = selectedTroopsHashMap.get(fancyButton.getClazz()) - 1;
                 if (newValue >= 0) {

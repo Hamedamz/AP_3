@@ -10,6 +10,7 @@ import models.GameLogic.Exceptions.UpgradeLimitReachedException;
 import models.GameLogic.enums.MoveType;
 import models.GameLogic.ID;
 import models.setting.GameLogicConfig;
+import viewers.AppGUI;
 import viewers.utils.Const;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
@@ -67,7 +68,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
     public void finishConstruct() {
         isUnderConstruct = false;
         if (!(this instanceof TownHall) && !(this instanceof GoldStorage && this.getID().getCount() == 1)) {
-            SoundPlayer.play(Sounds.buildCompleteSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buildCompleteSound);
         }
     }
 
@@ -135,7 +136,7 @@ public abstract class Building extends Defender implements Upgradable, Comparabl
         hitPoints += GameLogicConfig.getFromDictionary(getClass().getSimpleName() + "UpgradeHitPointsAddition");
 
         try {
-            SoundPlayer.play(Sounds.buildCompleteSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buildCompleteSound);
         }
         catch (Exception e) {
             e.getCause();

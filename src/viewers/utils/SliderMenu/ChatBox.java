@@ -13,6 +13,7 @@ import models.multiPlayer.chatRoom.Message;
 import models.multiPlayer.packet.clientPacket.ClientChatPacket;
 import models.multiPlayer.packet.serverPacket.ServerChatPacket;
 import models.multiPlayer.runnables.ClientPacketListener;
+import viewers.AppGUI;
 import viewers.utils.Const;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
@@ -54,7 +55,7 @@ public class ChatBox extends Pane implements ClientPacketListener<ClientChatPack
         sendButton = new RoundButton("send", "green");
         sendButton.setFocusTraversable(false);
         sendButton.setOnAction(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             sendMessage();
         });
 

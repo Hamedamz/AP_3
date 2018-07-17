@@ -1,5 +1,6 @@
 package models.GameLogic.Entities.Buildings;
 
+import models.Account;
 import models.GameLogic.Bounty;
 import models.GameLogic.Builder;
 import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
@@ -8,6 +9,7 @@ import models.GameLogic.Position;
 import models.GameLogic.Resource;
 import models.GameLogic.utills.IDGenerator;
 import models.setting.GameLogicConfig;
+import viewers.AppGUI;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 
@@ -51,7 +53,7 @@ public class TownHall extends Storage {
         maxHitPoint += hitPointsAddition;
         updateViewPort();
         try {
-            SoundPlayer.play(Sounds.buildCompleteSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buildCompleteSound);
         }
         catch (Exception e) {
             e.getCause();

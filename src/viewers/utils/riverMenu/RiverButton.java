@@ -2,6 +2,7 @@ package viewers.utils.riverMenu;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import viewers.AppGUI;
 import viewers.utils.ButtonActionType;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
@@ -30,7 +31,7 @@ public class RiverButton extends Button {
 
     private void setEvents() {
         this.setOnAction(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             RiverMenu.getInstance().openMenu(type);
         });
     }

@@ -54,7 +54,7 @@ public class HostMenu extends StackPane {
         });
 
         setUpButton.setOnAction(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             try {
                 Server.initServer(Integer.parseInt(portTextFiled.getText()));
                 ConnectionManager.getInstance().setConnectionType(ConnectionType.SERVER);

@@ -49,7 +49,7 @@ public class SliderMenu extends Pane {
         toggleButton = new RoundButton(">", "yellow");
         toggleButton.setFocusTraversable(false);
         toggleButton.setOnAction(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             toggleState();
         });
 

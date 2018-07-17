@@ -6,9 +6,7 @@ import controllers.enums.CommandType;
 import javafx.application.Application;
 import models.Account;
 import models.GameLogic.*;
-import models.GameLogic.Entities.Buildings.Barracks;
-import models.GameLogic.Entities.Buildings.Building;
-import models.GameLogic.Entities.Buildings.DefensiveBuilding;
+import models.GameLogic.Entities.Buildings.*;
 import models.GameLogic.Entities.Entity;
 import models.GameLogic.Entities.Troop.Troop;
 import models.GameLogic.Exceptions.*;
@@ -16,6 +14,7 @@ import models.World;
 import viewers.menu.*;
 import viewers.AppGUI;
 import viewers.oldViewers.*;
+import viewers.utils.SoundPlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,10 +37,14 @@ public class Controller {
     private BuildingViewer buildingViewer = new BuildingViewer();
     private MapViewer mapViewer = new MapViewer();
     private BattleGroundViewer battleGroundViewer = new BattleGroundViewer();
+    private SoundPlayer soundPlayer = SoundPlayer.getInstance();
 
     public static void main(String[] args) {
         JsonHandler.loadConfig();
         Application.launch(AppGUI.class, args);
+    }
+    public SoundPlayer getSoundPlayer() {
+        return soundPlayer;
     }
 
     private static void handleMenuInputs() throws InvalidInputException, NoFreeBuilderException, InvalidPositionException, NotEnoughResourcesException, CountLimitReachedException, NotAvailableAtThisLevelException, FileNotFoundException, TroopNotFoundException {

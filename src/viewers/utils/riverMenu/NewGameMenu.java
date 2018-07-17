@@ -88,7 +88,7 @@ public class NewGameMenu extends StackPane {
 
     public void rebuildForClientMenu() {
         newGameButton.setOnAction(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             if (newGame()) {
                 ClientMenu.getInstance().disableLoginOrNewGame(true);
             }
@@ -97,7 +97,7 @@ public class NewGameMenu extends StackPane {
 
     public void rebuildForNewGameMenu() {
         newGameButton.setOnAction(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             if (newGame()) {
                 ConnectionManager.getInstance().setConnectionType(ConnectionType.SINGLE_PLAYER);
                 AppGUI.loadVillageScene();

@@ -10,6 +10,7 @@ import models.GameLogic.Position;
 import models.GameLogic.enums.TroopTargetType;
 import models.setting.GameLogicConfig;
 import models.setting.GameLogicConstants;
+import viewers.AppGUI;
 import viewers.BattleGroundScene;
 import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
@@ -120,16 +121,16 @@ public abstract class AttackerTroop extends Troop implements MovingAttacker, Des
             destroyable.takeDamageFromAttack(damage);
             switch (this.getClass().getSimpleName()) {
                 case "Archer" :
-                    SoundPlayer.play(Sounds.archerAttackSound);
+                    AppGUI.getController().getSoundPlayer().play(Sounds.archerAttackSound);
                     break;
                 case "Guardian" :
-                    SoundPlayer.play(Sounds.barbarianAttackSound);
+                    AppGUI.getController().getSoundPlayer().play(Sounds.barbarianAttackSound);
                     break;
                 case "Dragon" :
-                    SoundPlayer.play(Sounds.dragonAttackSound);
+                    AppGUI.getController().getSoundPlayer().play(Sounds.dragonAttackSound);
                     break;
                 case "Giant" :
-                    SoundPlayer.play(Sounds.giantAttackSound);
+                    AppGUI.getController().getSoundPlayer().play(Sounds.giantAttackSound);
                     //WallBreaker Overrides this function
             }
             BattleGroundScene.getInstance().attackHappened(this, destroyable);

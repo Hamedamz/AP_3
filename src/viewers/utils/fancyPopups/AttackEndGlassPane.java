@@ -28,7 +28,7 @@ public class AttackEndGlassPane extends GlassPane {
         returnButton = new RoundButton("Return", "green");
 
         returnButton.setOnAction(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             AppGUI.loadVillageScene();
         });
 

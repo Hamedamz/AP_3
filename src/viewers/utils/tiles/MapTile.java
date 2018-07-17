@@ -65,7 +65,7 @@ public class MapTile extends Rectangle {
             if (db.hasString()) {
                 try {
                     AppGUI.getController().buildBuilding(db.getString(), this.mapX, this.mapY);
-                    SoundPlayer.play(Sounds.buildStartSound);
+                    AppGUI.getController().getSoundPlayer().play(Sounds.buildStartSound);
                 } catch (InvalidPositionException | CountLimitReachedException | NotEnoughResourcesException | NoFreeBuilderException e) {
                     AppGUI.getMyVillageScene().handleException(e);
                 }

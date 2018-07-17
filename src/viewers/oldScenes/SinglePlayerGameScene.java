@@ -109,7 +109,7 @@ public class SinglePlayerGameScene extends Scene {
     private void loadStage() {
         AppGUI.getMainStage().setX(10);
         AppGUI.getMainStage().setY(10);
-        SoundPlayer.play(Sounds.loadSound);
-        SoundPlayer.playBackground(Sounds.mainSound);
+        AppGUI.getController().getSoundPlayer().play(Sounds.loadSound);
+        AppGUI.getController().getSoundPlayer().playBackground(Sounds.mainSound);
     }
 }

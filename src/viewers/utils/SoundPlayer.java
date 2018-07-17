@@ -7,13 +7,22 @@ import models.GameLogic.Entities.Buildings.ElixirStorage;
 import models.GameLogic.Entities.Buildings.GoldMine;
 import models.GameLogic.Entities.Buildings.GoldStorage;
 import models.GameLogic.Entities.Entity;
+import viewers.AppGUI;
 
 public class SoundPlayer {
-    private static MediaPlayer backgroundMediaPlayer;
-    private static MediaPlayer mediaPlayer;
+    private static SoundPlayer soundPlayer = new SoundPlayer();
+    private MediaPlayer backgroundMediaPlayer;
+    private MediaPlayer mediaPlayer;
+
+    private SoundPlayer() {
+    }
+
+    public static SoundPlayer getInstance() {
+        return soundPlayer;
+    }
 
 
-    public static void playBackground(String sound) {
+    public void playBackground(String sound) {
         if (backgroundMediaPlayer != null) {
             backgroundMediaPlayer.stop();
         }
@@ -22,20 +31,20 @@ public class SoundPlayer {
         backgroundMediaPlayer.play();
     }
 
-    public static void play(String sound) {
+    public void play(String sound) {
         mediaPlayer = new MediaPlayer(new Media(sound));
         mediaPlayer.play();
     }
 
     public static void play(Entity entity) {
         if (entity instanceof GoldStorage || entity instanceof GoldMine) {
-            SoundPlayer.play(Sounds.goldSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.goldSound);
         }
         else if (entity instanceof ElixirStorage || entity instanceof ElixirMine) {
-            SoundPlayer.play(Sounds.elixirSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.elixirSound);
         }
         else {
-            SoundPlayer.play(Sounds.buildingClickSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buildingClickSound);
         }
     }
 }

@@ -5,6 +5,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
 import models.GameLogic.Builder;
 import models.GameLogic.Entities.Buildings.*;
+import viewers.AppGUI;
 import viewers.utils.*;
 
 public class BuildingHolder extends EntityHolder {
@@ -62,7 +63,7 @@ public class BuildingHolder extends EntityHolder {
             if (((Building) entity).isDestroyed()){
                 if (!isDestroyed()) {
                     this.setDestroyed(true);
-                    SoundPlayer.play(Sounds.buildingDestroyedSound);
+                    AppGUI.getController().getSoundPlayer().play(Sounds.buildingDestroyedSound);
                     grayScale.setSaturation(-1);
                 }
                 return;

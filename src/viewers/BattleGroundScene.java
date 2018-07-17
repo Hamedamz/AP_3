@@ -269,7 +269,7 @@ public class BattleGroundScene extends VillageScene {
     }
 
     private void finishBattle() {
-        SoundPlayer.play(Sounds.winSound);
+        AppGUI.getController().getSoundPlayer().play(Sounds.winSound);
         attackEndGlassPane.setProperties();
         attackEndGlassPane.setVisible(true);
     }

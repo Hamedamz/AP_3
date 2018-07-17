@@ -47,7 +47,7 @@ public class LoadGameMenu extends StackPane {
         logInButton = new RoundButton("Log in", "green");
         logInButton.setDisable(true);
         logInButton.setOnAction(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             sendLogInRequest();
         });
 
@@ -111,7 +111,7 @@ public class LoadGameMenu extends StackPane {
 
     public void rebuildForClientMenu() {
         logInButton.setOnAction(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             if (sendLogInRequest()) {
                 ClientMenu.getInstance().disableLoginOrNewGame(true);
             }
@@ -132,7 +132,7 @@ public class LoadGameMenu extends StackPane {
 
     public void rebuildForLoadGameMenu() {
         logInButton.setOnAction(event -> {
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
             if (sendLogInRequest()) {
                 ConnectionManager.getInstance().setConnectionType(ConnectionType.SINGLE_PLAYER);
                 AppGUI.loadVillageScene();

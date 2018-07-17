@@ -2,6 +2,7 @@ package viewers.utils.fancyButtons;
 
 import controllers.BuildingMenuController;
 import javafx.geometry.Pos;
+import viewers.AppGUI;
 import viewers.utils.ButtonActionType;
 import viewers.utils.ImageLibrary;
 import viewers.utils.SoundPlayer;
@@ -18,7 +19,7 @@ public class BuildingMenuFancyButton extends FancyButton {
 
         this.setOnMouseClicked(event -> {
             BuildingMenuController.getInstance().handleClickOnButton(type);
-            SoundPlayer.play(Sounds.buttonSound);
+            AppGUI.getController().getSoundPlayer().play(Sounds.buttonSound);
         });
     }
 

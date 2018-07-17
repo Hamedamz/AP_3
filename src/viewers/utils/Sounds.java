@@ -4,6 +4,7 @@ import java.io.File;
 
 public final class Sounds {
     public static final String mainSound = new File("assets/sounds/main.wav").toURI().toString();
+    public static final String lobbySound = new File("assets/sounds/lobby.wav").toURI().toString();
     public static final String goldSound = new File("assets/sounds/gold.wav").toURI().toString();
     public static final String elixirSound = new File("assets/sounds/elixir.wav").toURI().toString();
     public static final String warSound = new File("assets/sounds/war.wav").toURI().toString();
