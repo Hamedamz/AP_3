@@ -221,7 +221,7 @@ public class MyVillageScene extends VillageScene {
     public void reBuild(ConnectionType connectionType) {
         this.connectionType = connectionType;
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton);
+        root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton, fastForwardButton);
         if (connectionType.equals(ConnectionType.SINGLE_PLAYER)) {
             root.getChildren().addAll(attackMenuGlassPane, attackButton);
         }

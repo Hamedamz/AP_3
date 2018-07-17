@@ -85,16 +85,18 @@ public class LobbyBackground extends Pane {
 
         int fromX = rand.nextInt(400);
         int toX;
+        double scale;
         if (fromX % 2 == 0) {
             fromX += 880;
             rand.setSeed(System.nanoTime());
             toX = rand.nextInt(400);
-            imageView.setScaleX(1);
+            scale = 1;
         } else {
             rand.setSeed(System.nanoTime());
             toX = 880 + rand.nextInt(400);
-            imageView.setScaleX(-1);
+            scale = -1;
         }
+        imageView.setScaleX(scale);
         imageView.setLayoutX(fromX);
 
         Timeline timeline = new Timeline();
@@ -103,11 +105,12 @@ public class LobbyBackground extends Pane {
         KeyValue keyValueL = new KeyValue(imageView.layoutXProperty(), toX);
         KeyFrame keyFrameL = new KeyFrame(new Duration(10000), keyValueL);
 
+//        KeyValue keyValueS2 = new KeyValue(imageView.scaleXProperty(), scale * -1);
+//        KeyFrame keyFrameS2 = new KeyFrame(new Duration(200), keyValueS2);
+
         KeyValue keyValueL2 = new KeyValue(imageView.layoutXProperty(), fromX);
         KeyFrame keyFrameL2 = new KeyFrame(new Duration(10000), keyValueL2);
 
-//        KeyValue keyValueS2 = new KeyValue(imageView.scaleXProperty(), 1);
-//        KeyFrame keyFrameS2 = new KeyFrame(new Duration(200), keyValueS2);
         timeline.getKeyFrames().addAll(keyFrameL, keyFrameL2);
         timeline.play();
     }

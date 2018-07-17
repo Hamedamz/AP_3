@@ -286,7 +286,7 @@ public class BattleGroundScene extends VillageScene {
     private void setRoot() {
         ConnectionType connectionType = ConnectionManager.getInstance().getConnectionType();
         root.getChildren().clear();
-        root.getChildren().addAll(draggableView, battleInfo, settingsButton, quitButton, troopsScrollMenu, attackEndGlassPane, villageConsole);
+        root.getChildren().addAll(draggableView, battleInfo, settingsButton, fastForwardButton, quitButton, troopsScrollMenu, attackEndGlassPane, villageConsole);
         if (connectionType.equals(ConnectionType.SERVER) || connectionType.equals(ConnectionType.CLIENT)) {
             root.getChildren().add(SliderMenu.getInstance());
         }

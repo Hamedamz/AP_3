@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import models.GameLogic.Entities.Buildings.Building;
 import models.GameLogic.Entities.Buildings.TownHall;
+import models.GameLogic.GameEngine;
 import viewers.utils.*;
 import viewers.utils.entityHolders.BuildingHolder;
 import viewers.utils.ButtonActionType;
@@ -63,19 +64,19 @@ public abstract class VillageScene extends Scene {
             rotateTransition.play();
         });
 
-//        fastForwardButton = new RoundFancyButton(ButtonActionType.FAST_FORWARD, "red");
-//        fastForwardButton.setLayoutX(Const.WINDOW_WIDTH - 100);
-//        fastForwardButton.setLayoutY(Const.SPACING);
-//        fastForwardButton.setOnMousePressed(event -> {
-//            GameEngine gameEngine = AppGUI.getController().getWorld().getGameEngine();
-//            if (gameEngine.getDuration() - 10 > 0)
-//            gameEngine.changeDuration(gameEngine.getDuration() - 10);
-//        });
-//        fastForwardButton.setOnMouseReleased(event -> {
-//            GameEngine gameEngine = AppGUI.getController().getWorld().getGameEngine();
-//            gameEngine.changeDuration(GameEngine.DEFAULT_DURATION);
-//            System.out.println("released");
-//        });
+        fastForwardButton = new RoundFancyButton(ButtonActionType.FAST_FORWARD, "red");
+        fastForwardButton.setLayoutX(Const.WINDOW_WIDTH - 85);
+        fastForwardButton.setLayoutY(Const.SPACING);
+        fastForwardButton.setOnMouseClicked(event -> {
+            GameEngine gameEngine = AppGUI.getController().getWorld().getGameEngine();
+            if (gameEngine.getDuration() - 10 > 0) {
+                gameEngine.changeDuration(gameEngine.getDuration() - 10);
+                fastForwardButton.getLabel().setText("Hurry " + String.valueOf((40 - gameEngine.getDuration() + 10) / 10));
+            } else {
+                gameEngine.changeDuration(gameEngine.DEFAULT_DURATION);
+                fastForwardButton.getLabel().setText("Hurry " + String.valueOf((40 - gameEngine.DEFAULT_DURATION) / 10));
+            }
+        });
 
         //village console
         villageConsole = new VillageConsole();

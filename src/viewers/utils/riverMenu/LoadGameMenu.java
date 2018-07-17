@@ -83,7 +83,7 @@ public class LoadGameMenu extends StackPane {
             return false;
         }
         log.setTextFill(Color.DODGERBLUE);
-        log.setText("logged in as" + name);
+        log.setText("logged in as " + name);
         return true;
     }
 
