@@ -117,5 +117,6 @@ public class Client extends PacketHandler implements ClientPacketListener<Client
 
     public void disconnect() {
         receiverThread.interrupt();
+        getSocket().close();
     }
 }

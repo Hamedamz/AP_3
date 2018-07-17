@@ -124,5 +124,6 @@ public class Server extends PacketHandler implements ServerPacketListener<Server
 
     public void disconnect() {
         receiverThread.interrupt();
+        getSocket().close();
     }
 }
