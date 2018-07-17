@@ -2,6 +2,7 @@ package controllers.multiPlayer;
 
 import models.multiPlayer.ConnectionManager;
 import models.ConnectionType;
+import models.multiPlayer.battleManger.ServerBattleManger;
 import models.multiPlayer.broudcastStation.BroadcastStation;
 import models.multiPlayer.InteractionManager;
 import models.multiPlayer.chatRoom.ChatRoom;
@@ -119,6 +120,7 @@ public class Server extends PacketHandler implements ServerPacketListener<Server
 
     public void disconnect(String id) {
         addressMap.remove(id);
+        ServerBattleManger.getInstance().disconnectID(id);
         LeaderBoard.getInstance().removeInfo(id);
     }
 

@@ -92,12 +92,13 @@ public class InteractionManager implements ClientPacketListener<ClientInteractio
                         ));
                 break;
             case END_ATTACK_C:
+                isLocked = false;
                 if(!clientInteractionPacket.isReceiveRequest()) {
                     Controller.getController().getWorld().getGameEngine().resetVillage();
                     Controller.getController().getWorld().setMyVillage(JsonHandler.jsonToVillage((String) clientInteractionPacket.getElements()[0]));
-
+                } else {
+                    ConnectionManager.getInstance().disconnect();
                 }
-                isLocked = false;
                 break;
         }
     }
