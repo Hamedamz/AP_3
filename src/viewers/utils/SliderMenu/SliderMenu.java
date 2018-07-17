@@ -48,11 +48,11 @@ public class SliderMenu extends Pane {
         chatTab.setContent(ChatBox.getInstance());
         chatTab.setOnSelectionChanged(event -> setWidth(WIDTH));
 
-        leaderBoardTab = new Tab("Leader Board");
+        leaderBoardTab = new Tab("Leaders");
         leaderBoardTab.setContent(LeaderBoardBox.getInstance());
         leaderBoardTab.setOnSelectionChanged(event -> setWidth(2 * WIDTH));
 
-        battleHistoryTab = new Tab("Battle History");
+        battleHistoryTab = new Tab("Battles");
         battleHistoryTab.setContent(BattleHistoryBox.getInstance());
         battleHistoryTab.setOnSelectionChanged(event -> setWidth(2 * WIDTH));
 

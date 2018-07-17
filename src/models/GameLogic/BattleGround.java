@@ -245,7 +245,7 @@ public class BattleGround {
 
         if (ConnectionManager.getInstance().getConnectionType().equals(ConnectionType.CLIENT)) {
             String id = AppGUI.getController().getWorld().getBattleGround().getEnemyAccountInfo().getId();
-            WarLog warLog = new WarLog(getTimeRemaining(), lootedBounty);
+            WarLog warLog = new WarLog(250 - getTimeRemaining(), lootedBounty);
             Client.getInstance().sendToServer(new ServerInteractionPacket(ServerInteractionPacketType.END_ATTACK_S, false, id, JsonHandler.villageToJson(getEnemyVillage()), warLog));
         }
     }
