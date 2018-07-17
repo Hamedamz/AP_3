@@ -1,5 +1,6 @@
 package models.multiPlayer;
 
+import controllers.Controller;
 import controllers.JsonHandler;
 import controllers.multiPlayer.Client;
 import controllers.multiPlayer.Server;
@@ -91,8 +92,11 @@ public class InteractionManager implements ClientPacketListener<ClientInteractio
                         ));
                 break;
             case END_ATTACK_C:
-                // TODO: 7/16/2018 merging villages or ending attacks
-                // TODO: 7/17/2018 id + json + warLog
+                if(!clientInteractionPacket.isReceiveRequest()) {
+                    Controller.getController().getWorld().setMyVillage((Village) clientInteractionPacket.getElements()[0]);
+                    Controller.getController().getWorld().getGameEngine().resetVillage();
+                }
+                isLocked = false;
                 break;
         }
     }
@@ -111,9 +115,5 @@ public class InteractionManager implements ClientPacketListener<ClientInteractio
 
     public AccountInfo getRequestedAccount() {
         return requestedAccount;
-    }
-
-    public boolean isLocked() {
-        return isLocked;
     }
 }
