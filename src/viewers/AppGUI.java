@@ -40,7 +40,8 @@ public class AppGUI extends Application {
         getMainStage().setResizable(false);
         setStageScene(GameLobbyScene.getInstance());
         getController().getSoundPlayer().playBackground(Sounds.lobbySound);
-        getMainStage().setOnHiding(event -> {
+
+        getMainStage().setOnCloseRequest(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Save Game");
             alert.setHeaderText(null);
@@ -49,9 +50,6 @@ public class AppGUI extends Application {
             if (action.get() == ButtonType.OK) {
                 getController().saveGame();
             }
-        });
-
-        getMainStage().setOnCloseRequest(event -> {
             ConnectionManager.getInstance().disconnect();
             Platform.exit();
             System.exit(0);
