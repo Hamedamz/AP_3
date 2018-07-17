@@ -1,6 +1,7 @@
 package viewers;
 
 import controllers.BuildingMenuController;
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -44,6 +45,7 @@ public class MyVillageScene extends VillageScene {
     private Button selectedBuilding;
     private VillageLockPane villageLockPane;
     private ConnectionType connectionType;
+    private AnimationTimer animationTimer;
 
     private MyVillageScene() {
         super();
@@ -119,6 +121,8 @@ public class MyVillageScene extends VillageScene {
 
         villageLockPane = new VillageLockPane();
         villageLockPane.setVisible(false);
+
+        animationTimer = setAnimationTimer();
     }
 
     @Override
@@ -229,7 +233,7 @@ public class MyVillageScene extends VillageScene {
         if (connectionType.equals(ConnectionType.CLIENT)) {
             root.getChildren().addAll(villageLockPane, SliderMenu.getInstance());
         }
-        setAnimationTimer().start();
+        animationTimer.start();
     }
 
     public void showPriceTicket(String buildingType) {
