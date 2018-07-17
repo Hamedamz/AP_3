@@ -86,6 +86,7 @@ public class LeaderBoard implements ClientPacketListener<ClientLeaderBoardPacket
         battleHistory.setDefenderName(infoMap.get(defenderID).getName());
         battleHistory.setBattleTime(warLog.getTime());
         battleHistory.setLootedBounty(warLog.getBounty());
+        history.add(battleHistory);
     }
 
     public AccountInfo getInfo(String id) {
