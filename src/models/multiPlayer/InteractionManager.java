@@ -1,17 +1,19 @@
 package models.multiPlayer;
 
 import controllers.JsonHandler;
+import controllers.multiPlayer.Client;
+import controllers.multiPlayer.Server;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import models.AccountInfo;
 import models.GameLogic.Village;
-import models.multiPlayer.packet.clientPacket.ClientInteractionPacket;
-import models.multiPlayer.packet.serverPacket.ServerInteractionPacket;
-import models.multiPlayer.runnables.ClientPacketListener;
-import models.multiPlayer.runnables.ServerPacketListener;
+import controllers.multiPlayer.packet.clientPacket.ClientInteractionPacket;
+import controllers.multiPlayer.packet.serverPacket.ServerInteractionPacket;
+import controllers.multiPlayer.runnables.ClientPacketListener;
+import controllers.multiPlayer.runnables.ServerPacketListener;
 
-import static models.multiPlayer.packet.clientPacket.types.ClientInteractionPacketType.*;
-import static models.multiPlayer.packet.serverPacket.types.ServerInteractionPacketType.*;
+import static controllers.multiPlayer.packet.clientPacket.types.ClientInteractionPacketType.*;
+import static controllers.multiPlayer.packet.serverPacket.types.ServerInteractionPacketType.*;
 
 public class InteractionManager implements ClientPacketListener<ClientInteractionPacket>,
         ServerPacketListener<ServerInteractionPacket> {

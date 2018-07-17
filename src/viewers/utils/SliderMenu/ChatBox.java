@@ -7,15 +7,14 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import models.ConnectionManager;
-import models.multiPlayer.Client;
+import controllers.multiPlayer.Client;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.chatRoom.Message;
-import models.multiPlayer.packet.clientPacket.ClientChatPacket;
-import models.multiPlayer.packet.serverPacket.ServerChatPacket;
-import models.multiPlayer.runnables.ClientPacketListener;
+import controllers.multiPlayer.packet.clientPacket.ClientChatPacket;
+import controllers.multiPlayer.packet.serverPacket.ServerChatPacket;
+import controllers.multiPlayer.runnables.ClientPacketListener;
 import viewers.AppGUI;
 import viewers.utils.Const;
-import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 import viewers.utils.fancyButtons.RoundButton;
 
@@ -23,7 +22,7 @@ import java.util.ArrayList;
 
 import static models.ConnectionType.CLIENT;
 import static models.ConnectionType.SERVER;
-import static models.multiPlayer.packet.serverPacket.types.ServerChatPacketType.SEND;
+import static controllers.multiPlayer.packet.serverPacket.types.ServerChatPacketType.SEND;
 
 public class ChatBox extends Pane implements ClientPacketListener<ClientChatPacket> {
     public static final double RATIO = 0.9;

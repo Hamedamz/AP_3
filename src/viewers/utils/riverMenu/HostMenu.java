@@ -8,7 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import models.ConnectionManager;
 import models.ConnectionType;
-import models.multiPlayer.Server;
+import controllers.multiPlayer.Server;
 import viewers.AppGUI;
 import viewers.HostScene;
 import viewers.utils.Const;
@@ -34,7 +34,7 @@ public class HostMenu extends StackPane {
     private HostMenu() {
         portTextFiled = new TextField();
         portTextFiled.setPrefWidth(Const.SPACING * 8);
-        portTextFiled.setText(String.valueOf(models.multiPlayer.utils.ServerConstants.SERVER_DEFAULT_PORT));
+        portTextFiled.setText(String.valueOf(controllers.multiPlayer.utils.ServerConstants.SERVER_DEFAULT_PORT));
 
         hostTextField = new TextField();
         hostTextField.setText("localhost");

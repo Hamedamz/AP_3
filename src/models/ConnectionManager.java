@@ -1,11 +1,11 @@
 package models;
 
-import models.multiPlayer.Client;
-import models.multiPlayer.Server;
-import models.multiPlayer.packet.clientPacket.ClientConnectionPacket;
-import models.multiPlayer.packet.serverPacket.ServerConnectionPacket;
-import models.multiPlayer.runnables.ClientPacketListener;
-import models.multiPlayer.runnables.ServerPacketListener;
+import controllers.multiPlayer.Client;
+import controllers.multiPlayer.Server;
+import controllers.multiPlayer.packet.clientPacket.ClientConnectionPacket;
+import controllers.multiPlayer.packet.serverPacket.ServerConnectionPacket;
+import controllers.multiPlayer.runnables.ClientPacketListener;
+import controllers.multiPlayer.runnables.ServerPacketListener;
 
 import java.util.HashSet;
 import java.util.Set;

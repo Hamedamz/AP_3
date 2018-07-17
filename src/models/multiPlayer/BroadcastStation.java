@@ -1,9 +1,9 @@
 package models.multiPlayer;
 
-import models.multiPlayer.packet.clientPacket.ClientBroadcastPacket;
-import models.multiPlayer.packet.serverPacket.ServerBroadcastPacket;
-import models.multiPlayer.runnables.ClientPacketListener;
-import models.multiPlayer.runnables.ServerPacketListener;
+import controllers.multiPlayer.packet.clientPacket.ClientBroadcastPacket;
+import controllers.multiPlayer.packet.serverPacket.ServerBroadcastPacket;
+import controllers.multiPlayer.runnables.ClientPacketListener;
+import controllers.multiPlayer.runnables.ServerPacketListener;
 
 public class BroadcastStation implements ServerPacketListener<ServerBroadcastPacket>,
         ClientPacketListener<ClientBroadcastPacket> {

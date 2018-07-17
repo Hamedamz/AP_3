@@ -5,20 +5,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.*;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.util.Duration;
-import models.multiPlayer.chatRoom.ChatRoom;
-import models.multiPlayer.chatRoom.Message;
-import models.multiPlayer.leaderBoard.LeaderBoard;
 import viewers.AppGUI;
 import viewers.utils.Const;
-import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 import viewers.utils.fancyButtons.RoundButton;
-
-import java.util.ArrayList;
 
 public class SliderMenu extends Pane {
     public static final double WIDTH = Const.WINDOW_WIDTH / 4;

@@ -1,13 +1,12 @@
 package models.multiPlayer.leaderBoard;
 
 import models.AccountInfo;
-import models.multiPlayer.Server;
-import models.multiPlayer.packet.Packet;
-import models.multiPlayer.packet.clientPacket.ClientLeaderBoardPacket;
-import models.multiPlayer.packet.clientPacket.types.ClientLeaderBoardPacketType;
-import models.multiPlayer.packet.serverPacket.ServerLeaderBoardPacket;
-import models.multiPlayer.runnables.ClientPacketListener;
-import models.multiPlayer.runnables.ServerPacketListener;
+import controllers.multiPlayer.Server;
+import controllers.multiPlayer.packet.clientPacket.ClientLeaderBoardPacket;
+import controllers.multiPlayer.packet.clientPacket.types.ClientLeaderBoardPacketType;
+import controllers.multiPlayer.packet.serverPacket.ServerLeaderBoardPacket;
+import controllers.multiPlayer.runnables.ClientPacketListener;
+import controllers.multiPlayer.runnables.ServerPacketListener;
 
 import java.util.ArrayList;
 import java.util.Collections;

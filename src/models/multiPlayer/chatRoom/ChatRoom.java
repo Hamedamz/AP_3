@@ -1,17 +1,16 @@
 package models.multiPlayer.chatRoom;
 
-import models.multiPlayer.Server;
-import models.multiPlayer.packet.Packet;
-import models.multiPlayer.packet.clientPacket.ClientChatPacket;
-import models.multiPlayer.packet.serverPacket.ServerChatPacket;
-import models.multiPlayer.runnables.ClientPacketListener;
-import models.multiPlayer.runnables.ServerPacketListener;
-import models.multiPlayer.utils.ServerConstants;
+import controllers.multiPlayer.Server;
+import controllers.multiPlayer.packet.clientPacket.ClientChatPacket;
+import controllers.multiPlayer.packet.serverPacket.ServerChatPacket;
+import controllers.multiPlayer.runnables.ClientPacketListener;
+import controllers.multiPlayer.runnables.ServerPacketListener;
+import controllers.multiPlayer.utils.ServerConstants;
 
 import java.util.LinkedList;
 
-import static models.multiPlayer.packet.clientPacket.types.ClientChatPacketType.LAST_MESSAGE;
-import static models.multiPlayer.packet.clientPacket.types.ClientChatPacketType.RECENT_MESSAGES;
+import static controllers.multiPlayer.packet.clientPacket.types.ClientChatPacketType.LAST_MESSAGE;
+import static controllers.multiPlayer.packet.clientPacket.types.ClientChatPacketType.RECENT_MESSAGES;
 
 public class ChatRoom implements ClientPacketListener<ClientChatPacket>, ServerPacketListener<ServerChatPacket> {
     private static ChatRoom instance = new ChatRoom();
