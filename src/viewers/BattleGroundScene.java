@@ -115,7 +115,7 @@ public class BattleGroundScene extends VillageScene {
         quitButton = new RoundFancyButton(ButtonActionType.QUIT_ATTACK, "red");
         quitButton.setLayoutX(Const.WINDOW_WIDTH - 80);
         quitButton.setLayoutY(Const.WINDOW_HEIGHT - 100);
-        quitButton.setOnMouseClicked(event -> {
+        quitButton.setOnMouseReleased(event -> {
             animationTimer.stop();
             AppGUI.getController().getWorld().getBattleGround().endBattle();
             finishBattle();

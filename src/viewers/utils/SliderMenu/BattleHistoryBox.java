@@ -29,27 +29,27 @@ public class BattleHistoryBox extends Pane {
         table.setEditable(true);
 
         TableColumn battleTimeCol = new TableColumn("Time");
-        battleTimeCol.setMinWidth(120);
+        battleTimeCol.setMinWidth(Const.WINDOW_WIDTH / 12);
         battleTimeCol.setCellValueFactory(new PropertyValueFactory<BattleHistory, String>("battleTime"));
 
         TableColumn attackerNameCol = new TableColumn("Attacker");
-        attackerNameCol.setMinWidth(120);
+        attackerNameCol.setMinWidth(Const.WINDOW_WIDTH / 12);
         attackerNameCol.setCellValueFactory(new PropertyValueFactory<BattleHistory, String>("attackerName"));
 
         TableColumn defenderNameCol = new TableColumn("Defender");
-        defenderNameCol.setMinWidth(120);
+        defenderNameCol.setMinWidth(Const.WINDOW_WIDTH / 12);
         defenderNameCol.setCellValueFactory(new PropertyValueFactory<BattleHistory, String>("defenderName"));
 
         TableColumn scoreCol = new TableColumn("Score");
-        scoreCol.setMinWidth(120);
+        scoreCol.setMinWidth(Const.WINDOW_WIDTH / 12);
         scoreCol.setCellValueFactory(new PropertyValueFactory<BattleHistory, String>("score"));
 
         TableColumn goldCol = new TableColumn("Gold");
-        goldCol.setMinWidth(120);
+        goldCol.setMinWidth(Const.WINDOW_WIDTH / 12);
         goldCol.setCellValueFactory(new PropertyValueFactory<BattleHistory, String>("gold"));
 
         TableColumn elixirCol = new TableColumn("Elixir");
-        elixirCol.setMinWidth(120);
+        elixirCol.setMinWidth(Const.WINDOW_WIDTH / 12);
         elixirCol.setCellValueFactory(new PropertyValueFactory<BattleHistory, String>("elixir"));
 
         table.getColumns().setAll(battleTimeCol, attackerNameCol, defenderNameCol, scoreCol, goldCol, elixirCol);
