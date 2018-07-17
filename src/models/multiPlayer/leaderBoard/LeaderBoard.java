@@ -7,6 +7,7 @@ import controllers.multiPlayer.packet.clientPacket.types.ClientLeaderBoardPacket
 import controllers.multiPlayer.packet.serverPacket.ServerLeaderBoardPacket;
 import controllers.multiPlayer.runnables.ClientPacketListener;
 import controllers.multiPlayer.runnables.ServerPacketListener;
+import models.multiPlayer.battleManger.WarLog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,5 +78,9 @@ public class LeaderBoard implements ClientPacketListener<ClientLeaderBoardPacket
                 getHistory()));
         Server.getInstance().sendToAll(new ClientLeaderBoardPacket(ClientLeaderBoardPacketType.GET_LEADER_BOARD,
                 infoMap));
+    }
+
+    public void addBattleHistory(String attackerID, String defenderID, WarLog warLog){
+
     }
 }

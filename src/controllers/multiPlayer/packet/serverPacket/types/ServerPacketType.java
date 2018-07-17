@@ -4,6 +4,6 @@ public enum ServerPacketType {
     CONNECTION,
     CHAT_ROOM,
     LEADER_BOARD,
-    BATTLE_MANAGER,
+    INTERACTION,
     BROADCAST;
 }

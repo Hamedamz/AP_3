@@ -5,7 +5,9 @@ import javafx.scene.image.ImageView;
 import models.GameLogic.Position;
 import viewers.utils.ImageLibrary;
 
-public class Entity implements Locatable {
+import java.io.Serializable;
+
+public class Entity implements Locatable, Serializable {
     protected Position position;
     private int id;
     private ImageView imageView;

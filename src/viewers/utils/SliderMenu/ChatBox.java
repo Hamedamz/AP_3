@@ -6,7 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import models.ConnectionManager;
+import models.multiPlayer.ConnectionManager;
 import controllers.multiPlayer.Client;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.chatRoom.Message;

@@ -6,13 +6,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import models.ConnectionManager;
+import models.multiPlayer.ConnectionManager;
 import models.ConnectionType;
 import controllers.multiPlayer.Server;
 import viewers.AppGUI;
 import viewers.HostScene;
 import viewers.utils.Const;
-import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 import viewers.utils.fancyButtons.RoundButton;
 

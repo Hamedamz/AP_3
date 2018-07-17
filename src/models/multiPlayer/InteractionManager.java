@@ -23,8 +23,10 @@ public class InteractionManager implements ClientPacketListener<ClientInteractio
         return ourInstance;
     }
 
+    //client stuff
     private ObjectProperty<Village> requestedVillage = new SimpleObjectProperty<>();
     private AccountInfo requestedAccount;
+    private boolean isLocked = false;
 
     private InteractionManager() {
     }
@@ -50,6 +52,7 @@ public class InteractionManager implements ClientPacketListener<ClientInteractio
                 }
                 break;
             case END_ATTACK_S:
+                // TODO: 7/17/2018 fix battle history
                 Server.getInstance().sendToID(new ClientInteractionPacket(END_ATTACK_C, false,
                         serverInteractionPacket.getElements()[1]), (String) serverInteractionPacket.getElements()[0]);
                 break;
@@ -74,11 +77,15 @@ public class InteractionManager implements ClientPacketListener<ClientInteractio
                 requestedVillage.set(JsonHandler.jsonToVillage((String) clientInteractionPacket.getElements()[0]));
                 break;
             case LOCK:
-                // TODO: 7/16/2018 lock
-                requestedVillage.set(JsonHandler.jsonToVillage((String) clientInteractionPacket.getElements()[0]));
+                isLocked = true;
+                Client.getInstance().sendToServer(
+                        new ServerInteractionPacket(ATTACK_S, false,
+                                clientInteractionPacket.getElements()[0],
+                                JsonHandler.villageToJson(Client.getInstance().getAccount().getMyVillage())
+                        ));
                 break;
             case END_ATTACK_C:
-                // TODO: 7/16/2018 merging villages
+                // TODO: 7/16/2018 merging villages or ending attacks
                 break;
         }
     }

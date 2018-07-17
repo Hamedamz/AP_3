@@ -1,8 +1,8 @@
 package controllers.multiPlayer;
 
-import models.ConnectionManager;
+import models.multiPlayer.ConnectionManager;
 import models.ConnectionType;
-import models.multiPlayer.BroadcastStation;
+import models.multiPlayer.broudcastStation.BroadcastStation;
 import models.multiPlayer.InteractionManager;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.leaderBoard.LeaderBoard;
@@ -82,7 +82,7 @@ public class Server extends PacketHandler implements ServerPacketListener<Server
                 case LEADER_BOARD:
                     LeaderBoard.getInstance().receive((ServerLeaderBoardPacket) serverPacket);
                     break;
-                case BATTLE_MANAGER:
+                case INTERACTION:
                     InteractionManager.getInstance().receive((ServerInteractionPacket) serverPacket);
                     break;
                 case CONNECTION:
@@ -97,7 +97,10 @@ public class Server extends PacketHandler implements ServerPacketListener<Server
 
     public void sendToID(ClientPacket clientPacket, String id)  {
         try {
-            sendObject(clientPacket, addressMap.get(id));
+            synchronized (this) {
+                if(addressMap.containsKey(id))
+                    sendObject(clientPacket, addressMap.get(id));
+            }
         } catch (IOException e) {
             disconnect(id);
         }

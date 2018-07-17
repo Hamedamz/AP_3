@@ -1,6 +1,6 @@
 package viewers;
 
-import models.ConnectionManager;
+import models.multiPlayer.ConnectionManager;
 import models.ConnectionType;
 import models.GameLogic.Entities.Buildings.GuardianGiant;
 import models.GameLogic.Entities.Entity;

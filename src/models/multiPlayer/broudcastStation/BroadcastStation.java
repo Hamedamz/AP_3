@@ -1,4 +1,4 @@
-package models.multiPlayer;
+package models.multiPlayer.broudcastStation;
 
 import controllers.multiPlayer.packet.clientPacket.ClientBroadcastPacket;
 import controllers.multiPlayer.packet.serverPacket.ServerBroadcastPacket;

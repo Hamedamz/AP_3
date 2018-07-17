@@ -4,17 +4,14 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import models.ConnectionManager;
+import models.multiPlayer.ConnectionManager;
 import models.ConnectionType;
 import models.GameLogic.Exceptions.WrongPasswordException;
 import viewers.AppGUI;
-import viewers.MyVillageScene;
 import viewers.utils.Const;
-import viewers.utils.SoundPlayer;
 import viewers.utils.Sounds;
 import viewers.utils.fancyButtons.RoundButton;
 

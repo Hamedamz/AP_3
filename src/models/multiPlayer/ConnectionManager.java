@@ -1,4 +1,4 @@
-package models;
+package models.multiPlayer;
 
 import controllers.multiPlayer.Client;
 import controllers.multiPlayer.Server;
@@ -6,6 +6,7 @@ import controllers.multiPlayer.packet.clientPacket.ClientConnectionPacket;
 import controllers.multiPlayer.packet.serverPacket.ServerConnectionPacket;
 import controllers.multiPlayer.runnables.ClientPacketListener;
 import controllers.multiPlayer.runnables.ServerPacketListener;
+import models.ConnectionType;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import models.ConnectionManager;
+import models.multiPlayer.ConnectionManager;
 import models.ConnectionType;
 import controllers.multiPlayer.Client;
 import controllers.multiPlayer.utils.ClientConstants;

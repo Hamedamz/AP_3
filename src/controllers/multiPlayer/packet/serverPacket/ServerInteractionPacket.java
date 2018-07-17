@@ -8,7 +8,7 @@ public class ServerInteractionPacket extends ServerPacket {
     private boolean isRequest;
 
     public ServerInteractionPacket(ServerInteractionPacketType battleManagerPacketType, boolean isRequest, Object... elements) {
-        super(ServerPacketType.BATTLE_MANAGER, elements);
+        super(ServerPacketType.INTERACTION, elements);
         this.battleManagerPacketType = battleManagerPacketType;
         this.isRequest = isRequest;
     }

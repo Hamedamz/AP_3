@@ -8,7 +8,7 @@ public class ClientInteractionPacket extends ClientPacket {
     private boolean isRequest;
 
     public ClientInteractionPacket(ClientInteractionPacketType battleManagerPacketType, boolean isRequest, Object... elements) {
-        super(ClientPacketType.BATTLE_MANAGER, elements);
+        super(ClientPacketType.INTERACTION, elements);
         this.battleManagerPacketType = battleManagerPacketType;
         this.isRequest = isRequest;
     }

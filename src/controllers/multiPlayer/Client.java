@@ -1,9 +1,9 @@
 package controllers.multiPlayer;
 
 import models.Account;
-import models.ConnectionManager;
+import models.multiPlayer.ConnectionManager;
 import models.ConnectionType;
-import models.multiPlayer.BroadcastStation;
+import models.multiPlayer.broudcastStation.BroadcastStation;
 import models.multiPlayer.InteractionManager;
 import models.multiPlayer.chatRoom.ChatRoom;
 import models.multiPlayer.leaderBoard.LeaderBoard;
@@ -80,7 +80,7 @@ public class Client extends PacketHandler implements ClientPacketListener<Client
                 case LEADER_BOARD:
                     LeaderBoard.getInstance().receive((ClientLeaderBoardPacket) clientPacket);
                     break;
-                case BATTLE_MANAGER:
+                case INTERACTION:
                     InteractionManager.getInstance().receive((ClientInteractionPacket) clientPacket);
                     break;
                 // TODO: 7/14/2018
