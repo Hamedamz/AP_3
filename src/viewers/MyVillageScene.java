@@ -131,6 +131,7 @@ public class MyVillageScene extends VillageScene {
             public void handle(long now) {
 
                 if (connectionType.equals(ConnectionType.CLIENT) && ConnectionManager.getInstance().getConnectionType().equals(ConnectionType.NONE)) {
+                    LogPopup.popError(new Exception("Connection Lost :("));
                     AppGUI.setStageScene(GameLobbyScene.getInstance());
                 }
 
