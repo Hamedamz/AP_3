@@ -9,14 +9,16 @@ import javafx.scene.layout.Pane;
 import models.AccountInfo;
 import models.multiPlayer.leaderBoard.BattleHistory;
 import models.multiPlayer.leaderBoard.LeaderBoard;
+import viewers.utils.Const;
 
 import java.util.ArrayList;
 
 
 public class BattleHistoryBox extends Pane {
-    private BattleHistoryBox instance = new BattleHistoryBox();
+    public static final double HEIGHT = (Const.WINDOW_HEIGHT - Const.SLIDER_MENU_TAB_HEIGHT);
+    private static BattleHistoryBox instance = new BattleHistoryBox();
 
-    public BattleHistoryBox getInstance() {
+    public static BattleHistoryBox getInstance() {
         return instance;
     }
 
@@ -51,6 +53,9 @@ public class BattleHistoryBox extends Pane {
         elixirCol.setCellValueFactory(new PropertyValueFactory<BattleHistory, String>("elixir"));
 
         table.getColumns().setAll(battleTimeCol, attackerNameCol, defenderNameCol, scoreCol, goldCol, elixirCol);
+        table.setMinWidth(Const.SLIDER_MENU_WIDTH * 2);
+        table.setMaxHeight(HEIGHT);
+        table.setMinHeight(HEIGHT);
         this.getChildren().add(table);
     }
 

@@ -1,6 +1,8 @@
 package models.GameLogic;
 
-public class Bounty {
+import java.io.Serializable;
+
+public class Bounty implements Serializable {
     private int score;
     private Resource resource;
 
