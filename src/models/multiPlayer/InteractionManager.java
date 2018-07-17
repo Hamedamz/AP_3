@@ -93,8 +93,9 @@ public class InteractionManager implements ClientPacketListener<ClientInteractio
                 break;
             case END_ATTACK_C:
                 if(!clientInteractionPacket.isReceiveRequest()) {
-                    Controller.getController().getWorld().setMyVillage(JsonHandler.jsonToVillage((String) clientInteractionPacket.getElements()[0]));
                     Controller.getController().getWorld().getGameEngine().resetVillage();
+                    Controller.getController().getWorld().setMyVillage(JsonHandler.jsonToVillage((String) clientInteractionPacket.getElements()[0]));
+
                 }
                 isLocked = false;
                 break;
