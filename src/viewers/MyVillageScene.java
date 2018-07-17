@@ -14,6 +14,7 @@ import models.GameLogic.Entities.Entity;
 import models.GameLogic.Exceptions.NoSuchAUnderConstructBuildingException;
 import models.GameLogic.Position;
 import models.GameLogic.Village;
+import models.multiPlayer.ConnectionManager;
 import models.multiPlayer.InteractionManager;
 import viewers.utils.*;
 import viewers.utils.SliderMenu.SliderMenu;
@@ -42,6 +43,7 @@ public class MyVillageScene extends VillageScene {
     private Pane previewPane;
     private Button selectedBuilding;
     private VillageLockPane villageLockPane;
+    private ConnectionType connectionType;
 
     private MyVillageScene() {
         super();
@@ -128,6 +130,10 @@ public class MyVillageScene extends VillageScene {
             @Override
             public void handle(long now) {
 
+                if (connectionType.equals(ConnectionType.CLIENT) && ConnectionManager.getInstance().getConnectionType().equals(ConnectionType.NONE)) {
+                    AppGUI.setStageScene(GameLobbyScene.getInstance());
+                }
+
                 if (InteractionManager.getInstance().isLocked()) {
                     lockVillage();
                 } else {
@@ -213,6 +219,7 @@ public class MyVillageScene extends VillageScene {
     }
 
     public void reBuild(ConnectionType connectionType) {
+        this.connectionType = connectionType;
         root.getChildren().clear();
         root.getChildren().addAll(draggableView, totalStock, buildButton, shopScrollMenu, settingsButton);
         if (connectionType.equals(ConnectionType.SINGLE_PLAYER)) {

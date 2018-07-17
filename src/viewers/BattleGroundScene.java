@@ -59,10 +59,13 @@ public class BattleGroundScene extends VillageScene {
     private TroopsScrollMenu troopsScrollMenu;
     private GridPane tiles;
     private Pane troopsPane;
+    private Pane arrowsPane;
     private IsometricPane isometricPane;
     private RoundFancyButton quitButton;
     private AttackEndGlassPane attackEndGlassPane;
     private AnimationTimer animationTimer;
+
+    private ArrayList<ArrowShot> arrowShots = new ArrayList<>();
 
     private BattleGroundScene() {
         super();
@@ -93,7 +96,8 @@ public class BattleGroundScene extends VillageScene {
         isometricPane = new IsometricPane(tiles);
         troopsPane = new Pane();
 
-        draggableView.getChildren().addAll(buildingsPane, troopsPane, isometricPane);
+        arrowsPane = new Pane();
+        draggableView.getChildren().addAll(buildingsPane, troopsPane, arrowsPane, isometricPane);
 
 
         // available loots
@@ -140,6 +144,9 @@ public class BattleGroundScene extends VillageScene {
                     }
                 }
 
+                showArrows();
+
+
                 Iterator<TroopHolder> iterator = troopHolders.iterator();
                 while (iterator.hasNext()) {
                     TroopHolder troopHolder = iterator.next();
@@ -158,6 +165,16 @@ public class BattleGroundScene extends VillageScene {
                 }
             }
         };
+    }
+
+    private void showArrows() {
+        Iterator<ArrowShot> iterator = arrowShots.iterator();
+        while (iterator.hasNext()) {
+            ArrowShot arrow = iterator.next();
+            arrowsPane.getChildren().add(arrow);
+            iterator.remove();
+        }
+
     }
 
     private void animateTroopsMovement() {
@@ -250,7 +267,8 @@ public class BattleGroundScene extends VillageScene {
     }
 
     public void attackHappened(Attacker attacker, Destroyable destroyable) {
-
+        ArrowShot arrowShot = new ArrowShot(attacker, destroyable);
+        arrowShots.add(arrowShot);
     }
 
     public void movementHappened(int direction, Movable movable) {
